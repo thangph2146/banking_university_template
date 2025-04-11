@@ -1,0 +1,854 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Câu hỏi thường gặp - Đại học Ngân hàng TP.HCM</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.tailwindcss.com/3.4.16"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              primary: "#8B0000",
+              secondary: "#FF5252",
+            },
+            borderRadius: {
+              none: "0px",
+              sm: "4px",
+              DEFAULT: "8px",
+              md: "12px",
+              lg: "16px",
+              xl: "20px",
+              "2xl": "24px",
+              "3xl": "32px",
+              full: "9999px",
+              button: "8px",
+            },
+          },
+        },
+      };
+    </script>
+    <style>
+      :where([class^="ri-"])::before { content: "\f3c2"; }
+      body {
+      font-family: 'Inter', sans-serif;
+      }
+      .hero-gradient {
+      background: linear-gradient(90deg, rgba(255,255,255,1) 0%, rgba(255,255,255,0.9) 50%, rgba(255,255,255,0) 100%);
+      }
+      
+      /* Accordion styles */
+      .faq-item-body {
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.3s ease;
+      }
+      
+      .faq-item.active .faq-item-body {
+        max-height: 1000px;
+      }
+      
+      .faq-item-header i {
+        transition: transform 0.3s ease;
+      }
+      
+      .faq-item.active .faq-item-header i {
+        transform: rotate(180deg);
+      }
+    </style>
+  </head>
+  <body class="bg-gray-50">
+    <!-- Header -->
+    <header class="bg-primary shadow-sm">
+      <div
+        class="container mx-auto px-4 flex items-center justify-between"
+      >
+        <a href="index.html" class="text-2xl font-['Pacifico'] text-white">
+            <img src="../images/logo/logo-white-vertical.png" alt="logo" class="w-16 h-16">
+        </a>
+        <nav class="hidden md:flex items-center space-x-8">
+          <a
+            href="index.html"
+            class="text-red-100 hover:text-white transition-colors"
+            >Trang chủ</a
+          >
+          <a href="events.html" class="text-red-100 hover:text-white transition-colors"
+            >Sự kiện</a
+          >
+          <a href="news.html" class="text-red-100 hover:text-white transition-colors"
+            >Giới thiệu</a
+          >
+          <a href="contact.html" class="text-red-100 hover:text-white transition-colors"
+            >Liên hệ</a
+          >
+        </nav>
+        <div class="flex items-center space-x-4">
+          <a href="login.html" class="text-white font-medium hover:underline"
+            >Đăng nhập</a
+          >
+          <a
+            href="register.html"
+            class="bg-white text-primary px-4 py-2 !rounded-button whitespace-nowrap hover:bg-red-50 transition-colors shadow-sm"
+            >Đăng ký</a
+          >
+        </div>
+        <button
+          class="md:hidden w-10 h-10 flex items-center justify-center text-white"
+        >
+          <i class="ri-menu-line ri-lg"></i>
+        </button>
+      </div>
+    </header>
+
+    <!-- Page Title -->
+    <section class="bg-primary py-12">
+      <div class="container mx-auto px-4 text-center">
+        <h1 class="text-3xl md:text-4xl font-bold text-white mb-4">Câu hỏi thường gặp</h1>
+        <p class="text-red-100 max-w-3xl mx-auto">
+          Tìm câu trả lời cho những thắc mắc phổ biến về hệ thống quản lý sự kiện của Đại học Ngân hàng TP.HCM
+        </p>
+      </div>
+    </section>
+
+    <!-- FAQ Content -->
+    <section class="py-16 bg-white">
+      <div class="container mx-auto px-4">
+        <div class="max-w-4xl mx-auto">
+          <!-- Search and Filter -->
+          <div class="mb-12">
+            <div class="flex flex-col md:flex-row gap-4">
+              <div class="flex-1">
+                <div class="relative">
+                  <input
+                    type="text"
+                    id="faq-search"
+                    placeholder="Tìm kiếm câu hỏi..."
+                    class="w-full border border-gray-300 rounded-lg py-3 px-4 pr-10 focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary"
+                  />
+                  <div class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400">
+                    <i class="ri-search-line ri-lg"></i>
+                  </div>
+                </div>
+              </div>
+              <div class="md:w-1/3">
+                <select
+                  id="faq-category"
+                  class="w-full border border-gray-300 rounded-lg py-3 px-4 bg-white focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary"
+                >
+                  <option value="all">Tất cả danh mục</option>
+                  <option value="account">Tài khoản</option>
+                  <option value="events">Sự kiện</option>
+                  <option value="registration">Đăng ký tham gia</option>
+                  <option value="certificates">Chứng chỉ</option>
+                  <option value="technical">Kỹ thuật</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <!-- FAQ Categories -->
+          <div class="space-y-10">
+            <!-- Category: Tài khoản -->
+            <div class="faq-category" data-category="account">
+              <h2 class="text-2xl font-bold text-gray-900 mb-6 flex items-center">
+                <span class="w-8 h-8 bg-primary/10 rounded-full flex items-center justify-center mr-3">
+                  <i class="ri-user-line text-primary"></i>
+                </span>
+                Tài khoản
+              </h2>
+
+              <div class="space-y-4">
+                <!-- Question 1 -->
+                <div class="faq-item bg-white border border-gray-200 rounded-lg overflow-hidden">
+                  <div class="faq-item-header flex justify-between items-center p-5 cursor-pointer">
+                    <h3 class="text-lg font-semibold text-gray-900">Làm thế nào để đăng ký tài khoản?</h3>
+                    <i class="ri-arrow-down-s-line text-gray-500 text-xl"></i>
+                  </div>
+                  <div class="faq-item-body">
+                    <div class="p-5 pt-0 text-gray-700">
+                      <p class="mb-3">Để đăng ký tài khoản trên hệ thống, bạn cần thực hiện các bước sau:</p>
+                      <ol class="list-decimal pl-5 space-y-2">
+                        <li>Nhấp vào nút "Đăng ký" ở góc phải trên cùng của trang.</li>
+                        <li>Điền đầy đủ thông tin cá nhân, sử dụng email trường học (@sv.buh.edu.vn).</li>
+                        <li>Tạo mật khẩu an toàn và nhập xác nhận mật khẩu.</li>
+                        <li>Đọc và chấp nhận điều khoản sử dụng.</li>
+                        <li>Nhấp vào nút "Đăng ký" để hoàn tất.</li>
+                        <li>Kiểm tra email và nhấp vào liên kết xác minh được gửi đến email của bạn.</li>
+                      </ol>
+                      <p class="mt-3">Lưu ý: Chỉ email trường học (@sv.buh.edu.vn) mới được chấp nhận khi đăng ký tài khoản sinh viên.</p>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Question 2 -->
+                <div class="faq-item bg-white border border-gray-200 rounded-lg overflow-hidden">
+                  <div class="faq-item-header flex justify-between items-center p-5 cursor-pointer">
+                    <h3 class="text-lg font-semibold text-gray-900">Tôi quên mật khẩu, phải làm sao?</h3>
+                    <i class="ri-arrow-down-s-line text-gray-500 text-xl"></i>
+                  </div>
+                  <div class="faq-item-body">
+                    <div class="p-5 pt-0 text-gray-700">
+                      <p class="mb-3">Nếu bạn quên mật khẩu, hãy thực hiện các bước sau để đặt lại:</p>
+                      <ol class="list-decimal pl-5 space-y-2">
+                        <li>Nhấp vào liên kết "Đăng nhập" trên trang chủ.</li>
+                        <li>Chọn tùy chọn "Quên mật khẩu" dưới biểu mẫu đăng nhập.</li>
+                        <li>Nhập email trường học của bạn và nhấp vào "Gửi liên kết đặt lại".</li>
+                        <li>Kiểm tra email của bạn (bao gồm cả thư mục spam) để tìm email có chứa liên kết đặt lại mật khẩu.</li>
+                        <li>Nhấp vào liên kết và làm theo hướng dẫn để tạo mật khẩu mới.</li>
+                      </ol>
+                      <p class="mt-3">Liên kết đặt lại mật khẩu có hiệu lực trong 24 giờ. Nếu bạn không nhận được email, hãy kiểm tra thư mục spam hoặc liên hệ hỗ trợ.</p>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Question 3 -->
+                <div class="faq-item bg-white border border-gray-200 rounded-lg overflow-hidden">
+                  <div class="faq-item-header flex justify-between items-center p-5 cursor-pointer">
+                    <h3 class="text-lg font-semibold text-gray-900">Làm thế nào để cập nhật thông tin cá nhân?</h3>
+                    <i class="ri-arrow-down-s-line text-gray-500 text-xl"></i>
+                  </div>
+                  <div class="faq-item-body">
+                    <div class="p-5 pt-0 text-gray-700">
+                      <p class="mb-3">Để cập nhật thông tin cá nhân trong hồ sơ của bạn:</p>
+                      <ol class="list-decimal pl-5 space-y-2">
+                        <li>Đăng nhập vào tài khoản của bạn.</li>
+                        <li>Nhấp vào ảnh hồ sơ hoặc tên người dùng ở góc trên bên phải.</li>
+                        <li>Chọn "Hồ sơ của tôi" hoặc "Thông tin cá nhân" từ menu thả xuống.</li>
+                        <li>Nhấp vào nút "Chỉnh sửa" hoặc "Cập nhật thông tin".</li>
+                        <li>Cập nhật thông tin cần thiết và nhấp "Lưu thay đổi".</li>
+                      </ol>
+                      <p class="mt-3">Lưu ý rằng một số thông tin cơ bản như email đăng ký không thể thay đổi sau khi đã xác minh tài khoản.</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Category: Sự kiện -->
+            <div class="faq-category" data-category="events">
+              <h2 class="text-2xl font-bold text-gray-900 mb-6 flex items-center">
+                <span class="w-8 h-8 bg-primary/10 rounded-full flex items-center justify-center mr-3">
+                  <i class="ri-calendar-event-line text-primary"></i>
+                </span>
+                Sự kiện
+              </h2>
+
+              <div class="space-y-4">
+                <!-- Question 1 -->
+                <div class="faq-item bg-white border border-gray-200 rounded-lg overflow-hidden">
+                  <div class="faq-item-header flex justify-between items-center p-5 cursor-pointer">
+                    <h3 class="text-lg font-semibold text-gray-900">Làm thế nào để tìm kiếm sự kiện theo chủ đề?</h3>
+                    <i class="ri-arrow-down-s-line text-gray-500 text-xl"></i>
+                  </div>
+                  <div class="faq-item-body">
+                    <div class="p-5 pt-0 text-gray-700">
+                      <p class="mb-3">Để tìm kiếm sự kiện theo chủ đề cụ thể, bạn có thể:</p>
+                      <ol class="list-decimal pl-5 space-y-2">
+                        <li>Truy cập trang "Sự kiện" từ menu chính.</li>
+                        <li>Sử dụng thanh tìm kiếm phía trên danh sách sự kiện.</li>
+                        <li>Hoặc sử dụng bộ lọc nâng cao bên trái trang để lọc theo:
+                          <ul class="list-disc pl-5 mt-2 space-y-1">
+                            <li>Loại sự kiện (Hội thảo, Workshop, Cuộc thi...)</li>
+                            <li>Chuyên ngành/Khoa liên quan</li>
+                            <li>Thời gian tổ chức</li>
+                            <li>Địa điểm</li>
+                          </ul>
+                        </li>
+                        <li>Nhấp vào thẻ chủ đề (tags) trên các sự kiện để xem các sự kiện tương tự.</li>
+                      </ol>
+                      <p class="mt-3">Hệ thống cũng sẽ gợi ý các sự kiện phù hợp với sở thích và chuyên ngành của bạn nếu bạn đã cập nhật đầy đủ hồ sơ cá nhân.</p>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Question 2 -->
+                <div class="faq-item bg-white border border-gray-200 rounded-lg overflow-hidden">
+                  <div class="faq-item-header flex justify-between items-center p-5 cursor-pointer">
+                    <h3 class="text-lg font-semibold text-gray-900">Có thể thêm sự kiện vào lịch cá nhân không?</h3>
+                    <i class="ri-arrow-down-s-line text-gray-500 text-xl"></i>
+                  </div>
+                  <div class="faq-item-body">
+                    <div class="p-5 pt-0 text-gray-700">
+                      <p class="mb-3">Có, bạn có thể dễ dàng thêm sự kiện vào lịch cá nhân của mình:</p>
+                      <ol class="list-decimal pl-5 space-y-2">
+                        <li>Sau khi đăng ký tham gia sự kiện, truy cập trang "Sự kiện của tôi".</li>
+                        <li>Bên cạnh mỗi sự kiện sẽ có nút "Thêm vào lịch".</li>
+                        <li>Nhấp vào nút này và chọn loại lịch bạn muốn sử dụng (Google Calendar, Apple Calendar, Outlook, v.v.).</li>
+                        <li>Làm theo hướng dẫn để hoàn tất việc thêm sự kiện vào lịch của bạn.</li>
+                      </ol>
+                      <p class="mt-3">Ngoài ra, khi bạn nhận email xác nhận đăng ký tham gia sự kiện, email cũng sẽ có tệp đính kèm .ics để bạn có thể thêm trực tiếp vào lịch.</p>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Question 3 -->
+                <div class="faq-item bg-white border border-gray-200 rounded-lg overflow-hidden">
+                  <div class="faq-item-header flex justify-between items-center p-5 cursor-pointer">
+                    <h3 class="text-lg font-semibold text-gray-900">Làm sao để biết khi nào có sự kiện mới?</h3>
+                    <i class="ri-arrow-down-s-line text-gray-500 text-xl"></i>
+                  </div>
+                  <div class="faq-item-body">
+                    <div class="p-5 pt-0 text-gray-700">
+                      <p class="mb-3">Có nhiều cách để cập nhật thông tin về sự kiện mới:</p>
+                      <ul class="list-disc pl-5 space-y-2">
+                        <li>Bật thông báo email: Vào "Cài đặt tài khoản" > "Thông báo" và đảm bảo tùy chọn "Thông báo về sự kiện mới" đã được bật.</li>
+                        <li>Đăng ký nhận thông báo đẩy trên trình duyệt: Nhấp vào biểu tượng chuông ở góc trên bên phải và cho phép nhận thông báo.</li>
+                        <li>Theo dõi Fanpage chính thức của trường và các khoa trên mạng xã hội.</li>
+                        <li>Kiểm tra trang "Sự kiện" trên hệ thống thường xuyên để xem các sự kiện mới được thêm vào.</li>
+                        <li>Sử dụng tính năng "Theo dõi chủ đề": Nhấp vào biểu tượng theo dõi bên cạnh các chủ đề bạn quan tâm để nhận thông báo khi có sự kiện mới thuộc chủ đề đó.</li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Category: Đăng ký tham gia -->
+            <div class="faq-category" data-category="registration">
+              <h2 class="text-2xl font-bold text-gray-900 mb-6 flex items-center">
+                <span class="w-8 h-8 bg-primary/10 rounded-full flex items-center justify-center mr-3">
+                  <i class="ri-ticket-line text-primary"></i>
+                </span>
+                Đăng ký tham gia
+              </h2>
+
+              <div class="space-y-4">
+                <!-- Question 1 -->
+                <div class="faq-item bg-white border border-gray-200 rounded-lg overflow-hidden">
+                  <div class="faq-item-header flex justify-between items-center p-5 cursor-pointer">
+                    <h3 class="text-lg font-semibold text-gray-900">Tôi có thể hủy đăng ký sự kiện sau khi đã xác nhận không?</h3>
+                    <i class="ri-arrow-down-s-line text-gray-500 text-xl"></i>
+                  </div>
+                  <div class="faq-item-body">
+                    <div class="p-5 pt-0 text-gray-700">
+                      <p class="mb-3">Có, bạn có thể hủy đăng ký tham gia sự kiện, nhưng cần lưu ý một số điều kiện:</p>
+                      <ul class="list-disc pl-5 space-y-2">
+                        <li>Hầu hết các sự kiện cho phép hủy đăng ký ít nhất 24 giờ trước khi sự kiện diễn ra.</li>
+                        <li>Một số sự kiện đặc biệt có thể có quy định riêng về việc hủy đăng ký, vui lòng kiểm tra thông tin chi tiết của sự kiện.</li>
+                      </ul>
+                      <p class="mb-3 mt-3">Để hủy đăng ký:</p>
+                      <ol class="list-decimal pl-5 space-y-2">
+                        <li>Đăng nhập vào tài khoản của bạn.</li>
+                        <li>Truy cập mục "Sự kiện của tôi" hoặc "Sự kiện đã đăng ký".</li>
+                        <li>Tìm sự kiện bạn muốn hủy và nhấp vào nút "Hủy đăng ký".</li>
+                        <li>Xác nhận hành động của bạn trong hộp thoại hiện ra.</li>
+                      </ol>
+                      <p class="mt-3 text-red-600">Lưu ý: Việc hủy đăng ký sát giờ diễn ra hoặc không tham dự mà không thông báo có thể ảnh hưởng đến khả năng đăng ký các sự kiện khác trong tương lai.</p>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Question 2 -->
+                <div class="faq-item bg-white border border-gray-200 rounded-lg overflow-hidden">
+                  <div class="faq-item-header flex justify-between items-center p-5 cursor-pointer">
+                    <h3 class="text-lg font-semibold text-gray-900">Tôi có thể đăng ký sự kiện cho bạn bè không?</h3>
+                    <i class="ri-arrow-down-s-line text-gray-500 text-xl"></i>
+                  </div>
+                  <div class="faq-item-body">
+                    <div class="p-5 pt-0 text-gray-700">
+                      <p class="mb-3">Thông thường, mỗi sinh viên cần tự đăng ký tham gia sự kiện bằng tài khoản cá nhân của mình. Tuy nhiên, có một số trường hợp đặc biệt:</p>
+                      <ul class="list-disc pl-5 space-y-2">
+                        <li>Đối với một số sự kiện lớn, có thể có tùy chọn "Đăng ký nhóm" cho phép bạn đăng ký cho nhiều người cùng lúc.</li>
+                        <li>Nếu bạn là trưởng nhóm/lớp, có thể được cấp quyền đặc biệt để đăng ký tham gia cho các thành viên.</li>
+                        <li>Một số sự kiện có thể cho phép mời khách (không phải sinh viên của trường) - trong trường hợp này, bạn có thể đăng ký cho người khác.</li>
+                      </ul>
+                      <p class="mt-3">Để biết chính xác về chính sách đăng ký của từng sự kiện, vui lòng kiểm tra thông tin chi tiết của sự kiện hoặc liên hệ với ban tổ chức.</p>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Question 3 -->
+                <div class="faq-item bg-white border border-gray-200 rounded-lg overflow-hidden">
+                  <div class="faq-item-header flex justify-between items-center p-5 cursor-pointer">
+                    <h3 class="text-lg font-semibold text-gray-900">Làm sao để biết đăng ký sự kiện thành công?</h3>
+                    <i class="ri-arrow-down-s-line text-gray-500 text-xl"></i>
+                  </div>
+                  <div class="faq-item-body">
+                    <div class="p-5 pt-0 text-gray-700">
+                      <p class="mb-3">Sau khi đăng ký tham gia sự kiện, bạn sẽ nhận được xác nhận thành công qua các cách sau:</p>
+                      <ul class="list-disc pl-5 space-y-2">
+                        <li>Thông báo xác nhận trực tiếp trên trang web sau khi hoàn tất quá trình đăng ký.</li>
+                        <li>Email xác nhận được gửi đến địa chỉ email đã đăng ký của bạn (thường trong vòng vài phút).</li>
+                        <li>Trong mục "Sự kiện của tôi" trên trang cá nhân, sự kiện đã đăng ký sẽ hiển thị với trạng thái "Đã xác nhận".</li>
+                        <li>Đối với một số sự kiện lớn, bạn có thể nhận được vé điện tử (e-ticket) qua email hoặc trong ứng dụng.</li>
+                      </ul>
+                      <p class="mt-3">Nếu bạn không nhận được bất kỳ xác nhận nào trong vòng 24 giờ sau khi đăng ký, vui lòng kiểm tra thư mục spam trong email hoặc liên hệ hỗ trợ để được trợ giúp.</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <!-- Category: Chứng chỉ -->
+            <div class="faq-category" data-category="certificates">
+              <h2 class="text-2xl font-bold text-gray-900 mb-6 flex items-center">
+                <span class="w-8 h-8 bg-primary/10 rounded-full flex items-center justify-center mr-3">
+                  <i class="ri-award-line text-primary"></i>
+                </span>
+                Chứng chỉ & Điểm danh
+              </h2>
+
+              <div class="space-y-4">
+                <!-- Question 1 -->
+                <div class="faq-item bg-white border border-gray-200 rounded-lg overflow-hidden">
+                  <div class="faq-item-header flex justify-between items-center p-5 cursor-pointer">
+                    <h3 class="text-lg font-semibold text-gray-900">Làm thế nào để được cấp chứng chỉ tham dự?</h3>
+                    <i class="ri-arrow-down-s-line text-gray-500 text-xl"></i>
+                  </div>
+                  <div class="faq-item-body">
+                    <div class="p-5 pt-0 text-gray-700">
+                      <p class="mb-3">Để được cấp chứng chỉ tham dự sự kiện, bạn cần đáp ứng các điều kiện sau:</p>
+                      <ol class="list-decimal pl-5 space-y-2">
+                        <li>Đăng ký tham gia sự kiện thông qua hệ thống chính thức.</li>
+                        <li>Tham dự đầy đủ thời gian của sự kiện (điểm danh vào và ra nếu yêu cầu).</li>
+                        <li>Hoàn thành các hoạt động bắt buộc trong sự kiện (nếu có).</li>
+                      </ol>
+                      <p class="mb-3 mt-3">Quy trình nhận chứng chỉ:</p>
+                      <ul class="list-disc pl-5 space-y-2">
+                        <li>Chứng chỉ sẽ được cấp tự động trên hệ thống sau 1-3 ngày kể từ khi sự kiện kết thúc (tùy theo loại sự kiện).</li>
+                        <li>Bạn sẽ nhận được thông báo qua email khi chứng chỉ đã sẵn sàng.</li>
+                        <li>Truy cập mục "Chứng chỉ của tôi" trong hồ sơ cá nhân để xem và tải xuống.</li>
+                        <li>Đối với một số chứng chỉ đặc biệt, bạn có thể cần liên hệ trực tiếp với ban tổ chức hoặc Phòng Công tác Sinh viên.</li>
+                      </ul>
+                      <p class="mt-3">Lưu ý: Không phải tất cả các sự kiện đều cấp chứng chỉ. Thông tin về việc cấp chứng chỉ sẽ được nêu rõ trong mô tả sự kiện.</p>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Question 2 -->
+                <div class="faq-item bg-white border border-gray-200 rounded-lg overflow-hidden">
+                  <div class="faq-item-header flex justify-between items-center p-5 cursor-pointer">
+                    <h3 class="text-lg font-semibold text-gray-900">Làm thế nào để điểm danh tại sự kiện?</h3>
+                    <i class="ri-arrow-down-s-line text-gray-500 text-xl"></i>
+                  </div>
+                  <div class="faq-item-body">
+                    <div class="p-5 pt-0 text-gray-700">
+                      <p class="mb-3">Hệ thống cung cấp nhiều phương pháp điểm danh tùy thuộc vào loại sự kiện:</p>
+                      <ul class="list-disc pl-5 space-y-2">
+                        <li><span class="font-medium">Quét mã QR:</span> Sử dụng ứng dụng di động của trường hoặc camera điện thoại để quét mã QR tại bàn đón tiếp.</li>
+                        <li><span class="font-medium">Nhập mã điểm danh:</span> Trong một số sự kiện, ban tổ chức sẽ cung cấp mã điểm danh. Nhập mã này vào ứng dụng hoặc trang web điểm danh.</li>
+                        <li><span class="font-medium">Điểm danh tự động qua NFC/RFID:</span> Quẹt thẻ sinh viên tại máy điểm danh (nếu có).</li>
+                        <li><span class="font-medium">Điểm danh thủ công:</span> Ban tổ chức sẽ kiểm tra thẻ sinh viên và đánh dấu trên danh sách.</li>
+                      </ul>
+                      <p class="mt-3 text-yellow-600">Quan trọng: Đối với sự kiện kéo dài nhiều giờ, thường yêu cầu điểm danh cả lúc vào và ra. Đảm bảo bạn không quên cả hai bước để được ghi nhận tham dự đầy đủ.</p>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Question 3 -->
+                <div class="faq-item bg-white border border-gray-200 rounded-lg overflow-hidden">
+                  <div class="faq-item-header flex justify-between items-center p-5 cursor-pointer">
+                    <h3 class="text-lg font-semibold text-gray-900">Tôi không nhận được chứng chỉ sau sự kiện, phải làm sao?</h3>
+                    <i class="ri-arrow-down-s-line text-gray-500 text-xl"></i>
+                  </div>
+                  <div class="faq-item-body">
+                    <div class="p-5 pt-0 text-gray-700">
+                      <p class="mb-3">Nếu bạn không nhận được chứng chỉ sau khi tham dự sự kiện, hãy kiểm tra các vấn đề phổ biến sau:</p>
+                      <ol class="list-decimal pl-5 space-y-2">
+                        <li>Đảm bảo bạn đã tham dự đủ thời gian và được điểm danh đầy đủ.</li>
+                        <li>Kiểm tra xem sự kiện có cấp chứng chỉ hay không (thông tin này thường được nêu trong mô tả sự kiện).</li>
+                        <li>Chờ đủ thời gian xử lý (thường từ 1-3 ngày làm việc sau sự kiện).</li>
+                        <li>Kiểm tra thư mục spam/rác trong email.</li>
+                        <li>Kiểm tra mục "Chứng chỉ của tôi" trong hồ sơ cá nhân.</li>
+                      </ol>
+                      <p class="mb-3 mt-3">Nếu vẫn không nhận được chứng chỉ, hãy:</p>
+                      <ul class="list-disc pl-5 space-y-2">
+                        <li>Liên hệ với ban tổ chức sự kiện qua email hoặc số điện thoại được cung cấp trong thông tin sự kiện.</li>
+                        <li>Cung cấp tên, mã số sinh viên, tên sự kiện và ngày tham dự.</li>
+                        <li>Nếu có, hãy cung cấp bằng chứng tham dự (ảnh chụp, vé điện tử, v.v.).</li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Category: Kỹ thuật -->
+            <div class="faq-category" data-category="technical">
+              <h2 class="text-2xl font-bold text-gray-900 mb-6 flex items-center">
+                <span class="w-8 h-8 bg-primary/10 rounded-full flex items-center justify-center mr-3">
+                  <i class="ri-settings-line text-primary"></i>
+                </span>
+                Vấn đề kỹ thuật
+              </h2>
+
+              <div class="space-y-4">
+                <!-- Question 1 -->
+                <div class="faq-item bg-white border border-gray-200 rounded-lg overflow-hidden">
+                  <div class="faq-item-header flex justify-between items-center p-5 cursor-pointer">
+                    <h3 class="text-lg font-semibold text-gray-900">Trang web không tải được hoặc chậm, tôi phải làm gì?</h3>
+                    <i class="ri-arrow-down-s-line text-gray-500 text-xl"></i>
+                  </div>
+                  <div class="faq-item-body">
+                    <div class="p-5 pt-0 text-gray-700">
+                      <p class="mb-3">Nếu bạn gặp vấn đề khi tải trang web, hãy thử các giải pháp sau:</p>
+                      <ol class="list-decimal pl-5 space-y-2">
+                        <li>Làm mới trang (nhấn F5 hoặc nút làm mới trên trình duyệt).</li>
+                        <li>Xóa cache và cookie của trình duyệt:
+                          <ul class="list-disc pl-5 mt-2 space-y-1">
+                            <li>Chrome: Cài đặt > Bảo mật và quyền riêng tư > Xóa dữ liệu duyệt web</li>
+                            <li>Firefox: Tùy chọn > Quyền riêng tư & Bảo mật > Xóa dữ liệu</li>
+                            <li>Safari: Tùy chọn > Nâng cao > Xóa lịch sử duyệt web</li>
+                          </ul>
+                        </li>
+                        <li>Kiểm tra kết nối internet của bạn.</li>
+                        <li>Thử sử dụng trình duyệt khác (Chrome, Firefox, Edge, v.v.).</li>
+                        <li>Tắt các tiện ích mở rộng hoặc trình chặn quảng cáo.</li>
+                      </ol>
+                      <p class="mt-3">Nếu vấn đề vẫn tiếp diễn, có thể hệ thống đang được bảo trì. Hãy kiểm tra thông báo trên trang chủ hoặc mạng xã hội chính thức của trường.</p>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Question 2 -->
+                <div class="faq-item bg-white border border-gray-200 rounded-lg overflow-hidden">
+                  <div class="faq-item-header flex justify-between items-center p-5 cursor-pointer">
+                    <h3 class="text-lg font-semibold text-gray-900">Ứng dụng di động hoạt động trên những nền tảng nào?</h3>
+                    <i class="ri-arrow-down-s-line text-gray-500 text-xl"></i>
+                  </div>
+                  <div class="faq-item-body">
+                    <div class="p-5 pt-0 text-gray-700">
+                      <p class="mb-3">Ứng dụng di động của hệ thống Quản lý Sự kiện Đại học Ngân hàng hoạt động trên các nền tảng sau:</p>
+                      <ul class="list-disc pl-5 space-y-2">
+                        <li><span class="font-medium">iOS:</span> Phiên bản 12.0 trở lên (iPhone, iPad)</li>
+                        <li><span class="font-medium">Android:</span> Phiên bản 8.0 (Oreo) trở lên</li>
+                      </ul>
+                      <p class="mb-3 mt-3">Tải ứng dụng từ:</p>
+                      <ul class="list-disc pl-5 space-y-2">
+                        <li>App Store (iOS): Tìm kiếm "BUH Events"</li>
+                        <li>Google Play (Android): Tìm kiếm "BUH Events"</li>
+                        <li>Hoặc quét mã QR trên trang chủ của hệ thống</li>
+                      </ul>
+                      <p class="mt-3">Nếu bạn gặp vấn đề khi tải ứng dụng, hãy đảm bảo thiết bị của bạn đã được cập nhật lên phiên bản hệ điều hành mới nhất và có đủ dung lượng trống.</p>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Question 3 -->
+                <div class="faq-item bg-white border border-gray-200 rounded-lg overflow-hidden">
+                  <div class="faq-item-header flex justify-between items-center p-5 cursor-pointer">
+                    <h3 class="text-lg font-semibold text-gray-900">Tôi không nhận được thông báo từ hệ thống, phải làm sao?</h3>
+                    <i class="ri-arrow-down-s-line text-gray-500 text-xl"></i>
+                  </div>
+                  <div class="faq-item-body">
+                    <div class="p-5 pt-0 text-gray-700">
+                      <p class="mb-3">Nếu bạn không nhận được thông báo từ hệ thống, hãy kiểm tra các nguyên nhân phổ biến sau:</p>
+                      <ol class="list-decimal pl-5 space-y-2">
+                        <li><span class="font-medium">Cài đặt thông báo:</span> Đảm bảo bạn đã bật thông báo trong phần cài đặt tài khoản.</li>
+                        <li><span class="font-medium">Kiểm tra email:</span> Thông báo có thể đã bị chuyển vào thư mục spam hoặc "Quảng cáo" trong Gmail.</li>
+                        <li><span class="font-medium">Thiết lập trình duyệt:</span> Đảm bảo bạn đã cho phép thông báo đẩy từ trang web trong cài đặt trình duyệt.</li>
+                        <li><span class="font-medium">Thiết lập thiết bị:</span> Kiểm tra cài đặt thông báo trên điện thoại/máy tính của bạn.</li>
+                        <li><span class="font-medium">Thông tin liên hệ:</span> Đảm bảo email và số điện thoại trong hồ sơ của bạn đã được cập nhật chính xác.</li>
+                      </ol>
+                      <p class="mt-3">Nếu bạn đã kiểm tra tất cả các điểm trên và vẫn không nhận được thông báo, vui lòng liên hệ hỗ trợ kỹ thuật để được trợ giúp.</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Contact Support -->
+          <div class="mt-16 bg-primary/5 p-8 rounded-lg">
+            <h2 class="text-2xl font-bold text-gray-900 mb-4">Bạn vẫn còn thắc mắc?</h2>
+            <p class="text-gray-700 mb-6">
+              Nếu bạn không tìm thấy câu trả lời cho câu hỏi của mình, đừng ngần ngại liên hệ với chúng tôi. Đội ngũ hỗ trợ của chúng tôi luôn sẵn sàng giúp đỡ bạn.
+            </p>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+              <div class="bg-white p-5 rounded-lg shadow-sm flex">
+                <div class="w-10 h-10 bg-primary/10 rounded-full flex items-center justify-center mr-4">
+                  <i class="ri-mail-line text-primary"></i>
+                </div>
+                <div>
+                  <h3 class="font-bold text-gray-900 mb-1">Email</h3>
+                  <p class="text-gray-700">support@buh.edu.vn</p>
+                </div>
+              </div>
+              <div class="bg-white p-5 rounded-lg shadow-sm flex">
+                <div class="w-10 h-10 bg-primary/10 rounded-full flex items-center justify-center mr-4">
+                  <i class="ri-phone-line text-primary"></i>
+                </div>
+                <div>
+                  <h3 class="font-bold text-gray-900 mb-1">Điện thoại</h3>
+                  <p class="text-gray-700">(028) 3829 1901 (Ext: 123)</p>
+                </div>
+              </div>
+              <div class="bg-white p-5 rounded-lg shadow-sm flex">
+                <div class="w-10 h-10 bg-primary/10 rounded-full flex items-center justify-center mr-4">
+                  <i class="ri-map-pin-line text-primary"></i>
+                </div>
+                <div>
+                  <h3 class="font-bold text-gray-900 mb-1">Văn phòng</h3>
+                  <p class="text-gray-700">Phòng Công tác Sinh viên, Tầng 1, Tòa nhà A</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    
+    <!-- Footer -->
+    <footer class="bg-primary text-red-100 py-12">
+      <div class="container mx-auto px-4">
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+          <div>
+            <a href="index.html" class="text-2xl font-['Pacifico'] text-white mb-4 block">
+              <img src="../images/logo/logo-white-vertical.png" alt="logo" class="w-16 h-16">
+            </a>
+            <p class="mb-4">
+              Hệ thống Quản lý Sự kiện Đại học Ngân hàng TP.HCM - Nơi kết nối
+              sinh viên với các hoạt động học thuật và ngoại khóa.
+            </p>
+            <div class="flex space-x-4">
+              <a
+                href="#"
+                class="w-10 h-10 flex items-center justify-center bg-red-900/50 rounded-full hover:bg-white hover:text-primary transition-colors"
+              >
+                <i class="ri-facebook-fill ri-lg"></i>
+              </a>
+              <a
+                href="#"
+                class="w-10 h-10 flex items-center justify-center bg-red-900/50 rounded-full hover:bg-white hover:text-primary transition-colors"
+              >
+                <i class="ri-youtube-fill ri-lg"></i>
+              </a>
+              <a
+                href="#"
+                class="w-10 h-10 flex items-center justify-center bg-red-900/50 rounded-full hover:bg-white hover:text-primary transition-colors"
+              >
+                <i class="ri-instagram-fill ri-lg"></i>
+              </a>
+            </div>
+          </div>
+          <div>
+            <h3 class="text-white text-lg font-bold mb-4">Liên kết nhanh</h3>
+            <ul class="space-y-2">
+              <li>
+                <a href="index.html" class="hover:text-white transition-colors"
+                  >Trang chủ</a
+                >
+              </li>
+              <li>
+                <a href="events.html" class="hover:text-white transition-colors"
+                  >Sự kiện</a
+                >
+              </li>
+              <li>
+                <a href="login.html" class="hover:text-white transition-colors"
+                  >Đăng nhập</a
+                >
+              </li>
+              <li>
+                <a href="register.html" class="hover:text-white transition-colors"
+                  >Đăng ký</a
+                >
+              </li>
+              <li>
+                <a href="news.html" class="hover:text-white transition-colors"
+                  >Giới thiệu</a
+                >
+              </li>
+            </ul>
+          </div>
+          <div>
+            <h3 class="text-white text-lg font-bold mb-4">Hỗ trợ</h3>
+            <ul class="space-y-2">
+              <li>
+                <a href="user-guide.html" class="hover:text-white transition-colors"
+                  >Hướng dẫn sử dụng</a
+                >
+              </li>
+              <li>
+                <a href="faq.html" class="hover:text-white transition-colors"
+                  >Câu hỏi thường gặp</a
+                >
+              </li>
+              <li>
+                <a href="privacy.html" class="hover:text-white transition-colors"
+                  >Chính sách bảo mật</a
+                >
+              </li>
+              <li>
+                <a href="terms.html" class="hover:text-white transition-colors"
+                  >Điều khoản sử dụng</a
+                >
+              </li>
+              <li>
+                <a href="contact.html" class="hover:text-white transition-colors"
+                  >Liên hệ hỗ trợ</a
+                >
+              </li>
+            </ul>
+          </div>
+          <div>
+            <h3 class="text-white text-lg font-bold mb-4">Liên hệ</h3>
+            <ul class="space-y-2">
+              <li class="flex items-start">
+                <div class="w-5 h-5 flex items-center justify-center mr-2 mt-1">
+                  <i class="ri-map-pin-line"></i>
+                </div>
+                <span
+                  >36 Tôn Thất Đạm, Phường Nguyễn Thái Bình, Quận 1,
+                  TP.HCM</span
+                >
+              </li>
+              <li class="flex items-center">
+                <div class="w-5 h-5 flex items-center justify-center mr-2">
+                  <i class="ri-phone-line"></i>
+                </div>
+                <span>(028) 3829 1901</span>
+              </li>
+              <li class="flex items-center">
+                <div class="w-5 h-5 flex items-center justify-center mr-2">
+                  <i class="ri-mail-line"></i>
+                </div>
+                <span>info@buh.edu.vn</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="border-t border-red-900/30 mt-10 pt-6 text-center">
+          <p>
+            &copy; 2025 Đại học Ngân hàng TP.HCM. Tất cả quyền được bảo lưu.
+          </p>
+        </div>
+      </div>
+    </footer>
+    
+    <script>
+      // Mobile menu toggle functionality
+      document.addEventListener("DOMContentLoaded", function () {
+        // Mobile menu
+        const menuButton = document.querySelector("button.md\\:hidden");
+        const mobileMenu = document.createElement("div");
+        mobileMenu.className =
+          "fixed inset-0 bg-primary z-50 transform translate-x-full transition-transform duration-300 ease-in-out";
+        mobileMenu.innerHTML = `
+        <div class="p-4 flex justify-between items-center border-b border-red-900/30">
+          <a href="index.html" class="text-2xl font-['Pacifico'] text-white">
+            <img src="../images/logo/logo-white-vertical.png" alt="logo" class="w-16 h-16">
+          </a>
+          <button class="w-10 h-10 flex items-center justify-center text-white">
+            <i class="ri-close-line ri-lg"></i>
+          </button>
+        </div>
+        <nav class="p-4">
+          <ul class="space-y-4">
+            <li><a href="index.html" class="text-red-100 block py-2 hover:text-white">Trang chủ</a></li>
+            <li><a href="events.html" class="text-red-100 block py-2 hover:text-white">Sự kiện</a></li>
+            <li><a href="news.html" class="text-red-100 block py-2 hover:text-white">Giới thiệu</a></li>
+            <li><a href="contact.html" class="text-red-100 block py-2 hover:text-white">Liên hệ</a></li>
+            <li class="pt-4 border-t border-red-900/30">
+              <a href="login.html" class="text-white font-medium block py-2">Đăng nhập</a>
+            </li>
+            <li>
+              <a href="register.html" class="bg-white text-primary px-4 py-2 !rounded-button whitespace-nowrap block text-center mt-2">Đăng ký</a>
+            </li>
+          </ul>
+        </nav>
+        `;
+        document.body.appendChild(mobileMenu);
+        
+        // Open mobile menu
+        menuButton.addEventListener("click", function () {
+          mobileMenu.classList.remove("translate-x-full");
+        });
+        
+        // Close mobile menu
+        mobileMenu.querySelector("button").addEventListener("click", function () {
+          mobileMenu.classList.add("translate-x-full");
+        });
+        
+        // FAQ Accordion functionality
+        const faqItems = document.querySelectorAll('.faq-item');
+        
+        faqItems.forEach(item => {
+          const header = item.querySelector('.faq-item-header');
+          
+          header.addEventListener('click', () => {
+            // Toggle active class
+            item.classList.toggle('active');
+            
+            // Close other items
+            faqItems.forEach(otherItem => {
+              if (otherItem !== item && otherItem.classList.contains('active')) {
+                otherItem.classList.remove('active');
+              }
+            });
+          });
+        });
+        
+        // Category filter
+        const categorySelect = document.getElementById('faq-category');
+        const faqCategories = document.querySelectorAll('.faq-category');
+        
+        categorySelect.addEventListener('change', function() {
+          const selectedCategory = this.value;
+          
+          if (selectedCategory === 'all') {
+            faqCategories.forEach(category => {
+              category.style.display = 'block';
+            });
+          } else {
+            faqCategories.forEach(category => {
+              if (category.dataset.category === selectedCategory) {
+                category.style.display = 'block';
+              } else {
+                category.style.display = 'none';
+              }
+            });
+          }
+        });
+        
+        // Search functionality
+        const searchInput = document.getElementById('faq-search');
+        
+        searchInput.addEventListener('input', function() {
+          const searchTerm = this.value.toLowerCase().trim();
+          
+          if (searchTerm === '') {
+            // Show all items if search is empty
+            faqItems.forEach(item => {
+              item.style.display = 'block';
+            });
+            faqCategories.forEach(category => {
+              category.style.display = 'block';
+            });
+            return;
+          }
+          
+          // Hide all categories first
+          faqCategories.forEach(category => {
+            category.style.display = 'none';
+          });
+          
+          // Show items that match search term
+          faqItems.forEach(item => {
+            const question = item.querySelector('.faq-item-header h3').textContent.toLowerCase();
+            const answer = item.querySelector('.faq-item-body').textContent.toLowerCase();
+            
+            if (question.includes(searchTerm) || answer.includes(searchTerm)) {
+              item.style.display = 'block';
+              // Show parent category
+              item.closest('.faq-category').style.display = 'block';
+            } else {
+              item.style.display = 'none';
+            }
+          });
+        });
+      });
+    </script>
+  </body>
+</html> 

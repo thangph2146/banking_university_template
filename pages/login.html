@@ -1,137 +1,419 @@
 <!DOCTYPE html>
 <html lang="vi">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Đăng nhập - Hệ thống Quản lý Sự kiện</title>
-    <link rel="icon" href="../favicon.svg" type="image/svg+xml">
-    <link rel="stylesheet" href="../css/variables.css">
-    <link rel="stylesheet" href="../css/style.css">
-    <link rel="stylesheet" href="../css/login.css">
-    <link rel="stylesheet" href="../css/particles.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-</head>
-
-<body>
-    <div class="login-page">
-        <!-- Particles.js container -->
-        <div id="particles-js"></div>
-        <div class="login-wrapper">
-            <div class="login-container">
-                <div class="login-left">
-                    <div class="login-left-content">
-                        <a class="logo" href="index.html">
-                            <img src="../images/logo/logo-white.png" alt="Logo Đại học Ngân hàng TP.HCM" style="width: 300px; height: 100%;">
-                        </a>
-                        <div class="event-highlights">
-                            <div class="event-list">
-                                <div class="event-item">
-                                    <div class="event-icon">
-                                        <i class="fas fa-calendar-alt"></i>
-                                    </div>
-                                    <div class="event-info">
-                                        <h3>Ngày hội việc làm 2025</h3>
-                                        <p>Cơ hội kết nối với hơn <span class="highlight">50+ doanh nghiệp hàng
-                                                đầu</span></p>
-                                    </div>
-                                </div>
-                                <div class="event-item">
-                                    <div class="event-icon">
-                                        <i class="fas fa-microphone"></i>
-                                    </div>
-                                    <div class="event-info">
-                                        <h3>Hội thảo chuyên đề</h3>
-                                        <p>Gặp gỡ các chuyên gia trong ngành tài chính - ngân hàng</p>
-                                    </div>
-                                </div>
-                                <div class="event-item">
-                                    <div class="event-icon">
-                                        <i class="fas fa-trophy"></i>
-                                    </div>
-                                    <div class="event-info">
-                                        <h3>Cuộc thi tài năng sinh viên</h3>
-                                        <p>Cơ hội giành học bổng và những phần quà giá trị</p>
-                                    </div>
-                                </div>
-                                <div class="event-item">
-                                    <div class="event-icon">
-                                        <i class="fas fa-users"></i>
-                                    </div>
-                                    <div class="event-info">
-                                        <h3>Hoạt động câu lạc bộ</h3>
-                                        <p>Tham gia và phát triển kỹ năng mềm cùng các CLB sinh viên</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="copyright">
-                            <p>© 2025 Trường Đại học Ngân hàng TP. Hồ Chí Minh</p>
-                            <p>36 Tôn Thất Đạm, Phường Nguyễn Thái Bình, Quận 1, TP.HCM</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="login-right">
-                    <div class="login-form-container">
-                        <h1>HỆ THỐNG ĐĂNG KÝ SỰ KIỆN</h1>
-                        <p class="subtitle">Đăng nhập để đăng ký và tham gia các sự kiện đặc biệt của trường</p>
-                        <form class="login-form" id="loginForm" method="post">
-                            <div class="form-group">
-                                <label for="email">Email sinh viên</label>
-                                <div class="input-group">
-                                    <span class="input-icon">
-                                        <i class="fas fa-envelope"></i>
-                                    </span>
-                                    <input type="email" id="email" name="email" placeholder="Nhập email sinh viên"
-                                        required>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="password">Mật khẩu</label>
-                                <div class="input-group">
-                                    <span class="input-icon">
-                                        <i class="fas fa-lock"></i>
-                                    </span>
-                                    <input type="password" id="password" name="password" placeholder="Nhập mật khẩu"
-                                        required>
-                                    <button type="button" class="toggle-password" aria-label="Hiển thị mật khẩu">
-                                        <i class="far fa-eye-slash"></i>
-                                    </button>
-                                </div>
-                            </div>
-                            <div class="form-options">
-                                <label class="remember-me">
-                                    <input type="checkbox" id="rememberMe" name="rememberMe">
-                                    <span>Ghi nhớ đăng nhập</span>
-                                </label>
-                                <a href="forgot-password.html" class="forgot-password">Quên mật khẩu?</a>
-                            </div>
-                            <button type="submit" class="btn-login">
-                                <i class="fas fa-sign-in-alt"></i>
-                                Đăng nhập
-                            </button>
-                            <div class="divider">
-                                <span>HOẶC</span>
-                            </div>
-                            <button type="button" class="btn-google">
-                                <img src="../images/google-icon.svg" alt="Google" width="18" height="18">
-                                Đăng nhập bằng Google
-                            </button>
-                            <div class="register-link">
-                                <span>Chưa có tài khoản?</span>
-                                <a href="register.html">Đăng ký tài khoản</a>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Đăng nhập - Đại học Ngân hàng TP.HCM</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.tailwindcss.com/3.4.16"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              primary: "#8B0000",
+              secondary: "#FF5252",
+            },
+            borderRadius: {
+              none: "0px",
+              sm: "4px",
+              DEFAULT: "8px",
+              md: "12px",
+              lg: "16px",
+              xl: "20px",
+              "2xl": "24px",
+              "3xl": "32px",
+              full: "9999px",
+              button: "8px",
+            },
+          },
+        },
+      };
+    </script>
+    <style>
+      :where([class^="ri-"])::before { content: "\f3c2"; }
+      body {
+      font-family: 'Inter', sans-serif;
+      }
+      .hero-gradient {
+      background: linear-gradient(90deg, rgba(255,255,255,1) 0%, rgba(255,255,255,0.9) 50%, rgba(255,255,255,0) 100%);
+      }
+    </style>
+  </head>
+  <body class="bg-gray-50">
+    <!-- Header -->
+    <header class="bg-primary shadow-sm">
+      <div
+        class="container mx-auto px-4 flex items-center justify-between"
+      >
+        <a href="index.html" class="text-2xl font-['Pacifico'] text-white">
+            <img src="../images/logo/logo-white-vertical.png" alt="logo" class="w-16 h-16">
+        </a>
+        <nav class="hidden md:flex items-center space-x-8">
+          <a
+            href="index.html"
+            class="text-red-100 hover:text-white transition-colors"
+            >Trang chủ</a
+          >
+          <a href="events.html" class="text-red-100 hover:text-white transition-colors"
+            >Sự kiện</a
+          >
+          <a href="news.html" class="text-red-100 hover:text-white transition-colors"
+            >Giới thiệu</a
+          >
+          <a href="contact.html" class="text-red-100 hover:text-white transition-colors"
+            >Liên hệ</a
+          >
+        </nav>
+        <div class="flex items-center space-x-4">
+          <a href="login.html" class="text-white font-medium hover:underline"
+            >Đăng nhập</a
+          >
+          <a
+            href="register.html"
+            class="bg-white text-primary px-4 py-2 !rounded-button whitespace-nowrap hover:bg-red-50 transition-colors shadow-sm"
+            >Đăng ký</a
+          >
         </div>
-    </div>
+        <button
+          class="md:hidden w-10 h-10 flex items-center justify-center text-white"
+        >
+          <i class="ri-menu-line ri-lg"></i>
+        </button>
+      </div>
+    </header>
 
-    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
-    <script src="../js/particles-config.js"></script>
-    <script src="../js/login.js"></script>
-</body>
+    <!-- Login Form Section -->
+    <section class="py-16">
+      <div class="container mx-auto px-4">
+        <div class="max-w-md mx-auto bg-white rounded-lg shadow-md overflow-hidden">
+          <div class="bg-primary py-4 px-6">
+            <h2 class="text-2xl font-bold text-white text-center">Đăng nhập</h2>
+          </div>
+          <div class="p-6">
+            <form id="loginForm">
+              <!-- Email Field -->
+              <div class="mb-4">
+                <label for="email" class="block text-gray-700 font-medium mb-2">Email</label>
+                <div class="relative">
+                  <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                    <i class="ri-mail-line text-gray-400"></i>
+                  </div>
+                  <input
+                    type="email"
+                    id="email"
+                    name="email"
+                    class="w-full pl-10 pr-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
+                    placeholder="Nhập email của bạn"
+                    required
+                  />
+                </div>
+              </div>
+              
+              <!-- Password Field -->
+              <div class="mb-6">
+                <div class="flex items-center justify-between mb-2">
+                  <label for="password" class="block text-gray-700 font-medium">Mật khẩu</label>
+                  <a href="#" class="text-sm text-primary hover:underline">Quên mật khẩu?</a>
+                </div>
+                <div class="relative">
+                  <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                    <i class="ri-lock-line text-gray-400"></i>
+                  </div>
+                  <input
+                    type="password"
+                    id="password"
+                    name="password"
+                    class="w-full pl-10 pr-10 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
+                    placeholder="Nhập mật khẩu của bạn"
+                    required
+                  />
+                  <div class="absolute inset-y-0 right-0 pr-3 flex items-center">
+                    <button type="button" id="showPassword" class="text-gray-400 hover:text-gray-500">
+                      <i class="ri-eye-off-line"></i>
+                    </button>
+                  </div>
+                </div>
+              </div>
+              
+              <!-- Remember Me Checkbox -->
+              <div class="flex items-center mb-6">
+                <input 
+                  type="checkbox" 
+                  id="remember" 
+                  name="remember" 
+                  class="h-4 w-4 text-primary focus:ring-primary border-gray-300 rounded"
+                />
+                <label for="remember" class="ml-2 block text-sm text-gray-700">
+                  Ghi nhớ đăng nhập
+                </label>
+              </div>
+              
+              <!-- Submit Button -->
+              <button
+                type="submit"
+                class="w-full bg-primary text-white py-2 px-4 !rounded-button hover:bg-primary/90 transition-colors font-medium"
+              >
+                Đăng nhập
+              </button>
+            </form>
+            
+            <div class="mt-6 text-center">
+              <p class="text-gray-600">
+                Chưa có tài khoản? 
+                <a href="#" class="text-primary font-medium hover:underline">Đăng ký ngay</a>
+              </p>
+            </div>
+            
+            <!-- Social Login -->
+            <div class="mt-6">
+              <div class="relative">
+                <div class="absolute inset-0 flex items-center">
+                  <div class="w-full border-t border-gray-300"></div>
+                </div>
+                <div class="relative flex justify-center text-sm">
+                  <span class="px-2 bg-white text-gray-500">Hoặc đăng nhập với</span>
+                </div>
+              </div>
+              
+              <div class="mt-6 grid grid-cols-1 gap-3">
+                <a href="#" class="flex justify-center items-center px-4 py-2 border border-gray-300 rounded-md shadow-sm bg-white hover:bg-gray-50 transition-colors">
+                  <i class="ri-google-fill text-red-500 mr-2"></i>
+                  <span class="text-gray-700">Google</span>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
 
-</html>
+    <!-- Footer -->
+    <footer class="bg-primary text-red-100 py-12">
+        <div class="container mx-auto px-4">
+          <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+            <div>
+              <a href="#" class="text-2xl font-['Pacifico'] text-white mb-4 block"
+                >logo</a
+              >
+              <p class="mb-4">
+                Hệ thống Quản lý Sự kiện Đại học Ngân hàng TP.HCM - Nơi kết nối
+                sinh viên với các hoạt động học thuật và ngoại khóa.
+              </p>
+              <div class="flex space-x-4">
+                <a
+                  href="#"
+                  class="w-10 h-10 flex items-center justify-center bg-red-900/50 rounded-full hover:bg-white hover:text-primary transition-colors"
+                >
+                  <i class="ri-facebook-fill text-white"></i>
+                </a>
+                <a
+                  href="#"
+                  class="w-10 h-10 flex items-center justify-center bg-red-900/50 rounded-full hover:bg-white hover:text-primary transition-colors"
+                >
+                  <i class="ri-youtube-fill text-white"></i>
+                </a>
+                <a
+                  href="#"
+                  class="w-10 h-10 flex items-center justify-center bg-red-900/50 rounded-full hover:bg-white hover:text-primary transition-colors"
+                >
+                  <i class="ri-instagram-fill text-white"></i>
+                </a>
+              </div>
+            </div>
+            <div>
+              <h3 class="text-white text-lg font-bold mb-4">Liên kết nhanh</h3>
+              <ul class="space-y-2">
+                <li>
+                  <a href="index.html" class="hover:text-white transition-colors"
+                    >Trang chủ</a
+                  >
+                </li>
+                <li>
+                  <a href="events.html" class="hover:text-white transition-colors"
+                    >Sự kiện</a
+                  >
+                </li>
+                <li>
+                  <a href="login.html" class="hover:text-white transition-colors"
+                    >Đăng nhập</a
+                  >
+                </li>
+                <li>
+                  <a href="register.html" class="hover:text-white transition-colors"
+                    >Đăng ký</a
+                  >
+                </li>
+                <li>
+                  <a href="news.html" class="hover:text-white transition-colors"
+                    >Giới thiệu</a
+                  >
+                </li>
+              </ul>
+            </div>
+            <div>
+              <h3 class="text-white text-lg font-bold mb-4">Hỗ trợ</h3>
+              <ul class="space-y-2">
+                <li>
+                  <a href="guide.html" class="hover:text-white transition-colors"
+                    >Hướng dẫn sử dụng</a
+                  >
+                </li>
+                <li>
+                  <a href="faq.html" class="hover:text-white transition-colors"
+                    >Câu hỏi thường gặp</a
+                  >
+                </li>
+                <li>
+                  <a href="privacy.html" class="hover:text-white transition-colors"
+                    >Chính sách bảo mật</a
+                  >
+                </li>
+                <li>
+                  <a href="terms.html" class="hover:text-white transition-colors"
+                    >Điều khoản sử dụng</a
+                  >
+                </li>
+                <li>
+                  <a href="contact.html" class="hover:text-white transition-colors"
+                    >Liên hệ hỗ trợ</a
+                  >
+                </li>
+              </ul>
+            </div>
+            <div>
+              <h3 class="text-white text-lg font-bold mb-4">Liên hệ</h3>
+              <ul class="space-y-2">
+                <li class="flex items-start">
+                  <div class="w-5 h-5 flex items-center justify-center mr-2 mt-1">
+                    <i class="ri-map-pin-line"></i>
+                  </div>
+                  <span
+                    >36 Tôn Thất Đạm, Phường Nguyễn Thái Bình, Quận 1,
+                    TP.HCM</span
+                  >
+                </li>
+                <li class="flex items-center">
+                  <div class="w-5 h-5 flex items-center justify-center mr-2">
+                    <i class="ri-phone-line"></i>
+                  </div>
+                  <span>(028) 3829 1901</span>
+                </li>
+                <li class="flex items-center">
+                  <div class="w-5 h-5 flex items-center justify-center mr-2">
+                    <i class="ri-mail-line"></i>
+                  </div>
+                  <span>info@buh.edu.vn</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div class="border-t border-red-900/30 mt-10 pt-6 text-center">
+            <p>
+              &copy; 2025 Đại học Ngân hàng TP.HCM. Tất cả quyền được bảo lưu.
+            </p>
+          </div>
+        </div>
+      </footer>
+
+    <script>
+      // Mobile menu toggle
+      document.addEventListener("DOMContentLoaded", function () {
+        const menuButton = document.querySelector("button.md\\:hidden");
+        const mobileMenu = document.createElement("div");
+        mobileMenu.className =
+          "fixed inset-0 bg-primary z-50 transform translate-x-full transition-transform duration-300 ease-in-out";
+        mobileMenu.innerHTML = `
+        <div class="p-4 flex justify-between items-center border-b border-red-900/30">
+          <a href="index.html" class="text-2xl font-['Pacifico'] text-white">logo</a>
+          <button class="w-10 h-10 flex items-center justify-center text-white">
+            <i class="ri-close-line ri-lg"></i>
+          </button>
+        </div>
+        <nav class="p-4">
+          <ul class="space-y-4">
+            <li><a href="index.html" class="text-red-100 block py-2">Trang chủ</a></li>
+            <li><a href="#" class="text-red-100 block py-2">Sự kiện</a></li>
+            <li><a href="#" class="text-red-100 block py-2">Giới thiệu</a></li>
+            <li><a href="#" class="text-red-100 block py-2">Liên hệ</a></li>
+            <li class="pt-4 border-t border-red-900/30">
+              <a href="login.html" class="text-white font-medium block py-2">Đăng nhập</a>
+            </li>
+            <li>
+              <a href="#" class="bg-white text-primary px-4 py-2 !rounded-button whitespace-nowrap block text-center mt-2">Đăng ký</a>
+            </li>
+          </ul>
+        </nav>
+        `;
+        document.body.appendChild(mobileMenu);
+        menuButton.addEventListener("click", function () {
+          mobileMenu.classList.remove("translate-x-full");
+        });
+        mobileMenu.querySelector("button").addEventListener("click", function () {
+          mobileMenu.classList.add("translate-x-full");
+        });
+      });
+
+      // Password visibility toggle
+      document.addEventListener("DOMContentLoaded", function () {
+        const showPasswordButton = document.getElementById("showPassword");
+        const passwordInput = document.getElementById("password");
+        
+        if (showPasswordButton && passwordInput) {
+          showPasswordButton.addEventListener("click", function () {
+            // Toggle password visibility
+            const type = passwordInput.getAttribute("type") === "password" ? "text" : "password";
+            passwordInput.setAttribute("type", type);
+            
+            // Toggle icon
+            const icon = showPasswordButton.querySelector("i");
+            if (type === "text") {
+              icon.classList.remove("ri-eye-off-line");
+              icon.classList.add("ri-eye-line");
+            } else {
+              icon.classList.remove("ri-eye-line");
+              icon.classList.add("ri-eye-off-line");
+            }
+          });
+        }
+      });
+
+      // Form validation
+      document.addEventListener("DOMContentLoaded", function () {
+        const loginForm = document.getElementById("loginForm");
+        
+        if (loginForm) {
+          loginForm.addEventListener("submit", function (event) {
+            event.preventDefault();
+            
+            // Get form values
+            const email = document.getElementById("email").value;
+            const password = document.getElementById("password").value;
+            const remember = document.getElementById("remember").checked;
+            
+            // Basic validation
+            if (!email || !password) {
+              alert("Vui lòng nhập đầy đủ thông tin đăng nhập");
+              return;
+            }
+            
+            // Here you would normally handle the login request to your server
+            console.log("Login submitted:", { email, password, remember });
+            
+            // For demo purposes, redirect to index page
+            // window.location.href = "index.html";
+          });
+        }
+      });
+    </script>
+  </body>
+</html> 

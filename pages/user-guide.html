@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Hướng dẫn sử dụng - Đại học Ngân hàng TP.HCM</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.tailwindcss.com/3.4.16"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              primary: "#8B0000",
+              secondary: "#FF5252",
+            },
+            borderRadius: {
+              none: "0px",
+              sm: "4px",
+              DEFAULT: "8px",
+              md: "12px",
+              lg: "16px",
+              xl: "20px",
+              "2xl": "24px",
+              "3xl": "32px",
+              full: "9999px",
+              button: "8px",
+            },
+          },
+        },
+      };
+    </script>
+    <style>
+      :where([class^="ri-"])::before { content: "\f3c2"; }
+      body {
+      font-family: 'Inter', sans-serif;
+      }
+      .hero-gradient {
+      background: linear-gradient(90deg, rgba(255,255,255,1) 0%, rgba(255,255,255,0.9) 50%, rgba(255,255,255,0) 100%);
+      }
+    </style>
+  </head>
+  <body class="bg-gray-50">
+    <!-- Header -->
+    <header class="bg-primary shadow-sm">
+      <div
+        class="container mx-auto px-4 flex items-center justify-between"
+      >
+        <a href="index.html" class="text-2xl font-['Pacifico'] text-white">
+            <img src="../images/logo/logo-white-vertical.png" alt="logo" class="w-16 h-16">
+        </a>
+        <nav class="hidden md:flex items-center space-x-8">
+          <a
+            href="index.html"
+            class="text-red-100 hover:text-white transition-colors"
+            >Trang chủ</a
+          >
+          <a href="events.html" class="text-red-100 hover:text-white transition-colors"
+            >Sự kiện</a
+          >
+          <a href="news.html" class="text-red-100 hover:text-white transition-colors"
+            >Giới thiệu</a
+          >
+          <a href="contact.html" class="text-red-100 hover:text-white transition-colors"
+            >Liên hệ</a
+          >
+        </nav>
+        <div class="flex items-center space-x-4">
+          <a href="login.html" class="text-white font-medium hover:underline"
+            >Đăng nhập</a
+          >
+          <a
+            href="register.html"
+            class="bg-white text-primary px-4 py-2 !rounded-button whitespace-nowrap hover:bg-red-50 transition-colors shadow-sm"
+            >Đăng ký</a
+          >
+        </div>
+        <button
+          class="md:hidden w-10 h-10 flex items-center justify-center text-white"
+        >
+          <i class="ri-menu-line ri-lg"></i>
+        </button>
+      </div>
+    </header>
+
+    <!-- Page Title -->
+    <section class="bg-primary py-12">
+      <div class="container mx-auto px-4 text-center">
+        <h1 class="text-3xl md:text-4xl font-bold text-white mb-4">Hướng dẫn sử dụng</h1>
+        <p class="text-red-100 max-w-3xl mx-auto">
+          Tìm hiểu cách sử dụng hệ thống quản lý sự kiện của Đại học Ngân hàng TP.HCM một cách hiệu quả
+        </p>
+      </div>
+    </section>
+
+    <!-- Introduction -->
+    <section class="py-12 bg-white">
+      <div class="container mx-auto px-4">
+        <div class="max-w-4xl mx-auto">
+          <div class="bg-blue-50 p-6 rounded-lg mb-8">
+            <h2 class="text-xl font-bold text-gray-900 mb-4">Giới thiệu về hệ thống</h2>
+            <p class="text-gray-700 mb-4">
+              Hệ thống Quản lý Sự kiện Đại học Ngân hàng TP.HCM là nền tảng trực tuyến giúp sinh viên dễ dàng tìm kiếm, đăng ký và theo dõi các sự kiện học thuật, ngoại khóa và hoạt động nghề nghiệp trong khuôn khổ nhà trường.
+            </p>
+            <p class="text-gray-700">
+              Hướng dẫn này sẽ giúp bạn nắm rõ các tính năng và cách sử dụng hệ thống một cách hiệu quả nhất.
+            </p>
+          </div>
+
+          <!-- Account Management -->
+          <div class="mb-12">
+            <h2 class="text-2xl font-bold text-gray-900 mb-6">1. Tạo và quản lý tài khoản</h2>
+            
+            <!-- Section 1.1 -->
+            <div class="mb-8">
+              <h3 class="text-xl font-semibold text-gray-900 mb-4">1.1 Đăng ký tài khoản</h3>
+              <div class="bg-white border border-gray-200 rounded-lg p-6 shadow-sm">
+                <ol class="list-decimal pl-5 space-y-4">
+                  <li class="text-gray-700">
+                    <span class="font-medium">Truy cập trang Đăng ký:</span> Nhấp vào nút "Đăng ký" ở góc phải trên cùng của trang chủ.
+                  </li>
+                  <li class="text-gray-700">
+                    <span class="font-medium">Điền thông tin:</span> Nhập đầy đủ thông tin cá nhân, sử dụng email trường học (@sv.buh.edu.vn) để đăng ký.
+                  </li>
+                  <li class="text-gray-700">
+                    <span class="font-medium">Xác minh email:</span> Hệ thống sẽ gửi liên kết xác minh đến email của bạn. Hãy nhấp vào liên kết để kích hoạt tài khoản.
+                  </li>
+                  <li class="text-gray-700">
+                    <span class="font-medium">Hoàn tất hồ sơ:</span> Sau khi xác minh, hãy đăng nhập và cập nhật đầy đủ thông tin hồ sơ cá nhân, bao gồm khoa, chuyên ngành và sở thích.
+                  </li>
+                </ol>
+                <div class="mt-4 p-4 bg-yellow-50 rounded-lg">
+                  <p class="text-gray-700 flex items-start">
+                    <span class="text-yellow-600 mr-2">
+                      <i class="ri-information-line ri-lg"></i>
+                    </span>
+                    <span>
+                      <span class="font-medium">Lưu ý:</span> Chỉ email trường học (@sv.buh.edu.vn) mới được chấp nhận cho việc đăng ký tài khoản sinh viên.
+                    </span>
+                  </p>
+                </div>
+              </div>
+            </div>
+            
+            <!-- Section 1.2 -->
+            <div class="mb-8">
+              <h3 class="text-xl font-semibold text-gray-900 mb-4">1.2 Đăng nhập và quản lý tài khoản</h3>
+              <div class="bg-white border border-gray-200 rounded-lg p-6 shadow-sm">
+                <ol class="list-decimal pl-5 space-y-4">
+                  <li class="text-gray-700">
+                    <span class="font-medium">Đăng nhập:</span> Nhấp vào "Đăng nhập" ở góc trên bên phải, nhập email và mật khẩu.
+                  </li>
+                  <li class="text-gray-700">
+                    <span class="font-medium">Quên mật khẩu:</span> Nếu quên mật khẩu, nhấp vào "Quên mật khẩu" trên trang đăng nhập và làm theo hướng dẫn.
+                  </li>
+                  <li class="text-gray-700">
+                    <span class="font-medium">Chỉnh sửa hồ sơ:</span> Sau khi đăng nhập, truy cập "Hồ sơ của tôi" từ menu người dùng để cập nhật thông tin cá nhân.
+                  </li>
+                  <li class="text-gray-700">
+                    <span class="font-medium">Đổi mật khẩu:</span> Trong trang "Hồ sơ của tôi", chọn tab "Bảo mật" để đổi mật khẩu.
+                  </li>
+                </ol>
+              </div>
+            </div>
+          </div>
+
+          <!-- Event Search and Registration -->
+          <div class="mb-12">
+            <h2 class="text-2xl font-bold text-gray-900 mb-6">2. Tìm kiếm và đăng ký sự kiện</h2>
+            
+            <!-- Section 2.1 -->
+            <div class="mb-8">
+              <h3 class="text-xl font-semibold text-gray-900 mb-4">2.1 Tìm kiếm sự kiện</h3>
+              <div class="bg-white border border-gray-200 rounded-lg p-6 shadow-sm">
+                <p class="text-gray-700 mb-4">
+                  Hệ thống cung cấp nhiều cách để tìm kiếm sự kiện phù hợp với nhu cầu của bạn:
+                </p>
+                <ul class="list-disc pl-5 space-y-4">
+                  <li class="text-gray-700">
+                    <span class="font-medium">Trang "Sự kiện":</span> Hiển thị tất cả sự kiện sắp diễn ra, bạn có thể lọc theo nhiều tiêu chí khác nhau.
+                  </li>
+                  <li class="text-gray-700">
+                    <span class="font-medium">Thanh tìm kiếm:</span> Nhập từ khóa liên quan đến sự kiện bạn muốn tìm.
+                  </li>
+                  <li class="text-gray-700">
+                    <span class="font-medium">Bộ lọc nâng cao:</span> Lọc sự kiện theo:
+                    <ul class="list-disc pl-5 mt-2">
+                      <li>Loại sự kiện (Hội thảo, Workshop, Cuộc thi, v.v.)</li>
+                      <li>Thời gian (Tuần này, Tháng này, v.v.)</li>
+                      <li>Khoa/Chuyên ngành</li>
+                      <li>Địa điểm</li>
+                    </ul>
+                  </li>
+                </ul>
+                
+                <div class="mt-6 p-4 bg-blue-50 rounded-lg">
+                  <p class="text-gray-700 flex items-start">
+                    <span class="text-blue-600 mr-2">
+                      <i class="ri-lightbulb-line ri-lg"></i>
+                    </span>
+                    <span>
+                      <span class="font-medium">Mẹo:</span> Bạn có thể lưu các bộ lọc yêu thích để dễ dàng tìm kiếm trong tương lai.
+                    </span>
+                  </p>
+                </div>
+              </div>
+            </div>
+            
+            <!-- Section 2.2 -->
+            <div class="mb-8">
+              <h3 class="text-xl font-semibold text-gray-900 mb-4">2.2 Đăng ký tham gia sự kiện</h3>
+              <div class="bg-white border border-gray-200 rounded-lg p-6 shadow-sm">
+                <ol class="list-decimal pl-5 space-y-4">
+                  <li class="text-gray-700">
+                    <span class="font-medium">Xem chi tiết sự kiện:</span> Nhấp vào sự kiện bạn quan tâm để xem thông tin chi tiết.
+                  </li>
+                  <li class="text-gray-700">
+                    <span class="font-medium">Đăng ký tham gia:</span> Nhấp vào nút "Đăng ký ngay" trên trang chi tiết sự kiện.
+                  </li>
+                  <li class="text-gray-700">
+                    <span class="font-medium">Xác nhận thông tin:</span> Kiểm tra lại thông tin và nhấp "Xác nhận" để hoàn tất đăng ký.
+                  </li>
+                  <li class="text-gray-700">
+                    <span class="font-medium">Nhận xác nhận:</span> Bạn sẽ nhận được email xác nhận và vé tham dự (nếu có).
+                  </li>
+                </ol>
+                
+                <div class="mt-4 p-4 bg-yellow-50 rounded-lg">
+                  <p class="text-gray-700 flex items-start">
+                    <span class="text-yellow-600 mr-2">
+                      <i class="ri-information-line ri-lg"></i>
+                    </span>
+                    <span>
+                      <span class="font-medium">Lưu ý:</span> Một số sự kiện có giới hạn số lượng người tham gia. Hãy đăng ký sớm để đảm bảo có chỗ.
+                    </span>
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Section 2.3 -->
+            <div class="mb-8">
+              <h3 class="text-xl font-semibold text-gray-900 mb-4">2.3 Quản lý sự kiện đã đăng ký</h3>
+              <div class="bg-white border border-gray-200 rounded-lg p-6 shadow-sm">
+                <p class="text-gray-700 mb-4">
+                  Sau khi đăng ký sự kiện, bạn có thể quản lý chúng trong mục "Sự kiện của tôi":
+                </p>
+                <ul class="list-disc pl-5 space-y-4">
+                  <li class="text-gray-700">
+                    <span class="font-medium">Xem sự kiện đã đăng ký:</span> Truy cập "Sự kiện của tôi" từ menu người dùng để xem danh sách.
+                  </li>
+                  <li class="text-gray-700">
+                    <span class="font-medium">Hủy đăng ký:</span> Nếu không thể tham dự, nhấp vào "Hủy đăng ký" bên cạnh sự kiện.
+                  </li>
+                  <li class="text-gray-700">
+                    <span class="font-medium">Thêm vào lịch:</span> Nhấp "Thêm vào lịch" để đồng bộ với Google Calendar hoặc lịch khác.
+                  </li>
+                  <li class="text-gray-700">
+                    <span class="font-medium">Nhận thông báo:</span> Hệ thống sẽ gửi thông báo nhắc nhở trước khi sự kiện diễn ra.
+                  </li>
+                </ul>
+
+                <div class="mt-4 p-4 bg-red-50 rounded-lg">
+                  <p class="text-gray-700 flex items-start">
+                    <span class="text-red-600 mr-2">
+                      <i class="ri-error-warning-line ri-lg"></i>
+                    </span>
+                    <span>
+                      <span class="font-medium">Quan trọng:</span> Việc hủy đăng ký chỉ được phép ít nhất 24 giờ trước khi sự kiện diễn ra. Hãy tôn trọng thời gian của ban tổ chức.
+                    </span>
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Attendance and Certificates -->
+          <div class="mb-12">
+            <h2 class="text-2xl font-bold text-gray-900 mb-6">3. Điểm danh và nhận chứng chỉ</h2>
+            
+            <!-- Section 3.1 -->
+            <div class="mb-8">
+              <h3 class="text-xl font-semibold text-gray-900 mb-4">3.1 Điểm danh tại sự kiện</h3>
+              <div class="bg-white border border-gray-200 rounded-lg p-6 shadow-sm">
+                <p class="text-gray-700 mb-4">
+                  Để ghi nhận sự tham gia của bạn, hệ thống cung cấp nhiều phương pháp điểm danh:
+                </p>
+                <ul class="list-disc pl-5 space-y-4">
+                  <li class="text-gray-700">
+                    <span class="font-medium">Quét mã QR:</span> Sử dụng ứng dụng di động để quét mã QR tại sự kiện.
+                  </li>
+                  <li class="text-gray-700">
+                    <span class="font-medium">Nhập mã:</span> Nhập mã điểm danh do ban tổ chức cung cấp vào ứng dụng hoặc trang web.
+                  </li>
+                  <li class="text-gray-700">
+                    <span class="font-medium">Điểm danh thủ công:</span> Ban tổ chức có thể điểm danh thủ công bằng cách kiểm tra thẻ sinh viên.
+                  </li>
+                </ul>
+                
+                <div class="mt-4 p-4 bg-yellow-50 rounded-lg">
+                  <p class="text-gray-700 flex items-start">
+                    <span class="text-yellow-600 mr-2">
+                      <i class="ri-information-line ri-lg"></i>
+                    </span>
+                    <span>
+                      <span class="font-medium">Lưu ý:</span> Để được tính là đã tham dự, bạn cần điểm danh cả lúc vào và lúc ra (nếu có yêu cầu).
+                    </span>
+                  </p>
+                </div>
+              </div>
+            </div>
+            
+            <!-- Section 3.2 -->
+            <div>
+              <h3 class="text-xl font-semibold text-gray-900 mb-4">3.2 Nhận chứng chỉ tham dự</h3>
+              <div class="bg-white border border-gray-200 rounded-lg p-6 shadow-sm">
+                <p class="text-gray-700 mb-4">
+                  Sau khi tham gia đầy đủ sự kiện, bạn có thể nhận chứng chỉ tham dự (nếu có):
+                </p>
+                <ol class="list-decimal pl-5 space-y-4">
+                  <li class="text-gray-700">
+                    <span class="font-medium">Kiểm tra điểm danh:</span> Đảm bảo bạn đã điểm danh đầy đủ theo yêu cầu của sự kiện.
+                  </li>
+                  <li class="text-gray-700">
+                    <span class="font-medium">Truy cập "Chứng chỉ của tôi":</span> Sau 1-3 ngày kể từ khi sự kiện kết thúc, truy cập mục "Chứng chỉ" trong hồ sơ cá nhân.
+                  </li>
+                  <li class="text-gray-700">
+                    <span class="font-medium">Tải xuống chứng chỉ:</span> Nhấp vào "Tải xuống" để lưu chứng chỉ dưới dạng PDF.
+                  </li>
+                  <li class="text-gray-700">
+                    <span class="font-medium">Xác thực chứng chỉ:</span> Mỗi chứng chỉ có mã QR và mã xác thực duy nhất để kiểm tra tính xác thực.
+                  </li>
+                </ol>
+                
+                <div class="mt-4 p-4 bg-blue-50 rounded-lg">
+                  <p class="text-gray-700 flex items-start">
+                    <span class="text-blue-600 mr-2">
+                      <i class="ri-lightbulb-line ri-lg"></i>
+                    </span>
+                    <span>
+                      <span class="font-medium">Mẹo:</span> Bạn có thể chia sẻ chứng chỉ trực tiếp lên LinkedIn hoặc mạng xã hội khác từ hệ thống.
+                    </span>
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Troubleshooting -->
+          <div>
+            <h2 class="text-2xl font-bold text-gray-900 mb-6">4. Xử lý sự cố thường gặp</h2>
+            
+            <div class="bg-white border border-gray-200 rounded-lg p-6 shadow-sm">
+              <div class="space-y-6">
+                <!-- Issue 1 -->
+                <div>
+                  <h4 class="font-bold text-gray-900 mb-2">Không thể đăng nhập</h4>
+                  <ul class="list-disc pl-5 text-gray-700 space-y-2">
+                    <li>Kiểm tra email và mật khẩu đã nhập chính xác chưa</li>
+                    <li>Đảm bảo tài khoản đã được kích hoạt qua email xác minh</li>
+                    <li>Xóa cache và cookie của trình duyệt, sau đó thử lại</li>
+                    <li>Sử dụng tính năng "Quên mật khẩu" để đặt lại mật khẩu</li>
+                  </ul>
+                </div>
+
+                <!-- Issue 2 -->
+                <div>
+                  <h4 class="font-bold text-gray-900 mb-2">Không thể đăng ký sự kiện</h4>
+                  <ul class="list-disc pl-5 text-gray-700 space-y-2">
+                    <li>Kiểm tra xem sự kiện còn chỗ trống không</li>
+                    <li>Đảm bảo bạn đáp ứng đủ điều kiện tham gia (nếu có)</li>
+                    <li>Kiểm tra xem bạn đã đăng ký sự kiện này trước đó chưa</li>
+                    <li>Đăng xuất và đăng nhập lại, sau đó thử lại</li>
+                  </ul>
+                </div>
+
+                <!-- Issue 3 -->
+                <div>
+                  <h4 class="font-bold text-gray-900 mb-2">Không nhận được thông báo</h4>
+                  <ul class="list-disc pl-5 text-gray-700 space-y-2">
+                    <li>Kiểm tra thư mục spam/rác trong email của bạn</li>
+                    <li>Vào phần cài đặt tài khoản và đảm bảo đã bật thông báo</li>
+                    <li>Cập nhật thông tin liên hệ trong hồ sơ cá nhân</li>
+                    <li>Kiểm tra xem thiết bị của bạn có cho phép thông báo từ trang web không</li>
+                  </ul>
+                </div>
+
+                <!-- Issue 4 -->
+                <div>
+                  <h4 class="font-bold text-gray-900 mb-2">Vấn đề với việc điểm danh</h4>
+                  <ul class="list-disc pl-5 text-gray-700 space-y-2">
+                    <li>Đảm bảo đã có mặt trong thời gian quy định để điểm danh</li>
+                    <li>Kiểm tra kết nối internet khi sử dụng ứng dụng để điểm danh</li>
+                    <li>Đảm bảo camera hoạt động tốt khi quét mã QR</li>
+                    <li>Liên hệ trực tiếp với ban tổ chức tại sự kiện nếu gặp vấn đề</li>
+                  </ul>
+                </div>
+              </div>
+
+              <div class="mt-8 p-4 bg-primary/10 rounded-lg">
+                <h4 class="font-bold text-gray-900 mb-2">Cần thêm hỗ trợ?</h4>
+                <p class="text-gray-700 mb-4">
+                  Nếu bạn vẫn gặp vấn đề, vui lòng liên hệ với bộ phận hỗ trợ qua:
+                </p>
+                <ul class="list-disc pl-5 text-gray-700 space-y-2">
+                  <li>Email: support@buh.edu.vn</li>
+                  <li>Hotline: (028) 3829 1901 (Ext: 123)</li>
+                  <li>Trực tiếp: Phòng Công tác Sinh viên, Tầng 1, Tòa nhà A</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    
+    <!-- Footer -->
+    <footer class="bg-primary text-red-100 py-12">
+      <div class="container mx-auto px-4">
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+          <div>
+            <a href="#" class="text-2xl font-['Pacifico'] text-white mb-4 block"
+              >logo</a
+            >
+            <p class="mb-4">
+              Hệ thống Quản lý Sự kiện Đại học Ngân hàng TP.HCM - Nơi kết nối
+              sinh viên với các hoạt động học thuật và ngoại khóa.
+            </p>
+            <div class="flex space-x-4">
+              <a
+                href="#"
+                class="w-10 h-10 flex items-center justify-center bg-red-900/50 rounded-full hover:bg-white hover:text-primary transition-colors"
+              >
+                <i class="ri-facebook-fill text-white"></i>
+              </a>
+              <a
+                href="#"
+                class="w-10 h-10 flex items-center justify-center bg-red-900/50 rounded-full hover:bg-white hover:text-primary transition-colors"
+              >
+                <i class="ri-youtube-fill text-white"></i>
+              </a>
+              <a
+                href="#"
+                class="w-10 h-10 flex items-center justify-center bg-red-900/50 rounded-full hover:bg-white hover:text-primary transition-colors"
+              >
+                <i class="ri-instagram-fill text-white"></i>
+              </a>
+            </div>
+          </div>
+          <div>
+            <h3 class="text-white text-lg font-bold mb-4">Liên kết nhanh</h3>
+            <ul class="space-y-2">
+              <li>
+                <a href="#" class="hover:text-white transition-colors"
+                  >Trang chủ</a
+                >
+              </li>
+              <li>
+                <a href="#" class="hover:text-white transition-colors"
+                  >Sự kiện</a
+                >
+              </li>
+              <li>
+                <a href="#" class="hover:text-white transition-colors"
+                  >Đăng nhập</a
+                >
+              </li>
+              <li>
+                <a href="#" class="hover:text-white transition-colors"
+                  >Đăng ký</a
+                >
+              </li>
+              <li>
+                <a href="#" class="hover:text-white transition-colors"
+                  >Giới thiệu</a
+                >
+              </li>
+            </ul>
+          </div>
+          <div>
+            <h3 class="text-white text-lg font-bold mb-4">Hỗ trợ</h3>
+            <ul class="space-y-2">
+              <li>
+                <a href="#" class="hover:text-white transition-colors"
+                  >Hướng dẫn sử dụng</a
+                >
+              </li>
+              <li>
+                <a href="#" class="hover:text-white transition-colors"
+                  >Câu hỏi thường gặp</a
+                >
+              </li>
+              <li>
+                <a href="#" class="hover:text-white transition-colors"
+                  >Chính sách bảo mật</a
+                >
+              </li>
+              <li>
+                <a href="#" class="hover:text-white transition-colors"
+                  >Điều khoản sử dụng</a
+                >
+              </li>
+              <li>
+                <a href="#" class="hover:text-white transition-colors"
+                  >Liên hệ hỗ trợ</a
+                >
+              </li>
+            </ul>
+          </div>
+          <div>
+            <h3 class="text-white text-lg font-bold mb-4">Liên hệ</h3>
+            <ul class="space-y-2">
+              <li class="flex items-start">
+                <div class="w-5 h-5 flex items-center justify-center mr-2 mt-1">
+                  <i class="ri-map-pin-line"></i>
+                </div>
+                <span
+                  >36 Tôn Thất Đạm, Phường Nguyễn Thái Bình, Quận 1,
+                  TP.HCM</span
+                >
+              </li>
+              <li class="flex items-center">
+                <div class="w-5 h-5 flex items-center justify-center mr-2">
+                  <i class="ri-phone-line"></i>
+                </div>
+                <span>(028) 3829 1901</span>
+              </li>
+              <li class="flex items-center">
+                <div class="w-5 h-5 flex items-center justify-center mr-2">
+                  <i class="ri-mail-line"></i>
+                </div>
+                <span>info@buh.edu.vn</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="border-t border-red-900/30 mt-10 pt-6 text-center">
+          <p>
+            &copy; 2025 Đại học Ngân hàng TP.HCM. Tất cả quyền được bảo lưu.
+          </p>
+        </div>
+      </div>
+    </footer>
+    
+    <script>
+      // Mobile menu toggle functionality
+      document.addEventListener("DOMContentLoaded", function () {
+        const menuButton = document.querySelector("button.md\\:hidden");
+        const mobileMenu = document.createElement("div");
+        mobileMenu.className =
+          "fixed inset-0 bg-primary z-50 transform translate-x-full transition-transform duration-300 ease-in-out";
+        mobileMenu.innerHTML = `
+        <div class="p-4 flex justify-between items-center border-b border-red-900/30">
+          <a href="#" class="text-2xl font-['Pacifico'] text-white">logo</a>
+          <button class="w-10 h-10 flex items-center justify-center text-white">
+            <i class="ri-close-line ri-lg"></i>
+          </button>
+        </div>
+        <nav class="p-4">
+          <ul class="space-y-4">
+            <li><a href="index.html" class="text-red-100 block py-2 hover:text-white">Trang chủ</a></li>
+            <li><a href="events.html" class="text-red-100 block py-2 hover:text-white">Sự kiện</a></li>
+            <li><a href="news.html" class="text-red-100 block py-2 hover:text-white">Giới thiệu</a></li>
+            <li><a href="contact.html" class="text-red-100 block py-2 hover:text-white">Liên hệ</a></li>
+            <li class="pt-4 border-t border-red-900/30">
+              <a href="login.html" class="text-white font-medium block py-2">Đăng nhập</a>
+            </li>
+            <li>
+              <a href="register.html" class="bg-white text-primary px-4 py-2 !rounded-button whitespace-nowrap block text-center mt-2">Đăng ký</a>
+            </li>
+          </ul>
+        </nav>
+        `;
+        document.body.appendChild(mobileMenu);
+        
+        // Open mobile menu
+        menuButton.addEventListener("click", function () {
+          mobileMenu.classList.remove("translate-x-full");
+        });
+        
+        // Close mobile menu
+        mobileMenu.querySelector("button").addEventListener("click", function () {
+          mobileMenu.classList.add("translate-x-full");
+        });
+      });
+    </script>
+  </body>
+</html> 

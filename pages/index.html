@@ -1,335 +1,1431 @@
 <!DOCTYPE html>
 <html lang="vi">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Trang chủ - Đại Học Ngân Hàng TP.HCM</title>
-    <link rel="icon" href="favicon.svg" type="image/svg+xml">
-    <!-- Global styles -->
-    <link rel="stylesheet" href="../css/style.css">
-    <!-- Component styles -->
-    <link rel="stylesheet" href="../css/components/header.css">
-    <link rel="stylesheet" href="../css/components/footer.css">
-    <!-- Page specific styles -->
-    <link rel="stylesheet" href="../css/variables.css">
-    <link rel="stylesheet" href="../css/particles.css">
-    <link rel="stylesheet" href="../css/home.css">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#8B0000" />
+    <title>Đại học Ngân hàng TP.HCM - Hệ thống Quản lý Sự kiện</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Pacifico&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.tailwindcss.com/3.4.16"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              primary: "#8B0000",
+              secondary: "#FF5252",
+            },
+            borderRadius: {
+              none: "0px",
+              sm: "4px",
+              DEFAULT: "8px",
+              md: "12px",
+              lg: "16px",
+              xl: "20px",
+              "2xl": "24px",
+              "3xl": "32px",
+              full: "9999px",
+              button: "8px",
+            },
+            fontFamily: {
+              sans: ['Inter', 'sans-serif'],
+              pacifico: ['Pacifico', 'cursive'],
+            },
+            keyframes: {
+              'fade-in-up': {
+                '0%': {
+                  opacity: '0',
+                  transform: 'translateY(20px)'
+                },
+                '100%': {
+                  opacity: '1',
+                  transform: 'translateY(0)'
+                },
+              },
+              'fade-in': {
+                '0%': {
+                  opacity: '0'
+                },
+                '100%': {
+                  opacity: '1'
+                },
+              },
+              'fade-in-left': {
+                '0%': {
+                  opacity: '0',
+                  transform: 'translateX(-20px)'
+                },
+                '100%': {
+                  opacity: '1',
+                  transform: 'translateX(0)'
+                },
+              },
+              'fade-in-right': {
+                '0%': {
+                  opacity: '0',
+                  transform: 'translateX(20px)'
+                },
+                '100%': {
+                  opacity: '1',
+                  transform: 'translateX(0)'
+                },
+              },
+              'scale-in': {
+                '0%': {
+                  opacity: '0',
+                  transform: 'scale(0.95)'
+                },
+                '100%': {
+                  opacity: '1',
+                  transform: 'scale(1)'
+                },
+              },
+              'bounce-subtle': {
+                '0%, 100%': {
+                  transform: 'translateY(0)'
+                },
+                '50%': {
+                  transform: 'translateY(-5px)'
+                },
+              },
+              'pulse-subtle': {
+                '0%, 100%': {
+                  opacity: '1'
+                },
+                '50%': {
+                  opacity: '0.85'
+                },
+              },
+              'spin-slow': {
+                '0%': {
+                  transform: 'rotate(0deg)'
+                },
+                '100%': {
+                  transform: 'rotate(360deg)'
+                },
+              }
+            },
+            animation: {
+              'fade-in-up': 'fade-in-up 0.8s ease-out forwards',
+              'fade-in': 'fade-in 1s ease-out forwards',
+              'fade-in-left': 'fade-in-left 0.8s ease-out forwards',
+              'fade-in-right': 'fade-in-right 0.8s ease-out forwards',
+              'scale-in': 'scale-in 0.6s ease-out forwards',
+              'bounce-subtle': 'bounce-subtle 2s ease-in-out infinite',
+              'pulse-subtle': 'pulse-subtle 3s ease-in-out infinite',
+              'spin-slow': 'spin-slow 8s linear infinite',
+            }
+          },
+        },
+      };
+    </script>
+    <style>
+      :where([class^="ri-"])::before { content: "\f3c2"; }
+      .hero-gradient {
+        background: linear-gradient(90deg, rgba(255,255,255,1) 0%, rgba(255,255,255,0.9) 50%, rgba(255,255,255,0) 100%);
+      }
+      /* Smooth scroll behavior */
+      html {
+        scroll-behavior: smooth;
+      }
+      /* Improved focus states for accessibility */
+      a:focus, button:focus {
+        outline: 2px solid #FF5252;
+        outline-offset: 2px;
+      }
+      
+      /* Hero slider dot indicator active state */
+      .slide-indicator.active {
+        box-shadow: 0 0 0 2px rgba(255,255,255,0.5);
+      }
+      
+      /* Delay animation timing for staggered animations */
+      .animate-fade-in-up {
+        animation-delay: 300ms;
+      }
+      .delay-100 {
+        animation-delay: 100ms;
+      }
+      .delay-200 {
+        animation-delay: 200ms;
+      }
+      .delay-300 {
+        animation-delay: 300ms;
+      }
+      .delay-400 {
+        animation-delay: 400ms;
+      }
+      .delay-500 {
+        animation-delay: 500ms;
+      }
+      
+      /* Reveal animations on scroll */
+      .reveal {
+        opacity: 0;
+        transform: translateY(20px);
+        transition: opacity 0.8s ease, transform 0.8s ease;
+      }
+      .reveal.active {
+        opacity: 1;
+        transform: translateY(0);
+      }
+      .reveal-left {
+        opacity: 0;
+        transform: translateX(-20px);
+        transition: opacity 0.8s ease, transform 0.8s ease;
+      }
+      .reveal-left.active {
+        opacity: 1;
+        transform: translateX(0);
+      }
+      .reveal-right {
+        opacity: 0;
+        transform: translateX(20px);
+        transition: opacity 0.8s ease, transform 0.8s ease;
+      }
+      .reveal-right.active {
+        opacity: 1;
+        transform: translateX(0);
+      }
+      .reveal-scale {
+        opacity: 0;
+        transform: scale(0.95);
+        transition: opacity 0.6s ease, transform 0.6s ease;
+      }
+      .reveal-scale.active {
+        opacity: 1;
+        transform: scale(1);
+      }
+      
+      /* Hide scrollbar for carousel */
+      .scrollbar-hide {
+        -ms-overflow-style: none;  /* IE and Edge */
+        scrollbar-width: none;  /* Firefox */
+      }
+      .scrollbar-hide::-webkit-scrollbar {
+        display: none; /* Chrome, Safari and Opera */
+      }
+      
+      /* Welcome banner styles */
+      .welcome-tag {
+        position: relative;
+        overflow: hidden;
+      }
+      .welcome-tag:after {
+        content: '';
+        position: absolute;
+        top: 0;
+        right: -10px;
+        width: 0;
+        height: 0;
+        border-style: solid;
+        border-width: 0 10px 10px 0;
+        border-color: transparent #8B0000 transparent transparent;
+      }
+    </style>
+  </head>
+  <body class="bg-gray-50">
+    <!-- Header -->
+    <header class="bg-primary shadow-md sticky top-0 z-50">
+      <div
+        class="container mx-auto px-4 py-2 flex items-center justify-between"
+      >
+        <a href="index.html" class="text-2xl font-pacifico text-white flex items-center">
+            <img src="../images/logo/logo-white-vertical.png" alt="Đại học Ngân hàng TP.HCM logo" class="w-12 h-12 md:w-16 md:h-16">
+        </a>
+        <nav class="hidden md:flex items-center space-x-8" aria-label="Main navigation">
+          <a
+            href="index.html"
+            class="text-white font-medium hover:text-red-200 transition-colors py-2"
+            aria-current="page"
+            >Trang chủ</a
+          >
+          <a href="events.html" class="text-red-100 hover:text-white transition-colors py-2"
+            >Sự kiện</a
+          >
+          <a href="news.html" class="text-red-100 hover:text-white transition-colors py-2"
+            >Giới thiệu</a
+          >
+          <a href="contact.html" class="text-red-100 hover:text-white transition-colors py-2"
+            >Liên hệ</a
+          >
+        </nav>
+        <div class="flex items-center space-x-4">
+          <a href="login.html" class="text-white font-medium hover:underline"
+            >Đăng nhập</a
+          >
+          <a
+            href="register.html"
+            class="bg-white text-primary px-4 py-2 !rounded-button whitespace-nowrap hover:bg-red-50 transition-colors shadow-sm"
+            >Đăng ký</a
+          >
+        </div>
+        <button
+          class="md:hidden w-10 h-10 flex items-center justify-center text-white"
+          aria-label="Mở menu"
+          aria-expanded="false"
+          aria-controls="mobile-menu"
+        >
+          <i class="ri-menu-line ri-lg"></i>
+        </button>
+      </div>
+    </header>
+    <!-- Hero Section -->
+    <section class="relative overflow-hidden min-h-[92vh]">
+      <!-- Hero Slider -->
+      <div id="hero-slider" class="absolute inset-0 w-full h-full z-0">
+        <!-- Slide 1 -->
+        <div class="slide absolute inset-0 opacity-100 transition-opacity duration-1000 ease-in-out" 
+             style="background-image: url('https://readdy.ai/api/search-image?query=A%20modern%20university%20campus%20with%20beautiful%20architecture%2C%20students%20walking%20around%2C%20a%20peaceful%20atmosphere%20with%20trees%20and%20greenery%2C%20bright%20daylight%2C%20professional%20photography%20style%2C%20clean%20background%2C%20no%20people%20in%20focus&width=1600&height=800&seq=hero1&orientation=landscape'); background-size: cover; background-position: center;">
+          <div class="absolute inset-0 bg-black opacity-30"></div>
+        </div>
+        <!-- Slide 2 -->
+        <div class="slide absolute inset-0 opacity-0 transition-opacity duration-1000 ease-in-out" 
+             style="background-image: url('https://readdy.ai/api/search-image?query=University%20students%20attending%20a%20conference%20or%20event%2C%20large%20auditorium%20filled%20with%20attendees%2C%20professional%20setting%2C%20elegant%20venue%2C%20academic%20atmosphere&width=1600&height=800&seq=hero2&orientation=landscape'); background-size: cover; background-position: center;">
+          <div class="absolute inset-0 bg-black opacity-30"></div>
+        </div>
+        <!-- Slide 3 -->
+        <div class="slide absolute inset-0 opacity-0 transition-opacity duration-1000 ease-in-out" 
+             style="background-image: url('https://readdy.ai/api/search-image?query=Modern%20university%20library%20with%20students%20studying%2C%20bright%20open%20space%2C%20high%20ceilings%2C%20bookshelves%2C%20digital%20resources%2C%20collaborative%20learning%20environment&width=1600&height=800&seq=hero3&orientation=landscape'); background-size: cover; background-position: center;">
+          <div class="absolute inset-0 bg-black opacity-30"></div>
+        </div>
+      </div>
+      
+      <!-- Slider Navigation -->
+      <div class="absolute bottom-4 left-0 right-0 z-20 flex justify-center space-x-2">
+        <button class="w-3 h-3 rounded-full bg-white hover:bg-white focus:bg-white transition-colors duration-300 slide-indicator active" data-slide="0" aria-label="Chuyển đến slide 1"></button>
+        <button class="w-3 h-3 rounded-full bg-white/50 hover:bg-white focus:bg-white transition-colors duration-300 slide-indicator" data-slide="1" aria-label="Chuyển đến slide 2"></button>
+        <button class="w-3 h-3 rounded-full bg-white/50 hover:bg-white focus:bg-white transition-colors duration-300 slide-indicator" data-slide="2" aria-label="Chuyển đến slide 3"></button>
+      </div>
+      
+      <!-- Slider Controls -->
+      <button class="absolute top-1/2 left-4 transform -translate-y-1/2 z-20 w-10 h-10 rounded-full bg-white/30 text-white hover:bg-white/50 transition-all duration-300 flex items-center justify-center focus:outline-none focus:ring-2 focus:ring-white/50" id="prev-slide" aria-label="Slide trước">
+        <i class="ri-arrow-left-s-line text-xl"></i>
+      </button>
+      <button class="absolute top-1/2 right-4 transform -translate-y-1/2 z-20 w-10 h-10 rounded-full bg-white/30 text-white hover:bg-white/50 transition-all duration-300 flex items-center justify-center focus:outline-none focus:ring-2 focus:ring-white/50" id="next-slide" aria-label="Slide tiếp theo">
+        <i class="ri-arrow-right-s-line text-xl"></i>
+      </button>
 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <meta name="description" content="Trang chủ Đại học Ngân hàng TP.HCM">
-</head>
-<body>
-    <!-- Header Component -->
-    <div id="header-component"></div>
-
-    <!-- Main Content -->
-    <div class="main-content">
-        <!-- Hero Section -->
-        <section class="hero-section">
-            <!-- Particles.js container -->
-            <div id="particles-js"></div>
-            <div class="hero-container">
-                <div class="hero-content">
-                    <h1>Hội thảo khoa học "Tài chính và<br>Ngân hàng trong kỷ nguyên số"</h1>
-                    <div class="hero-buttons">
-                        <a href="#" class="btn btn-primary">Đăng ký tham gia</a>
-                        <a href="#" class="btn btn-outline-light">Tìm hiểu</a>
-                    </div>
-                </div>
+      <!-- Hero Content -->
+      <div class="relative z-10 container mx-auto px-4 py-16 md:py-32 flex flex-col md:flex-row items-center min-h-[70vh] justify-center md:justify-start">
+        <div class="w-full md:w-1/2 hero-gradient p-6 md:p-8 rounded-lg backdrop-blur-sm bg-white/80 animate-fade-in-up">
+          <span class="inline-block px-3 py-1 bg-primary/10 text-primary text-sm font-medium rounded-full mb-4 animate-fade-in delay-100">Chào mừng sinh viên</span>
+          <h1 class="text-3xl md:text-5xl font-bold text-gray-900 mb-4 md:mb-6 opacity-0 animate-fade-in delay-100">
+            Khám Phá và Tham Gia Sự Kiện Sinh Viên
+          </h1>
+          <p class="text-base md:text-lg text-gray-700 mb-6 md:mb-8 opacity-0 animate-fade-in delay-300">
+            Trải nghiệm đa dạng các hoạt động học thuật, văn hóa và hướng nghiệp. 
+            Kết nối cùng cộng đồng sinh viên Đại học Ngân hàng TP.HCM.
+          </p>
+          <div class="flex flex-col sm:flex-row gap-4 opacity-0 animate-fade-in delay-500">
+            <a
+              href="events.html"
+              class="bg-primary text-white px-6 py-3 !rounded-button whitespace-nowrap font-medium hover:bg-primary/90 transition-all text-center shadow-md hover:shadow-lg hover:-translate-y-1"
+              >Khám phá sự kiện</a
+            >
+            <a
+              href="#how-it-works"
+              class="bg-white text-primary border border-primary px-6 py-3 !rounded-button whitespace-nowrap font-medium hover:bg-gray-50 transition-all text-center shadow-sm hover:shadow-md hover:-translate-y-1"
+              >Tìm hiểu thêm</a
+            >
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- Featured Events -->
+    <section class="py-12 md:py-16 bg-white">
+      <div class="container mx-auto px-4">
+        <div class="text-center mb-10 md:mb-12 reveal">
+          <h2 class="text-2xl md:text-3xl font-bold text-gray-900 mb-3 md:mb-4">Sự kiện nổi bật</h2>
+          <p class="text-gray-600 max-w-2xl mx-auto">
+            Khám phá những sự kiện hấp dẫn đang diễn ra tại trường Đại học Ngân hàng TP.HCM
+          </p>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+          <!-- Event Card 1 -->
+          <div
+            class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1 group border border-gray-100 reveal-scale"
+            style="transition-delay: 100ms;"
+          >
+            <div class="h-48 overflow-hidden relative">
+              <img
+                src="https://readdy.ai/api/search-image?query=A%20professional%20conference%20setup%20with%20students%20in%20formal%20attire%2C%20presentation%20screens%2C%20university%20branding%2C%20business%20atmosphere%2C%20clean%20modern%20venue&width=600&height=400&seq=event1&orientation=landscape"
+                alt="Hội thảo Ngân hàng số"
+                class="w-full h-full object-cover object-center transition-transform duration-500 group-hover:scale-105"
+                loading="lazy"
+              />
+              <div class="absolute top-0 right-0 m-3">
+                <span class="text-xs font-medium text-white bg-primary/90 px-2 py-1 rounded-full">15/04/2025</span>
+              </div>
             </div>
-        </section>
-
-        <!-- School Info Section -->
-        <section class="school-info-section">
-            <div class="container">
-                <div class="school-card">
-                    <div class="school-logo">
-                        <img src="images\logo\logo.png" alt="HUB Logo" class="logo-img">
-                    </div>
-                    <div class="school-content">
-                        <h2>Trường Đại học Ngân hàng TP.HCM</h2>
-                        <p>Trường Đại học Ngân hàng TP.HCM (Banking University of Ho Chi Minh City) là một trường đại học công lập chuyên ngành về tài chính, ngân hàng tại Việt Nam. Ngôi trường này đã có bề dày lịch sử hơn 45 năm đào tạo và phát triển, đã đào tạo ra nhiều thế hệ sinh viên tài năng cho đất nước.</p>
-                        <div class="school-buttons">
-                            <a href="#" class="btn btn-primary">Tìm hiểu thêm</a>
-                            <a href="#" class="btn btn-outline">Xem video</a>
-                        </div>
-                    </div>
+            <div class="p-6">
+              <div class="mb-3">
+                <span
+                  class="text-xs font-medium text-primary bg-blue-50 px-2 py-1 rounded-full"
+                  >Hội thảo</span
+                >
+              </div>
+              <h3 class="text-xl font-bold text-gray-900 mb-2 group-hover:text-primary transition-colors">
+                Hội thảo Ngân hàng số và Tương lai Thanh toán
+              </h3>
+              <p class="text-gray-600 mb-4 line-clamp-2">
+                Tìm hiểu về xu hướng công nghệ mới nhất trong lĩnh vực ngân hàng
+                và các giải pháp thanh toán tương lai.
+              </p>
+              <div class="flex items-center justify-between">
+                <div class="flex items-center text-gray-500">
+                  <div class="w-5 h-5 flex items-center justify-center mr-1">
+                    <i class="ri-map-pin-line"></i>
+                  </div>
+                  <span class="text-sm">Hội trường A</span>
                 </div>
+                <a href="#" class="text-primary font-medium hover:underline flex items-center group-hover:text-secondary transition-colors"
+                  >Xem chi tiết <i class="ri-arrow-right-line ml-1 group-hover:translate-x-1 transition-transform"></i></a
+                >
+              </div>
             </div>
-        </section>
-
-        <!-- Statistics Section -->
-        <section class="stats-section">
-            <div class="container">
-                <div class="stats-grid">
-                    <div class="stat-item">
-                        <h3>1976</h3>
-                        <p>Năm thành lập</p>
-                    </div>
-                    <div class="stat-item">
-                        <h3>51+</h3>
-                        <p>Năm kinh nghiệm</p>
-                    </div>
-                    <div class="stat-item">
-                        <h3>5+</h3>
-                        <p>Sự kiện đã tổ chức</p>
-                    </div>
-                    <div class="stat-item">
-                        <h3>0+</h3>
-                        <p>Sinh viên</p>
-                    </div>
-                </div>
+          </div>
+          <!-- Event Card 2 -->
+          <div
+            class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1 group border border-gray-100 reveal-scale"
+            style="transition-delay: 300ms;"
+          >
+            <div class="h-48 overflow-hidden relative">
+              <img
+                src="https://readdy.ai/api/search-image?query=University%20job%20fair%20with%20company%20booths%2C%20students%20in%20smart%20casual%20attire%2C%20networking%2C%20professional%20atmosphere%2C%20bright%20indoor%20venue%20with%20university%20banners&width=600&height=400&seq=event2&orientation=landscape"
+                alt="Ngày hội việc làm"
+                class="w-full h-full object-cover object-center transition-transform duration-500 group-hover:scale-105"
+                loading="lazy"
+              />
+              <div class="absolute top-0 right-0 m-3">
+                <span class="text-xs font-medium text-white bg-primary/90 px-2 py-1 rounded-full">20/04/2025</span>
+              </div>
             </div>
-        </section>
-
-        <!-- Countdown Section -->
-        <section class="countdown-section">
-            <div class="container countdown-container">
-                <h2>Hội thảo khoa học "Tài chính và Ngân hàng trong kỷ nguyên số" sẽ diễn ra sau</h2>
-                <div class="countdown-timer">
-                    <div class="countdown-item">
-                        <span id="days">04</span>
-                        <p>Ngày</p>
-                    </div>
-                    <div class="countdown-item">
-                        <span id="hours">16</span>
-                        <p>Giờ</p>
-                    </div>
-                    <div class="countdown-item">
-                        <span id="minutes">55</span>
-                        <p>Phút</p>
-                    </div>
-                    <div class="countdown-item">
-                        <span id="seconds">03</span>
-                        <p>Giây</p>
-                    </div>
+            <div class="p-6">
+              <div class="mb-3">
+                <span
+                  class="text-xs font-medium text-primary bg-blue-50 px-2 py-1 rounded-full"
+                  >Tuyển dụng</span
+                >
+              </div>
+              <h3 class="text-xl font-bold text-gray-900 mb-2 group-hover:text-primary transition-colors">
+                Ngày hội Việc làm Ngành Tài chính - Ngân hàng 2025
+              </h3>
+              <p class="text-gray-600 mb-4 line-clamp-2">
+                Cơ hội gặp gỡ và phỏng vấn trực tiếp với hơn 50 doanh nghiệp
+                hàng đầu trong lĩnh vực tài chính - ngân hàng.
+              </p>
+              <div class="flex items-center justify-between">
+                <div class="flex items-center text-gray-500">
+                  <div class="w-5 h-5 flex items-center justify-center mr-1">
+                    <i class="ri-map-pin-line"></i>
+                  </div>
+                  <span class="text-sm">Sân trường</span>
                 </div>
-                <a href="#" class="btn btn-primary">Đăng ký tham gia</a>
+                <a href="#" class="text-primary font-medium hover:underline flex items-center group-hover:text-secondary transition-colors"
+                  >Xem chi tiết <i class="ri-arrow-right-line ml-1 group-hover:translate-x-1 transition-transform"></i></a
+                >
+              </div>
             </div>
-        </section>
-
-        <!-- Featured Events -->
-        <section class="featured-events">
-            <div class="container">
-                <h2 class="section-title">Sự Kiện Sắp Diễn Ra</h2>
-                <div class="events-grid">
-                    <!-- Event Card 1 -->
-                    <div class="event-card">
-                        <div class="event-card__image">
-                            <img src="images\logo\logo.png" alt="Hội thảo khoa học">
-                        </div>
-                        <div class="event-card__content">
-                            <div class="event-card__category">
-                                <span><i class="fas fa-graduation-cap"></i> Hội thảo khoa học</span>
-                                <div class="event-date">
-                                    <span class="day">15</span>
-                                    <span class="month">03/2024</span>
-                                </div>
-                            </div>
-                            <h3 class="event-card__title">Hội thảo khoa học "Tài chính và Ngân hàng trong kỷ nguyên số"</h3>
-                            <p class="event-card__description">Hội thảo tập trung vào các vấn đề tài chính và ngân hàng trong thời đại số hóa, với sự tham gia của các chuyên gia hàng đầu trong lĩnh vực.</p>
-                            <div class="event-card__meta">
-                                <span><i class="far fa-clock"></i> 08:00 - 17:00</span>
-                                <span><i class="fas fa-map-marker-alt"></i> Hội trường A</span>
-                            </div>
-                            <div class="event-card__footer">
-                                <a href="#" class="btn btn-primary">Tham gia ngay</a>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Event Card 2 -->
-                    <div class="event-card">
-                        <div class="event-card__image">
-                            <img src="images\logo\logo.png" alt="Ngày hội việc làm">
-                        </div>
-                        <div class="event-card__content">
-                            <div class="event-card__category">
-                                <span><i class="fas fa-briefcase"></i> Ngày hội việc làm</span>
-                                <div class="event-date">
-                                    <span class="day">20</span>
-                                    <span class="month">03/2024</span>
-                                </div>
-                            </div>
-                            <h3 class="event-card__title">Ngày hội việc làm lần thứ 13 - 2024</h3>
-                            <p class="event-card__description">Cơ hội việc làm hấp dẫn từ các doanh nghiệp hàng đầu trong lĩnh vực tài chính, ngân hàng và công nghệ.</p>
-                            <div class="event-card__meta">
-                                <span><i class="far fa-clock"></i> 08:30 - 16:00</span>
-                                <span><i class="fas fa-map-marker-alt"></i> Sảnh A</span>
-                            </div>
-                            <div class="event-card__footer">
-                                <a href="#" class="btn btn-primary">Tham gia ngay</a>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Event Card 3 -->
-                    <div class="event-card">
-                        <div class="event-card__image">
-                            <img src="images\logo\logo.png" alt="Workshop">
-                        </div>
-                        <div class="event-card__content">
-                            <div class="event-card__category">
-                                <span><i class="fas fa-chalkboard-teacher"></i> Workshop</span>
-                                <div class="event-date">
-                                    <span class="day">25</span>
-                                    <span class="month">03/2024</span>
-                                </div>
-                            </div>
-                            <h3 class="event-card__title">Workshop "Kỹ năng phân tích thị trường trong lĩnh vực tài chính"</h3>
-                            <p class="event-card__description">Chương trình đào tạo kỹ năng chuyên sâu về phân tích thị trường tài chính với các chuyên gia hàng đầu.</p>
-                            <div class="event-card__meta">
-                                <span><i class="far fa-clock"></i> 14:00 - 17:00</span>
-                                <span><i class="fas fa-map-marker-alt"></i> Phòng 2.1</span>
-                            </div>
-                            <div class="event-card__footer">
-                                <a href="#" class="btn btn-primary">Tham gia ngay</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="text-center mt-4">
-                    <a href="#" class="btn btn-outline">Xem tất cả sự kiện</a>
-                </div>
+          </div>
+          <!-- Event Card 3 -->
+          <div
+            class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1 group border border-gray-100 reveal-scale"
+            style="transition-delay: 500ms;"
+          >
+            <div class="h-48 overflow-hidden relative">
+              <img
+                src="https://readdy.ai/api/search-image?query=University%20cultural%20festival%20with%20student%20performances%2C%20colorful%20decorations%2C%20outdoor%20stage%2C%20audience%20watching%2C%20vibrant%20atmosphere%20on%20campus&width=600&height=400&seq=event3&orientation=landscape"
+                alt="Ngày hội văn hóa"
+                class="w-full h-full object-cover object-center transition-transform duration-500 group-hover:scale-105"
+                loading="lazy"
+              />
+              <div class="absolute top-0 right-0 m-3">
+                <span class="text-xs font-medium text-white bg-primary/90 px-2 py-1 rounded-full">05/05/2025</span>
+              </div>
             </div>
-        </section>
-
-        <!-- About Section -->
-        <section class="about">
-            <div class="container">
-                <h2 class="section-title">Về chúng tôi</h2>
-                <div class="about-content">
-                    <div class="about-image">
-                        <img src="images\logo\logo.png" alt="Về chúng tôi">
-                    </div>
-                    <div class="about-text">
-                        <h3>HUB - Cộng đồng tài chính ngân hàng</h3>
-                        <p>HUB là nơi kết nối sinh viên, giảng viên và các chuyên gia trong lĩnh vực tài chính ngân hàng. Chúng tôi cung cấp nền tảng để chia sẻ kiến thức, kinh nghiệm và cơ hội phát triển nghề nghiệp.</p>
-                        <ul class="about-features">
-                            <li><i class="fas fa-check-circle"></i> Kết nối với chuyên gia hàng đầu</li>
-                            <li><i class="fas fa-check-circle"></i> Cơ hội thực tập và việc làm</li>
-                            <li><i class="fas fa-check-circle"></i> Chia sẻ kiến thức và kinh nghiệm</li>
-                        </ul>
-                        <a href="#" class="btn btn-primary">Tìm hiểu thêm</a>
-                    </div>
+            <div class="p-6">
+              <div class="mb-3">
+                <span
+                  class="text-xs font-medium text-primary bg-blue-50 px-2 py-1 rounded-full"
+                  >Văn hóa</span
+                >
+              </div>
+              <h3 class="text-xl font-bold text-gray-900 mb-2 group-hover:text-primary transition-colors">
+                Ngày hội Văn hóa Sinh viên Đại học Ngân hàng
+              </h3>
+              <p class="text-gray-600 mb-4 line-clamp-2">
+                Sự kiện thường niên với nhiều hoạt động văn hóa nghệ thuật đặc
+                sắc, giao lưu giữa các khoa và câu lạc bộ.
+              </p>
+              <div class="flex items-center justify-between">
+                <div class="flex items-center text-gray-500">
+                  <div class="w-5 h-5 flex items-center justify-center mr-1">
+                    <i class="ri-map-pin-line"></i>
+                  </div>
+                  <span class="text-sm">Khu liên hợp thể thao</span>
                 </div>
+                <a href="#" class="text-primary font-medium hover:underline flex items-center group-hover:text-secondary transition-colors"
+                  >Xem chi tiết <i class="ri-arrow-right-line ml-1 group-hover:translate-x-1 transition-transform"></i></a
+                >
+              </div>
             </div>
-        </section>
-
-        <!-- Quick Links Section -->
-        <section class="quick-links">
-            <div class="container">
-                <h2 class="section-title">Liên kết nhanh</h2>
-                <div class="quick-links-grid">
-                    <a href="#" class="quick-link-card">
-                        <div class="quick-link-icon">
-                            <i class="fas fa-calendar-alt"></i>
-                        </div>
-                        <h3>Lịch học</h3>
-                        <p>Xem lịch học và lịch thi của các lớp</p>
+          </div>
+        </div>
+        <div class="text-center mt-8 md:mt-10 reveal" style="transition-delay: 700ms;">
+          <a
+            href="events.html"
+            class="inline-flex items-center text-primary font-medium hover:text-secondary transition-colors hover:underline group"
+          >
+            Xem tất cả sự kiện
+            <div class="w-5 h-5 flex items-center justify-center ml-1 group-hover:translate-x-1 transition-transform">
+              <i class="ri-arrow-right-line"></i>
+            </div>
+          </a>
+        </div>
+      </div>
+    </section>
+    
+    <!-- Special Welcome Section -->
+    <section class="py-12 md:py-16 bg-gradient-to-b from-white to-gray-50 overflow-hidden relative">
+      <div class="absolute -right-32 -top-32 w-64 h-64 bg-primary rounded-full opacity-5"></div>
+      <div class="absolute -left-32 -bottom-32 w-64 h-64 bg-primary rounded-full opacity-5"></div>
+      
+      <div class="container mx-auto px-4">
+        <div class="text-center mb-10 md:mb-12 reveal">
+          <span class="inline-block px-3 py-1 bg-green-50 text-green-600 text-sm font-medium rounded-full mb-2">Đặc biệt</span>
+          <h2 class="text-2xl md:text-3xl font-bold text-gray-900 mb-4">
+            Chào mừng sinh viên với các sự kiện mới!
+          </h2>
+          <p class="text-gray-600 max-w-2xl mx-auto">
+            Khám phá các sự kiện đặc biệt dành riêng cho sinh viên Đại học Ngân hàng TP.HCM
+          </p>
+        </div>
+        
+        <div class="relative overflow-hidden mx-auto max-w-6xl px-4 reveal">
+          <div class="flex flex-nowrap space-x-6 py-4 overflow-x-auto scrollbar-hide pb-8 px-2">
+            <!-- Special Event Card 1 -->
+            <div class="flex-none w-full sm:w-1/2 lg:w-1/3 min-w-[280px] max-w-[400px] relative group">
+              <div class="bg-white rounded-xl overflow-hidden shadow-lg group-hover:shadow-xl transition-all duration-300 h-full flex flex-col">
+                <div class="relative h-48 overflow-hidden">
+                  <img 
+                    src="https://readdy.ai/api/search-image?query=University%20welcome%20ceremony%20with%20students%20celebrating%2C%20confetti%2C%20bright%20colors%2C%20festive%20atmosphere%2C%20happy%20students%20in%20graduation%20caps%2C%20university%20backdrop&width=600&height=400&seq=welcome1&orientation=landscape" 
+                    alt="Lễ chào đón tân sinh viên" 
+                    class="w-full h-full object-cover object-center transition-transform duration-500 group-hover:scale-105"
+                    loading="lazy"
+                  />
+                  <div class="absolute top-0 left-0 m-4">
+                    <span class="bg-red-500 text-white text-xs font-bold px-3 py-1.5 rounded-lg uppercase tracking-wider">
+                      Nổi bật
+                    </span>
+                  </div>
+                </div>
+                <div class="p-5 flex flex-col flex-grow">
+                  <div class="flex justify-between items-center mb-3">
+                    <span class="text-xs font-semibold text-primary bg-blue-50 px-2 py-1 rounded-full">Sự kiện đặc biệt</span>
+                    <span class="text-xs text-gray-500">10/09/2025</span>
+                  </div>
+                  <h3 class="text-xl font-bold text-gray-900 mb-3 group-hover:text-primary transition-colors">Lễ chào đón tân sinh viên 2025</h3>
+                  <p class="text-gray-600 mb-4 text-sm flex-grow">Chào mừng tân sinh viên gia nhập đại gia đình Đại học Ngân hàng với nhiều hoạt động thú vị và quà tặng hấp dẫn.</p>
+                  <div class="flex justify-between items-center mt-auto pt-3 border-t border-gray-100">
+                    <div class="flex items-center text-gray-500 text-sm">
+                      <i class="ri-map-pin-line mr-1"></i>
+                      <span>Hội trường chính</span>
+                    </div>
+                    <a href="#" class="text-primary font-medium flex items-center hover:underline group-hover:text-secondary transition-colors text-sm">
+                      Chi tiết 
+                      <i class="ri-arrow-right-line ml-1 group-hover:translate-x-1 transition-transform"></i>
                     </a>
-                    <a href="#" class="quick-link-card">
-                        <div class="quick-link-icon">
-                            <i class="fas fa-book"></i>
-                        </div>
-                        <h3>Thư viện</h3>
-                        <p>Truy cập tài liệu học tập và nghiên cứu</p>
-                    </a>
-                    <a href="#" class="quick-link-card">
-                        <div class="quick-link-icon">
-                            <i class="fas fa-graduation-cap"></i>
-                        </div>
-                        <h3>Đào tạo</h3>
-                        <p>Thông tin về chương trình đào tạo</p>
-                    </a>
-                    <a href="#" class="quick-link-card">
-                        <div class="quick-link-icon">
-                            <i class="fas fa-newspaper"></i>
-                        </div>
-                        <h3>Tin tức</h3>
-                        <p>Cập nhật tin tức mới nhất từ trường</p>
-                    </a>
+                  </div>
                 </div>
+              </div>
             </div>
-        </section>
-
-        <!-- Why Join Section -->
-        <section class="why-join-section">
-            <div class="container">
-                <h2 class="section-title">Tại Sao Nên Tham Gia Sự Kiện?</h2>
-                <div class="benefits-grid">
-                    <div class="benefit-card">
-                        <div class="benefit-icon">
-                            <i class="fas fa-handshake"></i>
-                        </div>
-                        <h3>Kết nối với doanh nghiệp</h3>
-                        <p>Cơ hội kết nối trực tiếp với các doanh nghiệp hàng đầu trong lĩnh vực tài chính ngân hàng.</p>
-                    </div>
-                    <div class="benefit-card">
-                        <div class="benefit-icon">
-                            <i class="fas fa-chart-line"></i>
-                        </div>
-                        <h3>Phát triển kiến thức</h3>
-                        <p>Tiếp cận với những kiến thức mới nhất về xu hướng phát triển của ngành tài chính ngân hàng.</p>
-                    </div>
-                    <div class="benefit-card">
-                        <div class="benefit-icon">
-                            <i class="fas fa-briefcase"></i>
-                        </div>
-                        <h3>Cơ hội việc làm</h3>
-                        <p>Tìm kiếm cơ hội việc làm và thực tập sinh tại các tổ chức tài chính hàng đầu.</p>
-                    </div>
+            
+            <!-- Special Event Card 2 -->
+            <div class="flex-none w-full sm:w-1/2 lg:w-1/3 min-w-[280px] max-w-[400px] relative group">
+              <div class="bg-white rounded-xl overflow-hidden shadow-lg group-hover:shadow-xl transition-all duration-300 h-full flex flex-col">
+                <div class="relative h-48 overflow-hidden">
+                  <img 
+                    src="https://readdy.ai/api/search-image?query=University%20workshop%20with%20students%20networking%20with%20industry%20professionals%2C%20business%20attire%2C%20professional%20setting%2C%20handshakes%2C%20company%20booths&width=600&height=400&seq=welcome2&orientation=landscape" 
+                    alt="Khóa học định hướng nghề nghiệp" 
+                    class="w-full h-full object-cover object-center transition-transform duration-500 group-hover:scale-105"
+                    loading="lazy"
+                  />
                 </div>
-            </div>
-        </section>
-
-        <!-- Registration Form -->
-        <section class="registration-section">
-            <!-- Particles.js container -->
-            <div id="particles-js"></div>
-            <div class="container">
-                <div class="registration-form">
-                    <h2>Đăng Ký Tham Gia</h2>
-                    <form id="event-registration-form">
-                        <div class="form-group">
-                            <label for="fullname">Họ và tên</label>
-                            <input type="text" id="fullname" name="fullname" placeholder="Nhập họ và tên của bạn" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="email">Email</label>
-                            <input type="email" id="email" name="email" placeholder="Nhập địa chỉ email của bạn" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="phone">Số điện thoại</label>
-                            <input type="tel" id="phone" name="phone" placeholder="Nhập số điện thoại của bạn" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="organization">Đơn vị công tác</label>
-                            <input type="text" id="organization" name="organization" placeholder="Nhập đơn vị công tác của bạn">
-                        </div>
-                        <div class="form-group">
-                            <label for="message">Bạn biết đến sự kiện này từ đâu?</label>
-                            <textarea id="message" name="message" rows="4" placeholder="Chia sẻ với chúng tôi"></textarea>
-                        </div>
-                        <button type="submit" class="btn btn-primary btn-block">Đăng ký ngay</button>
-                    </form>
+                <div class="p-5 flex flex-col flex-grow">
+                  <div class="flex justify-between items-center mb-3">
+                    <span class="text-xs font-semibold text-primary bg-blue-50 px-2 py-1 rounded-full">Workshop</span>
+                    <span class="text-xs text-gray-500">15/09/2025</span>
+                  </div>
+                  <h3 class="text-xl font-bold text-gray-900 mb-3 group-hover:text-primary transition-colors">Khóa học định hướng nghề nghiệp</h3>
+                  <p class="text-gray-600 mb-4 text-sm flex-grow">Chuỗi workshop giúp sinh viên định hướng nghề nghiệp, kết nối với doanh nghiệp và chuẩn bị hành trang cho tương lai.</p>
+                  <div class="flex justify-between items-center mt-auto pt-3 border-t border-gray-100">
+                    <div class="flex items-center text-gray-500 text-sm">
+                      <i class="ri-map-pin-line mr-1"></i>
+                      <span>Phòng hội thảo B</span>
+                    </div>
+                    <a href="#" class="text-primary font-medium flex items-center hover:underline group-hover:text-secondary transition-colors text-sm">
+                      Chi tiết 
+                      <i class="ri-arrow-right-line ml-1 group-hover:translate-x-1 transition-transform"></i>
+                    </a>
+                  </div>
                 </div>
+              </div>
             </div>
-        </section>
-    </div>
+            
+            <!-- Special Event Card 3 -->
+            <div class="flex-none w-full sm:w-1/2 lg:w-1/3 min-w-[280px] max-w-[400px] relative group">
+              <div class="bg-white rounded-xl overflow-hidden shadow-lg group-hover:shadow-xl transition-all duration-300 h-full flex flex-col">
+                <div class="relative h-48 overflow-hidden">
+                  <img 
+                    src="https://readdy.ai/api/search-image?query=University%20cultural%20festival%20with%20students%20in%20traditional%20vietnamese%20clothing%2C%20cultural%20performances%2C%20colorful%20decorations%2C%20outdoor%20setting%2C%20festive%20atmosphere&width=600&height=400&seq=welcome3&orientation=landscape" 
+                    alt="Lễ hội văn hóa sinh viên" 
+                    class="w-full h-full object-cover object-center transition-transform duration-500 group-hover:scale-105"
+                    loading="lazy"
+                  />
+                </div>
+                <div class="p-5 flex flex-col flex-grow">
+                  <div class="flex justify-between items-center mb-3">
+                    <span class="text-xs font-semibold text-primary bg-blue-50 px-2 py-1 rounded-full">Văn hóa</span>
+                    <span class="text-xs text-gray-500">28/09/2025</span>
+                  </div>
+                  <h3 class="text-xl font-bold text-gray-900 mb-3 group-hover:text-primary transition-colors">Lễ hội văn hóa sinh viên</h3>
+                  <p class="text-gray-600 mb-4 text-sm flex-grow">Trải nghiệm đa dạng văn hóa các vùng miền, thưởng thức ẩm thực và tham gia các hoạt động văn nghệ đặc sắc.</p>
+                  <div class="flex justify-between items-center mt-auto pt-3 border-t border-gray-100">
+                    <div class="flex items-center text-gray-500 text-sm">
+                      <i class="ri-map-pin-line mr-1"></i>
+                      <span>Khu liên hợp thể thao</span>
+                    </div>
+                    <a href="#" class="text-primary font-medium flex items-center hover:underline group-hover:text-secondary transition-colors text-sm">
+                      Chi tiết 
+                      <i class="ri-arrow-right-line ml-1 group-hover:translate-x-1 transition-transform"></i>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Scroll Indicators -->
+          <div class="flex justify-center space-x-2 mt-4">
+            <div class="w-2 h-2 rounded-full bg-primary"></div>
+            <div class="w-2 h-2 rounded-full bg-gray-300"></div>
+            <div class="w-2 h-2 rounded-full bg-gray-300"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+    
+    <!-- How It Works -->
+    <section id="how-it-works" class="py-12 md:py-16 bg-gray-50">
+      <div class="container mx-auto px-4">
+        <div class="text-center mb-10 md:mb-12 reveal">
+          <span class="inline-block px-3 py-1 bg-blue-50 text-primary text-sm font-medium rounded-full mb-2">Hướng dẫn</span>
+          <h2 class="text-2xl md:text-3xl font-bold text-gray-900 mb-4">
+            Cách thức hoạt động
+          </h2>
+          <p class="text-gray-600 max-w-2xl mx-auto">
+            Chỉ với vài bước đơn giản, bạn có thể dễ dàng tìm kiếm và tham gia
+            các sự kiện tại trường
+          </p>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 relative">
+          <!-- Step 1 -->
+          <div class="bg-white p-6 md:p-8 rounded-lg shadow-sm hover:shadow-md transition-shadow relative group reveal-left" style="transition-delay: 100ms;">
+            <div
+              class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-6 group-hover:bg-primary/10 transition-colors relative z-10 animate-pulse-subtle"
+            >
+              <div
+                class="w-8 h-8 flex items-center justify-center text-primary"
+              >
+                <i class="ri-user-add-line ri-2x"></i>
+              </div>
+              <div class="absolute -top-2 -right-2 w-6 h-6 bg-primary text-white rounded-full flex items-center justify-center text-xs font-bold">1</div>
+            </div>
+            <h3 class="text-xl font-bold text-gray-900 mb-3 text-center group-hover:text-primary transition-colors">
+              Đăng ký tài khoản
+            </h3>
+            <p class="text-gray-600 text-center">
+              Tạo tài khoản với email trường học của bạn để bắt đầu sử dụng hệ
+              thống.
+            </p>
+          </div>
+          <!-- Step 2 -->
+          <div class="bg-white p-6 md:p-8 rounded-lg shadow-sm hover:shadow-md transition-shadow relative group reveal" style="transition-delay: 300ms;">
+            <div
+              class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-6 group-hover:bg-primary/10 transition-colors relative z-10 animate-pulse-subtle"
+            >
+              <div
+                class="w-8 h-8 flex items-center justify-center text-primary"
+              >
+                <i class="ri-search-line ri-2x"></i>
+              </div>
+              <div class="absolute -top-2 -right-2 w-6 h-6 bg-primary text-white rounded-full flex items-center justify-center text-xs font-bold">2</div>
+            </div>
+            <h3 class="text-xl font-bold text-gray-900 mb-3 text-center group-hover:text-primary transition-colors">
+              Tìm kiếm sự kiện
+            </h3>
+            <p class="text-gray-600 text-center">
+              Dễ dàng tìm kiếm và lọc các sự kiện phù hợp với sở thích và lịch
+              trình của bạn.
+            </p>
+          </div>
+          <!-- Step 3 -->
+          <div class="bg-white p-6 md:p-8 rounded-lg shadow-sm hover:shadow-md transition-shadow relative group reveal-right" style="transition-delay: 500ms;">
+            <div
+              class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-6 group-hover:bg-primary/10 transition-colors relative z-10 animate-pulse-subtle"
+            >
+              <div
+                class="w-8 h-8 flex items-center justify-center text-primary"
+              >
+                <i class="ri-calendar-check-line ri-2x"></i>
+              </div>
+              <div class="absolute -top-2 -right-2 w-6 h-6 bg-primary text-white rounded-full flex items-center justify-center text-xs font-bold">3</div>
+            </div>
+            <h3 class="text-xl font-bold text-gray-900 mb-3 text-center group-hover:text-primary transition-colors">
+              Đăng ký tham gia
+            </h3>
+            <p class="text-gray-600 text-center">
+              Đăng ký tham gia sự kiện chỉ với một cú nhấp chuột và quản lý lịch
+              trình của bạn.
+            </p>
+          </div>
+          <!-- Connecting lines for desktop -->
+          <div class="hidden md:block absolute top-1/2 left-1/4 right-1/4 h-0.5 bg-gray-200 -mt-8"></div>
+          <div class="hidden md:block absolute top-1/2 left-2/4 right-1/4 h-0.5 bg-gray-200 -mt-8"></div>
+        </div>
+        <div class="text-center mt-8 md:mt-10 reveal" style="transition-delay: 700ms;">
+          <a
+            href="register.html"
+            class="inline-flex items-center bg-primary text-white px-6 py-3 rounded-button font-medium hover:bg-primary/90 transition-all shadow-md hover:shadow-lg hover:-translate-y-1"
+          >
+            Bắt đầu ngay
+            <i class="ri-arrow-right-line ml-2 animate-bounce-subtle"></i>
+          </a>
+        </div>
+      </div>
+    </section>
+    <!-- Testimonials -->
+    <section class="py-12 md:py-16 bg-white">
+      <div class="container mx-auto px-4">
+        <div class="text-center mb-10 md:mb-12 reveal">
+          <span class="inline-block px-3 py-1 bg-red-50 text-primary text-sm font-medium rounded-full mb-2">Nhận xét</span>
+          <h2 class="text-2xl md:text-3xl font-bold text-gray-900 mb-4">
+            Sinh viên nói gì về chúng tôi
+          </h2>
+          <p class="text-gray-600 max-w-2xl mx-auto">
+            Trải nghiệm của sinh viên khi sử dụng hệ thống quản lý sự kiện của
+            trường Đại học Ngân hàng
+          </p>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+          <!-- Testimonial 1 -->
+          <div class="bg-gray-50 p-6 rounded-lg hover:shadow-md transition-all border border-gray-100 relative group reveal-left" style="transition-delay: 100ms;">
+            <div class="absolute -top-3 -left-3 text-primary opacity-10 text-6xl leading-none z-0">"</div>
+            <div class="flex items-center mb-4 relative z-10">
+              <div class="w-14 h-14 rounded-full overflow-hidden mr-4 ring-2 ring-primary/20">
+                <img
+                  src="https://readdy.ai/api/search-image?query=Professional%20headshot%20of%20a%20young%20Vietnamese%20female%20student%2C%20university%20setting%2C%20natural%20lighting%2C%20clean%20background&width=100&height=100&seq=student1&orientation=squarish"
+                  alt="Nguyễn Thị Minh Tâm"
+                  class="w-full h-full object-cover"
+                  loading="lazy"
+                />
+              </div>
+              <div>
+                <h4 class="text-lg font-bold text-gray-900 group-hover:text-primary transition-colors">
+                  Nguyễn Thị Minh Tâm
+                </h4>
+                <p class="text-sm text-gray-500">
+                  Sinh viên năm 3, Khoa Tài chính - Ngân hàng
+                </p>
+              </div>
+            </div>
+            <p class="text-gray-600 italic relative z-10">
+              "Hệ thống giúp tôi dễ dàng tìm kiếm và đăng ký các sự kiện phù hợp
+              với chuyên ngành của mình. Giao diện đơn giản, dễ sử dụng và thông
+              báo kịp thời về các sự kiện sắp diễn ra."
+            </p>
+            <div class="flex mt-4 text-yellow-400">
+              <i class="ri-star-fill"></i>
+              <i class="ri-star-fill"></i>
+              <i class="ri-star-fill"></i>
+              <i class="ri-star-fill"></i>
+              <i class="ri-star-fill"></i>
+            </div>
+          </div>
+          <!-- Testimonial 2 -->
+          <div class="bg-gray-50 p-6 rounded-lg hover:shadow-md transition-all border border-gray-100 relative group reveal" style="transition-delay: 300ms;">
+            <div class="absolute -top-3 -left-3 text-primary opacity-10 text-6xl leading-none z-0">"</div>
+            <div class="flex items-center mb-4 relative z-10">
+              <div class="w-14 h-14 rounded-full overflow-hidden mr-4 ring-2 ring-primary/20">
+                <img
+                  src="https://readdy.ai/api/search-image?query=Professional%20headshot%20of%20a%20young%20Vietnamese%20male%20student%2C%20university%20setting%2C%20natural%20lighting%2C%20clean%20background&width=100&height=100&seq=student2&orientation=squarish"
+                  alt="Trần Văn Hùng"
+                  class="w-full h-full object-cover"
+                  loading="lazy"
+                />
+              </div>
+              <div>
+                <h4 class="text-lg font-bold text-gray-900 group-hover:text-primary transition-colors">Trần Văn Hùng</h4>
+                <p class="text-sm text-gray-500">
+                  Sinh viên năm 4, Khoa Quản trị Kinh doanh
+                </p>
+              </div>
+            </div>
+            <p class="text-gray-600 italic relative z-10">
+              "Nhờ có hệ thống này, tôi không bỏ lỡ bất kỳ sự kiện quan trọng
+              nào tại trường. Đặc biệt là các buổi hội thảo với doanh nghiệp đã
+              giúp tôi có cơ hội thực tập tại ngân hàng lớn."
+            </p>
+            <div class="flex mt-4 text-yellow-400">
+              <i class="ri-star-fill"></i>
+              <i class="ri-star-fill"></i>
+              <i class="ri-star-fill"></i>
+              <i class="ri-star-fill"></i>
+              <i class="ri-star-half-fill"></i>
+            </div>
+          </div>
+          <!-- Testimonial 3 -->
+          <div class="bg-gray-50 p-6 rounded-lg hover:shadow-md transition-all border border-gray-100 relative group reveal-right" style="transition-delay: 500ms;">
+            <div class="absolute -top-3 -left-3 text-primary opacity-10 text-6xl leading-none z-0">"</div>
+            <div class="flex items-center mb-4 relative z-10">
+              <div class="w-14 h-14 rounded-full overflow-hidden mr-4 ring-2 ring-primary/20">
+                <img
+                  src="https://readdy.ai/api/search-image?query=Professional%20headshot%20of%20a%20young%20Vietnamese%20female%20student%20with%20glasses%2C%20university%20setting%2C%20natural%20lighting%2C%20clean%20background&width=100&height=100&seq=student3&orientation=squarish"
+                  alt="Lê Thị Hồng Nhung"
+                  class="w-full h-full object-cover"
+                  loading="lazy"
+                />
+              </div>
+              <div>
+                <h4 class="text-lg font-bold text-gray-900 group-hover:text-primary transition-colors">
+                  Lê Thị Hồng Nhung
+                </h4>
+                <p class="text-sm text-gray-500">
+                  Sinh viên năm 2, Khoa Kế toán - Kiểm toán
+                </p>
+              </div>
+            </div>
+            <p class="text-gray-600 italic relative z-10">
+              "Tôi rất thích tính năng lọc sự kiện theo chuyên ngành và thời
+              gian. Điều này giúp tôi sắp xếp lịch học và tham gia các hoạt động
+              ngoại khóa một cách hợp lý và hiệu quả."
+            </p>
+            <div class="flex mt-4 text-yellow-400">
+              <i class="ri-star-fill"></i>
+              <i class="ri-star-fill"></i>
+              <i class="ri-star-fill"></i>
+              <i class="ri-star-fill"></i>
+              <i class="ri-star-fill"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- Upcoming Events -->
+    <section class="py-12 md:py-16 bg-gray-50">
+      <div class="container mx-auto px-4">
+        <div class="text-center mb-10 md:mb-12 reveal">
+          <span class="inline-block px-3 py-1 bg-primary/10 text-primary text-sm font-medium rounded-full mb-2">Sắp diễn ra</span>
+          <h2 class="text-2xl md:text-3xl font-bold text-gray-900 mb-4">
+            Sự kiện sắp diễn ra
+          </h2>
+          <p class="text-gray-600 max-w-2xl mx-auto">
+            Đừng bỏ lỡ những sự kiện hấp dẫn sắp diễn ra tại trường
+          </p>
+        </div>
+        <div class="overflow-hidden">
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <!-- Event 1 -->
+            <div
+              class="bg-white rounded-lg shadow-sm overflow-hidden flex flex-col md:flex-row border border-gray-100 hover:shadow-md transition-all group reveal-left"
+              style="transition-delay: 200ms;"
+            >
+              <div class="md:w-1/3 h-48 md:h-auto overflow-hidden relative">
+                <img
+                  src="https://readdy.ai/api/search-image?query=Workshop%20with%20students%20participating%20in%20a%20financial%20simulation%20game%2C%20interactive%20learning%2C%20professional%20setting%2C%20university%20classroom&width=300&height=200&seq=upcoming1&orientation=portrait"
+                  alt="Workshop Đầu tư Chứng khoán"
+                  class="w-full h-full object-cover object-center transition-transform duration-500 group-hover:scale-105"
+                  loading="lazy"
+                />
+                <div class="absolute top-0 left-0 bg-primary text-white px-3 py-2 font-medium text-sm">25/04/2025</div>
+              </div>
+              <div class="p-6 md:w-2/3">
+                <div class="mb-3">
+                  <span
+                    class="text-xs font-medium text-primary bg-blue-50 px-2 py-1 rounded-full"
+                    >Workshop</span
+                  >
+                </div>
+                <h3 class="text-xl font-bold text-gray-900 mb-2 group-hover:text-primary transition-colors">
+                  Workshop Đầu tư Chứng khoán cho Người mới bắt đầu
+                </h3>
+                <p class="text-gray-600 mb-4">
+                  Học cách phân tích cơ bản và kỹ thuật, xây dựng danh mục đầu
+                  tư hiệu quả với các chuyên gia hàng đầu.
+                </p>
+                <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+                  <div class="flex items-center text-gray-500">
+                    <div class="w-5 h-5 flex items-center justify-center mr-1">
+                      <i class="ri-time-line"></i>
+                    </div>
+                    <span class="text-sm">14:00 - 17:00</span>
+                  </div>
+                  <a
+                    href="#"
+                    class="bg-primary text-white px-4 py-2 !rounded-button whitespace-nowrap hover:bg-primary/90 transition-all text-center shadow-sm hover:shadow-md hover:-translate-y-1"
+                    >Đăng ký ngay</a
+                  >
+                </div>
+              </div>
+            </div>
+            <!-- Event 2 -->
+            <div
+              class="bg-white rounded-lg shadow-sm overflow-hidden flex flex-col md:flex-row border border-gray-100 hover:shadow-md transition-all group reveal-right"
+              style="transition-delay: 400ms;"
+            >
+              <div class="md:w-1/3 h-48 md:h-auto overflow-hidden relative">
+                <img
+                  src="https://readdy.ai/api/search-image?query=Tech%20competition%20with%20students%20presenting%20fintech%20projects%2C%20judges%20panel%2C%20university%20auditorium%2C%20professional%20atmosphere&width=300&height=200&seq=upcoming2&orientation=portrait"
+                  alt="Cuộc thi Fintech"
+                  class="w-full h-full object-cover object-center transition-transform duration-500 group-hover:scale-105"
+                  loading="lazy"
+                />
+                <div class="absolute top-0 left-0 bg-primary text-white px-3 py-2 font-medium text-sm">30/04/2025</div>
+              </div>
+              <div class="p-6 md:w-2/3">
+                <div class="mb-3">
+                  <span
+                    class="text-xs font-medium text-primary bg-blue-50 px-2 py-1 rounded-full"
+                    >Cuộc thi</span
+                  >
+                </div>
+                <h3 class="text-xl font-bold text-gray-900 mb-2 group-hover:text-primary transition-colors">
+                  Cuộc thi Ý tưởng Fintech Innovation 2025
+                </h3>
+                <p class="text-gray-600 mb-4">
+                  Cơ hội thể hiện ý tưởng sáng tạo về công nghệ tài chính và
+                  nhận giải thưởng giá trị từ các nhà tài trợ.
+                </p>
+                <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+                  <div class="flex items-center text-gray-500">
+                    <div class="w-5 h-5 flex items-center justify-center mr-1">
+                      <i class="ri-time-line"></i>
+                    </div>
+                    <span class="text-sm">08:00 - 17:00</span>
+                  </div>
+                  <a
+                    href="#"
+                    class="bg-primary text-white px-4 py-2 !rounded-button whitespace-nowrap hover:bg-primary/90 transition-all text-center shadow-sm hover:shadow-md hover:-translate-y-1"
+                    >Đăng ký ngay</a
+                  >
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="text-center mt-8 md:mt-10 reveal" style="transition-delay: 600ms;">
+          <a
+            href="events.html"
+            class="inline-flex items-center text-primary font-medium hover:text-secondary transition-colors hover:underline group"
+          >
+            Xem tất cả sự kiện sắp diễn ra
+            <div class="w-5 h-5 flex items-center justify-center ml-1 group-hover:translate-x-1 transition-transform">
+              <i class="ri-arrow-right-line"></i>
+            </div>
+          </a>
+        </div>
+      </div>
+    </section>
+    <!-- CTA Section -->
+    <section class="py-12 md:py-16 bg-primary relative overflow-hidden">
+      <div class="absolute inset-0 bg-gradient-to-r from-primary/80 to-primary"></div>
+      <div class="absolute -right-24 -bottom-24 w-64 h-64 bg-red-700 rounded-full opacity-20 animate-pulse-subtle"></div>
+      <div class="absolute -left-24 -top-24 w-64 h-64 bg-red-700 rounded-full opacity-20 animate-pulse-subtle" style="animation-delay: 1s;"></div>
+      <div class="container mx-auto px-4 relative z-10">
+        <div class="max-w-3xl mx-auto text-center reveal">
+          <span class="inline-block px-4 py-1 bg-red-800/40 text-white text-sm font-medium rounded-full mb-4">Tham gia ngay hôm nay</span>
+          <h2 class="text-2xl md:text-3xl font-bold text-white mb-4 md:mb-6">
+            Chào mừng bạn tham gia cùng cộng đồng sinh viên!
+          </h2>
+          <p class="text-red-100 mb-6 md:mb-8">
+            Đăng ký tài khoản ngay hôm nay để trải nghiệm các sự kiện đặc sắc, 
+            tham gia hoạt động học thuật và cơ hội phát triển cho tương lai của bạn 
+            tại Đại học Ngân hàng TP.HCM.
+          </p>
+          <div class="flex flex-col sm:flex-row gap-4 justify-center">
+            <a
+              href="register.html"
+              class="bg-white text-primary px-6 py-3 !rounded-button whitespace-nowrap font-medium hover:bg-gray-100 transition-all text-center shadow-md hover:shadow-lg transform hover:-translate-y-1 duration-300"
+              >Đăng ký ngay</a
+            >
+            <a
+              href="#how-it-works"
+              class="bg-transparent text-white border border-white px-6 py-3 !rounded-button whitespace-nowrap font-medium hover:bg-white/10 transition-all text-center hover:shadow-lg transform hover:-translate-y-1 duration-300"
+              >Tìm hiểu thêm</a
+            >
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- Footer -->
+    <footer class="bg-primary text-red-100 py-10 md:py-12 relative overflow-hidden">
+      <div class="absolute inset-0 bg-gradient-to-b from-primary to-primary/90"></div>
+      <div class="container mx-auto px-4 relative z-10">
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+          <div>
+            <a href="index.html" class="text-2xl font-pacifico text-white mb-4 block flex items-center"
+              ><img src="../images/logo/logo-white-vertical.png" alt="Đại học Ngân hàng TP.HCM logo" class="w-16 h-16"></a
+            >
+            <p class="mb-4">
+              Hệ thống Quản lý Sự kiện Đại học Ngân hàng TP.HCM - Nơi kết nối
+              sinh viên với các hoạt động học thuật và ngoại khóa.
+            </p>
+            <div class="flex space-x-4">
+              <a
+                href="#"
+                class="w-10 h-10 flex items-center justify-center bg-red-900/50 rounded-full hover:bg-white hover:text-primary transition-colors"
+                aria-label="Facebook"
+              >
+                <i class="ri-facebook-fill"></i>
+              </a>
+              <a
+                href="#"
+                class="w-10 h-10 flex items-center justify-center bg-red-900/50 rounded-full hover:bg-white hover:text-primary transition-colors"
+                aria-label="YouTube"
+              >
+                <i class="ri-youtube-fill"></i>
+              </a>
+              <a
+                href="#"
+                class="w-10 h-10 flex items-center justify-center bg-red-900/50 rounded-full hover:bg-white hover:text-primary transition-colors"
+                aria-label="Instagram"
+              >
+                <i class="ri-instagram-fill"></i>
+              </a>
+            </div>
+          </div>
+          <div>
+            <h3 class="text-white text-lg font-bold mb-4">Liên kết nhanh</h3>
+            <ul class="space-y-2">
+              <li>
+                <a href="index.html" class="hover:text-white transition-colors inline-flex items-center">
+                  <i class="ri-arrow-right-s-line mr-2"></i>Trang chủ</a
+                >
+              </li>
+              <li>
+                <a href="events.html" class="hover:text-white transition-colors inline-flex items-center">
+                  <i class="ri-arrow-right-s-line mr-2"></i>Sự kiện</a
+                >
+              </li>
+              <li>
+                <a href="login.html" class="hover:text-white transition-colors inline-flex items-center">
+                  <i class="ri-arrow-right-s-line mr-2"></i>Đăng nhập</a
+                >
+              </li>
+              <li>
+                <a href="register.html" class="hover:text-white transition-colors inline-flex items-center">
+                  <i class="ri-arrow-right-s-line mr-2"></i>Đăng ký</a
+                >
+              </li>
+              <li>
+                <a href="news.html" class="hover:text-white transition-colors inline-flex items-center">
+                  <i class="ri-arrow-right-s-line mr-2"></i>Giới thiệu</a
+                >
+              </li>
+            </ul>
+          </div>
+          <div>
+            <h3 class="text-white text-lg font-bold mb-4">Hỗ trợ</h3>
+            <ul class="space-y-2">
+              <li>
+                <a href="user-guide.html" class="hover:text-white transition-colors inline-flex items-center">
+                  <i class="ri-arrow-right-s-line mr-2"></i>Hướng dẫn sử dụng</a
+                >
+              </li>
+              <li>
+                <a href="faq.html" class="hover:text-white transition-colors inline-flex items-center">
+                  <i class="ri-arrow-right-s-line mr-2"></i>Câu hỏi thường gặp</a
+                >
+              </li>
+              <li>
+                <a href="privacy.html" class="hover:text-white transition-colors inline-flex items-center">
+                  <i class="ri-arrow-right-s-line mr-2"></i>Chính sách bảo mật</a
+                >
+              </li>
+              <li>
+                <a href="terms.html" class="hover:text-white transition-colors inline-flex items-center">
+                  <i class="ri-arrow-right-s-line mr-2"></i>Điều khoản sử dụng</a
+                >
+              </li>
+              <li>
+                <a href="contact.html" class="hover:text-white transition-colors inline-flex items-center">
+                  <i class="ri-arrow-right-s-line mr-2"></i>Liên hệ hỗ trợ</a
+                >
+              </li>
+            </ul>
+          </div>
+          <div>
+            <h3 class="text-white text-lg font-bold mb-4">Liên hệ</h3>
+            <ul class="space-y-3">
+              <li class="flex items-start">
+                <div class="w-5 h-5 flex items-center justify-center mr-2 mt-1 text-red-200">
+                  <i class="ri-map-pin-line"></i>
+                </div>
+                <span
+                  >36 Tôn Thất Đạm, Phường Nguyễn Thái Bình, Quận 1,
+                  TP.HCM</span
+                >
+              </li>
+              <li class="flex items-center">
+                <div class="w-5 h-5 flex items-center justify-center mr-2 text-red-200">
+                  <i class="ri-phone-line"></i>
+                </div>
+                <span>(028) 3829 1901</span>
+              </li>
+              <li class="flex items-center">
+                <div class="w-5 h-5 flex items-center justify-center mr-2 text-red-200">
+                  <i class="ri-mail-line"></i>
+                </div>
+                <span>info@buh.edu.vn</span>
+              </li>
+            </ul>
+            <div class="mt-4 p-4 bg-red-900/30 rounded-lg">
+              <h4 class="text-white font-medium mb-2">Đăng ký nhận tin</h4>
+              <form class="flex">
+                <input type="email" placeholder="Email của bạn" class="px-3 py-2 rounded-l-button text-sm w-full focus:outline-none text-gray-700" />
+                <button type="submit" class="bg-primary border border-white text-white px-3 py-2 rounded-r-button hover:bg-red-800 transition-colors">
+                  <i class="ri-send-plane-fill"></i>
+                </button>
+              </form>
+            </div>
+          </div>
+        </div>
+        <div class="border-t border-red-900/30 mt-8 pt-6 text-center">
+          <p>
+            &copy; 2025 Đại học Ngân hàng TP.HCM. Tất cả quyền được bảo lưu.
+          </p>
+        </div>
+      </div>
+    </footer>
+    <script>
+      // Mobile menu toggle
+      document.addEventListener("DOMContentLoaded", function () {
+        // Mobile menu
+        const menuButton = document.querySelector("button.md\\:hidden");
+        const mobileMenu = document.createElement("div");
+        mobileMenu.id = "mobile-menu";
+        mobileMenu.className =
+          "fixed inset-0 bg-primary/95 z-50 transform translate-x-full transition-transform duration-300 ease-in-out backdrop-blur-sm";
+        mobileMenu.innerHTML = `
+        <div class="p-4 flex justify-between items-center border-b border-red-900/30">
+          <a href="index.html" class="text-2xl font-pacifico text-white flex items-center">
+            <img src="../images/logo/logo-white-vertical.png" alt="Đại học Ngân hàng TP.HCM logo" class="w-12 h-12">
+          </a>
+          <button class="w-10 h-10 flex items-center justify-center text-white" aria-label="Đóng menu">
+            <i class="ri-close-line ri-lg"></i>
+          </button>
+        </div>
+        <nav class="p-4" aria-label="Mobile navigation">
+          <ul class="space-y-4">
+            <li><a href="index.html" class="text-white font-medium block py-2 hover:translate-x-2 transition-transform" aria-current="page">Trang chủ</a></li>
+            <li><a href="events.html" class="text-red-100 block py-2 hover:text-white hover:translate-x-2 transition-all">Sự kiện</a></li>
+            <li><a href="news.html" class="text-red-100 block py-2 hover:text-white hover:translate-x-2 transition-all">Giới thiệu</a></li>
+            <li><a href="contact.html" class="text-red-100 block py-2 hover:text-white hover:translate-x-2 transition-all">Liên hệ</a></li>
+            <li class="pt-4 border-t border-red-900/30">
+              <a href="login.html" class="text-white font-medium block py-2 hover:translate-x-2 transition-transform">Đăng nhập</a>
+            </li>
+            <li>
+              <a href="register.html" class="bg-white text-primary px-4 py-2 !rounded-button whitespace-nowrap block text-center mt-2 hover:bg-gray-100 transition-colors shadow-sm">Đăng ký</a>
+            </li>
+          </ul>
+        </nav>
+        `;
+        document.body.appendChild(mobileMenu);
+        
+        // Open menu
+        menuButton.addEventListener("click", function () {
+          mobileMenu.classList.remove("translate-x-full");
+          document.body.classList.add("overflow-hidden");
+          menuButton.setAttribute("aria-expanded", "true");
+        });
+        
+        // Close menu
+        mobileMenu.querySelector("button").addEventListener("click", function () {
+          mobileMenu.classList.add("translate-x-full");
+          document.body.classList.remove("overflow-hidden");
+          menuButton.setAttribute("aria-expanded", "false");
+        });
 
-    <!-- Footer Component -->
-    <div id="footer-component"></div>
-
-    <!-- Scripts -->
-    <!-- Component loader -->
-    <script src="../js/components/load-components.js"></script>
-    <!-- Global scripts -->
-    <script src="../js/script.js"></script>
-    <!-- Particles -->
-    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
-    <script src="../js/particles-config.js"></script>
-    <!-- Page specific scripts -->
-    <script src="../js/home.js"></script>
-</body>
+        // Add smooth scrolling to all links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+          anchor.addEventListener('click', function (e) {
+            if(this.getAttribute('href') !== '#') {
+              e.preventDefault();
+              
+              // Close mobile menu if open
+              if (window.innerWidth < 768) {
+                mobileMenu.classList.add("translate-x-full");
+                document.body.classList.remove("overflow-hidden");
+                menuButton.setAttribute("aria-expanded", "false");
+              }
+              
+              const targetId = this.getAttribute('href');
+              const targetElement = document.querySelector(targetId);
+              
+              if (targetElement) {
+                window.scrollTo({
+                  top: targetElement.offsetTop - 80, // Account for sticky header
+                  behavior: 'smooth'
+                });
+              }
+            }
+          });
+        });
+        
+        // Create back to top button
+        const backToTopBtn = document.createElement('button');
+        backToTopBtn.innerHTML = '<i class="ri-arrow-up-line"></i>';
+        backToTopBtn.className = 'fixed bottom-6 right-6 bg-primary text-white w-12 h-12 rounded-full flex items-center justify-center shadow-lg z-40 opacity-0 invisible transition-all duration-300 hover:bg-primary/90';
+        backToTopBtn.setAttribute('aria-label', 'Lên đầu trang');
+        document.body.appendChild(backToTopBtn);
+        
+        // Show/hide back to top button based on scroll position
+        window.addEventListener('scroll', function() {
+          if (window.pageYOffset > 300) {
+            backToTopBtn.classList.add('opacity-100', 'visible');
+          } else {
+            backToTopBtn.classList.remove('opacity-100', 'visible');
+          }
+        });
+        
+        // Scroll to top when back to top button is clicked
+        backToTopBtn.addEventListener('click', function() {
+          window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+          });
+        });
+        
+        // Add active class to current section in navigation
+        function highlightCurrentSection() {
+          const sections = document.querySelectorAll('section[id]');
+          const scrollPosition = window.pageYOffset + 100;
+          
+          sections.forEach(section => {
+            const sectionTop = section.offsetTop;
+            const sectionHeight = section.offsetHeight;
+            const sectionId = section.getAttribute('id');
+            
+            if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
+              document.querySelectorAll('nav a').forEach(link => {
+                link.classList.remove('text-white');
+                link.classList.add('text-red-100');
+                link.removeAttribute('aria-current');
+                
+                if (link.getAttribute('href') === '#' + sectionId) {
+                  link.classList.remove('text-red-100');
+                  link.classList.add('text-white');
+                  link.setAttribute('aria-current', 'true');
+                }
+              });
+            }
+          });
+        }
+        
+        // Execute on scroll
+        window.addEventListener('scroll', highlightCurrentSection);
+        
+        // Hero Slider Functionality
+        const initHeroSlider = () => {
+          const slides = document.querySelectorAll('#hero-slider .slide');
+          const indicators = document.querySelectorAll('.slide-indicator');
+          const nextButton = document.getElementById('next-slide');
+          const prevButton = document.getElementById('prev-slide');
+          let currentSlide = 0;
+          let slideInterval;
+          const intervalTime = 5000; // Time between automatic slide changes (5 seconds)
+          
+          // Function to update slider to show the current slide
+          const showSlide = (index) => {
+            // Hide all slides by setting opacity to 0
+            slides.forEach(slide => {
+              slide.classList.remove('opacity-100');
+              slide.classList.add('opacity-0');
+            });
+            
+            // Show the current slide by setting opacity to 1
+            slides[index].classList.remove('opacity-0');
+            slides[index].classList.add('opacity-100');
+            
+            // Update indicators
+            indicators.forEach(indicator => {
+              indicator.classList.remove('bg-white', 'active');
+              indicator.classList.add('bg-white/50');
+            });
+            
+            indicators[index].classList.remove('bg-white/50');
+            indicators[index].classList.add('bg-white', 'active');
+          };
+          
+          // Initialize the first slide
+          showSlide(currentSlide);
+          
+          // Function to advance to the next slide
+          const nextSlide = () => {
+            currentSlide = (currentSlide + 1) % slides.length;
+            showSlide(currentSlide);
+          };
+          
+          // Function to go to the previous slide
+          const prevSlide = () => {
+            currentSlide = (currentSlide - 1 + slides.length) % slides.length;
+            showSlide(currentSlide);
+          };
+          
+          // Set up automatic sliding
+          const startSlideTimer = () => {
+            slideInterval = setInterval(nextSlide, intervalTime);
+          };
+          
+          // Stop the automatic sliding
+          const stopSlideTimer = () => {
+            clearInterval(slideInterval);
+          };
+          
+          // Start the automatic sliding
+          startSlideTimer();
+          
+          // Event listeners for next and previous buttons
+          nextButton.addEventListener('click', () => {
+            stopSlideTimer(); // Stop automatic sliding when manually navigating
+            nextSlide();
+            startSlideTimer(); // Restart automatic sliding after manual navigation
+          });
+          
+          prevButton.addEventListener('click', () => {
+            stopSlideTimer();
+            prevSlide();
+            startSlideTimer();
+          });
+          
+          // Event listeners for indicator buttons
+          indicators.forEach((indicator, index) => {
+            indicator.addEventListener('click', () => {
+              stopSlideTimer();
+              currentSlide = index;
+              showSlide(currentSlide);
+              startSlideTimer();
+            });
+          });
+          
+          // Pause automatic sliding when hovering over the slider
+          const heroSlider = document.getElementById('hero-slider');
+          heroSlider.addEventListener('mouseenter', stopSlideTimer);
+          heroSlider.addEventListener('mouseleave', startSlideTimer);
+          
+          // Handle keyboard navigation for accessibility
+          document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowLeft') {
+              stopSlideTimer();
+              prevSlide();
+              startSlideTimer();
+            } else if (e.key === 'ArrowRight') {
+              stopSlideTimer();
+              nextSlide();
+              startSlideTimer();
+            }
+          });
+          
+          // Support touch swipe on mobile
+          let touchStartX = 0;
+          let touchEndX = 0;
+          
+          heroSlider.addEventListener('touchstart', (e) => {
+            touchStartX = e.changedTouches[0].screenX;
+          }, { passive: true });
+          
+          heroSlider.addEventListener('touchend', (e) => {
+            touchEndX = e.changedTouches[0].screenX;
+            handleSwipe();
+          }, { passive: true });
+          
+          const handleSwipe = () => {
+            // Detect swipe direction (left or right)
+            if (touchEndX < touchStartX - 50) {
+              // Swipe left (next slide)
+              stopSlideTimer();
+              nextSlide();
+              startSlideTimer();
+            }
+            
+            if (touchEndX > touchStartX + 50) {
+              // Swipe right (previous slide)
+              stopSlideTimer();
+              prevSlide();
+              startSlideTimer();
+            }
+          };
+        };
+        
+        // Initialize the hero slider
+        if (document.getElementById('hero-slider')) {
+          initHeroSlider();
+        }
+        
+        // Reveal animations on scroll
+        function handleScrollAnimations() {
+          const reveals = document.querySelectorAll('.reveal, .reveal-left, .reveal-right, .reveal-scale');
+          
+          reveals.forEach(element => {
+            const windowHeight = window.innerHeight;
+            const elementTop = element.getBoundingClientRect().top;
+            const elementVisible = 150; // Adjust this value to change when the element becomes visible
+            
+            if (elementTop < windowHeight - elementVisible) {
+              element.classList.add('active');
+            } else {
+              // Optional: if you want elements to hide again when scrolled out of view
+              // element.classList.remove('active');
+            }
+          });
+        }
+        
+        // Run once on page load to show elements already in viewport
+        handleScrollAnimations();
+        
+        // Add scroll event listener
+        window.addEventListener('scroll', handleScrollAnimations);
+        
+        // Add resize event listener to handle animations on window resize
+        window.addEventListener('resize', handleScrollAnimations);
+        
+        // Add animations to elements with data-animate attribute
+        function initAnimatedElements() {
+          const animatedElements = document.querySelectorAll('[data-animate]');
+          
+          animatedElements.forEach(element => {
+            const animationType = element.getAttribute('data-animate');
+            const delay = element.getAttribute('data-delay') || 0;
+            
+            element.style.animationDelay = `${delay}ms`;
+            element.style.animationFillMode = 'both';
+            element.classList.add(`animate-${animationType}`);
+          });
+        }
+        
+        // Initialize animated elements
+        initAnimatedElements();
+      });
+    </script>
+  </body>
 </html>

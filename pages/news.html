@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Giới thiệu - Đại học Ngân hàng TP.HCM</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.tailwindcss.com/3.4.16"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              primary: "#8B0000",
+              secondary: "#FF5252",
+            },
+            borderRadius: {
+              none: "0px",
+              sm: "4px",
+              DEFAULT: "8px",
+              md: "12px",
+              lg: "16px",
+              xl: "20px",
+              "2xl": "24px",
+              "3xl": "32px",
+              full: "9999px",
+              button: "8px",
+            },
+          },
+        },
+      };
+    </script>
+    <style>
+      :where([class^="ri-"])::before { content: "\f3c2"; }
+      body {
+      font-family: 'Inter', sans-serif;
+      }
+      .hero-gradient {
+      background: linear-gradient(90deg, rgba(255,255,255,1) 0%, rgba(255,255,255,0.9) 50%, rgba(255,255,255,0) 100%);
+      }
+    </style>
+  </head>
+  <body class="bg-gray-50">
+    <!-- Header -->
+    <header class="bg-primary shadow-sm">
+      <div
+        class="container mx-auto px-4 flex items-center justify-between"
+      >
+        <a href="index.html" class="text-2xl font-['Pacifico'] text-white">
+            <img src="../images/logo/logo-white-vertical.png" alt="logo" class="w-16 h-16">
+        </a>
+        <nav class="hidden md:flex items-center space-x-8">
+          <a
+            href="index.html"
+            class="text-red-100 hover:text-white transition-colors"
+            >Trang chủ</a
+          >
+          <a href="events.html" class="text-red-100 hover:text-white transition-colors"
+            >Sự kiện</a
+          >
+          <a href="news.html" class="text-white font-medium hover:text-red-200 transition-colors"
+            >Giới thiệu</a
+          >
+          <a href="contact.html" class="text-red-100 hover:text-white transition-colors"
+            >Liên hệ</a
+          >
+        </nav>
+        <div class="flex items-center space-x-4">
+          <a href="login.html" class="text-white font-medium hover:underline"
+            >Đăng nhập</a
+          >
+          <a
+            href="register.html"
+            class="bg-white text-primary px-4 py-2 !rounded-button whitespace-nowrap hover:bg-red-50 transition-colors shadow-sm"
+            >Đăng ký</a
+          >
+        </div>
+        <button
+          class="md:hidden w-10 h-10 flex items-center justify-center text-white"
+        >
+          <i class="ri-menu-line ri-lg"></i>
+        </button>
+      </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="relative overflow-hidden">
+      <div
+        class="absolute inset-0 z-0"
+        style="background-image: url('https://readdy.ai/api/search-image?query=A%20beautiful%20banking%20university%20campus%20in%20Ho%20Chi%20Minh%20City%2C%20modern%20architecture%2C%20academic%20atmosphere%2C%20students%20walking%2C%20professional%20photography%20style&width=1600&height=800&seq=news_hero&orientation=landscape'); background-size: cover; background-position: center;"
+      ></div>
+      <div
+        class="relative z-10 container mx-auto px-4 py-20 md:py-32 flex flex-col md:flex-row items-center"
+      >
+        <div class="w-full md:w-1/2 hero-gradient p-8 rounded-lg">
+          <h1 class="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
+            Giới thiệu về Đại học Ngân hàng TP.HCM
+          </h1>
+          <p class="text-lg text-gray-700 mb-8">
+            Trường Đại học Ngân hàng TP.HCM là cơ sở đào tạo hàng đầu về tài chính ngân hàng 
+            tại Việt Nam, với lịch sử phát triển lâu đời và chất lượng giáo dục được khẳng định.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="py-16 bg-white">
+      <div class="container mx-auto px-4">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+          <div>
+            <h2 class="text-3xl font-bold text-gray-900 mb-6">Lịch sử phát triển</h2>
+            <p class="text-gray-600 mb-4">
+              Trường Đại học Ngân hàng TP.HCM được thành lập vào năm 1976, tiền thân là Trường Cao cấp Nghiệp vụ Ngân hàng TP.HCM, đào tạo cán bộ cho ngành Ngân hàng sau giải phóng miền Nam.
+            </p>
+            <p class="text-gray-600 mb-4">
+              Năm 1987, trường được nâng cấp thành Trường Cao đẳng Ngân hàng TP.HCM, và đến năm 2003, chính thức trở thành Trường Đại học Ngân hàng TP.HCM theo Quyết định của Thủ tướng Chính phủ.
+            </p>
+            <p class="text-gray-600">
+              Qua hơn 45 năm xây dựng và phát triển, trường đã trở thành một trong những cơ sở đào tạo uy tín về lĩnh vực tài chính - ngân hàng tại Việt Nam.
+            </p>
+          </div>
+          <div class="rounded-lg overflow-hidden shadow-md">
+            <img 
+              src="../images/logo/logo.png" 
+              alt="Lịch sử phát triển" 
+              class="w-full h-full object-cover"
+            />
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Mission and Vision -->
+    <section class="py-16 bg-gray-50">
+      <div class="container mx-auto px-4">
+        <div class="text-center mb-12">
+          <h2 class="text-3xl font-bold text-gray-900 mb-4">Sứ mệnh và Tầm nhìn</h2>
+          <p class="text-gray-600 max-w-2xl mx-auto">
+            Định hướng phát triển của Trường Đại học Ngân hàng TP.HCM
+          </p>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <!-- Mission -->
+          <div class="bg-white p-8 rounded-lg shadow-sm">
+            <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-6">
+              <div class="w-8 h-8 flex items-center justify-center text-primary">
+                <i class="ri-flag-line ri-2x"></i>
+              </div>
+            </div>
+            <h3 class="text-xl font-bold text-gray-900 mb-3 text-center">Sứ mệnh</h3>
+            <p class="text-gray-600">
+              Đào tạo nguồn nhân lực chất lượng cao trong lĩnh vực tài chính - ngân hàng và các lĩnh vực liên quan, phục vụ cho sự nghiệp phát triển kinh tế - xã hội của đất nước và hội nhập quốc tế.
+            </p>
+          </div>
+          <!-- Vision -->
+          <div class="bg-white p-8 rounded-lg shadow-sm">
+            <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-6">
+              <div class="w-8 h-8 flex items-center justify-center text-primary">
+                <i class="ri-eye-line ri-2x"></i>
+              </div>
+            </div>
+            <h3 class="text-xl font-bold text-gray-900 mb-3 text-center">Tầm nhìn</h3>
+            <p class="text-gray-600">
+              Trở thành một trường đại học định hướng ứng dụng có uy tín trong nước và khu vực về đào tạo, nghiên cứu khoa học và chuyển giao công nghệ trong lĩnh vực tài chính - ngân hàng, với môi trường học tập và nghiên cứu tiên tiến.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Faculties and Programs -->
+    <section class="py-16 bg-white">
+      <div class="container mx-auto px-4">
+        <div class="text-center mb-12">
+          <h2 class="text-3xl font-bold text-gray-900 mb-4">Khoa và Chương trình đào tạo</h2>
+          <p class="text-gray-600 max-w-2xl mx-auto">
+            Các khoa và chương trình đào tạo chính tại Trường Đại học Ngân hàng TP.HCM
+          </p>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <!-- Faculty 1 -->
+          <div class="bg-gray-50 rounded-lg p-6 shadow-sm hover:shadow-md transition-shadow">
+            <div class="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center mb-4">
+              <div class="w-6 h-6 flex items-center justify-center text-primary">
+                <i class="ri-bank-line"></i>
+              </div>
+            </div>
+            <h3 class="text-xl font-bold text-gray-900 mb-2">Khoa Tài chính - Ngân hàng</h3>
+            <p class="text-gray-600 mb-4">
+              Đào tạo các chuyên ngành về Tài chính doanh nghiệp, Ngân hàng thương mại, Thị trường chứng khoán, và Tài chính quốc tế.
+            </p>
+            <a href="#" class="text-primary font-medium hover:underline inline-flex items-center">
+              Tìm hiểu thêm
+              <div class="w-5 h-5 flex items-center justify-center ml-1">
+                <i class="ri-arrow-right-line"></i>
+              </div>
+            </a>
+          </div>
+          <!-- Faculty 2 -->
+          <div class="bg-gray-50 rounded-lg p-6 shadow-sm hover:shadow-md transition-shadow">
+            <div class="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center mb-4">
+              <div class="w-6 h-6 flex items-center justify-center text-primary">
+                <i class="ri-briefcase-line"></i>
+              </div>
+            </div>
+            <h3 class="text-xl font-bold text-gray-900 mb-2">Khoa Quản trị Kinh doanh</h3>
+            <p class="text-gray-600 mb-4">
+              Đào tạo các chuyên ngành về Quản trị doanh nghiệp, Marketing, Quản trị nhân sự, và Khởi nghiệp sáng tạo.
+            </p>
+            <a href="#" class="text-primary font-medium hover:underline inline-flex items-center">
+              Tìm hiểu thêm
+              <div class="w-5 h-5 flex items-center justify-center ml-1">
+                <i class="ri-arrow-right-line"></i>
+              </div>
+            </a>
+          </div>
+          <!-- Faculty 3 -->
+          <div class="bg-gray-50 rounded-lg p-6 shadow-sm hover:shadow-md transition-shadow">
+            <div class="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center mb-4">
+              <div class="w-6 h-6 flex items-center justify-center text-primary">
+                <i class="ri-calculator-line"></i>
+              </div>
+            </div>
+            <h3 class="text-xl font-bold text-gray-900 mb-2">Khoa Kế toán - Kiểm toán</h3>
+            <p class="text-gray-600 mb-4">
+              Đào tạo các chuyên ngành về Kế toán doanh nghiệp, Kiểm toán, Kế toán quốc tế, và Hệ thống thông tin kế toán.
+            </p>
+            <a href="#" class="text-primary font-medium hover:underline inline-flex items-center">
+              Tìm hiểu thêm
+              <div class="w-5 h-5 flex items-center justify-center ml-1">
+                <i class="ri-arrow-right-line"></i>
+              </div>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Achievements -->
+    <section class="py-16 bg-gray-50">
+      <div class="container mx-auto px-4">
+        <div class="text-center mb-12">
+          <h2 class="text-3xl font-bold text-gray-900 mb-4">Thành tựu nổi bật</h2>
+          <p class="text-gray-600 max-w-2xl mx-auto">
+            Những thành tựu đáng tự hào trong quá trình phát triển của trường
+          </p>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+          <!-- Achievement 1 -->
+          <div class="bg-white p-6 rounded-lg shadow-sm text-center">
+            <div class="text-4xl font-bold text-primary mb-2">45+</div>
+            <p class="text-gray-600">Năm xây dựng và phát triển</p>
+          </div>
+          <!-- Achievement 2 -->
+          <div class="bg-white p-6 rounded-lg shadow-sm text-center">
+            <div class="text-4xl font-bold text-primary mb-2">50,000+</div>
+            <p class="text-gray-600">Sinh viên tốt nghiệp</p>
+          </div>
+          <!-- Achievement 3 -->
+          <div class="bg-white p-6 rounded-lg shadow-sm text-center">
+            <div class="text-4xl font-bold text-primary mb-2">15+</div>
+            <p class="text-gray-600">Chương trình đào tạo đại học và sau đại học</p>
+          </div>
+          <!-- Achievement 4 -->
+          <div class="bg-white p-6 rounded-lg shadow-sm text-center">
+            <div class="text-4xl font-bold text-primary mb-2">200+</div>
+            <p class="text-gray-600">Đối tác doanh nghiệp và tổ chức quốc tế</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Partners -->
+    <section class="py-16 bg-white">
+      <div class="container mx-auto px-4">
+        <div class="text-center mb-12">
+          <h2 class="text-3xl font-bold text-gray-900 mb-4">Đối tác chiến lược</h2>
+          <p class="text-gray-600 max-w-2xl mx-auto">
+            Các đối tác chiến lược trong nước và quốc tế của Trường Đại học Ngân hàng TP.HCM
+          </p>
+        </div>
+        <div class="grid grid-cols-2 md:grid-cols-5 gap-8">
+          <!-- Partner logos - would be replaced with actual partner logos -->
+          <div class="bg-gray-50 p-4 rounded flex items-center justify-center h-24">
+            <div class="text-gray-500 font-medium">Ngân hàng A</div>
+          </div>
+          <div class="bg-gray-50 p-4 rounded flex items-center justify-center h-24">
+            <div class="text-gray-500 font-medium">Tập đoàn B</div>
+          </div>
+          <div class="bg-gray-50 p-4 rounded flex items-center justify-center h-24">
+            <div class="text-gray-500 font-medium">Công ty C</div>
+          </div>
+          <div class="bg-gray-50 p-4 rounded flex items-center justify-center h-24">
+            <div class="text-gray-500 font-medium">Đại học D</div>
+          </div>
+          <div class="bg-gray-50 p-4 rounded flex items-center justify-center h-24">
+            <div class="text-gray-500 font-medium">Tổ chức E</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="py-16 bg-primary">
+      <div class="container mx-auto px-4">
+        <div class="max-w-3xl mx-auto text-center">
+          <h2 class="text-3xl font-bold text-white mb-6">
+            Bạn muốn trở thành sinh viên Đại học Ngân hàng?
+          </h2>
+          <p class="text-red-100 mb-8">
+            Đăng ký tài khoản để nhận thông tin về các sự kiện, hoạt động và tuyển sinh của trường.
+          </p>
+          <div class="flex flex-col sm:flex-row gap-4 justify-center">
+            <a
+              href="register.html"
+              class="bg-white text-primary px-6 py-3 !rounded-button whitespace-nowrap font-medium hover:bg-gray-100 transition-colors text-center"
+              >Đăng ký ngay</a
+            >
+            <a
+              href="contact.html"
+              class="bg-transparent text-white border border-white px-6 py-3 !rounded-button whitespace-nowrap font-medium hover:bg-white/10 transition-colors text-center"
+              >Liên hệ tư vấn</a
+            >
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-primary text-red-100 py-12">
+      <div class="container mx-auto px-4">
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+          <div>
+            <a href="#" class="text-2xl font-['Pacifico'] text-white mb-4 block"
+              >logo</a
+            >
+            <p class="mb-4">
+              Hệ thống Quản lý Sự kiện Đại học Ngân hàng TP.HCM - Nơi kết nối
+              sinh viên với các hoạt động học thuật và ngoại khóa.
+            </p>
+            <div class="flex space-x-4">
+              <a
+                href="#"
+                class="w-10 h-10 flex items-center justify-center bg-red-900/50 rounded-full hover:bg-white hover:text-primary transition-colors"
+              >
+                <i class="ri-facebook-fill text-white"></i>
+              </a>
+              <a
+                href="#"
+                class="w-10 h-10 flex items-center justify-center bg-red-900/50 rounded-full hover:bg-white hover:text-primary transition-colors"
+              >
+                <i class="ri-youtube-fill text-white"></i>
+              </a>
+              <a
+                href="#"
+                class="w-10 h-10 flex items-center justify-center bg-red-900/50 rounded-full hover:bg-white hover:text-primary transition-colors"
+              >
+                <i class="ri-instagram-fill text-white"></i>
+              </a>
+            </div>
+          </div>
+          <div>
+            <h3 class="text-white text-lg font-bold mb-4">Liên kết nhanh</h3>
+            <ul class="space-y-2">
+              <li>
+                <a href="index.html" class="hover:text-white transition-colors"
+                  >Trang chủ</a
+                >
+              </li>
+              <li>
+                <a href="events.html" class="hover:text-white transition-colors"
+                  >Sự kiện</a
+                >
+              </li>
+              <li>
+                <a href="login.html" class="hover:text-white transition-colors"
+                  >Đăng nhập</a
+                >
+              </li>
+              <li>
+                <a href="register.html" class="hover:text-white transition-colors"
+                  >Đăng ký</a
+                >
+              </li>
+              <li>
+                <a href="news.html" class="hover:text-white transition-colors"
+                  >Giới thiệu</a
+                >
+              </li>
+            </ul>
+          </div>
+          <div>
+            <h3 class="text-white text-lg font-bold mb-4">Hỗ trợ</h3>
+            <ul class="space-y-2">
+              <li>
+                <a href="guide.html" class="hover:text-white transition-colors"
+                  >Hướng dẫn sử dụng</a
+                >
+              </li>
+              <li>
+                <a href="faq.html" class="hover:text-white transition-colors"
+                  >Câu hỏi thường gặp</a
+                >
+              </li>
+              <li>
+                <a href="privacy.html" class="hover:text-white transition-colors"
+                  >Chính sách bảo mật</a
+                >
+              </li>
+              <li>
+                <a href="terms.html" class="hover:text-white transition-colors"
+                  >Điều khoản sử dụng</a
+                >
+              </li>
+              <li>
+                <a href="contact.html" class="hover:text-white transition-colors"
+                  >Liên hệ hỗ trợ</a
+                >
+              </li>
+            </ul>
+          </div>
+          <div>
+            <h3 class="text-white text-lg font-bold mb-4">Liên hệ</h3>
+            <ul class="space-y-2">
+              <li class="flex items-start">
+                <div class="w-5 h-5 flex items-center justify-center mr-2 mt-1">
+                  <i class="ri-map-pin-line"></i>
+                </div>
+                <span
+                  >36 Tôn Thất Đạm, Phường Nguyễn Thái Bình, Quận 1,
+                  TP.HCM</span
+                >
+              </li>
+              <li class="flex items-center">
+                <div class="w-5 h-5 flex items-center justify-center mr-2">
+                  <i class="ri-phone-line"></i>
+                </div>
+                <span>(028) 3829 1901</span>
+              </li>
+              <li class="flex items-center">
+                <div class="w-5 h-5 flex items-center justify-center mr-2">
+                  <i class="ri-mail-line"></i>
+                </div>
+                <span>info@buh.edu.vn</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="border-t border-red-900/30 mt-10 pt-6 text-center">
+          <p>
+            &copy; 2025 Đại học Ngân hàng TP.HCM. Tất cả quyền được bảo lưu.
+          </p>
+        </div>
+      </div>
+    </footer>
+    
+    <script>
+      // Mobile menu toggle functionality
+      document.addEventListener("DOMContentLoaded", function () {
+        // Handle mobile menu functionality
+        const handleMobileMenu = () => {
+          const menuButton = document.querySelector("button.md\\:hidden");
+          const mobileMenu = document.createElement("div");
+          
+          // Create mobile menu element
+          mobileMenu.className = 
+            "fixed inset-0 bg-primary z-50 transform translate-x-full transition-transform duration-300 ease-in-out";
+          
+          // Set mobile menu content
+          mobileMenu.innerHTML = `
+            <div class="p-4 flex justify-between items-center border-b border-red-900/30">
+              <a href="#" class="text-2xl font-['Pacifico'] text-white">
+                <img src="../images/logo/logo-white-vertical.png" alt="logo" class="w-16 h-16">
+              </a>
+              <button class="w-10 h-10 flex items-center justify-center text-white">
+                <i class="ri-close-line ri-lg"></i>
+              </button>
+            </div>
+            <nav class="p-4">
+              <ul class="space-y-4">
+                <li><a href="index.html" class="text-red-100 block py-2">Trang chủ</a></li>
+                <li><a href="events.html" class="text-red-100 block py-2">Sự kiện</a></li>
+                <li><a href="news.html" class="text-white font-medium block py-2">Giới thiệu</a></li>
+                <li><a href="contact.html" class="text-red-100 block py-2">Liên hệ</a></li>
+                <li class="pt-4 border-t border-red-900/30">
+                  <a href="login.html" class="text-white font-medium block py-2">Đăng nhập</a>
+                </li>
+                <li>
+                  <a href="register.html" class="bg-white text-primary px-4 py-2 !rounded-button whitespace-nowrap block text-center mt-2">Đăng ký</a>
+                </li>
+              </ul>
+            </nav>
+          `;
+          
+          // Add mobile menu to DOM
+          document.body.appendChild(mobileMenu);
+          
+          // Add event listeners for menu toggle
+          menuButton.addEventListener("click", function () {
+            mobileMenu.classList.remove("translate-x-full");
+          });
+          
+          mobileMenu.querySelector("button").addEventListener("click", function () {
+            mobileMenu.classList.add("translate-x-full");
+          });
+        };
+        
+        // Initialize mobile menu
+        handleMobileMenu();
+      });
+    </script>
+  </body>
+</html> 

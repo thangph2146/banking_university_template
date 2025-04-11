@@ -1,433 +1,1428 @@
 <!DOCTYPE html>
 <html lang="vi">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chi tiết sự kiện - Đại Học Ngân Hàng TP.HCM</title>
-    <link rel="icon" href="../favicon.svg" type="image/svg+xml">
-    <!-- Global styles -->
-    <link rel="stylesheet" href="../css/styles.css">
-    <!-- Component styles -->
-    <link rel="stylesheet" href="../css/components/header.css">
-    <link rel="stylesheet" href="../css/components/footer.css">
-    <!-- Page specific styles -->
-    <link rel="stylesheet" href="../css/event-detail.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <meta name="description" content="Thông tin chi tiết về sự kiện và đăng ký tham gia tại Đại học Ngân hàng TP.HCM">
-</head>
-<body>
-    <!-- Header Component -->
-    <div id="header-component"></div>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Chi tiết sự kiện - Hội thảo Công nghệ và Tương lai nghề nghiệp</title>
+    <script src="https://cdn.tailwindcss.com/3.4.16"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              primary: "#800000",
+              secondary: "#FF6B6B",
+            },
+            borderRadius: {
+              none: "0px",
+              sm: "4px",
+              DEFAULT: "8px",
+              md: "12px",
+              lg: "16px",
+              xl: "20px",
+              "2xl": "24px",
+              "3xl": "32px",
+              full: "9999px",
+              button: "8px",
+            },
+          },
+        },
+      };
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css"
+      rel="stylesheet"
+    />
+    <style>
+      :where([class^="ri-"])::before { content: "\f3c2"; }
+      body {
+      font-family: 'Inter', sans-serif;
+      }
+      .event-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+      }
+      input[type="number"]::-webkit-inner-spin-button,
+      input[type="number"]::-webkit-outer-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+      }
+      
+      /* Hide scrollbar but keep functionality */
+      .scrollbar-hide {
+        -ms-overflow-style: none;  /* IE and Edge */
+        scrollbar-width: none;  /* Firefox */
+      }
+      
+      .scrollbar-hide::-webkit-scrollbar {
+        display: none;  /* Chrome, Safari and Opera */
+      }
+      
+      /* Add smooth scrolling */
+      html {
+        scroll-behavior: smooth;
+      }
+      
+      /* Style focus state for better accessibility */
+      *:focus-visible {
+        outline: 2px solid #800000;
+        outline-offset: 2px;
+      }
+      
+      /* Animation for speakers */
+      @keyframes fadeInUp {
+        from {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+      
+      .animate-speakers {
+        animation: fadeInUp 0.6s ease forwards;
+      }
+      
+      /* Pulse animation for registration buttons */
+      @keyframes pulse {
+        0% {
+          box-shadow: 0 0 0 0 rgba(128, 0, 0, 0.4);
+        }
+        70% {
+          box-shadow: 0 0 0 6px rgba(128, 0, 0, 0);
+        }
+        100% {
+          box-shadow: 0 0 0 0 rgba(128, 0, 0, 0);
+        }
+      }
+      
+      .animate-pulse-slow {
+        animation: pulse 3s infinite;
+      }
+      
+      /* Timeline animation */
+      .timeline-item {
+        opacity: 0;
+        transform: translateX(-20px);
+        transition: all 0.4s ease;
+      }
+      
+      .timeline-item.show {
+        opacity: 1;
+        transform: translateX(0);
+      }
+      
+      /* Animation for timeline circle pulsing */
+      @keyframes timelinePulse {
+        0% {
+          transform: scale(1);
+        }
+        50% {
+          transform: scale(1.1);
+        }
+        100% {
+          transform: scale(1);
+        }
+      }
+      
+      /* Fade in animation for tab content */
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(10px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+      
+      .animate-fade-in {
+        animation: fadeIn 0.5s ease-out forwards;
+      }
+      
+      /* Progress bar animation */
+      @keyframes progressFill {
+        from {
+          width: 0%;
+        }
+      }
+      
+      .animate-progress {
+        animation: progressFill 1.5s ease-out forwards;
+        animation-play-state: paused;
+      }
+    </style>
+  </head>
+  <body class="bg-gray-50 min-h-screen">
+    <!-- Header -->
+    <header class="bg-primary shadow-sm">
+      <div
+        class="container mx-auto px-4 flex items-center justify-between py-3"
+      >
+        <div class="flex items-center">
+          <a href="index.html" class="text-2xl font-['Pacifico'] text-white">
+            <img src="../images/logo/logo-white-vertical.png" alt="logo" class="w-16 h-16">
+          </a>
+        </div>
+        <nav class="hidden md:flex space-x-8">
+          <a href="index.html" class="font-medium text-white/80 hover:text-white"
+            >Trang chủ</a
+          >
+          <a href="events.html" class="font-medium text-white border-b-2 border-white"
+            >Sự kiện</a
+          >
+          <a href="news.html" class="font-medium text-white/80 hover:text-white"
+            >Tin tức</a
+          >
+          <a href="contact.html" class="font-medium text-white/80 hover:text-white"
+            >Liên hệ</a
+          >
+        </nav>
+        <div class="hidden md:flex items-center space-x-4">
+          <div
+            class="w-10 h-10 flex items-center justify-center rounded-full bg-white/10 text-white hover:bg-white/20 cursor-pointer"
+          >
+            <i class="ri-notification-3-line"></i>
+          </div>
+          <div class="flex items-center space-x-2">
+            <div
+              class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center"
+            >
+              <span class="text-white font-medium">NT</span>
+            </div>
+            <span class="hidden md:inline text-sm font-medium text-white"
+              >Nguyễn Thành</span
+            >
+          </div>
+        </div>
+        
+        <!-- Mobile menu button -->
+        <button
+          class="md:hidden w-10 h-10 flex items-center justify-center text-white"
+          id="mobile-menu-button"
+        >
+          <i class="ri-menu-line ri-lg"></i>
+        </button>
+      </div>
+    </header>
+    
+    <!-- Mobile menu (hidden by default) -->
+    <div id="mobile-menu" class="fixed inset-0 bg-primary z-50 transform translate-x-full transition-transform duration-300 ease-in-out">
+      <div class="p-4 flex justify-between items-center border-b border-red-900/30">
+        <a href="index.html" class="text-2xl font-['Pacifico'] text-white">
+          <img src="../images/logo/logo-white-vertical.png" alt="logo" class="w-16 h-16">
+        </a>
+        <button class="w-10 h-10 flex items-center justify-center text-white" id="mobile-menu-close">
+          <i class="ri-close-line ri-lg"></i>
+        </button>
+      </div>
+      <nav class="p-4">
+        <ul class="space-y-4">
+          <li><a href="index.html" class="text-red-100 block py-2">Trang chủ</a></li>
+          <li><a href="events.html" class="text-white font-medium block py-2 border-l-4 border-white pl-2">Sự kiện</a></li>
+          <li><a href="news.html" class="text-red-100 block py-2">Tin tức</a></li>
+          <li><a href="contact.html" class="text-red-100 block py-2">Liên hệ</a></li>
+          <li class="pt-4 border-t border-red-900/30 mt-4">
+            <div class="flex items-center">
+              <div class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center">
+                <span class="text-white font-medium">NT</span>
+              </div>
+              <span class="text-white font-medium ml-3">Nguyễn Thành</span>
+            </div>
+          </li>
+        </ul>
+      </nav>
+    </div>
 
     <!-- Main Content -->
-    <div class="main-content">
-        <div class="container">
-            <!-- Breadcrumb -->
-            <nav class="breadcrumb">
-                <a href="../index.html">Trang chủ</a>
-                <span class="separator">/</span>
-                <a href="events.html">Danh sách sự kiện</a>
-                <span class="separator">/</span>
-                <a href="hoi-thao.html">Hội thảo</a>
-                <span class="separator">/</span>
-                <span class="current">Hội thảo "Xu hướng công nghệ tài chính 2023"</span>
-            </nav>
+    <main class="container mx-auto px-4 py-8">
+      <!-- Breadcrumb -->
+      <nav class="flex mb-6 text-sm text-gray-500">
+        <a href="index.html" class="hover:text-primary">Trang chủ</a>
+        <span class="mx-2">/</span>
+        <a href="events.html" class="hover:text-primary">Sự kiện</a>
+        <span class="mx-2">/</span>
+        <span class="text-gray-900">Hội thảo Công nghệ và Tương lai nghề nghiệp</span>
+      </nav>
 
-            <div class="event-detail-wrapper">
-                <div class="event-detail-left">
-                    <!-- Tab Navigation -->
-                    <div class="event-tabs">
-                        <button class="tab-btn" data-tab="chi-tiet">Chi tiết sự kiện</button>
-                        <button class="tab-btn" data-tab="tinh-trang">Tình trạng đăng ký</button>
-                        <button class="tab-btn" data-tab="form-dang-ky">Form đăng ký</button>
-                    </div>
-
-                    <!-- Tab Content -->
-                    <div class="tab-content" id="chi-tiet">
-                        <div class="event-info-grid">
-                            <div class="info-item">
-                                <i class="far fa-calendar"></i>
-                                <div class="info-content">
-                                    <div class="info-label">Ngày tổ chức</div>
-                                    <div class="info-value">15/04/2023</div>
-                                </div>
-                            </div>
-                            <div class="info-item">
-                                <i class="far fa-clock"></i>
-                                <div class="info-content">
-                                    <div class="info-label">Thời gian</div>
-                                    <div class="info-value">08:00 - 16:00</div>
-                                </div>
-                            </div>
-                            <div class="info-item">
-                                <i class="fas fa-map-marker-alt"></i>
-                                <div class="info-content">
-                                    <div class="info-label">Địa điểm</div>
-                                    <div class="info-value">CS Thủ Đức</div>
-                                </div>
-                            </div>
-                            <div class="info-item">
-                                <i class="fas fa-users"></i>
-                                <div class="info-content">
-                                    <div class="info-label">Số lượng</div>
-                                    <div class="info-value">250 người</div>
-                                </div>
-                            </div>
-                            <div class="info-item">
-                                <i class="fas fa-video"></i>
-                                <div class="info-content">
-                                    <div class="info-label">Hình thức</div>
-                                    <div class="info-value">Online</div>
-                                </div>
-                            </div>
-                            <div class="info-item">
-                                <i class="far fa-calendar-alt"></i>
-                                <div class="info-content">
-                                    <div class="info-label">Thời gian đăng ký</div>
-                                    <div class="info-value">Từ 06/04/2023 đến 09/04/2023</div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="event-timeline">
-                            <h3>Lịch trình sự kiện</h3>
-                            <div class="timeline">
-                                <div class="timeline-item">
-                                    <div class="timeline-point"></div>
-                                    <div class="timeline-content">
-                                        <div class="time">08:00 - 08:30</div>
-                                        <div class="activity">Đón tiếp đại biểu</div>
-                                    </div>
-                                </div>
-                                <div class="timeline-item">
-                                    <div class="timeline-point"></div>
-                                    <div class="timeline-content">
-                                        <div class="time">08:30 - 10:00</div>
-                                        <div class="activity">Phiên thảo luận 1: Xu hướng công nghệ tài chính</div>
-                                    </div>
-                                </div>
-                                <div class="timeline-item">
-                                    <div class="timeline-point"></div>
-                                    <div class="timeline-content">
-                                        <div class="time">10:15 - 11:45</div>
-                                        <div class="activity">Phiên thảo luận 2: Blockchain trong tài chính</div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="event-description">
-                            <h3>Mô tả sự kiện</h3>
-                            <div class="description-content">
-                                <p>Chủ đề chính: Xu hướng công nghệ mới trong lĩnh vực công nghệ tài chính và blockchain.</p>
-                                <p>Chi tiết:</p>
-                                <ul>
-                                    <li>Xu hướng công nghệ mới và cơ hội việc làm trong lĩnh vực tài chính công nghệ</li>
-                                    <li>Blockchain và ứng dụng trong lĩnh vực tài chính</li>
-                                    <li>Các cơ hội khởi nghiệp trong lĩnh vực fintech</li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="tab-content" id="tinh-trang">
-                        <div class="registration-status">
-                            <div class="status-header">
-                                <h3>Tình trạng đăng ký</h3>
-                            </div>
-                            <div class="status-stats">
-                                <div class="stat-item">
-                                    <div class="stat-icon">
-                                        <i class="fas fa-users"></i>
-                                    </div>
-                                    <div class="stat-info">
-                                        <div class="stat-label">Tổng số chỗ</div>
-                                        <div class="stat-value">250 chỗ</div>
-                                    </div>
-                                </div>
-                                <div class="stat-item">
-                                    <div class="stat-icon">
-                                        <i class="fas fa-user-check"></i>
-                                    </div>
-                                    <div class="stat-info">
-                                        <div class="stat-label">Đã đăng ký</div>
-                                        <div class="stat-value">14 người</div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="registration-period">
-                                <div class="period-item">
-                                    <span class="label">Bắt đầu đăng ký:</span>
-                                    <span class="value">06/04/2023 00:00</span>
-                                </div>
-                                <div class="period-item">
-                                    <span class="label">Kết thúc đăng ký:</span>
-                                    <span class="value">09/04/2023 23:59</span>
-                                </div>
-                            </div>
-                            <div class="status-alert warning">
-                                <i class="fas fa-exclamation-triangle"></i>
-                                <span>Đã kết thúc thời gian đăng ký</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="tab-content" id="form-dang-ky">
-                        <div class="login-prompt">
-                            <div class="login-content">
-                                <h3>Đăng nhập để tiếp tục</h3>
-                                <p>Đăng nhập tài khoản để đăng ký tham gia sự kiện và nhận thông tin cập nhật</p>
-                                <button class="btn btn-primary btn-login">
-                                    <i class="fas fa-sign-in-alt"></i>
-                                    Đăng nhập để tiếp tục
-                                </button>
-                                <button class="btn btn-outline btn-register">
-                                    <i class="fas fa-user-plus"></i>
-                                    Đăng ký tài khoản mới
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="event-detail-right">
-                    <!-- QR Code Section -->
-                    <div class="share-section">
-                        <h3>Chia sẻ sự kiện</h3>
-                        <div class="qr-code">
-                            <img src="../images/qr-code.png" alt="QR Code">
-                            <p>Quét mã QR để xem trên điện thoại</p>
-                        </div>
-                        <div class="share-buttons">
-                            <button class="btn" data-platform="facebook">
-                                <i class="fab fa-facebook-f"></i>
-                            </button>
-                            <button class="btn" data-platform="reddit">
-                                <i class="fab fa-reddit-alien"></i>
-                            </button>
-                            <button class="btn" data-platform="apple">
-                                <i class="fab fa-apple"></i>
-                            </button>
-                            <button class="btn" data-platform="copy">
-                                <i class="fas fa-share-alt"></i>
-                            </button>
-                        </div>
-                        <button class="btn btn-outline">Tải mã QR</button>
-                    </div>
-
-                    <!-- Statistics Section -->
-                    <div class="stats-section">
-                        <h3>Thống kê sự kiện</h3>
-                        <div class="stat-list">
-                            <div class="stat-item">
-                                <span class="stat-label">Lượt xem</span>
-                                <span class="stat-value">164</span>
-                            </div>
-                            <div class="stat-item">
-                                <span class="stat-label">Người đăng ký</span>
-                                <span class="stat-value">14</span>
-                            </div>
-                            <div class="stat-item">
-                                <span class="stat-label">Đã tham gia</span>
-                                <span class="stat-value">0</span>
-                            </div>
-                            <div class="stat-item">
-                                <span class="stat-label">Đã hoàn thành</span>
-                                <span class="stat-value">14</span>
-                            </div>
-                            <div class="progress-bar">
-                                <div class="progress" style="width: 5%"></div>
-                                <span class="progress-text">Tỉ lệ đăng ký</span>
-                            </div>
-                            <div class="progress-bar">
-                                <div class="progress" style="width: 21%"></div>
-                                <span class="progress-text">Tỉ lệ tham gia</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Organizer Section -->
-                    <div class="organizer-section">
-                        <h3>Ban tổ chức</h3>
-                        <div class="organizer-info">
-                            <h4>Trường Đại học Ngân hàng TP.HCM</h4>
-                            <div class="contact-info">
-                                <p><i class="fas fa-map-marker-alt"></i> 36 Tôn Thất Đạm, Q.1, TP.HCM</p>
-                                <p><i class="fas fa-phone"></i> (028) 38 212 593</p>
-                                <p><i class="fas fa-envelope"></i> info@buh.edu.vn</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="related-events">
-                        <h3>Sự kiện liên quan</h3>
-                        <div class="event-item">
-                            <div class="event-date">
-                                <span class="date">15</span>
-                                <span class="month">04/2023</span>
-                            </div>
-                            <div class="event-info">
-                                <h4>Hội thảo khoa học "Tài chính và Ngân hàng trong kỷ nguyên số"</h4>
-                                <p class="time">08:00</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+      <div class="flex flex-col lg:flex-row gap-8">
+        <!-- Event Details -->
+        <div class="lg:w-2/3">
+          <!-- Event Header -->
+          <div class="bg-white rounded-lg shadow-sm overflow-hidden mb-6 hover:shadow-md transition-shadow">
+            <div class="relative h-64 sm:h-80 md:h-96 overflow-hidden group">
+              <img
+                src="https://readdy.ai/api/search-image?query=university%20students%20at%20a%20tech%20conference%20with%20modern%20presentation%20screens%2C%20professional%20setting%2C%20business%20casual%20attire%2C%20engaging%20audience%2C%20clean%20modern%20venue%2C%20wide%20view&width=1200&height=600&seq=detail1&orientation=landscape"
+                alt="Hội thảo Công nghệ và Tương lai nghề nghiệp"
+                class="w-full h-full object-cover transition-all duration-700 group-hover:scale-105 group-hover:filter group-hover:brightness-105"
+                loading="eager"
+              />
+              <div class="absolute top-4 right-4 bg-primary text-white text-xs font-bold px-3 py-1.5 rounded-full shadow-md transform transition-transform duration-300 group-hover:scale-105 group-hover:-translate-y-1">
+                Học thuật
+              </div>
+              <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-70 group-hover:opacity-80 transition-opacity duration-500"></div>
+              <div class="absolute bottom-6 left-6 transform translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300">
+                <button class="bg-white/90 hover:bg-white text-primary px-4 py-2 rounded-full flex items-center gap-2 shadow-lg">
+                  <i class="ri-share-line"></i>
+                  <span class="font-medium">Chia sẻ</span>
+                </button>
+              </div>
             </div>
+            <div class="p-6">
+              <h1 class="text-2xl sm:text-3xl font-bold text-gray-900 mb-4">
+                Hội thảo Công nghệ và Tương lai nghề nghiệp
+              </h1>
+              
+              <div class="flex flex-wrap gap-3 mb-6">
+                <div class="flex items-center text-gray-700 bg-gray-100 px-3 py-1.5 rounded-full hover:bg-gray-200 transition-all hover:-translate-y-0.5 hover:shadow-sm">
+                  <div class="w-4 h-4 flex items-center justify-center mr-2 text-primary">
+                    <i class="ri-calendar-line"></i>
+                  </div>
+                  <span class="text-sm">15/04/2025</span>
+                </div>
+                <div class="flex items-center text-gray-700 bg-gray-100 px-3 py-1.5 rounded-full hover:bg-gray-200 transition-all hover:-translate-y-0.5 hover:shadow-sm">
+                  <div class="w-4 h-4 flex items-center justify-center mr-2 text-primary">
+                    <i class="ri-time-line"></i>
+                  </div>
+                  <span class="text-sm">08:30 - 16:00</span>
+                </div>
+                <div class="flex items-center text-gray-700 bg-gray-100 px-3 py-1.5 rounded-full hover:bg-gray-200 transition-all hover:-translate-y-0.5 hover:shadow-sm">
+                  <div class="w-4 h-4 flex items-center justify-center mr-2 text-primary">
+                    <i class="ri-map-pin-line"></i>
+                  </div>
+                  <span class="text-sm">Hội trường A - Khu A</span>
+                </div>
+                <div class="flex items-center text-gray-700 bg-gray-100 px-3 py-1.5 rounded-full hover:bg-gray-200 transition-all hover:-translate-y-0.5 hover:shadow-sm">
+                  <div class="w-4 h-4 flex items-center justify-center mr-2 text-primary">
+                    <i class="ri-user-line"></i>
+                  </div>
+                  <span class="text-sm">128/200 người tham gia</span>
+                </div>
+              </div>
+              
+              <!-- Registration button -->
+              <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+                <div class="sm:max-w-[60%]">
+                  <span class="text-sm text-gray-700 block mb-1">Còn <span class="font-semibold text-primary">72 suất</span> đăng ký</span>
+                  <div class="w-full bg-gray-200 rounded-full h-2.5 overflow-hidden">
+                    <div class="bg-primary h-2.5 rounded-full animate-progress" style="width: 64%"></div>
+                  </div>
+                </div>
+                <button 
+                  id="quick-register-btn" 
+                  class="bg-primary text-white px-8 py-2.5 font-medium rounded-button hover:bg-primary/90 transition-colors shadow-sm hover:shadow-md transform transition-transform hover:-translate-y-0.5 animate-pulse-slow"
+                >
+                  Đăng ký nhanh
+                </button>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Event Tabs -->
+          <div class="bg-white rounded-lg shadow-sm overflow-hidden mb-6">
+            <div class="border-b border-gray-200">
+              <div class="flex overflow-x-auto scrollbar-hide">
+                <button 
+                  class="px-6 py-3 font-medium text-primary border-b-2 border-primary tab-button relative focus:outline-none focus:ring-2 focus:ring-primary/50 focus:ring-offset-2" 
+                  data-tab="info-tab"
+                  role="tab"
+                  aria-selected="true"
+                  aria-controls="info-tab"
+                >
+                  <span>Thông tin</span>
+                </button>
+                <button 
+                  class="px-6 py-3 font-medium text-gray-500 hover:text-gray-700 tab-button relative focus:outline-none focus:ring-2 focus:ring-primary/50 focus:ring-offset-2" 
+                  data-tab="speakers-tab"
+                  role="tab"
+                  aria-selected="false"
+                  aria-controls="speakers-tab"
+                >
+                  <span>Diễn giả</span>
+                </button>
+                <button 
+                  class="px-6 py-3 font-medium text-gray-500 hover:text-gray-700 tab-button relative focus:outline-none focus:ring-2 focus:ring-primary/50 focus:ring-offset-2" 
+                  data-tab="schedule-tab"
+                  role="tab"
+                  aria-selected="false"
+                  aria-controls="schedule-tab"
+                >
+                  <span>Lịch trình</span>
+                </button>
+                <button 
+                  class="px-6 py-3 font-medium text-gray-500 hover:text-gray-700 tab-button relative focus:outline-none focus:ring-2 focus:ring-primary/50 focus:ring-offset-2" 
+                  data-tab="map-tab"
+                  role="tab"
+                  aria-selected="false"
+                  aria-controls="map-tab"
+                >
+                  <span>Bản đồ</span>
+                </button>
+              </div>
+            </div>
+            
+            <!-- Tab Content -->
+            <!-- Info Tab Content -->
+            <div 
+              id="info-tab" 
+              class="p-6 tab-content block transition-opacity duration-300 ease-in-out"
+              role="tabpanel"
+              aria-labelledby="info-tab-button"
+            >
+              <!-- Event Description -->
+              <div>
+                <h2 class="text-xl font-bold text-gray-900 mb-4">Mô tả sự kiện</h2>
+                <div class="prose prose-sm max-w-none text-gray-700">
+                  <p class="mb-4">
+                    Hội thảo "Công nghệ và Tương lai nghề nghiệp" là sự kiện thường niên được tổ chức bởi Đại học Ngân hàng TP.HCM với sự phối hợp cùng các doanh nghiệp công nghệ hàng đầu. Đây là cơ hội để sinh viên và các chuyên gia cùng trao đổi, thảo luận về xu hướng công nghệ mới và tác động của chúng đến thị trường lao động trong tương lai.
+                  </p>
+                  <p class="mb-4">
+                    Tại hội thảo, các diễn giả sẽ chia sẻ những kiến thức chuyên sâu về trí tuệ nhân tạo (AI), blockchain, phân tích dữ liệu lớn (Big Data) và các xu hướng công nghệ đang định hình lại ngành tài chính - ngân hàng. Đồng thời, bạn cũng sẽ được tham gia các phiên thảo luận chuyên đề về kỹ năng cần thiết và cơ hội nghề nghiệp trong kỷ nguyên số.
+                  </p>
+                  <p class="mb-4">
+                    Đặc biệt, hội thảo còn có phần giao lưu trực tiếp với đại diện tuyển dụng từ các doanh nghiệp tài chính, ngân hàng và công nghệ, giúp sinh viên hiểu rõ hơn về nhu cầu thực tế của thị trường và định hướng phát triển nghề nghiệp cho bản thân.
+                  </p>
+                </div>
+                
+                <h2 class="text-xl font-bold text-gray-900 mt-8 mb-4">Đối tượng tham gia</h2>
+                <ul class="list-disc pl-5 text-gray-700 space-y-2">
+                  <li>Sinh viên các ngành Tài chính - Ngân hàng, Công nghệ thông tin, Quản trị kinh doanh</li>
+                  <li>Giảng viên, cán bộ nghiên cứu quan tâm đến lĩnh vực công nghệ và tài chính</li>
+                  <li>Cựu sinh viên và các chuyên gia đang làm việc trong lĩnh vực tài chính, ngân hàng và công nghệ</li>
+                </ul>
+                
+                <h2 class="text-xl font-bold text-gray-900 mt-8 mb-4">Lợi ích khi tham gia</h2>
+                <ul class="list-disc pl-5 text-gray-700 space-y-2">
+                  <li>Cập nhật kiến thức về xu hướng công nghệ mới nhất trong lĩnh vực tài chính - ngân hàng</li>
+                  <li>Kết nối với các chuyên gia hàng đầu và mở rộng mạng lưới quan hệ</li>
+                  <li>Nhận chứng chỉ tham dự có giá trị từ Đại học Ngân hàng TP.HCM</li>
+                  <li>Cơ hội nhận học bổng và thực tập tại các doanh nghiệp đối tác</li>
+                </ul>
+              </div>
+            </div>
+            
+            <!-- Speakers Tab Content -->
+            <div 
+              id="speakers-tab" 
+              class="p-6 tab-content hidden transition-opacity duration-300 ease-in-out"
+              role="tabpanel"
+              aria-labelledby="speakers-tab-button"
+            >
+              <h2 class="text-xl font-bold text-gray-900 mb-6">Diễn giả</h2>
+              
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- Speaker 1 -->
+                <div class="flex items-start space-x-4 transition duration-500 transform opacity-0 translate-y-4 animate-speakers">
+                  <div class="w-16 h-16 rounded-full overflow-hidden flex-shrink-0">
+                    <img 
+                      src="https://readdy.ai/api/search-image?query=professional%20headshot%20of%20middle-aged%20asian%20professor%20male%2C%20formal%20attire%2C%20neutral%20background&width=150&height=150&seq=speaker1&orientation=squarish" 
+                      alt="GS.TS. Nguyễn Văn A" 
+                      class="w-full h-full object-cover"
+                    />
+                  </div>
+                  <div>
+                    <h3 class="text-lg font-bold text-gray-900">GS.TS. Nguyễn Văn A</h3>
+                    <p class="text-sm text-primary mb-2">Viện trưởng Viện Công nghệ Tài chính, ĐH Ngân hàng</p>
+                    <p class="text-sm text-gray-600">Chuyên gia về Trí tuệ nhân tạo và ứng dụng trong lĩnh vực tài chính</p>
+                  </div>
+                </div>
+                
+                <!-- Speaker 2 -->
+                <div class="flex items-start space-x-4 transition duration-500 transform opacity-0 translate-y-4 animate-speakers" style="animation-delay: 100ms;">
+                  <div class="w-16 h-16 rounded-full overflow-hidden flex-shrink-0">
+                    <img 
+                      src="https://readdy.ai/api/search-image?query=professional%20headshot%20of%20female%20CEO%2C%20asian%2C%20business%20formal%2C%20confident%20pose%2C%20neutral%20background&width=150&height=150&seq=speaker2&orientation=squarish" 
+                      alt="Bà Trần Thị B" 
+                      class="w-full h-full object-cover"
+                    />
+                  </div>
+                  <div>
+                    <h3 class="text-lg font-bold text-gray-900">Bà Trần Thị B</h3>
+                    <p class="text-sm text-primary mb-2">CEO Công ty Fintech ABC</p>
+                    <p class="text-sm text-gray-600">Hơn 15 năm kinh nghiệm trong lĩnh vực công nghệ tài chính</p>
+                  </div>
+                </div>
+                
+                <!-- Speaker 3 -->
+                <div class="flex items-start space-x-4 transition duration-500 transform opacity-0 translate-y-4 animate-speakers" style="animation-delay: 200ms;">
+                  <div class="w-16 h-16 rounded-full overflow-hidden flex-shrink-0">
+                    <img 
+                      src="https://readdy.ai/api/search-image?query=professional%20headshot%20of%20technology%20executive%20male%2C%20asian%2C%20business%20casual%2C%20glasses%2C%20neutral%20background&width=150&height=150&seq=speaker3&orientation=squarish" 
+                      alt="Ông Lê Văn C" 
+                      class="w-full h-full object-cover"
+                    />
+                  </div>
+                  <div>
+                    <h3 class="text-lg font-bold text-gray-900">Ông Lê Văn C</h3>
+                    <p class="text-sm text-primary mb-2">Giám đốc Công nghệ, Ngân hàng XYZ</p>
+                    <p class="text-sm text-gray-600">Tiên phong trong lĩnh vực chuyển đổi số ngành ngân hàng</p>
+                  </div>
+                </div>
+                
+                <!-- Speaker 4 -->
+                <div class="flex items-start space-x-4 transition duration-500 transform opacity-0 translate-y-4 animate-speakers" style="animation-delay: 300ms;">
+                  <div class="w-16 h-16 rounded-full overflow-hidden flex-shrink-0">
+                    <img 
+                      src="https://readdy.ai/api/search-image?query=professional%20headshot%20of%20young%20tech%20entrepreneur%20asian%20female%2C%20smart%20casual%2C%20neutral%20background&width=150&height=150&seq=speaker4&orientation=squarish" 
+                      alt="TS. Phạm Thị D" 
+                      class="w-full h-full object-cover"
+                    />
+                  </div>
+                  <div>
+                    <h3 class="text-lg font-bold text-gray-900">TS. Phạm Thị D</h3>
+                    <p class="text-sm text-primary mb-2">Founder & CTO Startup DEF</p>
+                    <p class="text-sm text-gray-600">Chuyên gia về Blockchain và ứng dụng trong thanh toán điện tử</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <!-- Schedule Tab Content -->
+            <div 
+              id="schedule-tab" 
+              class="p-6 tab-content hidden transition-opacity duration-300 ease-in-out"
+              role="tabpanel"
+              aria-labelledby="schedule-tab-button"
+            >
+              <h2 class="text-xl font-bold text-gray-900 mb-6">Lịch trình</h2>
+              
+              <div class="space-y-6">
+                <div class="flex timeline-item">
+                  <div class="flex flex-col items-center mr-4">
+                    <div class="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center text-primary">
+                      <i class="ri-time-line"></i>
+                    </div>
+                    <div class="h-full w-0.5 bg-gray-200 mt-2"></div>
+                  </div>
+                  <div>
+                    <span class="text-sm font-medium text-primary">08:30 - 09:00</span>
+                    <h3 class="text-base font-bold text-gray-900 mt-1">Đón tiếp đại biểu và đăng ký</h3>
+                    <p class="text-sm text-gray-600 mt-1">
+                      Đón tiếp đại biểu, phát tài liệu hội thảo và check-in tại quầy lễ tân
+                    </p>
+                  </div>
+                </div>
+                
+                <div class="flex timeline-item">
+                  <div class="flex flex-col items-center mr-4">
+                    <div class="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center text-primary">
+                      <i class="ri-time-line"></i>
+                    </div>
+                    <div class="h-full w-0.5 bg-gray-200 mt-2"></div>
+                  </div>
+                  <div>
+                    <span class="text-sm font-medium text-primary">09:00 - 09:30</span>
+                    <h3 class="text-base font-bold text-gray-900 mt-1">Khai mạc hội thảo</h3>
+                    <p class="text-sm text-gray-600 mt-1">
+                      Phát biểu khai mạc của đại diện Ban Giám hiệu và giới thiệu tổng quan về hội thảo
+                    </p>
+                  </div>
+                </div>
+                
+                <div class="flex timeline-item">
+                  <div class="flex flex-col items-center mr-4">
+                    <div class="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center text-primary">
+                      <i class="ri-time-line"></i>
+                    </div>
+                    <div class="h-full w-0.5 bg-gray-200 mt-2"></div>
+                  </div>
+                  <div>
+                    <span class="text-sm font-medium text-primary">09:30 - 10:30</span>
+                    <h3 class="text-base font-bold text-gray-900 mt-1">Báo cáo chuyên đề 1: Trí tuệ nhân tạo trong ngành tài chính</h3>
+                    <p class="text-sm text-gray-600 mt-1">
+                      Diễn giả: GS.TS. Nguyễn Văn A
+                    </p>
+                  </div>
+                </div>
+                
+                <div class="flex timeline-item">
+                  <div class="flex flex-col items-center mr-4">
+                    <div class="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center text-primary">
+                      <i class="ri-time-line"></i>
+                    </div>
+                    <div class="h-full w-0.5 bg-gray-200 mt-2"></div>
+                  </div>
+                  <div>
+                    <span class="text-sm font-medium text-primary">10:30 - 10:45</span>
+                    <h3 class="text-base font-bold text-gray-900 mt-1">Nghỉ giải lao</h3>
+                  </div>
+                </div>
+                
+                <div class="flex timeline-item">
+                  <div class="flex flex-col items-center mr-4">
+                    <div class="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center text-primary">
+                      <i class="ri-time-line"></i>
+                    </div>
+                    <div class="h-full w-0.5 bg-gray-200 mt-2"></div>
+                  </div>
+                  <div>
+                    <span class="text-sm font-medium text-primary">10:45 - 11:45</span>
+                    <h3 class="text-base font-bold text-gray-900 mt-1">Báo cáo chuyên đề 2: Blockchain và tương lai của ngành thanh toán</h3>
+                    <p class="text-sm text-gray-600 mt-1">
+                      Diễn giả: TS. Phạm Thị D
+                    </p>
+                  </div>
+                </div>
+                
+                <div class="flex timeline-item">
+                  <div class="flex flex-col items-center mr-4">
+                    <div class="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center text-primary">
+                      <i class="ri-time-line"></i>
+                    </div>
+                    <div class="h-full w-0.5 bg-gray-200 mt-2"></div>
+                  </div>
+                  <div>
+                    <span class="text-sm font-medium text-primary">11:45 - 13:30</span>
+                    <h3 class="text-base font-bold text-gray-900 mt-1">Nghỉ trưa và giao lưu</h3>
+                  </div>
+                </div>
+                
+                <div class="flex timeline-item">
+                  <div class="flex flex-col items-center mr-4">
+                    <div class="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center text-primary">
+                      <i class="ri-time-line"></i>
+                    </div>
+                    <div class="h-full w-0.5 bg-gray-200 mt-2"></div>
+                  </div>
+                  <div>
+                    <span class="text-sm font-medium text-primary">13:30 - 14:30</span>
+                    <h3 class="text-base font-bold text-gray-900 mt-1">Báo cáo chuyên đề 3: Chuyển đổi số trong ngành ngân hàng</h3>
+                    <p class="text-sm text-gray-600 mt-1">
+                      Diễn giả: Ông Lê Văn C
+                    </p>
+                  </div>
+                </div>
+                
+                <div class="flex timeline-item">
+                  <div class="flex flex-col items-center mr-4">
+                    <div class="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center text-primary">
+                      <i class="ri-time-line"></i>
+                    </div>
+                    <div class="h-full w-0.5 bg-gray-200 mt-2"></div>
+                  </div>
+                  <div>
+                    <span class="text-sm font-medium text-primary">14:30 - 15:30</span>
+                    <h3 class="text-base font-bold text-gray-900 mt-1">Tọa đàm: Kỹ năng cần thiết cho sinh viên trong kỷ nguyên số</h3>
+                    <p class="text-sm text-gray-600 mt-1">
+                      Tọa đàm với sự tham gia của các diễn giả và đại diện doanh nghiệp
+                    </p>
+                  </div>
+                </div>
+                
+                <div class="flex timeline-item">
+                  <div class="flex flex-col items-center mr-4">
+                    <div class="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center text-primary">
+                      <i class="ri-time-line"></i>
+                    </div>
+                    <div class="h-full w-0.5 bg-gray-200 mt-2"></div>
+                  </div>
+                  <div>
+                    <span class="text-sm font-medium text-primary">15:30 - 15:45</span>
+                    <h3 class="text-base font-bold text-gray-900 mt-1">Nghỉ giải lao</h3>
+                  </div>
+                </div>
+                
+                <div class="flex timeline-item">
+                  <div class="flex flex-col items-center mr-4">
+                    <div class="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center text-primary">
+                      <i class="ri-time-line"></i>
+                    </div>
+                  </div>
+                  <div>
+                    <span class="text-sm font-medium text-primary">15:45 - 16:00</span>
+                    <h3 class="text-base font-bold text-gray-900 mt-1">Tổng kết và bế mạc</h3>
+                    <p class="text-sm text-gray-600 mt-1">
+                      Phát chứng chỉ tham dự và tổng kết hội thảo
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <!-- Map Tab Content -->
+            <div 
+              id="map-tab" 
+              class="p-6 tab-content hidden transition-opacity duration-300 ease-in-out"
+              role="tabpanel"
+              aria-labelledby="map-tab-button"
+            >
+              <h2 class="text-xl font-bold text-gray-900 mb-6">Bản đồ địa điểm</h2>
+              
+              <div class="rounded-lg overflow-hidden border border-gray-200 mb-6">
+                <iframe
+                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3919.6339693212!2d106.68018231471827!3d10.762913892331879!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31752f1b7c3ed289%3A0xa06651894598e488!2zVHLGsOG7nW5nIMSQ4bqhaSBo4buNYyBOZ8OibiBow6BuZyBUaMOgbmggcGjhu5EgSOG7kyBDaMOtIE1pbmg!5e0!3m2!1svi!2s!4v1654875086483!5m2!1svi!2s"
+                  width="100%"
+                  height="400"
+                  style="border:0;"
+                  allowfullscreen=""
+                  loading="lazy"
+                ></iframe>
+              </div>
+              
+              <div class="bg-gray-50 p-4 rounded-lg border border-gray-200">
+                <h3 class="text-lg font-bold text-gray-900 mb-3">Thông tin địa điểm</h3>
+                <div class="space-y-3">
+                  <div class="flex items-start">
+                    <div class="w-5 h-5 flex items-center justify-center mt-0.5 mr-3 text-primary">
+                      <i class="ri-map-pin-line"></i>
+                    </div>
+                    <div>
+                      <span class="text-sm font-medium text-gray-900">Địa chỉ:</span>
+                      <p class="text-sm text-gray-600">Hội trường A - Khu A, Đại học Ngân hàng TP.HCM, 36 Tôn Thất Đạm, Quận 1, TP.HCM</p>
+                    </div>
+                  </div>
+                  <div class="flex items-start">
+                    <div class="w-5 h-5 flex items-center justify-center mt-0.5 mr-3 text-primary">
+                      <i class="ri-information-line"></i>
+                    </div>
+                    <div>
+                      <span class="text-sm font-medium text-gray-900">Hướng dẫn đến địa điểm:</span>
+                      <p class="text-sm text-gray-600">Từ cổng chính, đi thẳng vào khu A và rẽ phải, Hội trường A nằm ở tầng 2 tòa nhà chính.</p>
+                    </div>
+                  </div>
+                  <div class="flex items-start">
+                    <div class="w-5 h-5 flex items-center justify-center mt-0.5 mr-3 text-primary">
+                      <i class="ri-parking-line"></i>
+                    </div>
+                    <div>
+                      <span class="text-sm font-medium text-gray-900">Bãi đậu xe:</span>
+                      <p class="text-sm text-gray-600">Có bãi đậu xe trong khuôn viên trường, phí 5,000đ/lượt.</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
+        
+        <!-- Sidebar -->
+        <div class="lg:w-1/3">
+          <!-- Event Info Widget -->
+          <div class="bg-white rounded-lg shadow-sm overflow-hidden mb-6 hover:shadow-md transition-shadow">
+            <div class="p-6">
+              <h3 class="text-lg font-bold text-gray-900 mb-4 flex items-center">
+                <span class="w-5 h-5 flex items-center justify-center mr-2 text-primary">
+                  <i class="ri-information-line"></i>
+                </span>
+                Thông tin sự kiện
+              </h3>
+              <ul class="space-y-3">
+                <li class="flex items-start hover:bg-gray-50 p-2 -mx-2 rounded-md transition-colors">
+                  <div class="w-5 h-5 flex items-center justify-center mt-0.5 mr-3 text-primary">
+                    <i class="ri-calendar-line"></i>
+                  </div>
+                  <div>
+                    <span class="text-sm font-medium text-gray-900">Thời gian</span>
+                    <p class="text-sm text-gray-600">15/04/2025 • 08:30 - 16:00</p>
+                  </div>
+                </li>
+                <li class="flex items-start hover:bg-gray-50 p-2 -mx-2 rounded-md transition-colors">
+                  <div class="w-5 h-5 flex items-center justify-center mt-0.5 mr-3 text-primary">
+                    <i class="ri-map-pin-line"></i>
+                  </div>
+                  <div>
+                    <span class="text-sm font-medium text-gray-900">Địa điểm</span>
+                    <p class="text-sm text-gray-600">Hội trường A - Khu A, Đại học Ngân hàng TP.HCM</p>
+                  </div>
+                </li>
+                <li class="flex items-start hover:bg-gray-50 p-2 -mx-2 rounded-md transition-colors">
+                  <div class="w-5 h-5 flex items-center justify-center mt-0.5 mr-3 text-primary">
+                    <i class="ri-user-line"></i>
+                  </div>
+                  <div>
+                    <span class="text-sm font-medium text-gray-900">Người tham gia</span>
+                    <p class="text-sm text-gray-600">128/200 người đã đăng ký</p>
+                  </div>
+                </li>
+                <li class="flex items-start hover:bg-gray-50 p-2 -mx-2 rounded-md transition-colors">
+                  <div class="w-5 h-5 flex items-center justify-center mt-0.5 mr-3 text-primary">
+                    <i class="ri-price-tag-3-line"></i>
+                  </div>
+                  <div>
+                    <span class="text-sm font-medium text-gray-900">Phí tham dự</span>
+                    <p class="text-sm text-gray-600">Miễn phí (cần đăng ký trước)</p>
+                  </div>
+                </li>
+                <li class="flex items-start hover:bg-gray-50 p-2 -mx-2 rounded-md transition-colors">
+                  <div class="w-5 h-5 flex items-center justify-center mt-0.5 mr-3 text-primary">
+                    <i class="ri-group-line"></i>
+                  </div>
+                  <div>
+                    <span class="text-sm font-medium text-gray-900">Đơn vị tổ chức</span>
+                    <p class="text-sm text-gray-600">Phòng Công tác Sinh viên kết hợp với Đoàn Thanh niên</p>
+                  </div>
+                </li>
+              </ul>
+              <div class="mt-6">
+                <button 
+                  id="sidebar-register-btn" 
+                  class="w-full bg-primary text-white py-3 font-medium rounded-button hover:bg-primary/90 transition-all shadow-sm hover:shadow-md transform hover:-translate-y-0.5 flex items-center justify-center animate-pulse-slow"
+                >
+                  <i class="ri-user-add-line mr-2"></i>
+                  Đăng ký tham gia
+                </button>
+              </div>
+              
+              <div class="mt-4">
+                <a href="#" class="w-full flex items-center justify-center gap-2 py-2 text-sm text-gray-500 hover:text-primary transition-colors">
+                  <i class="ri-calendar-check-line"></i>
+                  <span>Thêm vào lịch</span>
+                </a>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Organizer Contact -->
+          <div class="bg-white rounded-lg shadow-sm overflow-hidden mb-6 hover:shadow-md transition-shadow">
+            <div class="p-6">
+              <h3 class="text-lg font-bold text-gray-900 mb-4 flex items-center">
+                <span class="w-5 h-5 flex items-center justify-center mr-2 text-primary">
+                  <i class="ri-contacts-line"></i>
+                </span>
+                Liên hệ ban tổ chức
+              </h3>
+              <ul class="space-y-3">
+                <li class="flex items-start hover:bg-gray-50 p-2 -mx-2 rounded-md transition-colors">
+                  <div class="w-5 h-5 flex items-center justify-center mt-0.5 mr-3 text-primary">
+                    <i class="ri-user-3-line"></i>
+                  </div>
+                  <div>
+                    <span class="text-sm font-medium text-gray-900">Người phụ trách</span>
+                    <p class="text-sm text-gray-600">ThS. Lê Hoàng Nam</p>
+                  </div>
+                </li>
+                <li class="flex items-start hover:bg-gray-50 p-2 -mx-2 rounded-md transition-colors">
+                  <div class="w-5 h-5 flex items-center justify-center mt-0.5 mr-3 text-primary">
+                    <i class="ri-phone-line"></i>
+                  </div>
+                  <div>
+                    <span class="text-sm font-medium text-gray-900">Điện thoại</span>
+                    <p class="text-sm text-gray-600">
+                      <a href="tel:02838295753" class="hover:text-primary transition-colors">(028) 3829 5753</a>
+                    </p>
+                  </div>
+                </li>
+                <li class="flex items-start hover:bg-gray-50 p-2 -mx-2 rounded-md transition-colors">
+                  <div class="w-5 h-5 flex items-center justify-center mt-0.5 mr-3 text-primary">
+                    <i class="ri-mail-line"></i>
+                  </div>
+                  <div>
+                    <span class="text-sm font-medium text-gray-900">Email</span>
+                    <p class="text-sm text-gray-600">
+                      <a href="mailto:event-tech@buh.edu.vn" class="hover:text-primary transition-colors">event-tech@buh.edu.vn</a>
+                    </p>
+                  </div>
+                </li>
+              </ul>
+              <div class="mt-4 pt-4 border-t border-gray-100">
+                <a href="contact.html" class="w-full flex items-center justify-center gap-2 border border-primary text-primary py-2.5 rounded-button hover:bg-primary/5 transition-all hover:shadow-inner transform hover:-translate-y-0.5 duration-200">
+                  <i class="ri-question-line mr-1 transition-transform group-hover:rotate-12"></i>
+                  <span>Gửi câu hỏi cho ban tổ chức</span>
+                </a>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Related Events -->
+          <div class="bg-white rounded-lg shadow-sm overflow-hidden hover:shadow-md transition-shadow">
+            <div class="p-6">
+              <h3 class="text-lg font-bold text-gray-900 mb-4 flex items-center">
+                <span class="w-5 h-5 flex items-center justify-center mr-2 text-primary">
+                  <i class="ri-calendar-event-line"></i>
+                </span>
+                Sự kiện liên quan
+              </h3>
+              <div class="space-y-4">
+                <a href="event-detail.html" class="block group">
+                  <div class="flex items-start space-x-3 p-2 -mx-2 rounded-md group-hover:bg-gray-50 transition-colors">
+                    <div class="w-16 h-16 flex-shrink-0 rounded overflow-hidden">
+                      <img
+                        src="https://readdy.ai/api/search-image?query=job%20fair%20at%20university%20campus%2C%20company%20booths&width=100&height=100&seq=rel1&orientation=squarish"
+                        alt="Job Fair"
+                        class="w-full h-full object-cover object-top transition-transform duration-300 group-hover:scale-110"
+                        loading="lazy"
+                      />
+                    </div>
+                    <div class="flex-1">
+                      <h4 class="font-medium text-gray-900 line-clamp-2 text-sm group-hover:text-primary transition-colors">
+                        Ngày hội Việc làm - Kết nối doanh nghiệp 2025
+                      </h4>
+                      <div class="flex items-center gap-2 mt-1">
+                        <i class="ri-calendar-line text-xs text-primary"></i>
+                        <p class="text-xs text-gray-500">05/05/2025 • 08:00</p>
+                      </div>
+                    </div>
+                  </div>
+                </a>
+                <a href="event-detail.html" class="block group">
+                  <div class="flex items-start space-x-3 p-2 -mx-2 rounded-md group-hover:bg-gray-50 transition-colors">
+                    <div class="w-16 h-16 flex-shrink-0 rounded overflow-hidden">
+                      <img
+                        src="https://readdy.ai/api/search-image?query=workshop%20on%20digital%20skills%2C%20students%20with%20laptops&width=100&height=100&seq=rel2&orientation=squarish"
+                        alt="Digital Workshop"
+                        class="w-full h-full object-cover object-top transition-transform duration-300 group-hover:scale-110"
+                        loading="lazy"
+                      />
+                    </div>
+                    <div class="flex-1">
+                      <h4 class="font-medium text-gray-900 line-clamp-2 text-sm group-hover:text-primary transition-colors">
+                        Workshop Kỹ năng số - Chuẩn bị cho tương lai
+                      </h4>
+                      <div class="flex items-center gap-2 mt-1">
+                        <i class="ri-calendar-line text-xs text-primary"></i>
+                        <p class="text-xs text-gray-500">25/05/2025 • 13:30</p>
+                      </div>
+                    </div>
+                  </div>
+                </a>
+                <a href="event-detail.html" class="block group">
+                  <div class="flex items-start space-x-3 p-2 -mx-2 rounded-md group-hover:bg-gray-50 transition-colors">
+                    <div class="w-16 h-16 flex-shrink-0 rounded overflow-hidden">
+                      <img
+                        src="https://readdy.ai/api/search-image?query=startup%20competition%2C%20students%20pitching%20business%20ideas&width=100&height=100&seq=rel3&orientation=squarish"
+                        alt="Startup Competition"
+                        class="w-full h-full object-cover object-top transition-transform duration-300 group-hover:scale-110"
+                        loading="lazy"
+                      />
+                    </div>
+                    <div class="flex-1">
+                      <h4 class="font-medium text-gray-900 line-clamp-2 text-sm group-hover:text-primary transition-colors">
+                        Cuộc thi Ý tưởng Khởi nghiệp Sáng tạo 2025
+                      </h4>
+                      <div class="flex items-center gap-2 mt-1">
+                        <i class="ri-calendar-line text-xs text-primary"></i>
+                        <p class="text-xs text-gray-500">10/06/2025 • 08:30</p>
+                      </div>
+                    </div>
+                  </div>
+                </a>
+              </div>
+              <div class="mt-4 text-center">
+                <a href="events.html" class="inline-flex items-center text-sm text-primary hover:underline">
+                  Xem tất cả sự kiện 
+                  <i class="ri-arrow-right-line ml-1"></i>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-primary text-red-100 py-12">
+      <div class="container mx-auto px-4">
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+          <div>
+            <a href="index.html" class="text-2xl font-['Pacifico'] text-white mb-4 block">
+              <img src="../images/logo/logo-white-vertical.png" alt="logo" class="w-16 h-16">
+            </a>
+            <p class="mb-4">
+              Hệ thống Quản lý Sự kiện Đại học Ngân hàng TP.HCM - Nơi kết nối
+              sinh viên với các hoạt động học thuật và ngoại khóa.
+            </p>
+            <div class="flex space-x-4">
+              <a
+                href="#"
+                class="w-10 h-10 flex items-center justify-center bg-red-900/50 rounded-full hover:bg-white hover:text-primary transition-colors"
+              >
+                <i class="ri-facebook-fill text-white"></i>
+              </a>
+              <a
+                href="#"
+                class="w-10 h-10 flex items-center justify-center bg-red-900/50 rounded-full hover:bg-white hover:text-primary transition-colors"
+              >
+                <i class="ri-youtube-fill text-white"></i>
+              </a>
+              <a
+                href="#"
+                class="w-10 h-10 flex items-center justify-center bg-red-900/50 rounded-full hover:bg-white hover:text-primary transition-colors"
+              >
+                <i class="ri-instagram-fill text-white"></i>
+              </a>
+            </div>
+          </div>
+          <div>
+            <h3 class="text-white text-lg font-bold mb-4">Liên kết nhanh</h3>
+            <ul class="space-y-2">
+              <li>
+                <a href="index.html" class="hover:text-white transition-colors"
+                  >Trang chủ</a
+                >
+              </li>
+              <li>
+                <a href="events.html" class="hover:text-white transition-colors"
+                  >Sự kiện</a
+                >
+              </li>
+              <li>
+                <a href="login.html" class="hover:text-white transition-colors"
+                  >Đăng nhập</a
+                >
+              </li>
+              <li>
+                <a href="register.html" class="hover:text-white transition-colors"
+                  >Đăng ký</a
+                >
+              </li>
+              <li>
+                <a href="news.html" class="hover:text-white transition-colors"
+                  >Giới thiệu</a
+                >
+              </li>
+            </ul>
+          </div>
+          <div>
+            <h3 class="text-white text-lg font-bold mb-4">Hỗ trợ</h3>
+            <ul class="space-y-2">
+              <li>
+                <a href="guide.html" class="hover:text-white transition-colors"
+                  >Hướng dẫn sử dụng</a
+                >
+              </li>
+              <li>
+                <a href="faq.html" class="hover:text-white transition-colors"
+                  >Câu hỏi thường gặp</a
+                >
+              </li>
+              <li>
+                <a href="privacy.html" class="hover:text-white transition-colors"
+                  >Chính sách bảo mật</a
+                >
+              </li>
+              <li>
+                <a href="terms.html" class="hover:text-white transition-colors"
+                  >Điều khoản sử dụng</a
+                >
+              </li>
+              <li>
+                <a href="contact.html" class="hover:text-white transition-colors"
+                  >Liên hệ hỗ trợ</a
+                >
+              </li>
+            </ul>
+          </div>
+          <div>
+            <h3 class="text-white text-lg font-bold mb-4">Liên hệ</h3>
+            <ul class="space-y-2">
+              <li class="flex items-start">
+                <div class="w-5 h-5 flex items-center justify-center mr-2 mt-1">
+                  <i class="ri-map-pin-line"></i>
+                </div>
+                <span
+                  >36 Tôn Thất Đạm, Phường Nguyễn Thái Bình, Quận 1,
+                  TP.HCM</span
+                >
+              </li>
+              <li class="flex items-center">
+                <div class="w-5 h-5 flex items-center justify-center mr-2">
+                  <i class="ri-phone-line"></i>
+                </div>
+                <span>(028) 3829 1901</span>
+              </li>
+              <li class="flex items-center">
+                <div class="w-5 h-5 flex items-center justify-center mr-2">
+                  <i class="ri-mail-line"></i>
+                </div>
+                <span>info@buh.edu.vn</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="border-t border-red-900/30 mt-10 pt-6 text-center">
+          <p>
+            &copy; 2025 Đại học Ngân hàng TP.HCM. Tất cả quyền được bảo lưu.
+          </p>
+        </div>
+      </div>
+    </footer>
+
+    <!-- Success Modal -->
+    <div id="success-modal" class="fixed inset-0 flex items-center justify-center z-50 hidden opacity-0 transition-opacity duration-300">
+      <div class="absolute inset-0 bg-black/50 backdrop-blur-sm" id="success-modal-backdrop"></div>
+      <div class="bg-white rounded-lg shadow-lg w-full max-w-md mx-4 z-10 relative transform transition-all duration-300 scale-95 opacity-0" id="success-modal-content">
+        <div class="p-6">
+          <div class="w-20 h-20 mx-auto mb-4 bg-green-100 rounded-full flex items-center justify-center">
+            <i class="ri-check-line text-4xl text-green-500"></i>
+          </div>
+          <h3 class="text-xl font-bold text-gray-900 text-center mb-2">Đăng ký thành công!</h3>
+          <p class="text-center text-gray-600 mb-6">
+            Cảm ơn bạn đã đăng ký tham gia sự kiện. Chúng tôi sẽ gửi email xác nhận đến bạn trong vòng 24 giờ.
+          </p>
+          <div class="flex justify-center">
+            <button 
+              id="success-modal-close" 
+              class="bg-primary text-white px-6 py-2.5 font-medium rounded-button hover:bg-primary/90 transition-all shadow-sm hover:shadow-md transform hover:-translate-y-0.5 focus:outline-none focus:ring-2 focus:ring-primary/50 focus:ring-offset-2"
+            >
+              Đóng
+            </button>
+          </div>
+          <div class="mt-4 text-center">
+            <a href="#" class="text-sm text-gray-500 hover:text-primary transition-colors">
+              Thêm vào lịch của tôi
+            </a>
+          </div>
+        </div>
+      </div>
     </div>
 
-    <!-- Footer Component -->
-    <div id="footer-component"></div>
-
-    <!-- Registration Modal -->
-    <div class="modal" id="eventRegistrationModal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h2>Đăng ký tham gia sự kiện</h2>
-                <button class="modal-close"><i class="fas fa-times"></i></button>
-            </div>
-            <div class="modal-body">
-                <form id="eventRegistrationForm">
-                    <div class="form-group">
-                        <label for="regFullName">Họ và tên <span class="required">*</span></label>
-                        <input type="text" id="regFullName" required>
-                    </div>
-                    
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label for="regEmail">Email <span class="required">*</span></label>
-                            <input type="email" id="regEmail" required>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="regPhone">Số điện thoại <span class="required">*</span></label>
-                            <input type="tel" id="regPhone" required>
-                        </div>
-                    </div>
-                    
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label for="regStudentId">Mã số sinh viên</label>
-                            <input type="text" id="regStudentId">
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="regFaculty">Khoa/Đơn vị</label>
-                            <select id="regFaculty">
-                                <option value="">Chọn khoa/đơn vị</option>
-                                <option value="finance-banking">Tài chính - Ngân hàng</option>
-                                <option value="accounting">Kế toán</option>
-                                <option value="management">Quản trị Kinh doanh</option>
-                                <option value="it">Hệ thống Thông tin</option>
-                                <option value="law">Luật Kinh tế</option>
-                                <option value="other">Khác</option>
-                            </select>
-                        </div>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="regNote">Ghi chú</label>
-                        <textarea id="regNote" rows="3" placeholder="Nhập ghi chú hoặc câu hỏi (nếu có)"></textarea>
-                    </div>
-                    
-                    <div class="form-group">
-                        <div class="checkbox-container">
-                            <input type="checkbox" id="regAgree" required>
-                            <label for="regAgree">Tôi đồng ý với <a href="#">điều khoản tham gia</a> và cam kết tham dự sự kiện đúng giờ</label>
-                        </div>
-                    </div>
-                    
-                    <button type="submit" class="btn btn-primary btn-block">Đăng ký tham gia</button>
-                </form>
-            </div>
+    <!-- Error Modal -->
+    <div id="error-modal" class="fixed inset-0 flex items-center justify-center z-50 hidden opacity-0 transition-opacity duration-300">
+      <div class="absolute inset-0 bg-black/50 backdrop-blur-sm" id="error-modal-backdrop"></div>
+      <div class="bg-white rounded-lg shadow-lg w-full max-w-md mx-4 z-10 relative transform transition-all duration-300 scale-95 opacity-0" id="error-modal-content">
+        <div class="p-6">
+          <div class="w-20 h-20 mx-auto mb-4 bg-red-100 rounded-full flex items-center justify-center">
+            <i class="ri-close-line text-4xl text-red-500"></i>
+          </div>
+          <h3 class="text-xl font-bold text-gray-900 text-center mb-2">Đăng ký thất bại!</h3>
+          <p class="text-center text-gray-600 mb-2">
+            Đã có lỗi xảy ra trong quá trình đăng ký. Vui lòng thử lại sau.
+          </p>
+          <p class="text-center text-gray-600 mb-6" id="error-message">
+            Hệ thống đang bảo trì hoặc sự kiện đã hết chỗ.
+          </p>
+          <div class="flex justify-center gap-3">
+            <button 
+              id="error-modal-close" 
+              class="bg-primary text-white px-6 py-2.5 font-medium rounded-button hover:bg-primary/90 transition-all shadow-sm hover:shadow-md transform hover:-translate-y-0.5 focus:outline-none focus:ring-2 focus:ring-primary/50 focus:ring-offset-2"
+            >
+              Thử lại
+            </button>
+            <a 
+              href="contact.html" 
+              class="bg-white text-gray-700 border border-gray-300 px-6 py-2.5 font-medium rounded-button hover:bg-gray-50 transition-all focus:outline-none focus:ring-2 focus:ring-gray-300 focus:ring-offset-2"
+            >
+              Liên hệ hỗ trợ
+            </a>
+          </div>
         </div>
+      </div>
     </div>
 
-    <!-- Login Required Modal -->
-    <div class="modal" id="loginRequiredModal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h2>Yêu cầu đăng nhập</h2>
-                <button class="modal-close"><i class="fas fa-times"></i></button>
-            </div>
-            <div class="modal-body">
-                <div class="login-required-content">
-                    <i class="fas fa-user-lock"></i>
-                    <h3>Vui lòng đăng nhập để đăng ký tham gia sự kiện</h3>
-                    <p>Bạn cần đăng nhập hoặc đăng ký tài khoản để có thể đăng ký tham gia sự kiện này.</p>
-                    <div class="login-required-actions">
-                        <a href="login.html" class="btn btn-primary">Đăng nhập</a>
-                        <a href="register.html" class="btn btn-outline">Đăng ký tài khoản</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+    <script>
+      // Tab switching functionality
+      document.addEventListener("DOMContentLoaded", function() {
+        // Initialize animations
+        setTimeout(() => {
+          // Trigger animations for elements that should animate on page load
+          document.querySelectorAll('.animate-progress').forEach(el => {
+            // Force reflow to ensure animation starts properly
+            void el.offsetWidth;
+            el.style.animationPlayState = 'running';
+          });
+          
+          // Show the current tab
+          const initialTabId = window.location.hash ? 
+            window.location.hash.substring(1) : 'info-tab';
+            
+          // Find the tab and show it if it exists
+          const tabElement = document.getElementById(initialTabId);
+          if (tabElement && tabElement.classList.contains('tab-content')) {
+            showTab(initialTabId);
+          } else {
+            showTab('info-tab');
+          }
+        }, 100);
+      
+        // Tab navigation
+        const tabButtons = document.querySelectorAll(".tab-button");
+        const tabContents = document.querySelectorAll(".tab-content");
+        
+        // Function to show active tab
+        function showTab(tabId) {
+          // Hide all tab contents
+          tabContents.forEach(content => {
+            if (content.id !== tabId) {
+              content.classList.add("opacity-0");
+              
+              // Use setTimeout to ensure smooth transition
+              setTimeout(() => {
+                content.classList.add("hidden");
+                content.classList.remove("block", "opacity-0");
+                content.setAttribute("aria-hidden", "true");
+              }, 200);
+            }
+          });
+          
+          // Remove active state from all tab buttons
+          tabButtons.forEach(btn => {
+            btn.classList.remove("text-primary", "border-b-2", "border-primary");
+            btn.classList.add("text-gray-500");
+            btn.setAttribute("aria-selected", "false");
+          });
+          
+          // Show the selected tab content
+          const selectedTab = document.getElementById(tabId);
+          if (selectedTab) {
+            selectedTab.classList.remove("hidden");
+            // Force reflow before adding opacity to ensure transition works
+            void selectedTab.offsetWidth;
+            selectedTab.classList.add("block");
+            selectedTab.setAttribute("aria-hidden", "false");
+            
+            // Use setTimeout to ensure smooth transition
+            setTimeout(() => {
+              selectedTab.classList.remove("opacity-0");
+              
+              // Animate timeline items if schedule tab is selected
+              if (tabId === 'schedule-tab') {
+                animateTimelineItems();
+              }
+              
+              // Add loading animation to tab content
+              const tabContent = selectedTab.querySelector('.tab-content > div');
+              if (tabContent) {
+                tabContent.classList.add('animate-fade-in');
+              }
+            }, 10);
+          }
+          
+          // Set active state for the clicked tab button
+          const activeButton = document.querySelector(`[data-tab="${tabId}"]`);
+          if (activeButton) {
+            activeButton.classList.remove("text-gray-500");
+            activeButton.classList.add("text-primary", "border-b-2", "border-primary");
+            activeButton.setAttribute("aria-selected", "true");
+          }
+          
+          // Update URL hash for direct linking
+          history.replaceState(null, null, `#${tabId}`);
+        }
+        
+        // Function to animate timeline items with staggered delay
+        function animateTimelineItems() {
+          const timelineItems = document.querySelectorAll('.timeline-item');
+          timelineItems.forEach((item, index) => {
+            // Reset classes first (in case of tab switching)
+            item.classList.remove('show');
+            
+            // Add show class with staggered delay
+            setTimeout(() => {
+              item.classList.add('show');
+              
+              // Add pulse animation to timeline circle
+              const circle = item.querySelector('.rounded-full');
+              if (circle) {
+                circle.style.animation = 'timelinePulse 0.5s ease';
+                // Remove animation after it completes
+                setTimeout(() => {
+                  circle.style.animation = '';
+                }, 500);
+              }
+            }, 100 * index);
+          });
+        }
+        
+        // Add click event listeners to tab buttons
+        tabButtons.forEach(button => {
+          button.addEventListener("click", function() {
+            const tabId = this.getAttribute("data-tab");
+            showTab(tabId);
+          });
+        });
+        
+        // Check for hash in URL and show corresponding tab
+        if (window.location.hash) {
+          const tabId = window.location.hash.substring(1);
+          const tabExists = document.getElementById(tabId);
+          
+          if (tabExists && tabExists.classList.contains('tab-content')) {
+            showTab(tabId);
+          }
+        }
+        
+        // Modal functionality
+        const successModal = document.getElementById('success-modal');
+        const errorModal = document.getElementById('error-modal');
+        const successModalClose = document.getElementById('success-modal-close');
+        const errorModalClose = document.getElementById('error-modal-close');
+        const successModalBackdrop = document.getElementById('success-modal-backdrop');
+        const errorModalBackdrop = document.getElementById('error-modal-backdrop');
+        const successModalContent = document.getElementById('success-modal-content');
+        const errorModalContent = document.getElementById('error-modal-content');
+        
+        // Function to show success modal
+        function showSuccessModal() {
+          successModal.classList.remove('hidden');
+          document.body.classList.add('overflow-hidden');
+          
+          // Trigger animations after a small delay
+          setTimeout(() => {
+            successModal.classList.remove('opacity-0');
+            if (successModalContent) {
+              successModalContent.classList.remove('scale-95', 'opacity-0');
+              successModalContent.classList.add('scale-100', 'opacity-100');
+            }
+          }, 10);
+        }
+        
+        // Function to show error modal
+        function showErrorModal(message) {
+          if (message) {
+            document.getElementById('error-message').textContent = message;
+          }
+          errorModal.classList.remove('hidden');
+          document.body.classList.add('overflow-hidden');
+          
+          // Trigger animations after a small delay
+          setTimeout(() => {
+            errorModal.classList.remove('opacity-0');
+            if (errorModalContent) {
+              errorModalContent.classList.remove('scale-95', 'opacity-0');
+              errorModalContent.classList.add('scale-100', 'opacity-100');
+            }
+          }, 10);
+        }
+        
+        // Function to close modals
+        function closeModals() {
+          // Fade out animations
+          successModal.classList.add('opacity-0');
+          errorModal.classList.add('opacity-0');
+          
+          if (successModalContent) {
+            successModalContent.classList.remove('scale-100', 'opacity-100');
+            successModalContent.classList.add('scale-95', 'opacity-0');
+          }
+          
+          if (errorModalContent) {
+            errorModalContent.classList.remove('scale-100', 'opacity-100');
+            errorModalContent.classList.add('scale-95', 'opacity-0');
+          }
+          
+          // Wait for animation to complete before hiding
+          setTimeout(() => {
+            successModal.classList.add('hidden');
+            errorModal.classList.add('hidden');
+            document.body.classList.remove('overflow-hidden');
+          }, 300);
+        }
+        
+        // Close modal with close button
+        if (successModalClose) successModalClose.addEventListener('click', closeModals);
+        if (errorModalClose) errorModalClose.addEventListener('click', closeModals);
+        
+        // Close modal when clicking outside
+        if (successModalBackdrop) successModalBackdrop.addEventListener('click', closeModals);
+        if (errorModalBackdrop) errorModalBackdrop.addEventListener('click', closeModals);
+        
+        // Quick register button functionality
+        const quickRegisterBtn = document.getElementById('quick-register-btn');
+        const sidebarRegisterBtn = document.getElementById('sidebar-register-btn');
+        
+        // Function to handle registration
+        function handleRegistration() {
+          // Simulate registration with a random success/failure
+          // In a real app, this would be an API call
+          const isSuccess = Math.random() > 0.2; // 80% success rate for demo
+          
+          if (isSuccess) {
+            showSuccessModal();
+          } else {
+            showErrorModal('Hệ thống đang bảo trì hoặc sự kiện đã hết chỗ.');
+          }
+        }
+        
+        // Add click handlers to register buttons
+        if (quickRegisterBtn) {
+          quickRegisterBtn.addEventListener('click', handleRegistration);
+        }
+        
+        if (sidebarRegisterBtn) {
+          sidebarRegisterBtn.addEventListener('click', handleRegistration);
+        }
+        
+        // Escape key to close modals
+        document.addEventListener('keydown', function(e) {
+          if (e.key === 'Escape') {
+            closeModals();
+          }
+        });
+        
+        // Mobile menu functionality
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenuCloseButton = document.getElementById('mobile-menu-close');
+        const mobileMenu = document.getElementById('mobile-menu');
+        
+        // Open mobile menu
+        if (mobileMenuButton) {
+          mobileMenuButton.addEventListener('click', function() {
+            mobileMenu.classList.remove('translate-x-full');
+            document.body.classList.add('overflow-hidden');
+          });
+        }
+        
+        // Close mobile menu
+        if (mobileMenuCloseButton) {
+          mobileMenuCloseButton.addEventListener('click', function() {
+            mobileMenu.classList.add('translate-x-full');
+            document.body.classList.remove('overflow-hidden');
+          });
+        }
 
-    <!-- Registration Success Modal -->
-    <div class="modal" id="registrationSuccessModal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h2>Đăng ký thành công</h2>
-                <button class="modal-close"><i class="fas fa-times"></i></button>
-            </div>
-            <div class="modal-body">
-                <div class="success-message">
-                    <i class="fas fa-check-circle"></i>
-                    <p>Bạn đã đăng ký tham gia sự kiện này</p>
-                    <div class="event-info">
-                        <p><strong>Thời gian:</strong> 10/04/2023 09:00</p>
-                        <p><strong>Địa điểm:</strong> CS Tân Thới Kiệm</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Share Modal -->
-    <div class="modal" id="shareModal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h2>Chia sẻ sự kiện</h2>
-                <button class="modal-close"><i class="fas fa-times"></i></button>
-            </div>
-            <div class="modal-body">
-                <div class="share-content">
-                    <p>Chia sẻ sự kiện này với bạn bè:</p>
-                    <div class="share-buttons">
-                        <a href="#" class="share-button facebook">
-                            <i class="fab fa-facebook-f"></i>
-                            <span>Facebook</span>
-                        </a>
-                        <a href="#" class="share-button twitter">
-                            <i class="fab fa-twitter"></i>
-                            <span>Twitter</span>
-                        </a>
-                        <a href="#" class="share-button linkedin">
-                            <i class="fab fa-linkedin-in"></i>
-                            <span>LinkedIn</span>
-                        </a>
-                        <a href="#" class="share-button email">
-                            <i class="fas fa-envelope"></i>
-                            <span>Email</span>
-                        </a>
-                    </div>
-                    <div class="share-link">
-                        <input type="text" id="shareLink" value="https://buh.edu.vn/events/hoi-thao-khoi-nghiep-cong-nghe-2023" readonly>
-                        <button id="copyLinkBtn" class="btn btn-sm btn-primary">Sao chép</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Scripts -->
-    <!-- Component loader -->
-    <script src="../js/components/load-components.js"></script>
-    <!-- Global scripts -->
-    <script src="../js/script.js"></script>
-    <!-- Page specific scripts -->
-    <script src="../js/event-detail.js"></script>
-</body>
-</html>
+        // Share functionality
+        const shareButton = document.querySelector('.group button');
+        if (shareButton) {
+          shareButton.addEventListener('click', function(e) {
+            e.preventDefault();
+            
+            // Check if Navigator Share API is supported
+            if (navigator.share) {
+              navigator.share({
+                title: 'Hội thảo Công nghệ và Tương lai nghề nghiệp',
+                text: 'Tham gia Hội thảo Công nghệ và Tương lai nghề nghiệp tại Đại học Ngân hàng TP.HCM ngày 15/04/2025',
+                url: window.location.href
+              })
+              .then(() => console.log('Shared successfully'))
+              .catch((error) => console.log('Error sharing:', error));
+            } else {
+              // Fallback for browsers that don't support the Share API
+              const shareUrl = window.location.href;
+              const tempInput = document.createElement('input');
+              document.body.appendChild(tempInput);
+              tempInput.value = shareUrl;
+              tempInput.select();
+              document.execCommand('copy');
+              document.body.removeChild(tempInput);
+              
+              // Show a toast notification
+              showToast('Đã sao chép đường dẫn vào clipboard!');
+            }
+          });
+        }
+        
+        // Toast notification function
+        function showToast(message) {
+          // Create toast element if it doesn't exist
+          let toast = document.getElementById('toast-notification');
+          if (!toast) {
+            toast = document.createElement('div');
+            toast.id = 'toast-notification';
+            toast.className = 'fixed bottom-4 left-1/2 transform -translate-x-1/2 bg-gray-800 text-white px-4 py-2 rounded-lg shadow-lg opacity-0 transition-opacity duration-300 z-50';
+            document.body.appendChild(toast);
+          }
+          
+          // Set message and show toast
+          toast.textContent = message;
+          toast.classList.remove('opacity-0');
+          toast.classList.add('opacity-1');
+          
+          // Hide toast after 3 seconds
+          setTimeout(() => {
+            toast.classList.remove('opacity-1');
+            toast.classList.add('opacity-0');
+          }, 3000);
+        }
+      });
+    </script>
+  </body>
+</html> 

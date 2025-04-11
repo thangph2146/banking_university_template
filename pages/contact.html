@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Liên hệ - Đại học Ngân hàng TP.HCM</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.tailwindcss.com/3.4.16"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              primary: "#8B0000",
+              secondary: "#FF5252",
+            },
+            borderRadius: {
+              none: "0px",
+              sm: "4px",
+              DEFAULT: "8px",
+              md: "12px",
+              lg: "16px",
+              xl: "20px",
+              "2xl": "24px",
+              "3xl": "32px",
+              full: "9999px",
+              button: "8px",
+            },
+          },
+        },
+      };
+    </script>
+    <style>
+      :where([class^="ri-"])::before { content: "\f3c2"; }
+      body {
+      font-family: 'Inter', sans-serif;
+      }
+      .hero-gradient {
+      background: linear-gradient(90deg, rgba(255,255,255,1) 0%, rgba(255,255,255,0.9) 50%, rgba(255,255,255,0) 100%);
+      }
+    </style>
+  </head>
+  <body class="bg-gray-50">
+    <!-- Header -->
+    <header class="bg-primary shadow-sm">
+      <div
+        class="container mx-auto px-4 flex items-center justify-between"
+      >
+        <a href="index.html" class="text-2xl font-['Pacifico'] text-white">
+            <img src="../images/logo/logo-white-vertical.png" alt="logo" class="w-16 h-16">
+        </a>
+        <nav class="hidden md:flex items-center space-x-8">
+          <a
+            href="index.html"
+            class="text-red-100 hover:text-white transition-colors"
+            >Trang chủ</a
+          >
+          <a href="events.html" class="text-red-100 hover:text-white transition-colors"
+            >Sự kiện</a
+          >
+          <a href="news.html" class="text-red-100 hover:text-white transition-colors"
+            >Giới thiệu</a
+          >
+          <a href="contact.html" class="text-white font-medium hover:text-red-200 transition-colors"
+            >Liên hệ</a
+          >
+        </nav>
+        <div class="flex items-center space-x-4">
+          <a href="login.html" class="text-white font-medium hover:underline"
+            >Đăng nhập</a
+          >
+          <a
+            href="register.html"
+            class="bg-white text-primary px-4 py-2 !rounded-button whitespace-nowrap hover:bg-red-50 transition-colors shadow-sm"
+            >Đăng ký</a
+          >
+        </div>
+        <button
+          class="md:hidden w-10 h-10 flex items-center justify-center text-white"
+        >
+          <i class="ri-menu-line ri-lg"></i>
+        </button>
+      </div>
+    </header>
+
+    <!-- Page Title -->
+    <section class="bg-primary text-white py-12">
+      <div class="container mx-auto px-4 text-center">
+        <h1 class="text-3xl md:text-4xl font-bold mb-4">Liên hệ với chúng tôi</h1>
+        <p class="max-w-2xl mx-auto text-red-100">
+          Hãy liên hệ với chúng tôi nếu bạn có bất kỳ câu hỏi hoặc góp ý về hệ thống quản lý sự kiện
+        </p>
+      </div>
+    </section>
+
+    <!-- Contact Information -->
+    <section class="py-16 bg-white">
+      <div class="container mx-auto px-4">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <!-- Contact Card 1 -->
+          <div class="bg-gray-50 p-8 rounded-lg text-center shadow-sm">
+            <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-6">
+              <div class="w-8 h-8 flex items-center justify-center text-primary">
+                <i class="ri-map-pin-line ri-2x"></i>
+              </div>
+            </div>
+            <h3 class="text-xl font-bold text-gray-900 mb-3">Địa chỉ</h3>
+            <p class="text-gray-600">
+              36 Tôn Thất Đạm, Phường Nguyễn Thái Bình, Quận 1, TP.HCM
+            </p>
+          </div>
+
+          <!-- Contact Card 2 -->
+          <div class="bg-gray-50 p-8 rounded-lg text-center shadow-sm">
+            <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-6">
+              <div class="w-8 h-8 flex items-center justify-center text-primary">
+                <i class="ri-phone-line ri-2x"></i>
+              </div>
+            </div>
+            <h3 class="text-xl font-bold text-gray-900 mb-3">Điện thoại</h3>
+            <p class="text-gray-600">
+              (028) 3829 1901
+            </p>
+            <p class="text-gray-600 mt-2">
+              Giờ làm việc: 8:00 - 17:00 (Thứ Hai - Thứ Sáu)
+            </p>
+          </div>
+
+          <!-- Contact Card 3 -->
+          <div class="bg-gray-50 p-8 rounded-lg text-center shadow-sm">
+            <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-6">
+              <div class="w-8 h-8 flex items-center justify-center text-primary">
+                <i class="ri-mail-line ri-2x"></i>
+              </div>
+            </div>
+            <h3 class="text-xl font-bold text-gray-900 mb-3">Email</h3>
+            <p class="text-gray-600">
+              info@buh.edu.vn
+            </p>
+            <p class="text-gray-600 mt-2">
+              Phản hồi trong vòng 24 giờ làm việc
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact Form -->
+    <section class="py-16 bg-gray-50">
+      <div class="container mx-auto px-4">
+        <div class="max-w-4xl mx-auto bg-white p-8 rounded-lg shadow-sm">
+          <div class="text-center mb-8">
+            <h2 class="text-2xl font-bold text-gray-900 mb-4">Gửi thông tin liên hệ</h2>
+            <p class="text-gray-600">
+              Vui lòng điền đầy đủ thông tin bên dưới, chúng tôi sẽ liên hệ lại trong thời gian sớm nhất
+            </p>
+          </div>
+          
+          <form id="contactForm" class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div class="md:col-span-1">
+              <label for="fullName" class="block text-sm font-medium text-gray-700 mb-2">Họ và tên <span class="text-red-500">*</span></label>
+              <input 
+                type="text" 
+                id="fullName" 
+                name="fullName" 
+                required
+                class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-colors"
+                placeholder="Nhập họ và tên của bạn"
+              >
+            </div>
+            
+            <div class="md:col-span-1">
+              <label for="email" class="block text-sm font-medium text-gray-700 mb-2">Email <span class="text-red-500">*</span></label>
+              <input 
+                type="email" 
+                id="email" 
+                name="email" 
+                required
+                class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-colors"
+                placeholder="example@mail.com"
+              >
+            </div>
+            
+            <div class="md:col-span-1">
+              <label for="phone" class="block text-sm font-medium text-gray-700 mb-2">Số điện thoại</label>
+              <input 
+                type="tel" 
+                id="phone" 
+                name="phone"
+                class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-colors"
+                placeholder="Nhập số điện thoại của bạn"
+              >
+            </div>
+            
+            <div class="md:col-span-1">
+              <label for="subject" class="block text-sm font-medium text-gray-700 mb-2">Chủ đề <span class="text-red-500">*</span></label>
+              <select 
+                id="subject" 
+                name="subject" 
+                required
+                class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-colors"
+              >
+                <option value="" disabled selected>Chọn chủ đề</option>
+                <option value="general">Thông tin chung</option>
+                <option value="technical">Hỗ trợ kỹ thuật</option>
+                <option value="event">Thông tin sự kiện</option>
+                <option value="feedback">Góp ý, phản hồi</option>
+                <option value="other">Khác</option>
+              </select>
+            </div>
+            
+            <div class="md:col-span-2">
+              <label for="message" class="block text-sm font-medium text-gray-700 mb-2">Nội dung <span class="text-red-500">*</span></label>
+              <textarea 
+                id="message" 
+                name="message" 
+                required
+                rows="5"
+                class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-colors"
+                placeholder="Nhập nội dung liên hệ của bạn"
+              ></textarea>
+            </div>
+            
+            <div class="md:col-span-2">
+              <div class="flex items-start">
+                <div class="flex items-center h-5">
+                  <input 
+                    id="privacy" 
+                    name="privacy" 
+                    type="checkbox" 
+                    required
+                    class="h-4 w-4 text-primary focus:ring-primary border-gray-300 rounded"
+                  >
+                </div>
+                <div class="ml-3 text-sm">
+                  <label for="privacy" class="font-medium text-gray-700">Tôi đồng ý với <a href="#" class="text-primary hover:underline">chính sách bảo mật</a> của hệ thống <span class="text-red-500">*</span></label>
+                </div>
+              </div>
+            </div>
+            
+            <div class="md:col-span-2 text-center">
+              <button 
+                type="submit"
+                class="inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-button text-white bg-primary hover:bg-primary/90 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary transition-colors"
+              >
+                <span class="mr-2">Gửi liên hệ</span>
+                <i class="ri-send-plane-line"></i>
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <!-- Map Section -->
+    <section class="py-16 bg-white">
+      <div class="container mx-auto px-4">
+        <div class="text-center mb-8">
+          <h2 class="text-2xl font-bold text-gray-900 mb-4">Bản đồ</h2>
+          <p class="text-gray-600 max-w-2xl mx-auto">
+            Địa chỉ: 36 Tôn Thất Đạm, Phường Nguyễn Thái Bình, Quận 1, TP.HCM
+          </p>
+        </div>
+        <div class="w-full h-[450px] rounded-lg overflow-hidden shadow-sm">
+          <iframe 
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3919.594758325802!2d106.70133!3d10.771!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31752f4670702e31%3A0xa5777fb3a5edfba9!2s36%20T%C3%B4n%20Th%E1%BA%A5t%20%C4%90%E1%BA%A1m%2C%20Nguy%E1%BB%85n%20Th%C3%A1i%20B%C3%ACnh%2C%20Qu%E1%BA%ADn%201%2C%20Th%C3%A0nh%20ph%E1%BB%91%20H%E1%BB%93%20Ch%C3%AD%20Minh!5e0!3m2!1svi!2s!4v1652257875688!5m2!1svi!2s" 
+            width="100%" 
+            height="100%" 
+            style="border:0;" 
+            allowfullscreen="" 
+            loading="lazy" 
+            referrerpolicy="no-referrer-when-downgrade">
+          </iframe>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="py-16 bg-gray-50">
+      <div class="container mx-auto px-4">
+        <div class="text-center mb-12">
+          <h2 class="text-2xl font-bold text-gray-900 mb-4">Câu hỏi thường gặp</h2>
+          <p class="text-gray-600 max-w-2xl mx-auto">
+            Dưới đây là một số câu hỏi thường gặp về hệ thống quản lý sự kiện của chúng tôi
+          </p>
+        </div>
+        
+        <div class="max-w-3xl mx-auto space-y-4">
+          <!-- FAQ Item 1 -->
+          <div class="bg-white p-6 rounded-lg shadow-sm">
+            <h3 class="text-lg font-medium text-gray-900 mb-2">Làm thế nào để đăng ký tài khoản?</h3>
+            <p class="text-gray-600">
+              Để đăng ký tài khoản, bạn cần truy cập vào trang Đăng ký, điền đầy đủ thông tin cá nhân bao gồm email trường học (email có đuôi @sv.buh.edu.vn), mật khẩu và các thông tin khác theo yêu cầu.
+            </p>
+          </div>
+          
+          <!-- FAQ Item 2 -->
+          <div class="bg-white p-6 rounded-lg shadow-sm">
+            <h3 class="text-lg font-medium text-gray-900 mb-2">Làm sao để đăng ký tham gia sự kiện?</h3>
+            <p class="text-gray-600">
+              Sau khi đăng nhập vào hệ thống, bạn có thể tìm kiếm sự kiện mong muốn, nhấn vào nút "Đăng ký tham gia" trên trang chi tiết sự kiện và làm theo các bước hướng dẫn.
+            </p>
+          </div>
+          
+          <!-- FAQ Item 3 -->
+          <div class="bg-white p-6 rounded-lg shadow-sm">
+            <h3 class="text-lg font-medium text-gray-900 mb-2">Tôi có thể hủy đăng ký tham gia sự kiện không?</h3>
+            <p class="text-gray-600">
+              Có, bạn có thể hủy đăng ký tham gia sự kiện bằng cách truy cập vào mục "Sự kiện đã đăng ký" trong tài khoản cá nhân và chọn "Hủy đăng ký". Lưu ý rằng một số sự kiện có thể có thời hạn hủy đăng ký.
+            </p>
+          </div>
+          
+          <!-- FAQ Item 4 -->
+          <div class="bg-white p-6 rounded-lg shadow-sm">
+            <h3 class="text-lg font-medium text-gray-900 mb-2">Tôi quên mật khẩu đăng nhập, phải làm thế nào?</h3>
+            <p class="text-gray-600">
+              Bạn có thể sử dụng chức năng "Quên mật khẩu" trên trang đăng nhập. Hệ thống sẽ gửi email với hướng dẫn đặt lại mật khẩu đến địa chỉ email đã đăng ký của bạn.
+            </p>
+          </div>
+        </div>
+        
+        <div class="text-center mt-8">
+          <a href="faq.html" class="text-primary font-medium hover:underline flex items-center justify-center">
+            Xem thêm câu hỏi thường gặp
+            <i class="ri-arrow-right-line ml-1"></i>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-primary text-red-100 py-12">
+      <div class="container mx-auto px-4">
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+          <div>
+            <a href="index.html" class="text-2xl font-['Pacifico'] text-white mb-4 block"
+              >
+              <img src="../images/logo/logo-white-vertical.png" alt="logo" class="w-16 h-16">
+            </a>
+            <p class="mb-4">
+              Hệ thống Quản lý Sự kiện Đại học Ngân hàng TP.HCM - Nơi kết nối
+              sinh viên với các hoạt động học thuật và ngoại khóa.
+            </p>
+            <div class="flex space-x-4">
+              <a
+                href="#"
+                class="w-10 h-10 flex items-center justify-center bg-red-900/50 rounded-full hover:bg-white hover:text-primary transition-colors"
+              >
+                <i class="ri-facebook-fill text-white"></i>
+              </a>
+              <a
+                href="#"
+                class="w-10 h-10 flex items-center justify-center bg-red-900/50 rounded-full hover:bg-white hover:text-primary transition-colors"
+              >
+                <i class="ri-youtube-fill text-white"></i>
+              </a>
+              <a
+                href="#"
+                class="w-10 h-10 flex items-center justify-center bg-red-900/50 rounded-full hover:bg-white hover:text-primary transition-colors"
+              >
+                <i class="ri-instagram-fill text-white"></i>
+              </a>
+            </div>
+          </div>
+          <div>
+            <h3 class="text-white text-lg font-bold mb-4">Liên kết nhanh</h3>
+            <ul class="space-y-2">
+              <li>
+                <a href="index.html" class="hover:text-white transition-colors"
+                  >Trang chủ</a
+                >
+              </li>
+              <li>
+                <a href="events.html" class="hover:text-white transition-colors"
+                  >Sự kiện</a
+                >
+              </li>
+              <li>
+                <a href="login.html" class="hover:text-white transition-colors"
+                  >Đăng nhập</a
+                >
+              </li>
+              <li>
+                <a href="register.html" class="hover:text-white transition-colors"
+                  >Đăng ký</a
+                >
+              </li>
+              <li>
+                <a href="news.html" class="hover:text-white transition-colors"
+                  >Giới thiệu</a
+                >
+              </li>
+            </ul>
+          </div>
+          <div>
+            <h3 class="text-white text-lg font-bold mb-4">Hỗ trợ</h3>
+            <ul class="space-y-2">
+              <li>
+                <a href="guide.html" class="hover:text-white transition-colors"
+                  >Hướng dẫn sử dụng</a
+                >
+              </li>
+              <li>
+                <a href="faq.html" class="hover:text-white transition-colors"
+                  >Câu hỏi thường gặp</a
+                >
+              </li>
+              <li>
+                <a href="privacy.html" class="hover:text-white transition-colors"
+                  >Chính sách bảo mật</a
+                >
+              </li>
+              <li>
+                <a href="terms.html" class="hover:text-white transition-colors"
+                  >Điều khoản sử dụng</a
+                >
+              </li>
+              <li>
+                <a href="contact.html" class="hover:text-white transition-colors"
+                  >Liên hệ hỗ trợ</a
+                >
+              </li>
+            </ul>
+          </div>
+          <div>
+            <h3 class="text-white text-lg font-bold mb-4">Liên hệ</h3>
+            <ul class="space-y-2">
+              <li class="flex items-start">
+                <div class="w-5 h-5 flex items-center justify-center mr-2 mt-1">
+                  <i class="ri-map-pin-line"></i>
+                </div>
+                <span
+                  >36 Tôn Thất Đạm, Phường Nguyễn Thái Bình, Quận 1,
+                  TP.HCM</span
+                >
+              </li>
+              <li class="flex items-center">
+                <div class="w-5 h-5 flex items-center justify-center mr-2">
+                  <i class="ri-phone-line"></i>
+                </div>
+                <span>(028) 3829 1901</span>
+              </li>
+              <li class="flex items-center">
+                <div class="w-5 h-5 flex items-center justify-center mr-2">
+                  <i class="ri-mail-line"></i>
+                </div>
+                <span>info@buh.edu.vn</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="border-t border-red-900/30 mt-10 pt-6 text-center">
+          <p>
+            &copy; 2025 Đại học Ngân hàng TP.HCM. Tất cả quyền được bảo lưu.
+          </p>
+        </div>
+      </div>
+    </footer>
+    <script>
+      // Simple JavaScript for mobile menu toggle
+      document.addEventListener("DOMContentLoaded", function () {
+        const menuButton = document.querySelector("button.md\\:hidden");
+        const mobileMenu = document.createElement("div");
+        mobileMenu.className =
+          "fixed inset-0 bg-primary z-50 transform translate-x-full transition-transform duration-300 ease-in-out";
+        mobileMenu.innerHTML = `
+      <div class="p-4 flex justify-between items-center border-b border-red-900/30">
+      <a href="index.html" class="text-2xl font-['Pacifico'] text-white">
+        <img src="../images/logo/logo-white.png" alt="logo" class="w-10 h-10">
+      </a>
+      <button class="w-10 h-10 flex items-center justify-center text-white">
+      <i class="ri-close-line ri-lg"></i>
+      </button>
+      </div>
+      <nav class="p-4">
+      <ul class="space-y-4">
+      <li><a href="index.html" class="text-red-100 block py-2">Trang chủ</a></li>
+      <li><a href="events.html" class="text-red-100 block py-2">Sự kiện</a></li>
+      <li><a href="news.html" class="text-red-100 block py-2">Giới thiệu</a></li>
+      <li><a href="contact.html" class="text-white font-medium block py-2">Liên hệ</a></li>
+      <li class="pt-4 border-t border-red-900/30">
+      <a href="login.html" class="text-white font-medium block py-2">Đăng nhập</a>
+      </li>
+      <li>
+      <a href="register.html" class="bg-white text-primary px-4 py-2 !rounded-button whitespace-nowrap block text-center mt-2">Đăng ký</a>
+      </li>
+      </ul>
+      </nav>
+      `;
+        document.body.appendChild(mobileMenu);
+        menuButton.addEventListener("click", function () {
+          mobileMenu.classList.remove("translate-x-full");
+        });
+        mobileMenu.querySelector("button").addEventListener("click", function () {
+          mobileMenu.classList.add("translate-x-full");
+        });
+      });
+
+      // Form validation and submission
+      document.addEventListener("DOMContentLoaded", function() {
+        const contactForm = document.getElementById("contactForm");
+        
+        // Simple form validation
+        contactForm.addEventListener("submit", function(event) {
+          event.preventDefault();
+          
+          // Get form data
+          const formData = new FormData(contactForm);
+          const formValues = Object.fromEntries(formData.entries());
+          
+          // Example validation - you would replace this with your actual validation logic
+          let isValid = true;
+          const requiredFields = ["fullName", "email", "subject", "message"];
+          
+          requiredFields.forEach(field => {
+            const input = document.getElementById(field);
+            if (!formValues[field]) {
+              input.classList.add("border-red-500");
+              isValid = false;
+            } else {
+              input.classList.remove("border-red-500");
+            }
+          });
+          
+          // Email validation
+          const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+          if (formValues.email && !emailRegex.test(formValues.email)) {
+            document.getElementById("email").classList.add("border-red-500");
+            isValid = false;
+          }
+          
+          if (isValid) {
+            // Simulating form submission
+            alert("Cảm ơn bạn đã gửi thông tin liên hệ. Chúng tôi sẽ phản hồi trong thời gian sớm nhất!");
+            contactForm.reset();
+          } else {
+            alert("Vui lòng kiểm tra lại thông tin đã nhập.");
+          }
+        });
+      });
+    </script>
+  </body>
+</html> 

@@ -1,0 +1,816 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Chính sách bảo mật - Đại học Ngân hàng TP.HCM</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.tailwindcss.com/3.4.16"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              primary: "#8B0000",
+              secondary: "#FF5252",
+            },
+            borderRadius: {
+              none: "0px",
+              sm: "4px",
+              DEFAULT: "8px",
+              md: "12px",
+              lg: "16px",
+              xl: "20px",
+              "2xl": "24px",
+              "3xl": "32px",
+              full: "9999px",
+              button: "8px",
+            },
+          },
+        },
+      };
+    </script>
+    <style>
+      :where([class^="ri-"])::before { content: "\f3c2"; }
+      body {
+      font-family: 'Inter', sans-serif;
+      }
+      .hero-gradient {
+      background: linear-gradient(90deg, rgba(255,255,255,1) 0%, rgba(255,255,255,0.9) 50%, rgba(255,255,255,0) 100%);
+      }
+    </style>
+  </head>
+  <body class="bg-gray-50">
+    <!-- Header -->
+    <header class="bg-primary shadow-sm">
+      <div
+        class="container mx-auto px-4 flex items-center justify-between"
+      >
+        <a href="index.html" class="text-2xl font-['Pacifico'] text-white">
+            <img src="../images/logo/logo-white-vertical.png" alt="logo" class="w-16 h-16">
+        </a>
+        <nav class="hidden md:flex items-center space-x-8">
+          <a
+            href="index.html"
+            class="text-red-100 hover:text-white transition-colors"
+            >Trang chủ</a
+          >
+          <a href="events.html" class="text-red-100 hover:text-white transition-colors"
+            >Sự kiện</a
+          >
+          <a href="news.html" class="text-red-100 hover:text-white transition-colors"
+            >Giới thiệu</a
+          >
+          <a href="contact.html" class="text-red-100 hover:text-white transition-colors"
+            >Liên hệ</a
+          >
+        </nav>
+        <div class="flex items-center space-x-4">
+          <a href="login.html" class="text-white font-medium hover:underline"
+            >Đăng nhập</a
+          >
+          <a
+            href="register.html"
+            class="bg-white text-primary px-4 py-2 !rounded-button whitespace-nowrap hover:bg-red-50 transition-colors shadow-sm"
+            >Đăng ký</a
+          >
+        </div>
+        <button
+          class="md:hidden w-10 h-10 flex items-center justify-center text-white"
+        >
+          <i class="ri-menu-line ri-lg"></i>
+        </button>
+      </div>
+    </header>
+
+    <!-- Page Title -->
+    <section class="bg-primary py-12">
+      <div class="container mx-auto px-4 text-center">
+        <h1 class="text-3xl md:text-4xl font-bold text-white mb-4">Chính sách bảo mật</h1>
+        <p class="text-red-100 max-w-3xl mx-auto">
+          Thông tin về cách chúng tôi thu thập, lưu trữ và bảo vệ dữ liệu cá nhân của bạn
+        </p>
+      </div>
+    </section>
+
+    <!-- Privacy Policy Content -->
+    <section class="py-16 bg-white">
+      <div class="container mx-auto px-4">
+        <div class="max-w-4xl mx-auto">
+          <!-- Last Updated -->
+          <div class="mb-10 pb-6 border-b border-gray-200">
+            <p class="text-gray-600 flex items-center">
+              <span class="w-5 h-5 flex items-center justify-center mr-2">
+                <i class="ri-calendar-line"></i>
+              </span>
+              <span>Cập nhật lần cuối: Ngày 15 tháng 04 năm 2025</span>
+            </p>
+          </div>
+
+          <!-- Introduction -->
+          <div class="mb-12">
+            <p class="text-gray-700 mb-4">
+              Đại học Ngân hàng TP.HCM ("chúng tôi", "trường", "BUH") tôn trọng quyền riêng tư của bạn và cam kết bảo vệ dữ liệu cá nhân của bạn. Chính sách bảo mật này mô tả cách chúng tôi thu thập, sử dụng, lưu trữ, bảo vệ và chia sẻ thông tin cá nhân khi bạn sử dụng Hệ thống Quản lý Sự kiện của chúng tôi (gọi tắt là "Hệ thống").
+            </p>
+            <p class="text-gray-700">
+              Vui lòng đọc kỹ chính sách này để hiểu cách chúng tôi xử lý dữ liệu của bạn. Bằng việc sử dụng Hệ thống của chúng tôi, bạn đồng ý với việc thu thập và xử lý dữ liệu theo chính sách này.
+            </p>
+          </div>
+
+          <!-- Table of Contents -->
+          <div class="mb-12 bg-gray-50 p-6 rounded-lg">
+            <h2 class="text-xl font-bold text-gray-900 mb-4">Nội dung chính sách</h2>
+            <ul class="space-y-2">
+              <li>
+                <a href="#information-collection" class="text-primary hover:underline flex items-center">
+                  <span class="w-5 h-5 flex items-center justify-center mr-2">
+                    <i class="ri-arrow-right-s-line"></i>
+                  </span>
+                  1. Thông tin chúng tôi thu thập
+                </a>
+              </li>
+              <li>
+                <a href="#information-use" class="text-primary hover:underline flex items-center">
+                  <span class="w-5 h-5 flex items-center justify-center mr-2">
+                    <i class="ri-arrow-right-s-line"></i>
+                  </span>
+                  2. Cách chúng tôi sử dụng thông tin
+                </a>
+              </li>
+              <li>
+                <a href="#information-sharing" class="text-primary hover:underline flex items-center">
+                  <span class="w-5 h-5 flex items-center justify-center mr-2">
+                    <i class="ri-arrow-right-s-line"></i>
+                  </span>
+                  3. Chia sẻ thông tin
+                </a>
+              </li>
+              <li>
+                <a href="#data-security" class="text-primary hover:underline flex items-center">
+                  <span class="w-5 h-5 flex items-center justify-center mr-2">
+                    <i class="ri-arrow-right-s-line"></i>
+                  </span>
+                  4. Bảo mật dữ liệu
+                </a>
+              </li>
+              <li>
+                <a href="#data-retention" class="text-primary hover:underline flex items-center">
+                  <span class="w-5 h-5 flex items-center justify-center mr-2">
+                    <i class="ri-arrow-right-s-line"></i>
+                  </span>
+                  5. Thời gian lưu trữ dữ liệu
+                </a>
+              </li>
+              <li>
+                <a href="#your-rights" class="text-primary hover:underline flex items-center">
+                  <span class="w-5 h-5 flex items-center justify-center mr-2">
+                    <i class="ri-arrow-right-s-line"></i>
+                  </span>
+                  6. Quyền của bạn
+                </a>
+              </li>
+              <li>
+                <a href="#cookies" class="text-primary hover:underline flex items-center">
+                  <span class="w-5 h-5 flex items-center justify-center mr-2">
+                    <i class="ri-arrow-right-s-line"></i>
+                  </span>
+                  7. Cookies và công nghệ theo dõi
+                </a>
+              </li>
+              <li>
+                <a href="#changes" class="text-primary hover:underline flex items-center">
+                  <span class="w-5 h-5 flex items-center justify-center mr-2">
+                    <i class="ri-arrow-right-s-line"></i>
+                  </span>
+                  8. Thay đổi chính sách
+                </a>
+              </li>
+              <li>
+                <a href="#contact" class="text-primary hover:underline flex items-center">
+                  <span class="w-5 h-5 flex items-center justify-center mr-2">
+                    <i class="ri-arrow-right-s-line"></i>
+                  </span>
+                  9. Liên hệ với chúng tôi
+                </a>
+              </li>
+            </ul>
+          </div>
+
+          <!-- Section 1: Information Collection -->
+          <div id="information-collection" class="mb-12">
+            <h2 class="text-2xl font-bold text-gray-900 mb-6">1. Thông tin chúng tôi thu thập</h2>
+            
+            <div class="space-y-6">
+              <div>
+                <h3 class="text-xl font-semibold text-gray-900 mb-3">1.1 Thông tin bạn cung cấp</h3>
+                <p class="text-gray-700 mb-3">
+                  Khi bạn đăng ký và sử dụng Hệ thống Quản lý Sự kiện của chúng tôi, chúng tôi thu thập các thông tin sau:
+                </p>
+                <ul class="list-disc pl-6 text-gray-700 space-y-2">
+                  <li>Thông tin nhận dạng cá nhân (họ tên, mã số sinh viên)</li>
+                  <li>Thông tin liên hệ (email trường học, số điện thoại)</li>
+                  <li>Thông tin học tập (khoa, ngành, lớp, khóa học)</li>
+                  <li>Thông tin hồ sơ (ảnh đại diện, tiểu sử ngắn, sở thích)</li>
+                  <li>Thông tin xác thực (mật khẩu đã được mã hóa)</li>
+                </ul>
+              </div>
+
+              <div>
+                <h3 class="text-xl font-semibold text-gray-900 mb-3">1.2 Thông tin chúng tôi tự động thu thập</h3>
+                <p class="text-gray-700 mb-3">
+                  Khi bạn sử dụng Hệ thống, chúng tôi tự động thu thập một số thông tin:
+                </p>
+                <ul class="list-disc pl-6 text-gray-700 space-y-2">
+                  <li>Thông tin thiết bị (loại thiết bị, hệ điều hành, trình duyệt)</li>
+                  <li>Thông tin nhật ký (địa chỉ IP, thời gian truy cập, các trang đã xem)</li>
+                  <li>Dữ liệu hoạt động (sự kiện đã xem, đã đăng ký, đã tham dự)</li>
+                  <li>Thông tin vị trí (nếu bạn cho phép)</li>
+                </ul>
+              </div>
+
+              <div>
+                <h3 class="text-xl font-semibold text-gray-900 mb-3">1.3 Thông tin từ bên thứ ba</h3>
+                <p class="text-gray-700 mb-3">
+                  Trong một số trường hợp, chúng tôi có thể nhận thông tin về bạn từ các nguồn bên thứ ba:
+                </p>
+                <ul class="list-disc pl-6 text-gray-700 space-y-2">
+                  <li>Hệ thống quản lý sinh viên của trường</li>
+                  <li>Các đơn vị tổ chức sự kiện hợp tác với trường</li>
+                  <li>Mạng xã hội (nếu bạn chọn đăng nhập qua các nền tảng này)</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <!-- Section 2: Information Use -->
+          <div id="information-use" class="mb-12">
+            <h2 class="text-2xl font-bold text-gray-900 mb-6">2. Cách chúng tôi sử dụng thông tin</h2>
+            
+            <p class="text-gray-700 mb-4">
+              Chúng tôi sử dụng thông tin thu thập được cho các mục đích sau:
+            </p>
+            
+            <div class="space-y-4">
+              <div class="bg-gray-50 p-5 rounded-lg">
+                <h3 class="text-lg font-semibold text-gray-900 mb-2">Cung cấp và quản lý dịch vụ</h3>
+                <ul class="list-disc pl-6 text-gray-700 space-y-1">
+                  <li>Tạo và quản lý tài khoản người dùng</li>
+                  <li>Xử lý đăng ký tham gia sự kiện</li>
+                  <li>Điểm danh và xác nhận tham dự</li>
+                  <li>Cấp chứng chỉ tham dự sự kiện</li>
+                  <li>Cá nhân hóa trải nghiệm người dùng</li>
+                </ul>
+              </div>
+
+              <div class="bg-gray-50 p-5 rounded-lg">
+                <h3 class="text-lg font-semibold text-gray-900 mb-2">Liên lạc với bạn</h3>
+                <ul class="list-disc pl-6 text-gray-700 space-y-1">
+                  <li>Gửi thông báo về sự kiện đã đăng ký</li>
+                  <li>Thông báo về sự kiện mới phù hợp với sở thích</li>
+                  <li>Cập nhật về thay đổi trong hệ thống hoặc chính sách</li>
+                  <li>Hỗ trợ và phản hồi thắc mắc</li>
+                </ul>
+              </div>
+
+              <div class="bg-gray-50 p-5 rounded-lg">
+                <h3 class="text-lg font-semibold text-gray-900 mb-2">Cải thiện và phát triển</h3>
+                <ul class="list-disc pl-6 text-gray-700 space-y-1">
+                  <li>Phân tích hành vi người dùng để cải thiện hệ thống</li>
+                  <li>Nghiên cứu và phát triển tính năng mới</li>
+                  <li>Thống kê và báo cáo về việc tham gia sự kiện</li>
+                  <li>Đánh giá hiệu quả của các sự kiện</li>
+                </ul>
+              </div>
+
+              <div class="bg-gray-50 p-5 rounded-lg">
+                <h3 class="text-lg font-semibold text-gray-900 mb-2">Bảo mật và tuân thủ</h3>
+                <ul class="list-disc pl-6 text-gray-700 space-y-1">
+                  <li>Phát hiện và ngăn chặn gian lận</li>
+                  <li>Bảo vệ an toàn cho hệ thống và người dùng</li>
+                  <li>Tuân thủ nghĩa vụ pháp lý</li>
+                  <li>Giải quyết tranh chấp</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <!-- Section 3: Information Sharing -->
+          <div id="information-sharing" class="mb-12">
+            <h2 class="text-2xl font-bold text-gray-900 mb-6">3. Chia sẻ thông tin</h2>
+            
+            <p class="text-gray-700 mb-4">
+              Chúng tôi coi trọng việc bảo vệ thông tin cá nhân của bạn và chỉ chia sẻ thông tin trong những trường hợp sau:
+            </p>
+            
+            <div class="space-y-4">
+              <div>
+                <h3 class="text-xl font-semibold text-gray-900 mb-3">3.1 Trong nội bộ trường</h3>
+                <p class="text-gray-700">
+                  Thông tin của bạn có thể được chia sẻ giữa các đơn vị trong trường (như Phòng Công tác Sinh viên, Phòng Đào tạo, các Khoa) để phục vụ cho việc tổ chức và quản lý sự kiện, đánh giá kết quả học tập, và hỗ trợ sinh viên.
+                </p>
+              </div>
+
+              <div>
+                <h3 class="text-xl font-semibold text-gray-900 mb-3">3.2 Với đơn vị tổ chức sự kiện</h3>
+                <p class="text-gray-700">
+                  Khi bạn đăng ký tham gia sự kiện, thông tin cơ bản của bạn (như họ tên, mã số sinh viên, khoa/ngành) có thể được chia sẻ với đơn vị tổ chức sự kiện để phục vụ cho việc điểm danh, quản lý tham dự và cấp chứng chỉ.
+                </p>
+              </div>
+
+              <div>
+                <h3 class="text-xl font-semibold text-gray-900 mb-3">3.3 Với nhà cung cấp dịch vụ</h3>
+                <p class="text-gray-700">
+                  Chúng tôi có thể chia sẻ thông tin với các nhà cung cấp dịch vụ bên thứ ba (như dịch vụ lưu trữ đám mây, dịch vụ email, dịch vụ phân tích) để hỗ trợ vận hành Hệ thống. Các đơn vị này bị ràng buộc bởi các thỏa thuận bảo mật dữ liệu và chỉ được phép sử dụng thông tin của bạn để cung cấp dịch vụ cho chúng tôi.
+                </p>
+              </div>
+
+              <div>
+                <h3 class="text-xl font-semibold text-gray-900 mb-3">3.4 Khi có yêu cầu pháp lý</h3>
+                <p class="text-gray-700">
+                  Chúng tôi có thể chia sẻ thông tin khi cần thiết để tuân thủ luật pháp, quy định, quy trình pháp lý, hoặc yêu cầu của cơ quan nhà nước có thẩm quyền.
+                </p>
+              </div>
+
+              <div class="bg-yellow-50 p-5 rounded-lg">
+                <h3 class="text-lg font-semibold text-gray-900 mb-2 flex items-center">
+                  <span class="w-5 h-5 flex items-center justify-center mr-2 text-yellow-600">
+                    <i class="ri-information-line"></i>
+                  </span>
+                  Cam kết của chúng tôi
+                </h3>
+                <p class="text-gray-700">
+                  Chúng tôi cam kết không bán, cho thuê hoặc trao đổi thông tin cá nhân của bạn cho bất kỳ bên thứ ba nào vì mục đích thương mại mà không có sự đồng ý rõ ràng từ bạn.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Section 4: Data Security -->
+          <div id="data-security" class="mb-12">
+            <h2 class="text-2xl font-bold text-gray-900 mb-6">4. Bảo mật dữ liệu</h2>
+            
+            <p class="text-gray-700 mb-4">
+              Chúng tôi áp dụng các biện pháp bảo mật phù hợp để bảo vệ thông tin cá nhân của bạn khỏi việc truy cập, sử dụng, thay đổi và tiết lộ trái phép.
+            </p>
+            
+            <div class="space-y-4">
+              <div class="bg-gray-50 p-5 rounded-lg">
+                <h3 class="text-lg font-semibold text-gray-900 mb-2">Biện pháp kỹ thuật</h3>
+                <ul class="list-disc pl-6 text-gray-700 space-y-1">
+                  <li>Mã hóa dữ liệu khi truyền tải (sử dụng giao thức HTTPS)</li>
+                  <li>Mã hóa mật khẩu và thông tin nhạy cảm</li>
+                  <li>Sử dụng tường lửa và hệ thống phát hiện xâm nhập</li>
+                  <li>Kiểm tra và cập nhật thường xuyên các biện pháp bảo mật</li>
+                  <li>Sao lưu dữ liệu định kỳ</li>
+                </ul>
+              </div>
+
+              <div class="bg-gray-50 p-5 rounded-lg">
+                <h3 class="text-lg font-semibold text-gray-900 mb-2">Biện pháp quản lý</h3>
+                <ul class="list-disc pl-6 text-gray-700 space-y-1">
+                  <li>Hạn chế quyền truy cập dữ liệu cá nhân chỉ cho nhân viên có nhu cầu công việc</li>
+                  <li>Đào tạo nhân viên về bảo mật thông tin và quyền riêng tư</li>
+                  <li>Yêu cầu nhà cung cấp dịch vụ cam kết bảo vệ dữ liệu</li>
+                  <li>Quy trình xử lý sự cố bảo mật</li>
+                </ul>
+              </div>
+
+              <div class="bg-red-50 p-5 rounded-lg">
+                <p class="text-gray-700 flex items-start">
+                  <span class="w-5 h-5 flex items-center justify-center mr-2 mt-1 text-red-600">
+                    <i class="ri-alert-line"></i>
+                  </span>
+                  <span>
+                    <span class="font-medium">Lưu ý quan trọng:</span> Mặc dù chúng tôi nỗ lực bảo vệ thông tin của bạn, nhưng không có phương thức truyền tải qua internet hoặc lưu trữ điện tử nào là an toàn 100%. Vì vậy, chúng tôi không thể đảm bảo an ninh tuyệt đối.
+                  </span>
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Section 5: Data Retention -->
+          <div id="data-retention" class="mb-12">
+            <h2 class="text-2xl font-bold text-gray-900 mb-6">5. Thời gian lưu trữ dữ liệu</h2>
+            
+            <p class="text-gray-700 mb-4">
+              Chúng tôi lưu trữ thông tin cá nhân của bạn trong thời gian cần thiết để phục vụ các mục đích được nêu trong chính sách này, trừ khi luật pháp yêu cầu hoặc cho phép lưu trữ lâu hơn.
+            </p>
+            
+            <div class="space-y-6">
+              <div>
+                <h3 class="text-xl font-semibold text-gray-900 mb-3">5.1 Thông tin tài khoản</h3>
+                <p class="text-gray-700">
+                  Chúng tôi lưu trữ thông tin tài khoản của bạn trong suốt thời gian bạn là sinh viên tại trường và thêm một năm sau khi bạn tốt nghiệp hoặc ngừng học tại trường. Sau thời gian này, tài khoản của bạn sẽ được chuyển sang trạng thái không hoạt động và thông tin cá nhân sẽ được ẩn khỏi hệ thống hoạt động.
+                </p>
+              </div>
+
+              <div>
+                <h3 class="text-xl font-semibold text-gray-900 mb-3">5.2 Dữ liệu hoạt động</h3>
+                <p class="text-gray-700">
+                  Thông tin về việc tham gia sự kiện của bạn (đăng ký, tham dự, chứng chỉ) được lưu trữ trong hệ thống trong thời gian tối thiểu 5 năm phục vụ cho việc thống kê, đánh giá và cấp lại chứng chỉ nếu cần.
+                </p>
+              </div>
+
+              <div>
+                <h3 class="text-xl font-semibold text-gray-900 mb-3">5.3 Nhật ký hệ thống</h3>
+                <p class="text-gray-700">
+                  Dữ liệu nhật ký (log) hệ thống được lưu trữ trong thời gian 1 năm để phục vụ cho việc bảo mật, giải quyết sự cố và phân tích hoạt động.
+                </p>
+              </div>
+
+              <div class="bg-blue-50 p-5 rounded-lg">
+                <h3 class="text-lg font-semibold text-gray-900 mb-2 flex items-center">
+                  <span class="w-5 h-5 flex items-center justify-center mr-2 text-blue-600">
+                    <i class="ri-lightbulb-line"></i>
+                  </span>
+                  Yêu cầu xóa dữ liệu
+                </h3>
+                <p class="text-gray-700">
+                  Bạn có thể yêu cầu xóa thông tin cá nhân của mình trước thời hạn lưu trữ bằng cách liên hệ với chúng tôi qua email support@buh.edu.vn. Tuy nhiên, một số thông tin có thể được giữ lại để tuân thủ nghĩa vụ pháp lý, giải quyết tranh chấp hoặc thực hiện các thỏa thuận của chúng tôi.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Section 6: Your Rights -->
+          <div id="your-rights" class="mb-12">
+            <h2 class="text-2xl font-bold text-gray-900 mb-6">6. Quyền của bạn</h2>
+            
+            <p class="text-gray-700 mb-4">
+              Dựa trên luật pháp Việt Nam và các quy định về bảo vệ dữ liệu, bạn có một số quyền liên quan đến thông tin cá nhân của mình. Các quyền này bao gồm:
+            </p>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+              <div class="bg-gray-50 p-5 rounded-lg">
+                <h3 class="text-lg font-semibold text-gray-900 mb-2">Quyền truy cập</h3>
+                <p class="text-gray-700">
+                  Bạn có quyền yêu cầu bản sao thông tin cá nhân mà chúng tôi lưu trữ về bạn.
+                </p>
+              </div>
+
+              <div class="bg-gray-50 p-5 rounded-lg">
+                <h3 class="text-lg font-semibold text-gray-900 mb-2">Quyền chỉnh sửa</h3>
+                <p class="text-gray-700">
+                  Bạn có quyền yêu cầu cập nhật hoặc sửa đổi thông tin cá nhân không chính xác.
+                </p>
+              </div>
+
+              <div class="bg-gray-50 p-5 rounded-lg">
+                <h3 class="text-lg font-semibold text-gray-900 mb-2">Quyền xóa</h3>
+                <p class="text-gray-700">
+                  Bạn có quyền yêu cầu xóa thông tin cá nhân trong một số trường hợp nhất định.
+                </p>
+              </div>
+
+              <div class="bg-gray-50 p-5 rounded-lg">
+                <h3 class="text-lg font-semibold text-gray-900 mb-2">Quyền giới hạn xử lý</h3>
+                <p class="text-gray-700">
+                  Bạn có quyền yêu cầu hạn chế việc xử lý thông tin cá nhân trong một số trường hợp.
+                </p>
+              </div>
+
+              <div class="bg-gray-50 p-5 rounded-lg">
+                <h3 class="text-lg font-semibold text-gray-900 mb-2">Quyền phản đối</h3>
+                <p class="text-gray-700">
+                  Bạn có quyền phản đối việc xử lý thông tin cá nhân vào một số thời điểm nhất định.
+                </p>
+              </div>
+
+              <div class="bg-gray-50 p-5 rounded-lg">
+                <h3 class="text-lg font-semibold text-gray-900 mb-2">Quyền di chuyển dữ liệu</h3>
+                <p class="text-gray-700">
+                  Bạn có quyền nhận thông tin của mình theo định dạng có cấu trúc, thường được sử dụng.
+                </p>
+              </div>
+            </div>
+
+            <p class="text-gray-700">
+              Để thực hiện bất kỳ quyền nào trong số này, vui lòng liên hệ với chúng tôi theo thông tin trong mục "Liên hệ với chúng tôi". Chúng tôi sẽ phản hồi yêu cầu của bạn trong thời gian hợp lý, thông thường là trong vòng 30 ngày.
+            </p>
+          </div>
+
+          <!-- Section 7: Cookies and Tracking -->
+          <div id="cookies" class="mb-12">
+            <h2 class="text-2xl font-bold text-gray-900 mb-6">7. Cookies và công nghệ theo dõi</h2>
+            
+            <div class="space-y-6">
+              <div>
+                <h3 class="text-xl font-semibold text-gray-900 mb-3">7.1 Cookies là gì?</h3>
+                <p class="text-gray-700">
+                  Cookies là các tệp nhỏ được lưu trữ trên thiết bị của bạn khi bạn truy cập trang web. Cookies cho phép trang web ghi nhớ các hành động và tùy chọn của bạn (như đăng nhập, ngôn ngữ, kích thước font chữ và các tùy chọn hiển thị khác) trong một khoảng thời gian.
+                </p>
+              </div>
+
+              <div>
+                <h3 class="text-xl font-semibold text-gray-900 mb-3">7.2 Cách chúng tôi sử dụng cookies</h3>
+                <p class="text-gray-700 mb-3">
+                  Hệ thống Quản lý Sự kiện của chúng tôi sử dụng cookies và các công nghệ tương tự để:
+                </p>
+                <ul class="list-disc pl-6 text-gray-700 space-y-2">
+                  <li>Duy trì phiên đăng nhập của bạn</li>
+                  <li>Ghi nhớ tùy chọn và cài đặt của bạn</li>
+                  <li>Cải thiện trải nghiệm người dùng</li>
+                  <li>Phân tích cách bạn sử dụng trang web để cải thiện dịch vụ</li>
+                  <li>Hỗ trợ các tính năng bảo mật</li>
+                </ul>
+              </div>
+
+              <div>
+                <h3 class="text-xl font-semibold text-gray-900 mb-3">7.3 Các loại cookies chúng tôi sử dụng</h3>
+                <div class="space-y-3">
+                  <div>
+                    <h4 class="font-medium text-gray-900">Cookies cần thiết</h4>
+                    <p class="text-gray-700">
+                      Những cookies này là cần thiết để hệ thống hoạt động. Chúng bao gồm cookies cho phép bạn đăng nhập vào khu vực bảo mật, sử dụng giỏ hàng hoặc sử dụng thanh toán điện tử.
+                    </p>
+                  </div>
+                  <div>
+                    <h4 class="font-medium text-gray-900">Cookies phân tích/hiệu suất</h4>
+                    <p class="text-gray-700">
+                      Những cookies này cho phép chúng tôi nhận biết và đếm số lượng khách truy cập, theo dõi cách họ di chuyển trong trang web khi đang sử dụng. Điều này giúp chúng tôi cải thiện cách hoạt động của trang web.
+                    </p>
+                  </div>
+                  <div>
+                    <h4 class="font-medium text-gray-900">Cookies chức năng</h4>
+                    <p class="text-gray-700">
+                      Những cookies này được sử dụng để nhận biết bạn khi bạn quay lại trang web. Điều này cho phép chúng tôi cá nhân hóa nội dung, chào bạn bằng tên và ghi nhớ các tùy chọn của bạn.
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <div>
+                <h3 class="text-xl font-semibold text-gray-900 mb-3">7.4 Quản lý cookies</h3>
+                <p class="text-gray-700 mb-3">
+                  Hầu hết các trình duyệt cho phép bạn kiểm soát cookies thông qua cài đặt của trình duyệt. Tuy nhiên, nếu bạn chọn từ chối cookies, bạn có thể không sử dụng được đầy đủ tính năng của Hệ thống.
+                </p>
+                <p class="text-gray-700">
+                  Để tìm hiểu thêm về cách quản lý cookies trong trình duyệt của bạn, vui lòng truy cập trang trợ giúp của trình duyệt bạn đang sử dụng.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Section 8: Changes to Policy -->
+          <div id="changes" class="mb-12">
+            <h2 class="text-2xl font-bold text-gray-900 mb-6">8. Thay đổi chính sách</h2>
+            
+            <p class="text-gray-700 mb-4">
+              Chúng tôi có thể cập nhật Chính sách Bảo mật này theo thời gian để phản ánh những thay đổi trong hoạt động của chúng tôi hoặc để tuân thủ các yêu cầu pháp lý mới. Khi chúng tôi thực hiện thay đổi đáng kể, chúng tôi sẽ thông báo cho bạn bằng cách:
+            </p>
+            
+            <ul class="list-disc pl-6 text-gray-700 space-y-2 mb-4">
+              <li>Đăng thông báo nổi bật trên trang web của chúng tôi</li>
+              <li>Gửi email thông báo đến địa chỉ email đã đăng ký của bạn</li>
+              <li>Cập nhật ngày "Cập nhật lần cuối" ở đầu chính sách này</li>
+            </ul>
+            
+            <p class="text-gray-700">
+              Chúng tôi khuyến khích bạn xem xét Chính sách Bảo mật này định kỳ để cập nhật về cách chúng tôi bảo vệ thông tin của bạn. Việc tiếp tục sử dụng Hệ thống sau khi có thay đổi đồng nghĩa với việc bạn chấp nhận các thay đổi đó.
+            </p>
+          </div>
+
+          <!-- Section 9: Contact -->
+          <div id="contact" class="mb-12">
+            <h2 class="text-2xl font-bold text-gray-900 mb-6">9. Liên hệ với chúng tôi</h2>
+            
+            <p class="text-gray-700 mb-6">
+              Nếu bạn có bất kỳ câu hỏi, nhận xét hoặc yêu cầu nào liên quan đến Chính sách Bảo mật này hoặc cách chúng tôi xử lý thông tin cá nhân của bạn, vui lòng liên hệ với chúng tôi theo các phương thức sau:
+            </p>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+              <div class="bg-white border border-gray-200 p-5 rounded-lg shadow-sm flex flex-col">
+                <div class="w-10 h-10 bg-primary/10 rounded-full flex items-center justify-center mb-4">
+                  <i class="ri-mail-line text-primary"></i>
+                </div>
+                <h3 class="font-bold text-gray-900 mb-2">Email</h3>
+                <p class="text-gray-700 mb-1">
+                  <span class="font-medium">Hỗ trợ chung:</span> support@buh.edu.vn
+                </p>
+                <p class="text-gray-700">
+                  <span class="font-medium">Vấn đề bảo mật:</span> privacy@buh.edu.vn
+                </p>
+              </div>
+              
+              <div class="bg-white border border-gray-200 p-5 rounded-lg shadow-sm flex flex-col">
+                <div class="w-10 h-10 bg-primary/10 rounded-full flex items-center justify-center mb-4">
+                  <i class="ri-phone-line text-primary"></i>
+                </div>
+                <h3 class="font-bold text-gray-900 mb-2">Điện thoại</h3>
+                <p class="text-gray-700 mb-1">
+                  <span class="font-medium">Đường dây nóng:</span> (028) 3829 1901
+                </p>
+                <p class="text-gray-700">
+                  <span class="font-medium">Phòng Công nghệ Thông tin:</span> (028) 3829 1901 (Ext: 123)
+                </p>
+              </div>
+              
+              <div class="bg-white border border-gray-200 p-5 rounded-lg shadow-sm flex flex-col">
+                <div class="w-10 h-10 bg-primary/10 rounded-full flex items-center justify-center mb-4">
+                  <i class="ri-map-pin-line text-primary"></i>
+                </div>
+                <h3 class="font-bold text-gray-900 mb-2">Địa chỉ</h3>
+                <p class="text-gray-700">
+                  Phòng Công nghệ Thông tin<br>
+                  Tầng 1, Tòa nhà A<br>
+                  36 Tôn Thất Đạm, Phường Nguyễn Thái Bình, Quận 1, TP.HCM
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Acceptance Statement -->
+          <div class="mb-12 bg-gray-50 p-6 rounded-lg">
+            <h2 class="text-xl font-bold text-gray-900 mb-4">Chấp nhận điều khoản</h2>
+            <p class="text-gray-700">
+              Bằng cách sử dụng Hệ thống Quản lý Sự kiện của Đại học Ngân hàng TP.HCM, bạn xác nhận rằng bạn đã đọc, hiểu và đồng ý với Chính sách Bảo mật này. Nếu bạn không đồng ý với chính sách này, vui lòng không sử dụng Hệ thống của chúng tôi.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+    
+    <!-- Footer -->
+    <footer class="bg-primary text-red-100 py-12">
+      <div class="container mx-auto px-4">
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+          <div>
+            <a href="index.html" class="text-2xl font-['Pacifico'] text-white mb-4 block">
+              <img src="../images/logo/logo-white-vertical.png" alt="logo" class="w-16 h-16">
+            </a>
+            <p class="mb-4">
+              Hệ thống Quản lý Sự kiện Đại học Ngân hàng TP.HCM - Nơi kết nối
+              sinh viên với các hoạt động học thuật và ngoại khóa.
+            </p>
+            <div class="flex space-x-4">
+              <a
+                href="#"
+                class="w-10 h-10 flex items-center justify-center bg-red-900/50 rounded-full hover:bg-white hover:text-primary transition-colors"
+              >
+                <i class="ri-facebook-fill ri-lg"></i>
+              </a>
+              <a
+                href="#"
+                class="w-10 h-10 flex items-center justify-center bg-red-900/50 rounded-full hover:bg-white hover:text-primary transition-colors"
+              >
+                <i class="ri-youtube-fill ri-lg"></i>
+              </a>
+              <a
+                href="#"
+                class="w-10 h-10 flex items-center justify-center bg-red-900/50 rounded-full hover:bg-white hover:text-primary transition-colors"
+              >
+                <i class="ri-instagram-fill ri-lg"></i>
+              </a>
+            </div>
+          </div>
+          <div>
+            <h3 class="text-white text-lg font-bold mb-4">Liên kết nhanh</h3>
+            <ul class="space-y-2">
+              <li>
+                <a href="index.html" class="hover:text-white transition-colors"
+                  >Trang chủ</a
+                >
+              </li>
+              <li>
+                <a href="events.html" class="hover:text-white transition-colors"
+                  >Sự kiện</a
+                >
+              </li>
+              <li>
+                <a href="login.html" class="hover:text-white transition-colors"
+                  >Đăng nhập</a
+                >
+              </li>
+              <li>
+                <a href="register.html" class="hover:text-white transition-colors"
+                  >Đăng ký</a
+                >
+              </li>
+              <li>
+                <a href="news.html" class="hover:text-white transition-colors"
+                  >Giới thiệu</a
+                >
+              </li>
+            </ul>
+          </div>
+          <div>
+            <h3 class="text-white text-lg font-bold mb-4">Hỗ trợ</h3>
+            <ul class="space-y-2">
+              <li>
+                <a href="user-guide.html" class="hover:text-white transition-colors"
+                  >Hướng dẫn sử dụng</a
+                >
+              </li>
+              <li>
+                <a href="faq.html" class="hover:text-white transition-colors"
+                  >Câu hỏi thường gặp</a
+                >
+              </li>
+              <li>
+                <a href="privacy.html" class="hover:text-white transition-colors"
+                  >Chính sách bảo mật</a
+                >
+              </li>
+              <li>
+                <a href="terms.html" class="hover:text-white transition-colors"
+                  >Điều khoản sử dụng</a
+                >
+              </li>
+              <li>
+                <a href="contact.html" class="hover:text-white transition-colors"
+                  >Liên hệ hỗ trợ</a
+                >
+              </li>
+            </ul>
+          </div>
+          <div>
+            <h3 class="text-white text-lg font-bold mb-4">Liên hệ</h3>
+            <ul class="space-y-2">
+              <li class="flex items-start">
+                <div class="w-5 h-5 flex items-center justify-center mr-2 mt-1">
+                  <i class="ri-map-pin-line"></i>
+                </div>
+                <span
+                  >36 Tôn Thất Đạm, Phường Nguyễn Thái Bình, Quận 1,
+                  TP.HCM</span
+                >
+              </li>
+              <li class="flex items-center">
+                <div class="w-5 h-5 flex items-center justify-center mr-2">
+                  <i class="ri-phone-line"></i>
+                </div>
+                <span>(028) 3829 1901</span>
+              </li>
+              <li class="flex items-center">
+                <div class="w-5 h-5 flex items-center justify-center mr-2">
+                  <i class="ri-mail-line"></i>
+                </div>
+                <span>info@buh.edu.vn</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="border-t border-red-900/30 mt-10 pt-6 text-center">
+          <p>
+            &copy; 2025 Đại học Ngân hàng TP.HCM. Tất cả quyền được bảo lưu.
+          </p>
+        </div>
+      </div>
+    </footer>
+    
+    <script>
+      // Mobile menu toggle functionality
+      document.addEventListener("DOMContentLoaded", function () {
+        // Mobile menu
+        const menuButton = document.querySelector("button.md\\:hidden");
+        const mobileMenu = document.createElement("div");
+        mobileMenu.className =
+          "fixed inset-0 bg-primary z-50 transform translate-x-full transition-transform duration-300 ease-in-out";
+        mobileMenu.innerHTML = `
+        <div class="p-4 flex justify-between items-center border-b border-red-900/30">
+          <a href="index.html" class="text-2xl font-['Pacifico'] text-white">
+            <img src="../images/logo/logo-white-vertical.png" alt="logo" class="w-16 h-16">
+          </a>
+          <button class="w-10 h-10 flex items-center justify-center text-white">
+            <i class="ri-close-line ri-lg"></i>
+          </button>
+        </div>
+        <nav class="p-4">
+          <ul class="space-y-4">
+            <li><a href="index.html" class="text-red-100 block py-2 hover:text-white">Trang chủ</a></li>
+            <li><a href="events.html" class="text-red-100 block py-2 hover:text-white">Sự kiện</a></li>
+            <li><a href="news.html" class="text-red-100 block py-2 hover:text-white">Giới thiệu</a></li>
+            <li><a href="contact.html" class="text-red-100 block py-2 hover:text-white">Liên hệ</a></li>
+            <li class="pt-4 border-t border-red-900/30">
+              <a href="login.html" class="text-white font-medium block py-2">Đăng nhập</a>
+            </li>
+            <li>
+              <a href="register.html" class="bg-white text-primary px-4 py-2 !rounded-button whitespace-nowrap block text-center mt-2">Đăng ký</a>
+            </li>
+          </ul>
+        </nav>
+        `;
+        document.body.appendChild(mobileMenu);
+        
+        // Open mobile menu
+        menuButton.addEventListener("click", function () {
+          mobileMenu.classList.remove("translate-x-full");
+        });
+        
+        // Close mobile menu
+        mobileMenu.querySelector("button").addEventListener("click", function () {
+          mobileMenu.classList.add("translate-x-full");
+        });
+      });
+    </script>
+  </body>
+</html> 
