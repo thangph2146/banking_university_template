@@ -86,6 +86,7 @@
       body {
       font-family: 'Inter', sans-serif;
       scroll-behavior: smooth;
+      overflow-x: hidden; /* Ngăn chặn cuộn ngang trên toàn trang */
       }
       .hero-gradient {
       background: linear-gradient(90deg, rgba(255,255,255,1) 0%, rgba(255,255,255,0.9) 50%, rgba(255,255,255,0) 100%);
@@ -111,6 +112,54 @@
       .scale-hover:hover {
         transform: scale(1.03);
       }
+      
+      /* Đảm bảo tất cả phần tử không tràn ra ngoài */
+      * {
+        box-sizing: border-box;
+      }
+      
+      /* Fix cho các section và container */
+      section, div:not(#mobile-menu) {
+        max-width: 100%;
+      }
+      
+      /* Fix cho menu mobile */
+      #mobile-menu {
+        max-width: 100vw;
+        width: 100%;
+        left: 0;
+        right: 0;
+        height: 100%;
+        box-sizing: border-box;
+      }
+      
+      /* Fix cho các hình ảnh và iframe */
+      img, iframe {
+        max-width: 100%;
+        height: auto;
+      }
+      
+      /* Đảm bảo container chính không bị tràn */
+      .container {
+        width: 100%;
+        max-width: 1280px;
+        overflow-x: hidden;
+      }
+      
+      /* Styles for map fallback */
+      #map-fallback {
+        transition: opacity 0.3s ease;
+      }
+      
+      #map-fallback.hidden {
+        display: none;
+      }
+      
+      /* Đổi fallback thành flex khi iframe gặp lỗi */
+      iframe#google-map:not([src]) + #map-fallback,
+      iframe#google-map.error + #map-fallback {
+        display: flex;
+      }
     </style>
   </head>
   <body class="bg-gray-50">
@@ -130,6 +179,9 @@
           >
           <a href="events.html" class="font-medium text-white/80 hover:text-white transition-all duration-300 hover:-translate-y-1"
             >Sự kiện</a
+          >
+          <a href="blog.html" class="font-medium text-white/80 hover:text-white transition-all duration-300 hover:-translate-y-1"
+            >Blog</a
           >
           <a href="news.html" class="font-medium text-white/80 hover:text-white transition-all duration-300 hover:-translate-y-1"
             >Giới thiệu</a
@@ -156,16 +208,20 @@
       </div>
       
       <!-- Mobile Navigation (hidden by default) -->
-      <div id="mobile-menu" class="hidden md:hidden bg-primary/95 fixed inset-0 z-50">
+      <div id="mobile-menu" class="md:hidden bg-primary/95 fixed inset-0 z-50 transform translate-x-full transition-transform duration-300 ease-in-out backdrop-blur-sm">
         <div class="p-4 flex justify-between items-center border-b border-red-900/30">
-          <a href="index.html" class="text-2xl font-['Pacifico'] text-white flex items-center">
-            <img src="../images/logo/logo-white.png" alt="Đại học Ngân hàng TP.HCM logo" class="w-12 h-12">
+          <a href="index.html" class="text-2xl font-pacifico text-white flex items-center">
+            <img src="../images/logo/logo-white-vertical.png" alt="Đại học Ngân hàng TP.HCM logo" class="w-12 h-12">
           </a>
+          <button class="w-10 h-10 flex items-center justify-center text-white" aria-label="Đóng menu">
+            <i class="ri-close-line ri-lg"></i>
+          </button>
         </div>
         <nav class="p-4" aria-label="Mobile navigation">
           <ul class="space-y-4">
             <li><a href="index.html" class="font-medium text-white/80 hover:text-white py-2 block transition-all duration-300 hover:translate-x-1">Trang chủ</a></li>
             <li><a href="events.html" class="font-medium text-white/80 hover:text-white py-2 block transition-all duration-300 hover:translate-x-1">Sự kiện</a></li>
+            <li><a href="blog.html" class="font-medium text-white/80 hover:text-white py-2 block transition-all duration-300 hover:translate-x-1">Blog</a></li>
             <li><a href="news.html" class="font-medium text-white/80 hover:text-white py-2 block transition-all duration-300 hover:translate-x-1">Giới thiệu</a></li>
             <li><a href="contact.html" class="font-medium text-white border-l-4 border-white pl-2 py-2 block transition-all duration-300 hover:translate-x-1" aria-current="page">Liên hệ</a></li>
             <li class="pt-4">
@@ -193,8 +249,8 @@
     </section>
 
     <!-- Contact Information -->
-    <section class="py-12 md:py-16 bg-white">
-      <div class="container mx-auto px-4">
+    <section class="py-8 md:py-16 bg-white">
+      <div class="container mx-auto px-3 md:px-4">
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
           <!-- Contact Card 1 -->
           <div class="bg-gray-50 p-6 md:p-8 rounded-lg text-center shadow-sm hover:shadow-md transition-shadow duration-300 scale-hover" data-aos="fade-up" data-aos-delay="100">
@@ -245,62 +301,62 @@
     </section>
 
     <!-- Contact Form -->
-    <section class="py-12 md:py-16 bg-gray-50">
-      <div class="container mx-auto px-4">
-        <div class="max-w-4xl mx-auto bg-white p-6 md:p-8 rounded-lg shadow-sm hover:shadow-md transition-all duration-300" data-aos="fade-up" data-aos-duration="800">
-          <div class="text-center mb-6 md:mb-8" data-aos="fade-up" data-aos-delay="100">
-            <h2 class="text-xl md:text-2xl font-bold text-gray-900 mb-4 relative inline-block">
+    <section class="py-8 md:py-16 bg-gray-50">
+      <div class="container mx-auto px-3 md:px-4">
+        <div class="max-w-4xl mx-auto bg-white p-4 md:p-8 rounded-lg shadow-sm hover:shadow-md transition-all duration-300" data-aos="fade-up" data-aos-duration="800">
+          <div class="text-center mb-4 md:mb-8" data-aos="fade-up" data-aos-delay="100">
+            <h2 class="text-lg md:text-2xl font-bold text-gray-900 mb-2 md:mb-4 relative inline-block">
               Gửi thông tin liên hệ
               <span class="absolute -bottom-2 left-0 w-full h-1 bg-primary/20 rounded"></span>
             </h2>
-            <p class="text-gray-600">
+            <p class="text-sm md:text-base text-gray-600 px-2 md:px-0">
               Vui lòng điền đầy đủ thông tin bên dưới, chúng tôi sẽ liên hệ lại trong thời gian sớm nhất
             </p>
           </div>
           
-          <form id="contactForm" class="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
+          <form id="contactForm" class="grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-6">
             <div class="md:col-span-1" data-aos="fade-right" data-aos-delay="150">
-              <label for="fullName" class="block text-sm font-medium text-gray-700 mb-2">Họ và tên <span class="text-red-500">*</span></label>
+              <label for="fullName" class="block text-xs md:text-sm font-medium text-gray-700 mb-1">Họ và tên <span class="text-red-500">*</span></label>
               <input 
                 type="text" 
                 id="fullName" 
                 name="fullName" 
                 required
-                class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-all duration-300"
+                class="w-full px-2 md:px-4 py-1.5 md:py-2 text-sm border border-gray-300 rounded-md focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-all duration-300"
                 placeholder="Nhập họ và tên của bạn"
               >
             </div>
             
             <div class="md:col-span-1" data-aos="fade-left" data-aos-delay="150">
-              <label for="email" class="block text-sm font-medium text-gray-700 mb-2">Email <span class="text-red-500">*</span></label>
+              <label for="email" class="block text-xs md:text-sm font-medium text-gray-700 mb-1">Email <span class="text-red-500">*</span></label>
               <input 
                 type="email" 
                 id="email" 
                 name="email" 
                 required
-                class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-all duration-300"
+                class="w-full px-3 md:px-4 py-2 text-sm border border-gray-300 rounded-md focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-all duration-300"
                 placeholder="example@mail.com"
               >
             </div>
             
             <div class="md:col-span-1" data-aos="fade-right" data-aos-delay="200">
-              <label for="phone" class="block text-sm font-medium text-gray-700 mb-2">Số điện thoại</label>
+              <label for="phone" class="block text-xs md:text-sm font-medium text-gray-700 mb-1">Số điện thoại</label>
               <input 
                 type="tel" 
                 id="phone" 
                 name="phone"
-                class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-all duration-300"
+                class="w-full px-3 md:px-4 py-2 text-sm border border-gray-300 rounded-md focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-all duration-300"
                 placeholder="Nhập số điện thoại của bạn"
               >
             </div>
             
             <div class="md:col-span-1" data-aos="fade-left" data-aos-delay="200">
-              <label for="subject" class="block text-sm font-medium text-gray-700 mb-2">Chủ đề <span class="text-red-500">*</span></label>
+              <label for="subject" class="block text-xs md:text-sm font-medium text-gray-700 mb-1">Chủ đề <span class="text-red-500">*</span></label>
               <select 
                 id="subject" 
                 name="subject" 
                 required
-                class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-all duration-300"
+                class="w-full px-3 md:px-4 py-2 text-sm border border-gray-300 rounded-md focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-all duration-300"
               >
                 <option value="" disabled selected>Chọn chủ đề</option>
                 <option value="general">Thông tin chung</option>
@@ -312,29 +368,29 @@
             </div>
             
             <div class="md:col-span-2" data-aos="fade-up" data-aos-delay="250">
-              <label for="message" class="block text-sm font-medium text-gray-700 mb-2">Nội dung <span class="text-red-500">*</span></label>
+              <label for="message" class="block text-xs md:text-sm font-medium text-gray-700 mb-1 md:mb-2">Nội dung <span class="text-red-500">*</span></label>
               <textarea 
                 id="message" 
                 name="message" 
                 required
                 rows="5"
-                class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-all duration-300"
+                class="w-full px-3 md:px-4 py-2 text-sm border border-gray-300 rounded-md focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-all duration-300"
                 placeholder="Nhập nội dung liên hệ của bạn"
               ></textarea>
             </div>
             
             <div class="md:col-span-2" data-aos="fade-up" data-aos-delay="300">
               <div class="flex items-start">
-                <div class="flex items-center h-5">
+                <div class="flex items-center h-4 md:h-5">
                   <input 
                     id="privacy" 
                     name="privacy" 
                     type="checkbox" 
                     required
-                    class="h-4 w-4 text-primary focus:ring-primary border-gray-300 rounded transition-all"
+                    class="h-3 w-3 md:h-4 md:w-4 text-primary focus:ring-primary border-gray-300 rounded transition-all"
                   >
                 </div>
-                <div class="ml-3 text-sm">
+                <div class="ml-2 md:ml-3 text-xs md:text-sm">
                   <label for="privacy" class="font-medium text-gray-700">Tôi đồng ý với <a href="#" class="text-primary hover:underline transition-all">chính sách bảo mật</a> của hệ thống <span class="text-red-500">*</span></label>
                 </div>
               </div>
@@ -343,10 +399,10 @@
             <div class="md:col-span-2 text-center mt-2 md:mt-4" data-aos="fade-up" data-aos-delay="350">
               <button 
                 type="submit"
-                class="inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-button text-white bg-primary hover:bg-primary/90 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary transition-all duration-300 transform hover:scale-105"
+                class="w-full md:w-auto inline-flex items-center justify-center px-4 md:px-6 py-2 md:py-3 border border-transparent text-sm md:text-base font-medium rounded-button text-white bg-primary hover:bg-primary/90 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary transition-all duration-300 transform hover:scale-105"
               >
                 <span class="mr-2">Gửi liên hệ</span>
-                <i class="ri-send-plane-line"></i>
+                <i class="ri-send-plane-line text-sm md:text-base"></i>
               </button>
             </div>
           </form>
@@ -355,49 +411,60 @@
     </section>
 
     <!-- Map Section -->
-    <section class="py-12 md:py-16 bg-white">
-      <div class="container mx-auto px-4">
-        <div class="text-center mb-6 md:mb-8" data-aos="fade-up">
-          <h2 class="text-xl md:text-2xl font-bold text-gray-900 mb-4 relative inline-block">
+    <section class="py-8 md:py-16 bg-white">
+      <div class="container mx-auto px-3 md:px-4">
+        <div class="text-center mb-4 md:mb-8" data-aos="fade-up">
+          <h2 class="text-lg md:text-2xl font-bold text-gray-900 mb-2 md:mb-4 relative inline-block">
             Bản đồ
             <span class="absolute -bottom-2 left-0 w-full h-1 bg-primary/20 rounded"></span>
           </h2>
-          <p class="text-gray-600 max-w-2xl mx-auto">
+          <p class="text-sm md:text-base text-gray-600 max-w-2xl mx-auto px-2 md:px-0">
             Địa chỉ: 36 Tôn Thất Đạm, Phường Nguyễn Thái Bình, Quận 1, TP.HCM
           </p>
         </div>
-        <div class="w-full h-[300px] md:h-[450px] rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-all duration-300" data-aos="zoom-in" data-aos-delay="100">
-          <iframe 
-            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3919.594758325802!2d106.70133!3d10.771!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31752f4670702e31%3A0xa5777fb3a5edfba9!2s36%20T%C3%B4n%20Th%E1%BA%A5t%20%C4%90%E1%BA%A1m%2C%20Nguy%E1%BB%85n%20Th%C3%A1i%20B%C3%ACnh%2C%20Qu%E1%BA%ADn%201%2C%20Th%C3%A0nh%20ph%E1%BB%91%20H%E1%BB%93%20Ch%C3%AD%20Minh!5e0!3m2!1svi!2s!4v1652257875688!5m2!1svi!2s" 
-            width="100%" 
-            height="100%" 
-            style="border:0;" 
-            allowfullscreen="" 
-            loading="lazy" 
-            referrerpolicy="no-referrer-when-downgrade">
-          </iframe>
+        <div class="w-full h-[250px] md:h-[450px] rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-all duration-300" data-aos="zoom-in" data-aos-delay="100">
+          <div id="map-container" class="relative w-full h-full">
+            <iframe 
+              id="google-map"
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3919.594758325802!2d106.70133!3d10.771!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31752f4670702e31%3A0xa5777fb3a5edfba9!2s36%20T%C3%B4n%20Th%E1%BA%A5t%20%C4%90%E1%BA%A1m%2C%20Nguy%E1%BB%85n%20Th%C3%A1i%20B%C3%ACnh%2C%20Qu%E1%BA%ADn%201%2C%20Th%C3%A0nh%20ph%E1%BB%91%20H%E1%BB%93%20Ch%C3%AD%20Minh!5e0!3m2!1svi!2s!4v1652257875688!5m2!1svi!2s" 
+              style="border:0; width:100%; height:100%; max-width:100%; display:block; overflow:hidden;" 
+              allowfullscreen="" 
+              loading="lazy" 
+              referrerpolicy="no-referrer-when-downgrade">
+            </iframe>
+            <div id="map-fallback" class="hidden absolute inset-0 bg-gray-100 flex flex-col items-center justify-center p-6 text-center">
+              <div class="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mb-4">
+                <i class="ri-map-pin-line text-primary text-2xl"></i>
+              </div>
+              <h3 class="text-lg font-bold text-gray-900 mb-2">Không thể tải bản đồ</h3>
+              <p class="text-gray-600 mb-4">Vui lòng kiểm tra kết nối internet của bạn</p>
+              <p class="text-gray-700 font-medium">
+                Địa chỉ: 36 Tôn Thất Đạm, Phường Nguyễn Thái Bình, Quận 1, TP.HCM
+              </p>
+            </div>
+          </div>
         </div>
       </div>
     </section>
 
     <!-- FAQ Section -->
-    <section class="py-12 md:py-16 bg-gray-50">
-      <div class="container mx-auto px-4">
-        <div class="text-center mb-8 md:mb-12" data-aos="fade-up">
-          <h2 class="text-xl md:text-2xl font-bold text-gray-900 mb-4 relative inline-block">
+    <section class="py-8 md:py-16 bg-gray-50">
+      <div class="container mx-auto px-3 md:px-4">
+        <div class="text-center mb-6 md:mb-12" data-aos="fade-up">
+          <h2 class="text-lg md:text-2xl font-bold text-gray-900 mb-2 md:mb-4 relative inline-block">
             Câu hỏi thường gặp
             <span class="absolute -bottom-2 left-0 w-full h-1 bg-primary/20 rounded"></span>
           </h2>
-          <p class="text-gray-600 max-w-2xl mx-auto">
+          <p class="text-sm md:text-base text-gray-600 max-w-2xl mx-auto">
             Dưới đây là một số câu hỏi thường gặp về hệ thống quản lý sự kiện của chúng tôi
           </p>
         </div>
         
-        <div class="max-w-3xl mx-auto space-y-3 md:space-y-4">
-          <!-- FAQ Item 1 -->
-          <div class="bg-white p-5 md:p-6 rounded-lg shadow-sm hover:shadow-md transition-all duration-300 scale-hover" data-aos="fade-up" data-aos-delay="100">
-            <h3 class="text-base md:text-lg font-medium text-gray-900 mb-2">Làm thế nào để đăng ký tài khoản?</h3>
-            <p class="text-gray-600 text-sm md:text-base">
+        <div class="max-w-3xl mx-auto space-y-2 md:space-y-4">
+          <!-- FAQ Items -->
+          <div class="bg-white p-4 md:p-6 rounded-lg shadow-sm hover:shadow-md transition-all duration-300 scale-hover" data-aos="fade-up" data-aos-delay="100">
+            <h3 class="text-sm md:text-lg font-medium text-gray-900 mb-1 md:mb-2">Làm thế nào để đăng ký tài khoản?</h3>
+            <p class="text-xs md:text-base text-gray-600">
               Để đăng ký tài khoản, bạn cần truy cập vào trang Đăng ký, điền đầy đủ thông tin cá nhân bao gồm email trường học (email có đuôi @sv.hub.edu.vn), mật khẩu và các thông tin khác theo yêu cầu.
             </p>
           </div>
@@ -437,39 +504,39 @@
     </section>
 
     <!-- Footer -->
-    <footer class="bg-primary text-red-100 py-10 md:py-12 relative overflow-hidden">
+    <footer class="bg-primary text-red-100 py-8 md:py-12 relative overflow-hidden">
       <div class="absolute inset-0 bg-gradient-to-b from-primary to-primary/90"></div>
-      <div class="container mx-auto px-4 relative z-10">
-        <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+      <div class="container mx-auto px-3 md:px-4 relative z-10">
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-6 md:gap-8">
           <div>
-            <a href="index.html" class="text-2xl font-pacifico text-white mb-4 block flex items-center"
-              ><img src="../images/logo/logo-white.png" alt="Đại học Ngân hàng TP.HCM logo" class="w-32 h-32"></a
-            >
-            <p class="mb-4">
+            <a href="index.html" class="text-xl md:text-2xl font-pacifico text-white mb-3 md:mb-4 block flex items-center">
+              <img src="../images/logo/logo-white.png" alt="Đại học Ngân hàng TP.HCM logo" class="w-16 h-16 md:w-32 md:h-32">
+            </a>
+            <p class="mb-3 md:mb-4 text-sm md:text-base">
               Hệ thống Quản lý Sự kiện Đại học Ngân hàng TP.HCM - Nơi kết nối
               sinh viên với các hoạt động học thuật và ngoại khóa.
             </p>
-            <div class="flex space-x-4">
+            <div class="flex space-x-3 md:space-x-4">
               <a
                 href="#"
-                class="w-10 h-10 flex items-center justify-center bg-red-900/50 rounded-full hover:bg-white hover:text-primary transition-colors"
+                class="w-8 h-8 md:w-10 md:h-10 flex items-center justify-center bg-red-900/50 rounded-full hover:bg-white hover:text-primary transition-colors"
                 aria-label="Facebook"
               >
-                <i class="ri-facebook-fill"></i>
+                <i class="ri-facebook-fill text-sm md:text-base"></i>
               </a>
               <a
                 href="#"
-                class="w-10 h-10 flex items-center justify-center bg-red-900/50 rounded-full hover:bg-white hover:text-primary transition-colors"
+                class="w-8 h-8 md:w-10 md:h-10 flex items-center justify-center bg-red-900/50 rounded-full hover:bg-white hover:text-primary transition-colors"
                 aria-label="YouTube"
               >
-                <i class="ri-youtube-fill"></i>
+                <i class="ri-youtube-fill text-sm md:text-base"></i>
               </a>
               <a
                 href="#"
-                class="w-10 h-10 flex items-center justify-center bg-red-900/50 rounded-full hover:bg-white hover:text-primary transition-colors"
+                class="w-8 h-8 md:w-10 md:h-10 flex items-center justify-center bg-red-900/50 rounded-full hover:bg-white hover:text-primary transition-colors"
                 aria-label="Instagram"
               >
-                <i class="ri-instagram-fill"></i>
+                <i class="ri-instagram-fill text-sm md:text-base"></i>
               </a>
             </div>
           </div>
@@ -586,56 +653,126 @@
           mirror: true,
           offset: 50
         });
-      });
 
-      // Mobile menu toggle functionality
-      document.addEventListener("DOMContentLoaded", function () {
-        const mobileMenuButton = document.getElementById("mobile-menu-button");
+        // Mobile menu toggle functionality
+        const menuButton = document.getElementById("mobile-menu-button");
         const mobileMenu = document.getElementById("mobile-menu");
+        const closeButton = mobileMenu.querySelector("button[aria-label='Đóng menu']");
 
-        if (mobileMenuButton && mobileMenu) {
-          mobileMenuButton.addEventListener("click", function () {
-            const expanded = mobileMenuButton.getAttribute("aria-expanded") === "true";
-            mobileMenuButton.setAttribute("aria-expanded", !expanded);
-            mobileMenu.classList.toggle("hidden");
+        // Open menu
+        menuButton.addEventListener("click", function () {
+          // Đảm bảo menu được hiển thị và không bị ẩn bởi class hidden
+          mobileMenu.classList.remove("translate-x-full");
+          document.body.classList.add("overflow-hidden");
+          menuButton.setAttribute("aria-expanded", "true");
+          
+          // Toggle icon between menu and close
+          const icon = menuButton.querySelector("i");
+          if (icon) {
+            icon.className = "ri-close-line ri-lg";
+          }
+        });
+        
+        // Close menu
+        closeButton.addEventListener("click", function () {
+          mobileMenu.classList.add("translate-x-full");
+          document.body.classList.remove("overflow-hidden");
+          menuButton.setAttribute("aria-expanded", "false");
+          
+          const icon = menuButton.querySelector("i");
+          if (icon) {
+            icon.className = "ri-menu-line ri-lg";
+          }
+        });
 
-            // Toggle icon between menu and close
-            const icon = mobileMenuButton.querySelector("i");
+        // Close menu when clicking outside
+        document.addEventListener("click", function (e) {
+          if (!mobileMenu.contains(e.target) && !menuButton.contains(e.target) && !mobileMenu.classList.contains("translate-x-full")) {
+            mobileMenu.classList.add("translate-x-full");
+            document.body.classList.remove("overflow-hidden");
+            menuButton.setAttribute("aria-expanded", "false");
+            const icon = menuButton.querySelector("i");
             if (icon) {
-              icon.className = expanded ? "ri-menu-line ri-lg" : "ri-close-line ri-lg";
+              icon.className = "ri-menu-line ri-lg";
             }
-          });
+          }
+        });
 
-          // Close menu when clicking outside
-          document.addEventListener("click", function (e) {
-            if (!mobileMenu.contains(e.target) && !mobileMenuButton.contains(e.target) && !mobileMenu.classList.contains("hidden")) {
-              mobileMenu.classList.add("hidden");
-              mobileMenuButton.setAttribute("aria-expanded", "false");
-              const icon = mobileMenuButton.querySelector("i");
-              if (icon) {
-                icon.className = "ri-menu-line ri-lg";
-              }
+        // Close menu on escape key
+        document.addEventListener("keydown", function (e) {
+          if (e.key === "Escape" && !mobileMenu.classList.contains("translate-x-full")) {
+            mobileMenu.classList.add("translate-x-full");
+            document.body.classList.remove("overflow-hidden");
+            menuButton.setAttribute("aria-expanded", "false");
+            const icon = menuButton.querySelector("i");
+            if (icon) {
+              icon.className = "ri-menu-line ri-lg";
             }
-          });
-
-          // Close menu on escape key
-          document.addEventListener("keydown", function (e) {
-            if (e.key === "Escape" && !mobileMenu.classList.contains("hidden")) {
-              mobileMenu.classList.add("hidden");
-              mobileMenuButton.setAttribute("aria-expanded", "false");
-              const icon = mobileMenuButton.querySelector("i");
-              if (icon) {
-                icon.className = "ri-menu-line ri-lg";
-              }
-            }
-          });
-        }
+          }
+        });
       });
 
       // Form validation and submission with enhanced feedback
       document.addEventListener("DOMContentLoaded", function() {
         const contactForm = document.getElementById("contactForm");
         const allInputs = contactForm.querySelectorAll("input, textarea, select");
+        
+        // Handle Google Maps loading error
+        const googleMap = document.getElementById("google-map");
+        const mapFallback = document.getElementById("map-fallback");
+        
+        // Check if online
+        function checkOnlineStatus() {
+          if (!navigator.onLine) {
+            // Nếu không có kết nối internet, hiển thị fallback
+            mapFallback.classList.remove("hidden");
+          }
+        }
+        
+        // Check error when loading iframe
+        googleMap.addEventListener("error", function() {
+          mapFallback.classList.remove("hidden");
+        });
+        
+        // Setup initial check and listen for offline/online events
+        checkOnlineStatus();
+        window.addEventListener("offline", function() {
+          mapFallback.classList.remove("hidden");
+        });
+        
+        window.addEventListener("online", function() {
+          // Khi có internet trở lại, thử tải lại bản đồ
+          mapFallback.classList.add("hidden");
+          googleMap.src = googleMap.src;
+        });
+        
+        // Thêm hàm dự phòng để kiểm tra định kỳ kết nối với Google Maps
+        let mapLoadCheckTimeout;
+        
+        function checkMapLoaded() {
+          // Nếu sau 5 giây mà iframe không tải được, hiển thị fallback
+          mapLoadCheckTimeout = setTimeout(function() {
+            try {
+              // Kiểm tra xem iframe đã tải thành công chưa
+              // Nếu iframe content là null hoặc không thể truy cập, có khả năng là lỗi
+              if (!googleMap.contentWindow || !googleMap.contentDocument) {
+                mapFallback.classList.remove("hidden");
+              }
+            } catch (e) {
+              // Nếu có lỗi khi truy cập vào contentWindow, hiển thị fallback
+              mapFallback.classList.remove("hidden");
+            }
+          }, 5000);
+        }
+        
+        googleMap.addEventListener("load", function() {
+          // Khi tải thành công, xóa timeout và ẩn fallback
+          clearTimeout(mapLoadCheckTimeout);
+          mapFallback.classList.add("hidden");
+        });
+        
+        // Bắt đầu kiểm tra
+        checkMapLoaded();
         
         // Add focus effect to input fields
         allInputs.forEach(input => {

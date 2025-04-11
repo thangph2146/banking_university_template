@@ -1,0 +1,925 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Blog - Đại học Ngân hàng TP.HCM</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css"
+      rel="stylesheet"
+    />
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com/3.4.16"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              primary: "#8B0000",
+              secondary: "#FF5252",
+            },
+            borderRadius: {
+              none: "0px",
+              sm: "4px",
+              DEFAULT: "8px",
+              md: "12px",
+              lg: "16px",
+              xl: "20px",
+              "2xl": "24px",
+              "3xl": "32px",
+              full: "9999px",
+              button: "8px",
+            },
+            animation: {
+              'fade-in': 'fadeIn 0.5s ease-in-out',
+              'slide-up': 'slideUp 0.5s ease-out',
+              'slide-down': 'slideDown 0.3s ease-out',
+              'slide-left': 'slideLeft 0.5s ease-out',
+              'slide-right': 'slideRight 0.5s ease-out',
+              'bounce-sm': 'bounceSm 1s infinite',
+              'pulse-light': 'pulseLight 2s infinite',
+              'spin-slow': 'spin 3s linear infinite',
+              'float': 'float 3s ease-in-out infinite',
+            },
+            keyframes: {
+              fadeIn: {
+                '0%': { opacity: '0' },
+                '100%': { opacity: '1' },
+              },
+              slideUp: {
+                '0%': { transform: 'translateY(20px)', opacity: '0' },
+                '100%': { transform: 'translateY(0)', opacity: '1' },
+              },
+              slideDown: {
+                '0%': { transform: 'translateY(-10px)', opacity: '0' },
+                '100%': { transform: 'translateY(0)', opacity: '1' },
+              },
+              slideLeft: {
+                '0%': { transform: 'translateX(20px)', opacity: '0' },
+                '100%': { transform: 'translateX(0)', opacity: '1' },
+              },
+              slideRight: {
+                '0%': { transform: 'translateX(-20px)', opacity: '0' },
+                '100%': { transform: 'translateX(0)', opacity: '1' },
+              },
+              bounceSm: {
+                '0%, 100%': { transform: 'translateY(0)' },
+                '50%': { transform: 'translateY(-4px)' },
+              },
+              pulseLight: {
+                '0%, 100%': { opacity: '1' },
+                '50%': { opacity: '0.7' },
+              },
+            },
+          },
+        },
+      };
+    </script>
+    <style>
+      :where([class^="ri-"])::before { content: "\f3c2"; }
+      body {
+      font-family: 'Inter', sans-serif;
+      scroll-behavior: smooth;
+      }
+      .hero-gradient {
+      background: linear-gradient(90deg, rgba(255,255,255,1) 0%, rgba(255,255,255,0.9) 50%, rgba(255,255,255,0) 100%);
+      }
+      /* Custom animations */
+      @keyframes float {
+        0%, 100% { transform: translateY(0); }
+        50% { transform: translateY(-10px); }
+      }
+      .float-animation {
+        animation: float 3s ease-in-out infinite;
+      }
+      @keyframes pulse-soft {
+        0%, 100% { transform: scale(1); }
+        50% { transform: scale(1.05); }
+      }
+      .pulse-soft {
+        animation: pulse-soft 2s infinite;
+      }
+      .scale-hover {
+        transition: transform 0.3s ease;
+      }
+      .scale-hover:hover {
+        transform: scale(1.03);
+      }
+    </style>
+  </head>
+  <body class="bg-gray-50">
+    <!-- Header -->
+    <header class="bg-primary shadow-md sticky top-0 z-50 animate-fade-in">
+      <div
+        class="container mx-auto px-4 py-2 flex items-center justify-between"
+      >
+        <a href="index.html" class="text-2xl font-['Pacifico'] text-white transition-all duration-300 hover:scale-105">
+            <img src="../images/logo/logo-white.png" alt="logo" class="w-12 h-12 md:w-16 md:h-16">
+        </a>
+        <nav class="hidden md:flex items-center space-x-8">
+          <a
+            href="index.html"
+            class="font-medium text-white/80 hover:text-white transition-all duration-300 hover:-translate-y-1"
+            >Trang chủ</a
+          >
+          <a href="events.html" class="font-medium text-white/80 hover:text-white transition-all duration-300 hover:-translate-y-1"
+            >Sự kiện</a
+          >
+          <a href="blog.html" class="font-medium text-white border-b-2 border-white hover:text-red-200 transition-all duration-300 hover:-translate-y-1"
+            >Blog</a
+          >
+          <a href="news.html" class="font-medium text-white/80 hover:text-white transition-all duration-300 hover:-translate-y-1"
+            >Giới thiệu</a
+          >
+          <a href="contact.html" class="font-medium text-white/80 hover:text-white transition-all duration-300 hover:-translate-y-1"
+            >Liên hệ</a
+          >
+        </nav>
+        <div class="flex items-center space-x-4">
+          <a href="login.html" class="text-white font-medium hover:underline transition-all duration-300"
+            >Đăng nhập</a
+          >
+          <a
+            href="register.html"
+            class="bg-white text-primary px-4 py-2 !rounded-button whitespace-nowrap hover:bg-red-50 transition-all duration-300 transform hover:scale-105 hover:shadow-md"
+            >Đăng ký</a
+          >
+        </div>
+        <button id="mobile-menu-button"
+          class="md:hidden w-10 h-10 flex items-center justify-center text-white focus:outline-none hover:text-secondary transition-colors"
+        >
+          <i class="ri-menu-line ri-lg"></i>
+        </button>
+      </div>
+      
+      <!-- Mobile Navigation (hidden by default) -->
+      <div id="mobile-menu" class="hidden md:hidden bg-primary/95 fixed inset-0 z-50 transform translate-x-full transition-transform duration-300 ease-in-out backdrop-blur-sm">
+        <div class="p-4 flex justify-between items-center border-b border-red-900/30">
+          <a href="index.html" class="text-2xl font-pacifico text-white flex items-center">
+            <img src="../images/logo/logo-white-vertical.png" alt="Đại học Ngân hàng TP.HCM logo" class="w-12 h-12">
+          </a>
+          <button class="w-10 h-10 flex items-center justify-center text-white" aria-label="Đóng menu">
+            <i class="ri-close-line ri-lg"></i>
+          </button>
+        </div>
+        <nav class="p-4" aria-label="Mobile navigation">
+          <ul class="space-y-4">
+            <li><a href="index.html" class="font-medium text-white/80 hover:text-white py-2 block transition-all duration-300 hover:translate-x-1">Trang chủ</a></li>
+            <li><a href="events.html" class="font-medium text-white/80 hover:text-white py-2 block transition-all duration-300 hover:translate-x-1">Sự kiện</a></li>
+            <li><a href="blog.html" class="font-medium text-white border-l-4 border-white pl-2 py-2 block transition-all duration-300 hover:translate-x-1" aria-current="page">Blog</a></li>
+            <li><a href="news.html" class="font-medium text-white/80 hover:text-white py-2 block transition-all duration-300 hover:translate-x-1">Giới thiệu</a></li>
+            <li><a href="contact.html" class="font-medium text-white/80 hover:text-white py-2 block transition-all duration-300 hover:translate-x-1">Liên hệ</a></li>
+            <li class="pt-4">
+              <a href="login.html" class="bg-white text-primary px-4 py-2 !rounded-button whitespace-nowrap block text-center hover:bg-gray-100 transition-colors shadow-sm">Đăng nhập</a>
+            </li>
+            <li class="pt-2">
+              <a href="register.html" class="bg-white text-primary px-4 py-2 !rounded-button whitespace-nowrap block text-center hover:bg-gray-100 transition-colors shadow-sm">Đăng ký</a>
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+    <!-- Page Title / Hero Section -->
+    <section class="bg-primary text-white py-12 md:py-16">
+      <div class="container mx-auto px-4 text-center" data-aos="fade-up" data-aos-duration="800">
+        <h1 class="text-3xl md:text-4xl lg:text-5xl font-bold mb-4 relative inline-block">
+          Blog Đại học Ngân hàng
+          <span class="absolute -bottom-2 left-0 w-full h-1 bg-white/40 rounded"></span>
+        </h1>
+        <p class="max-w-2xl mx-auto text-red-100 text-base md:text-lg">
+          Cập nhật tin tức, kiến thức và các hoạt động mới nhất tại Đại học Ngân hàng TP.HCM
+        </p>
+      </div>
+    </section>
+
+    <!-- Featured Posts -->
+    <section class="py-8 md:py-16 bg-white">
+      <div class="container mx-auto px-3 md:px-4">
+        <div class="mb-8 md:mb-12" data-aos="fade-up">
+          <h2 class="text-2xl md:text-3xl font-bold text-gray-900 mb-4 relative inline-block">
+            Bài viết nổi bật
+            <span class="absolute -bottom-2 left-0 w-full h-1 bg-primary/20 rounded"></span>
+          </h2>
+          <p class="text-gray-600 max-w-3xl">
+            Khám phá những bài viết đặc sắc và hữu ích nhất từ cộng đồng Đại học Ngân hàng TP.HCM
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
+          <!-- Featured Post 1 -->
+          <div class="bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow duration-300 overflow-hidden scale-hover" data-aos="fade-up" data-aos-delay="100">
+            <div class="relative h-48 overflow-hidden">
+              <img 
+                src="https://readdy.ai/api/search-image?query=University%20students%20studying%20in%20modern%20library,%20academic%20setting,%20bright%20natural%20lighting&width=800&height=500" 
+                alt="Nghiên cứu học thuật" 
+                class="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
+              >
+              <div class="absolute top-3 left-3 bg-primary text-white text-xs px-2 py-1 rounded">
+                Học thuật
+              </div>
+            </div>
+            <div class="p-5">
+              <div class="flex items-center text-xs text-gray-500 mb-3">
+                <span class="flex items-center">
+                  <i class="ri-calendar-line mr-1"></i>
+                  12/05/2025
+                </span>
+                <span class="mx-2">•</span>
+                <span class="flex items-center">
+                  <i class="ri-time-line mr-1"></i>
+                  5 phút đọc
+                </span>
+              </div>
+              <h3 class="text-lg font-bold text-gray-900 mb-2 line-clamp-2">
+                <a href="blog-detail.html" class="hover:text-primary transition-colors">
+                  Phương pháp học tập hiệu quả trong môi trường đại học
+                </a>
+              </h3>
+              <p class="text-gray-600 mb-4 line-clamp-3">
+                Khám phá các phương pháp học tập hiệu quả giúp sinh viên cải thiện kết quả học tập và phát triển kỹ năng nghiên cứu trong môi trường đại học.
+              </p>
+              <a href="blog-detail.html" class="text-primary font-medium flex items-center hover:underline">
+                Đọc thêm
+                <i class="ri-arrow-right-line ml-1"></i>
+              </a>
+            </div>
+          </div>
+
+          <!-- Featured Post 2 -->
+          <div class="bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow duration-300 overflow-hidden scale-hover" data-aos="fade-up" data-aos-delay="200">
+            <div class="relative h-48 overflow-hidden">
+              <img 
+                src="https://readdy.ai/api/search-image?query=Finance%20students%20working%20on%20stock%20market%20analysis,%20professional%20setting,%20finance%20charts%20visible&width=800&height=500" 
+                alt="Tài chính ngân hàng" 
+                class="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
+              >
+              <div class="absolute top-3 left-3 bg-primary text-white text-xs px-2 py-1 rounded">
+                Tài chính
+              </div>
+            </div>
+            <div class="p-5">
+              <div class="flex items-center text-xs text-gray-500 mb-3">
+                <span class="flex items-center">
+                  <i class="ri-calendar-line mr-1"></i>
+                  08/05/2025
+                </span>
+                <span class="mx-2">•</span>
+                <span class="flex items-center">
+                  <i class="ri-time-line mr-1"></i>
+                  8 phút đọc
+                </span>
+              </div>
+              <h3 class="text-lg font-bold text-gray-900 mb-2 line-clamp-2">
+                <a href="blog-detail.html" class="hover:text-primary transition-colors">
+                  Xu hướng phát triển của ngành Tài chính - Ngân hàng 2025
+                </a>
+              </h3>
+              <p class="text-gray-600 mb-4 line-clamp-3">
+                Phân tích các xu hướng mới nhất trong lĩnh vực tài chính - ngân hàng và cơ hội nghề nghiệp cho sinh viên tốt nghiệp ngành này trong năm 2025.
+              </p>
+              <a href="blog-detail.html" class="text-primary font-medium flex items-center hover:underline">
+                Đọc thêm
+                <i class="ri-arrow-right-line ml-1"></i>
+              </a>
+            </div>
+          </div>
+
+          <!-- Featured Post 3 -->
+          <div class="bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow duration-300 overflow-hidden scale-hover" data-aos="fade-up" data-aos-delay="300">
+            <div class="relative h-48 overflow-hidden">
+              <img 
+                src="https://readdy.ai/api/search-image?query=University%20students%20networking%20at%20a%20career%20fair,%20professional%20attire,%20booths%20visible&width=800&height=500" 
+                alt="Sự kiện việc làm" 
+                class="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
+              >
+              <div class="absolute top-3 left-3 bg-primary text-white text-xs px-2 py-1 rounded">
+                Sự kiện
+              </div>
+            </div>
+            <div class="p-5">
+              <div class="flex items-center text-xs text-gray-500 mb-3">
+                <span class="flex items-center">
+                  <i class="ri-calendar-line mr-1"></i>
+                  01/05/2025
+                </span>
+                <span class="mx-2">•</span>
+                <span class="flex items-center">
+                  <i class="ri-time-line mr-1"></i>
+                  6 phút đọc
+                </span>
+              </div>
+              <h3 class="text-lg font-bold text-gray-900 mb-2 line-clamp-2">
+                <a href="#" class="hover:text-primary transition-colors">
+                  Chuẩn bị cho Ngày hội Việc làm 2025 tại HUB
+                </a>
+              </h3>
+              <p class="text-gray-600 mb-4 line-clamp-3">
+                Những lời khuyên thiết thực giúp sinh viên chuẩn bị tốt nhất cho Ngày hội Việc làm sắp tới tại Đại học Ngân hàng TP.HCM, từ chuẩn bị hồ sơ đến kỹ năng phỏng vấn.
+              </p>
+              <a href="#" class="text-primary font-medium flex items-center hover:underline">
+                Đọc thêm
+                <i class="ri-arrow-right-line ml-1"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Main Blog Section -->
+    <section class="py-8 md:py-16 bg-gray-50">
+      <div class="container mx-auto px-3 md:px-4">
+        <div class="flex flex-col lg:flex-row gap-8">
+          <!-- Left Sidebar -->
+          <div class="w-full lg:w-1/4">
+            <div class="bg-white rounded-lg shadow-sm p-5 mb-6" data-aos="fade-right">
+              <h3 class="text-lg font-bold text-gray-900 mb-4">Tìm kiếm</h3>
+              <div class="relative">
+                <input 
+                  type="text" 
+                  placeholder="Tìm bài viết..." 
+                  class="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-primary focus:border-primary outline-none"
+                >
+                <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-gray-400">
+                  <i class="ri-search-line"></i>
+                </div>
+              </div>
+            </div>
+            
+            <div class="bg-white rounded-lg shadow-sm p-5 mb-6" data-aos="fade-right" data-aos-delay="100">
+              <h3 class="text-lg font-bold text-gray-900 mb-4">Danh mục</h3>
+              <ul class="space-y-2">
+                <li>
+                  <a href="#" class="flex items-center justify-between text-gray-600 hover:text-primary transition-colors">
+                    <span class="flex items-center">
+                      <i class="ri-arrow-right-s-line mr-2 text-primary"></i>
+                      Học thuật
+                    </span>
+                    <span class="bg-gray-100 text-gray-600 text-xs rounded-full px-2 py-1">24</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="#" class="flex items-center justify-between text-gray-600 hover:text-primary transition-colors">
+                    <span class="flex items-center">
+                      <i class="ri-arrow-right-s-line mr-2 text-primary"></i>
+                      Tài chính - Ngân hàng
+                    </span>
+                    <span class="bg-gray-100 text-gray-600 text-xs rounded-full px-2 py-1">18</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="#" class="flex items-center justify-between text-gray-600 hover:text-primary transition-colors">
+                    <span class="flex items-center">
+                      <i class="ri-arrow-right-s-line mr-2 text-primary"></i>
+                      Sự kiện
+                    </span>
+                    <span class="bg-gray-100 text-gray-600 text-xs rounded-full px-2 py-1">15</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="#" class="flex items-center justify-between text-gray-600 hover:text-primary transition-colors">
+                    <span class="flex items-center">
+                      <i class="ri-arrow-right-s-line mr-2 text-primary"></i>
+                      Đời sống sinh viên
+                    </span>
+                    <span class="bg-gray-100 text-gray-600 text-xs rounded-full px-2 py-1">21</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="#" class="flex items-center justify-between text-gray-600 hover:text-primary transition-colors">
+                    <span class="flex items-center">
+                      <i class="ri-arrow-right-s-line mr-2 text-primary"></i>
+                      Hướng nghiệp
+                    </span>
+                    <span class="bg-gray-100 text-gray-600 text-xs rounded-full px-2 py-1">12</span>
+                  </a>
+                </li>
+              </ul>
+            </div>
+            
+            <div class="bg-white rounded-lg shadow-sm p-5 mb-6" data-aos="fade-right" data-aos-delay="200">
+              <h3 class="text-lg font-bold text-gray-900 mb-4">Bài viết gần đây</h3>
+              <div class="space-y-4">
+                <a href="#" class="flex gap-3 group">
+                  <div class="w-20 h-20 rounded-md overflow-hidden flex-shrink-0">
+                    <img src="https://readdy.ai/api/search-image?query=University%20students%20in%20library&width=160&height=160" alt="Bài viết gần đây" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300">
+                  </div>
+                  <div>
+                    <h4 class="text-sm font-medium text-gray-900 group-hover:text-primary transition-colors line-clamp-2">Kỹ năng mềm cần thiết cho sinh viên ngành Tài chính</h4>
+                    <p class="text-xs text-gray-500 mt-1">05/05/2025</p>
+                  </div>
+                </a>
+                <a href="#" class="flex gap-3 group">
+                  <div class="w-20 h-20 rounded-md overflow-hidden flex-shrink-0">
+                    <img src="https://readdy.ai/api/search-image?query=Student%20club%20meeting&width=160&height=160" alt="Bài viết gần đây" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300">
+                  </div>
+                  <div>
+                    <h4 class="text-sm font-medium text-gray-900 group-hover:text-primary transition-colors line-clamp-2">Top 5 câu lạc bộ nên tham gia khi học tại HUB</h4>
+                    <p class="text-xs text-gray-500 mt-1">01/05/2025</p>
+                  </div>
+                </a>
+                <a href="#" class="flex gap-3 group">
+                  <div class="w-20 h-20 rounded-md overflow-hidden flex-shrink-0">
+                    <img src="https://readdy.ai/api/search-image?query=Financial%20charts%20analysis&width=160&height=160" alt="Bài viết gần đây" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300">
+                  </div>
+                  <div>
+                    <h4 class="text-sm font-medium text-gray-900 group-hover:text-primary transition-colors line-clamp-2">Phân tích xu hướng thị trường tài chính 2025</h4>
+                    <p class="text-xs text-gray-500 mt-1">28/04/2025</p>
+                  </div>
+                </a>
+              </div>
+            </div>
+            
+            <div class="bg-primary text-white rounded-lg shadow-sm p-5" data-aos="fade-right" data-aos-delay="300">
+              <h3 class="text-lg font-bold mb-4">Đăng ký nhận tin</h3>
+              <p class="text-sm text-red-100 mb-4">Nhận thông báo khi có bài viết mới về chủ đề bạn quan tâm</p>
+              <form>
+                <div class="mb-3">
+                  <input 
+                    type="email" 
+                    placeholder="Email của bạn" 
+                    class="w-full px-3 py-2 text-gray-700 rounded-md focus:ring-2 focus:ring-red-400 focus:outline-none"
+                  >
+                </div>
+                <button type="submit" class="w-full bg-white text-primary font-medium py-2 rounded-md hover:bg-red-50 transition-colors">
+                  Đăng ký
+                </button>
+              </form>
+            </div>
+          </div>
+          
+          <!-- Main Content -->
+          <div class="w-full lg:w-3/4">
+            <!-- Blog Posts Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <!-- Blog Post 1 -->
+              <div class="bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow duration-300 overflow-hidden scale-hover" data-aos="fade-up">
+                <div class="relative h-48 md:h-56 overflow-hidden">
+                  <img 
+                    src="https://readdy.ai/api/search-image?query=Students%20in%20financial%20technology%20lecture,%20digital%20screens,%20modern%20classroom&width=600&height=350" 
+                    alt="Fintech" 
+                    class="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
+                  >
+                  <div class="absolute top-3 left-3 bg-primary text-white text-xs px-2 py-1 rounded">
+                    Công nghệ
+                  </div>
+                </div>
+                <div class="p-5">
+                  <div class="flex items-center text-xs text-gray-500 mb-3">
+                    <span class="flex items-center">
+                      <i class="ri-calendar-line mr-1"></i>
+                      15/05/2025
+                    </span>
+                    <span class="mx-2">•</span>
+                    <span class="flex items-center">
+                      <i class="ri-time-line mr-1"></i>
+                      7 phút đọc
+                    </span>
+                  </div>
+                  <h3 class="text-lg font-bold text-gray-900 mb-2 line-clamp-2">
+                    <a href="blog-detail.html" class="hover:text-primary transition-colors">
+                      Fintech - Tương lai của ngành Tài chính Ngân hàng
+                    </a>
+                  </h3>
+                  <p class="text-gray-600 mb-4 line-clamp-3">
+                    Khám phá cách công nghệ tài chính (Fintech) đang thay đổi ngành Tài chính Ngân hàng và cơ hội nghề nghiệp mới nổi cho sinh viên trong lĩnh vực này.
+                  </p>
+                  <a href="blog-detail.html" class="text-primary font-medium flex items-center hover:underline">
+                    Đọc thêm
+                    <i class="ri-arrow-right-line ml-1"></i>
+                  </a>
+                </div>
+              </div>
+              
+              <!-- Blog Post 2 -->
+              <div class="bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow duration-300 overflow-hidden scale-hover" data-aos="fade-up" data-aos-delay="100">
+                <div class="relative h-48 md:h-56 overflow-hidden">
+                  <img 
+                    src="https://readdy.ai/api/search-image?query=University%20students%20working%20on%20group%20project,%20collaborative%20environment&width=600&height=350" 
+                    alt="Làm việc nhóm" 
+                    class="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
+                  >
+                  <div class="absolute top-3 left-3 bg-primary text-white text-xs px-2 py-1 rounded">
+                    Kỹ năng
+                  </div>
+                </div>
+                <div class="p-5">
+                  <div class="flex items-center text-xs text-gray-500 mb-3">
+                    <span class="flex items-center">
+                      <i class="ri-calendar-line mr-1"></i>
+                      14/05/2025
+                    </span>
+                    <span class="mx-2">•</span>
+                    <span class="flex items-center">
+                      <i class="ri-time-line mr-1"></i>
+                      5 phút đọc
+                    </span>
+                  </div>
+                  <h3 class="text-lg font-bold text-gray-900 mb-2 line-clamp-2">
+                    <a href="blog-detail.html" class="hover:text-primary transition-colors">
+                      5 kỹ năng làm việc nhóm hiệu quả cho sinh viên đại học
+                    </a>
+                  </h3>
+                  <p class="text-gray-600 mb-4 line-clamp-3">
+                    Những kỹ năng làm việc nhóm thiết yếu giúp sinh viên hợp tác hiệu quả trong môi trường học tập và chuẩn bị cho sự nghiệp tương lai.
+                  </p>
+                  <a href="blog-detail.html" class="text-primary font-medium flex items-center hover:underline">
+                    Đọc thêm
+                    <i class="ri-arrow-right-line ml-1"></i>
+                  </a>
+                </div>
+              </div>
+              
+              <!-- Blog Post 3 -->
+              <div class="bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow duration-300 overflow-hidden scale-hover" data-aos="fade-up" data-aos-delay="150">
+                <div class="relative h-48 md:h-56 overflow-hidden">
+                  <img 
+                    src="https://readdy.ai/api/search-image?query=University%20campus%20activities,%20student%20life,%20outdoor%20event&width=600&height=350" 
+                    alt="Hoạt động ngoại khóa" 
+                    class="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
+                  >
+                  <div class="absolute top-3 left-3 bg-primary text-white text-xs px-2 py-1 rounded">
+                    Đời sống
+                  </div>
+                </div>
+                <div class="p-5">
+                  <div class="flex items-center text-xs text-gray-500 mb-3">
+                    <span class="flex items-center">
+                      <i class="ri-calendar-line mr-1"></i>
+                      10/05/2025
+                    </span>
+                    <span class="mx-2">•</span>
+                    <span class="flex items-center">
+                      <i class="ri-time-line mr-1"></i>
+                      6 phút đọc
+                    </span>
+                  </div>
+                  <h3 class="text-lg font-bold text-gray-900 mb-2 line-clamp-2">
+                    <a href="#" class="hover:text-primary transition-colors">
+                      10 hoạt động ngoại khóa bạn không nên bỏ lỡ tại HUB
+                    </a>
+                  </h3>
+                  <p class="text-gray-600 mb-4 line-clamp-3">
+                    Khám phá các hoạt động ngoại khóa thú vị và bổ ích tại Đại học Ngân hàng TP.HCM giúp phát triển kỹ năng và mở rộng mạng lưới quan hệ.
+                  </p>
+                  <a href="#" class="text-primary font-medium flex items-center hover:underline">
+                    Đọc thêm
+                    <i class="ri-arrow-right-line ml-1"></i>
+                  </a>
+                </div>
+              </div>
+              
+              <!-- Blog Post 4 -->
+              <div class="bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow duration-300 overflow-hidden scale-hover" data-aos="fade-up" data-aos-delay="200">
+                <div class="relative h-48 md:h-56 overflow-hidden">
+                  <img 
+                    src="https://readdy.ai/api/search-image?query=Students%20researching%20in%20library,%20academic%20papers,%20serious%20study&width=600&height=350" 
+                    alt="Nghiên cứu khoa học" 
+                    class="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
+                  >
+                  <div class="absolute top-3 left-3 bg-primary text-white text-xs px-2 py-1 rounded">
+                    Nghiên cứu
+                  </div>
+                </div>
+                <div class="p-5">
+                  <div class="flex items-center text-xs text-gray-500 mb-3">
+                    <span class="flex items-center">
+                      <i class="ri-calendar-line mr-1"></i>
+                      07/05/2025
+                    </span>
+                    <span class="mx-2">•</span>
+                    <span class="flex items-center">
+                      <i class="ri-time-line mr-1"></i>
+                      9 phút đọc
+                    </span>
+                  </div>
+                  <h3 class="text-lg font-bold text-gray-900 mb-2 line-clamp-2">
+                    <a href="#" class="hover:text-primary transition-colors">
+                      Hướng dẫn tham gia nghiên cứu khoa học cho sinh viên
+                    </a>
+                  </h3>
+                  <p class="text-gray-600 mb-4 line-clamp-3">
+                    Những bước cần thiết để bắt đầu con đường nghiên cứu khoa học dành cho sinh viên đại học, từ chọn đề tài đến trình bày kết quả nghiên cứu.
+                  </p>
+                  <a href="#" class="text-primary font-medium flex items-center hover:underline">
+                    Đọc thêm
+                    <i class="ri-arrow-right-line ml-1"></i>
+                  </a>
+                </div>
+              </div>
+            </div>
+            
+            <!-- Pagination -->
+            <div class="mt-8 flex justify-center" data-aos="fade-up">
+              <nav class="flex items-center space-x-1">
+                <a href="#" class="px-3 py-2 rounded-md text-gray-500 hover:bg-primary hover:text-white transition-colors">
+                  <i class="ri-arrow-left-s-line"></i>
+                </a>
+                <a href="#" class="px-3 py-2 rounded-md bg-primary text-white">1</a>
+                <a href="#" class="px-3 py-2 rounded-md text-gray-700 hover:bg-primary hover:text-white transition-colors">2</a>
+                <a href="#" class="px-3 py-2 rounded-md text-gray-700 hover:bg-primary hover:text-white transition-colors">3</a>
+                <a href="#" class="px-3 py-2 rounded-md text-gray-700 hover:bg-primary hover:text-white transition-colors">4</a>
+                <a href="#" class="px-3 py-2 rounded-md text-gray-500 hover:bg-primary hover:text-white transition-colors">
+                  <i class="ri-arrow-right-s-line"></i>
+                </a>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Call to Action -->
+    <section class="py-12 md:py-16 bg-primary relative overflow-hidden">
+      <div class="absolute inset-0 bg-gradient-to-r from-primary/80 to-primary"></div>
+      <div class="absolute -right-24 -bottom-24 w-64 h-64 bg-red-700 rounded-full opacity-20 animate-pulse-light"></div>
+      <div class="absolute -left-24 -top-24 w-64 h-64 bg-red-700 rounded-full opacity-20 animate-pulse-light" style="animation-delay: 1s;"></div>
+      <div class="container mx-auto px-4 relative z-10">
+        <div class="max-w-3xl mx-auto text-center" data-aos="fade-up">
+          <span class="inline-block px-4 py-1 bg-red-800/40 text-white text-sm font-medium rounded-full mb-4">Chia sẻ kinh nghiệm</span>
+          <h2 class="text-2xl md:text-3xl font-bold text-white mb-4 md:mb-6">
+            Bạn muốn đóng góp bài viết cho blog?
+          </h2>
+          <p class="text-red-100 mb-6 md:mb-8">
+            Chia sẻ kiến thức, kinh nghiệm học tập và nghiên cứu của bạn đến cộng đồng sinh viên 
+            Đại học Ngân hàng TP.HCM thông qua việc đóng góp bài viết cho blog chính thức.
+          </p>
+          <div class="flex flex-col sm:flex-row gap-4 justify-center">
+            <a
+              href="#"
+              class="bg-white text-primary px-6 py-3 !rounded-button whitespace-nowrap font-medium hover:bg-gray-100 transition-all text-center shadow-md hover:shadow-lg transform hover:-translate-y-1 duration-300"
+              >Đóng góp bài viết</a
+            >
+            <a
+              href="#"
+              class="bg-transparent text-white border border-white px-6 py-3 !rounded-button whitespace-nowrap font-medium hover:bg-white/10 transition-all text-center hover:shadow-lg transform hover:-translate-y-1 duration-300"
+              >Tìm hiểu thêm</a
+            >
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-primary text-red-100 py-8 md:py-12 relative overflow-hidden">
+      <div class="absolute inset-0 bg-gradient-to-b from-primary to-primary/90"></div>
+      <div class="container mx-auto px-3 md:px-4 relative z-10">
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-6 md:gap-8">
+          <div>
+            <a href="index.html" class="text-xl md:text-2xl font-pacifico text-white mb-3 md:mb-4 block flex items-center">
+              <img src="../images/logo/logo-white.png" alt="Đại học Ngân hàng TP.HCM logo" class="w-16 h-16 md:w-32 md:h-32">
+            </a>
+            <p class="mb-3 md:mb-4 text-sm md:text-base">
+              Hệ thống Quản lý Sự kiện Đại học Ngân hàng TP.HCM - Nơi kết nối
+              sinh viên với các hoạt động học thuật và ngoại khóa.
+            </p>
+            <div class="flex space-x-3 md:space-x-4">
+              <a
+                href="#"
+                class="w-8 h-8 md:w-10 md:h-10 flex items-center justify-center bg-red-900/50 rounded-full hover:bg-white hover:text-primary transition-colors"
+                aria-label="Facebook"
+              >
+                <i class="ri-facebook-fill text-sm md:text-base"></i>
+              </a>
+              <a
+                href="#"
+                class="w-8 h-8 md:w-10 md:h-10 flex items-center justify-center bg-red-900/50 rounded-full hover:bg-white hover:text-primary transition-colors"
+                aria-label="YouTube"
+              >
+                <i class="ri-youtube-fill text-sm md:text-base"></i>
+              </a>
+              <a
+                href="#"
+                class="w-8 h-8 md:w-10 md:h-10 flex items-center justify-center bg-red-900/50 rounded-full hover:bg-white hover:text-primary transition-colors"
+                aria-label="Instagram"
+              >
+                <i class="ri-instagram-fill text-sm md:text-base"></i>
+              </a>
+            </div>
+          </div>
+          <div>
+            <h3 class="text-white text-lg font-bold mb-4">Liên kết nhanh</h3>
+            <ul class="space-y-2">
+              <li>
+                <a href="index.html" class="hover:text-white transition-colors inline-flex items-center">
+                  <i class="ri-arrow-right-s-line mr-2"></i>Trang chủ</a
+                >
+              </li>
+              <li>
+                <a href="events.html" class="hover:text-white transition-colors inline-flex items-center">
+                  <i class="ri-arrow-right-s-line mr-2"></i>Sự kiện</a
+                >
+              </li>
+              <li>
+                <a href="blog.html" class="hover:text-white transition-colors inline-flex items-center">
+                  <i class="ri-arrow-right-s-line mr-2"></i>Blog</a
+                >
+              </li>
+              <li>
+                <a href="login.html" class="hover:text-white transition-colors inline-flex items-center">
+                  <i class="ri-arrow-right-s-line mr-2"></i>Đăng nhập</a
+                >
+              </li>
+              <li>
+                <a href="news.html" class="hover:text-white transition-colors inline-flex items-center">
+                  <i class="ri-arrow-right-s-line mr-2"></i>Giới thiệu</a
+                >
+              </li>
+            </ul>
+          </div>
+          <div>
+            <h3 class="text-white text-lg font-bold mb-4">Hỗ trợ</h3>
+            <ul class="space-y-2">
+              <li>
+                <a href="user-guide.html" class="hover:text-white transition-colors inline-flex items-center">
+                  <i class="ri-arrow-right-s-line mr-2"></i>Hướng dẫn sử dụng</a
+                >
+              </li>
+              <li>
+                <a href="faq.html" class="hover:text-white transition-colors inline-flex items-center">
+                  <i class="ri-arrow-right-s-line mr-2"></i>Câu hỏi thường gặp</a
+                >
+              </li>
+              <li>
+                <a href="privacy.html" class="hover:text-white transition-colors inline-flex items-center">
+                  <i class="ri-arrow-right-s-line mr-2"></i>Chính sách bảo mật</a
+                >
+              </li>
+              <li>
+                <a href="terms.html" class="hover:text-white transition-colors inline-flex items-center">
+                  <i class="ri-arrow-right-s-line mr-2"></i>Điều khoản sử dụng</a
+                >
+              </li>
+              <li>
+                <a href="contact.html" class="hover:text-white transition-colors inline-flex items-center">
+                  <i class="ri-arrow-right-s-line mr-2"></i>Liên hệ hỗ trợ</a
+                >
+              </li>
+            </ul>
+          </div>
+          <div>
+            <h3 class="text-white text-lg font-bold mb-4">Liên hệ</h3>
+            <ul class="space-y-3">
+              <li class="flex items-start">
+                <div class="w-5 h-5 flex items-center justify-center mr-2 mt-1 text-red-200">
+                  <i class="ri-map-pin-line"></i>
+                </div>
+                <span
+                  >36 Tôn Thất Đạm, Phường Nguyễn Thái Bình, Quận 1,
+                  TP.HCM</span
+                >
+              </li>
+              <li class="flex items-center">
+                <div class="w-5 h-5 flex items-center justify-center mr-2 text-red-200">
+                  <i class="ri-phone-line"></i>
+                </div>
+                <span>(028) 3829 1901</span>
+              </li>
+              <li class="flex items-center">
+                <div class="w-5 h-5 flex items-center justify-center mr-2 text-red-200">
+                  <i class="ri-mail-line"></i>
+                </div>
+                <span>info@hub.edu.vn</span>
+              </li>
+            </ul>
+            <div class="mt-4 p-4 bg-red-900/30 rounded-lg">
+              <h4 class="text-white font-medium mb-2">Đăng ký nhận tin</h4>
+              <form class="flex">
+                <input type="email" placeholder="Email của bạn" class="px-3 py-2 rounded-l-button text-sm w-full focus:outline-none text-gray-700" />
+                <button type="submit" class="bg-primary border border-white text-white px-3 py-2 rounded-r-button hover:bg-red-800 transition-colors">
+                  <i class="ri-send-plane-fill"></i>
+                </button>
+              </form>
+            </div>
+          </div>
+        </div>
+        <div class="border-t border-red-900/30 mt-8 pt-6 text-center">
+          <p>
+            &copy; 2025 Đại học Ngân hàng TP.HCM. Tất cả quyền được bảo lưu.
+          </p>
+        </div>
+      </div>
+    </footer>
+    
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+      // Initialize AOS animation library
+      const initAOS = () => {
+        AOS.init({
+          duration: 800,
+          once: false,
+          mirror: true,
+          offset: 50
+        });
+      };
+
+      // Mobile menu functionality using functional programming approach
+      const setupMobileMenu = () => {
+        const menuButton = document.getElementById("mobile-menu-button");
+        const mobileMenu = document.getElementById("mobile-menu");
+        const closeButton = mobileMenu.querySelector("button[aria-label='Đóng menu']");
+
+        // Function to open mobile menu
+        const openMenu = () => {
+          mobileMenu.classList.remove("translate-x-full");
+          document.body.classList.add("overflow-hidden");
+          menuButton.setAttribute("aria-expanded", "true");
+          
+          // Toggle icon between menu and close
+          const icon = menuButton.querySelector("i");
+          if (icon) {
+            icon.className = "ri-close-line ri-lg";
+          }
+        };
+        
+        // Function to close mobile menu
+        const closeMenu = () => {
+          mobileMenu.classList.add("translate-x-full");
+          document.body.classList.remove("overflow-hidden");
+          menuButton.setAttribute("aria-expanded", "false");
+          
+          const icon = menuButton.querySelector("i");
+          if (icon) {
+            icon.className = "ri-menu-line ri-lg";
+          }
+        };
+
+        // Add event listeners
+        menuButton.addEventListener("click", openMenu);
+        closeButton.addEventListener("click", closeMenu);
+
+        // Close menu when clicking outside
+        document.addEventListener("click", (e) => {
+          if (!mobileMenu.contains(e.target) && !menuButton.contains(e.target) && !mobileMenu.classList.contains("translate-x-full")) {
+            closeMenu();
+          }
+        });
+
+        // Close menu on escape key
+        document.addEventListener("keydown", (e) => {
+          if (e.key === "Escape" && !mobileMenu.classList.contains("translate-x-full")) {
+            closeMenu();
+          }
+        });
+      };
+
+      // Function to handle category filter toggle
+      const setupCategoryFilters = () => {
+        const categoryLinks = document.querySelectorAll(".category-filter a");
+        
+        categoryLinks.forEach(link => {
+          link.addEventListener("click", (e) => {
+            e.preventDefault();
+            
+            // Remove active state from all links
+            categoryLinks.forEach(item => {
+              item.classList.remove("text-primary", "font-medium");
+              item.classList.add("text-gray-600");
+            });
+            
+            // Add active state to clicked link
+            link.classList.remove("text-gray-600");
+            link.classList.add("text-primary", "font-medium");
+            
+            // Here you would normally filter the blog posts based on the selected category
+            console.log("Filter by category:", link.textContent.trim());
+          });
+        });
+      };
+
+      // Document ready handler
+      document.addEventListener("DOMContentLoaded", () => {
+        // Initialize features
+        initAOS();
+        setupMobileMenu();
+        
+        // Add smooth scrolling behavior for anchor links
+        const smoothScroll = (target) => {
+          const element = document.querySelector(target);
+          if (element) {
+            window.scrollTo({
+              top: element.offsetTop - 100,
+              behavior: "smooth"
+            });
+          }
+        };
+        
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+          anchor.addEventListener('click', function (e) {
+            if (this.getAttribute('href').length > 1) {
+              e.preventDefault();
+              smoothScroll(this.getAttribute('href'));
+            }
+          });
+        });
+      });
+    </script>
+  </body>
+</html> 

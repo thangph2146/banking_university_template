@@ -150,6 +150,9 @@
           <a href="events.html" class="font-medium text-white border-b-2 border-white hover:text-red-200 transition-all duration-300 hover:-translate-y-1"
             >Sự kiện</a
           >
+          <a href="blog.html" class="font-medium text-white/80 hover:text-white transition-all duration-300 hover:-translate-y-1"
+            >Blog</a
+          >
           <a href="news.html" class="font-medium text-white/80 hover:text-white transition-all duration-300 hover:-translate-y-1"
             >Giới thiệu</a
           >
@@ -856,42 +859,45 @@
           <!-- Pagination -->
           <div class="mt-8 flex justify-center animate-fade-in" style="animation-delay: 0.5s;">
             <nav class="inline-flex rounded-md shadow-sm -space-x-px" aria-label="Pagination">
-              <a
-                href="#"
-                class="relative inline-flex items-center px-3 py-2 rounded-l-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50 transition-all duration-300 hover:text-primary"
+              <button
+                id="prev-page"
+                class="relative inline-flex items-center px-3 py-2 rounded-l-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50 transition-all duration-300 hover:text-primary disabled:opacity-50 disabled:cursor-not-allowed"
+                disabled
               >
                 <span class="sr-only">Trang trước</span>
                 <i class="ri-arrow-left-s-line"></i>
-              </a>
-              <a
-                href="#"
-                class="relative inline-flex items-center px-4 py-2 border border-primary bg-primary text-sm font-medium text-white transform transition-all duration-300 hover:scale-105"
-                aria-current="page"
-                >1</a
-              >
-              <a
-                href="#"
-                class="relative inline-flex items-center px-4 py-2 border border-gray-300 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 transition-all duration-300 hover:text-primary"
-                >2</a
-              >
-              <a
-                href="#"
-                class="relative inline-flex items-center px-4 py-2 border border-gray-300 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 transition-all duration-300 hover:text-primary"
-                >3</a
-              >
-              <span class="relative inline-flex items-center px-4 py-2 border border-gray-300 bg-white text-sm font-medium text-gray-500">...</span>
-              <a
-                href="#"
-                class="relative inline-flex items-center px-4 py-2 border border-gray-300 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 transition-all duration-300 hover:text-primary"
-                >8</a
-              >
-              <a
-                href="#"
+              </button>
+              <div id="pagination-container" class="flex">
+                <button
+                  data-page="1"
+                  class="relative inline-flex items-center px-4 py-2 border border-primary bg-primary text-sm font-medium text-white transform transition-all duration-300 hover:scale-105 pagination-button"
+                  aria-current="page"
+                  >1</button
+                >
+                <button
+                  data-page="2"
+                  class="relative inline-flex items-center px-4 py-2 border border-gray-300 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 transition-all duration-300 hover:text-primary pagination-button"
+                  >2</button
+                >
+                <button
+                  data-page="3"
+                  class="relative inline-flex items-center px-4 py-2 border border-gray-300 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 transition-all duration-300 hover:text-primary pagination-button"
+                  >3</button
+                >
+                <span class="relative inline-flex items-center px-4 py-2 border border-gray-300 bg-white text-sm font-medium text-gray-500">...</span>
+                <button
+                  data-page="8"
+                  class="relative inline-flex items-center px-4 py-2 border border-gray-300 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 transition-all duration-300 hover:text-primary pagination-button"
+                  >8</button
+                >
+              </div>
+              <button
+                id="next-page"
                 class="relative inline-flex items-center px-3 py-2 rounded-r-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50 transition-all duration-300 hover:text-primary"
               >
                 <span class="sr-only">Trang sau</span>
                 <i class="ri-arrow-right-s-line"></i>
-              </a>
+              </button>
             </nav>
           </div>
         </div>
@@ -1706,7 +1712,346 @@
             this.classList.remove('shadow-md');
           });
         });
+
+        // Create global functions for pagination system to override
+        // Will be replaced by pagination implementation
+        window.applyFilters = applyFilters; 
+        window.sortCards = sortCards;
+        window.performSearch = performSearch;
+        
+        // Initialize pagination system (defined at the end of this script)
+        initPagination();
       });
+
+      // Pagination functionality implementation
+      function initPagination() {
+        // Pagination settings
+        const eventsPerPage = 9; // Display 9 events per page
+        let currentPage = 1;
+        const allEventCards = document.querySelectorAll('.event-card');
+        const totalEvents = allEventCards.length;
+        const totalPages = Math.ceil(totalEvents / eventsPerPage);
+        
+        // Get pagination elements
+        const prevButton = document.getElementById('prev-page');
+        const nextButton = document.getElementById('next-page');
+        const paginationButtons = document.querySelectorAll('.pagination-button');
+        
+        // Get filter elements for function implementation
+        const categoryFilter = document.getElementById('category-filter');
+        const timeFilter = document.getElementById('time-filter');
+        const locationFilter = document.getElementById('location-filter');
+        const noResultsElement = document.querySelector('.col-span-full.py-8.text-center') || 
+                                document.createElement('div');
+        const eventGridContainer = document.querySelector('.grid.grid-cols-1.sm\\:grid-cols-2.lg\\:grid-cols-3');
+        const sortOption = document.getElementById('sort-option');
+        const searchInput = document.getElementById('search-input');
+        
+        // Function to show events for current page
+        const showEventsForPage = (page) => {
+          // Calculate events to show
+          const startIndex = (page - 1) * eventsPerPage;
+          const endIndex = startIndex + eventsPerPage;
+          
+          // First hide all events
+          const filteredCards = Array.from(document.querySelectorAll('.event-card:not(.hidden-by-filter)'));
+          
+          filteredCards.forEach((card, index) => {
+            if (index >= startIndex && index < endIndex) {
+              card.classList.remove('hidden-by-pagination');
+            } else {
+              card.classList.add('hidden-by-pagination');
+            }
+          });
+          
+          // Update visibility based on both pagination and filters
+          updateEventVisibility();
+          
+          // Scroll to top of events section
+          const eventsSection = document.querySelector('.lg\\:w-3\\/4');
+          if (eventsSection) {
+            eventsSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }
+        };
+        
+        // Function to update pagination UI
+        const updatePaginationUI = (page) => {
+          // Update buttons active state
+          paginationButtons.forEach(button => {
+            const buttonPage = parseInt(button.getAttribute('data-page'));
+            if (buttonPage === page) {
+              button.classList.remove('bg-white', 'text-gray-700', 'border-gray-300');
+              button.classList.add('bg-primary', 'text-white', 'border-primary');
+              button.setAttribute('aria-current', 'page');
+            } else {
+              button.classList.remove('bg-primary', 'text-white', 'border-primary');
+              button.classList.add('bg-white', 'text-gray-700', 'border-gray-300');
+              button.removeAttribute('aria-current');
+            }
+          });
+          
+          // Update prev/next buttons
+          prevButton.disabled = page === 1;
+          nextButton.disabled = page === totalPages;
+        };
+        
+        // Function to go to a specific page
+        const goToPage = (page) => {
+          if (page < 1 || page > totalPages || page === currentPage) return;
+          
+          currentPage = page;
+          showEventsForPage(currentPage);
+          updatePaginationUI(currentPage);
+        };
+        
+        // Add separate class for filter vs pagination hiding
+        allEventCards.forEach(card => {
+          // Add classes for pagination system without disturbing current classes
+          card.classList.add('hidden-by-filter', 'hidden-by-pagination');
+        });
+        
+        // Function to update visibility based on both pagination and filters
+        function updateEventVisibility() {
+          allEventCards.forEach(card => {
+            if (card.classList.contains('hidden-by-filter') || card.classList.contains('hidden-by-pagination')) {
+              card.classList.add('hidden');
+            } else {
+              card.classList.remove('hidden');
+            }
+          });
+          
+          // Update counter display
+          const visibleCount = document.querySelectorAll('.event-card:not(.hidden)').length;
+          const counterElement = document.querySelector('.event-counter');
+          if (counterElement) {
+            if (visibleCount === 0) {
+              counterElement.textContent = 'Không có sự kiện nào phù hợp';
+            } else if (visibleCount === totalEvents) {
+              counterElement.textContent = `Hiển thị tất cả ${totalEvents} sự kiện`;
+            } else {
+              counterElement.textContent = `Hiển thị ${visibleCount}/${totalEvents} sự kiện`;
+            }
+          }
+        }
+        
+        // Override the existing filter function
+        window.applyFilters = function() {
+          const categoryValue = categoryFilter.value;
+          const timeValue = timeFilter.value;
+          const locationValue = locationFilter.value;
+          
+          // Update filter status bar
+          if (typeof updateFilterStatusBar === 'function') {
+            updateFilterStatusBar();
+          }
+          
+          // Reset pagination to page 1 when applying filters
+          currentPage = 1;
+          updatePaginationUI(currentPage);
+          
+          let hasVisibleEvent = false;
+          
+          // Add animation when filtering
+          if (eventGridContainer) {
+            eventGridContainer.classList.add('opacity-60');
+            setTimeout(() => {
+              eventGridContainer.classList.remove('opacity-60');
+            }, 300);
+          }
+          
+          // Loop through all event cards and apply filters
+          allEventCards.forEach(card => {
+            // Get data attributes
+            const cardCategory = card.getAttribute('data-category');
+            const cardTime = card.getAttribute('data-time');
+            const cardLocation = card.getAttribute('data-location');
+            const cardDate = card.getAttribute('data-date');
+            
+            // Check if card matches all selected filters
+            const matchesCategory = categoryValue === '' || cardCategory === categoryValue;
+            const matchesLocation = locationValue === '' || cardLocation === locationValue;
+            let matchesTime = true;
+            
+            // Special handling for time filter
+            if (timeValue !== '') {
+              const eventDate = new Date(cardDate);
+              const today = new Date();
+              const tomorrow = new Date();
+              tomorrow.setDate(today.getDate() + 1);
+              
+              const nextWeek = new Date();
+              nextWeek.setDate(today.getDate() + 7);
+              
+              const nextMonth = new Date();
+              nextMonth.setMonth(today.getMonth() + 1);
+              
+              if (timeValue === 'today') {
+                matchesTime = eventDate.toDateString() === today.toDateString();
+              } else if (timeValue === 'tomorrow') {
+                matchesTime = eventDate.toDateString() === tomorrow.toDateString();
+              } else if (timeValue === 'week') {
+                matchesTime = eventDate >= today && eventDate <= nextWeek;
+              } else if (timeValue === 'month') {
+                matchesTime = eventDate >= today && eventDate <= nextMonth;
+              }
+            }
+            
+            // Mark card as filtered or not filtered
+            if (matchesCategory && matchesTime && matchesLocation) {
+              card.classList.remove('hidden-by-filter');
+              hasVisibleEvent = true;
+            } else {
+              card.classList.add('hidden-by-filter');
+            }
+          });
+          
+          // Show "No Results" message if no events match
+          if (noResultsElement) {
+            if (!hasVisibleEvent) {
+              noResultsElement.classList.remove('hidden');
+            } else {
+              noResultsElement.classList.add('hidden');
+            }
+          }
+          
+          // Sort cards and show current page
+          window.sortCards();
+          showEventsForPage(currentPage);
+        };
+        
+        // Override the sort function
+        window.sortCards = function() {
+          // Get selected sort option
+          const sortValue = sortOption ? sortOption.value : 'newest';
+          
+          // Get all cards that pass the filter criteria
+          const filteredCards = Array.from(document.querySelectorAll('.event-card:not(.hidden-by-filter)'));
+          
+          // Sort the cards based on selected option
+          filteredCards.sort((a, b) => {
+            const dateA = new Date(a.getAttribute('data-date'));
+            const dateB = new Date(b.getAttribute('data-date'));
+            
+            if (sortValue === 'newest') {
+              // Sort by date (newest first)
+              return dateB - dateA;
+            } else if (sortValue === 'upcoming') {
+              // Sort by date (upcoming first)
+              return dateA - dateB;
+            } else if (sortValue === 'popular') {
+              // Sort by popularity (participant count)
+              const participantsA = parseInt(a.querySelector('[class*="ri-user-line"]').parentNode.nextElementSibling.textContent.match(/\d+/)[0]);
+              const participantsB = parseInt(b.querySelector('[class*="ri-user-line"]').parentNode.nextElementSibling.textContent.match(/\d+/)[0]);
+              return participantsB - participantsA;
+            }
+            
+            return 0;
+          });
+          
+          // Apply animation classes for sorting effect
+          filteredCards.forEach(card => {
+            card.classList.add('opacity-0', 'scale-95');
+            setTimeout(() => {
+              card.classList.remove('opacity-0', 'scale-95');
+            }, 50);
+          });
+          
+          // Reorder the cards in the container
+          const container = document.querySelector('.grid.grid-cols-1.sm\\:grid-cols-2.lg\\:grid-cols-3');
+          if (container) {
+            filteredCards.forEach(card => {
+              container.appendChild(card);
+            });
+          }
+          
+          // Show events for current page after sorting
+          showEventsForPage(currentPage);
+        };
+        
+        // Override the search function
+        window.performSearch = function(query) {
+          if (query.trim() === '') {
+            // Show empty search validation
+            searchInput.classList.add('ring-2', 'ring-red-500', 'border-red-500');
+            setTimeout(() => {
+              searchInput.classList.remove('ring-2', 'ring-red-500', 'border-red-500');
+            }, 2000);
+            return;
+          }
+          
+          // Reset filters but keep the search active
+          if (categoryFilter) categoryFilter.value = '';
+          if (timeFilter) timeFilter.value = '';
+          if (locationFilter) locationFilter.value = '';
+          
+          if (typeof updateFilterStatusBar === 'function') {
+            updateFilterStatusBar();
+          }
+          
+          // Reset to page 1 when searching
+          currentPage = 1;
+          updatePaginationUI(currentPage);
+          
+          let hasVisibleEvent = false;
+          query = query.toLowerCase();
+          
+          // Loop through all event cards and apply search filter
+          allEventCards.forEach(card => {
+            const title = card.querySelector('h3').textContent.toLowerCase();
+            const description = card.querySelector('.flex.items-center.text-gray-600.mb-3')?.textContent.toLowerCase() || '';
+            const matchesQuery = title.includes(query) || description.includes(query);
+            
+            if (matchesQuery) {
+              card.classList.remove('hidden-by-filter');
+              hasVisibleEvent = true;
+            } else {
+              card.classList.add('hidden-by-filter');
+            }
+          });
+          
+          // Show "No Results" message if no events match
+          if (noResultsElement) {
+            if (!hasVisibleEvent) {
+              noResultsElement.classList.remove('hidden');
+            } else {
+              noResultsElement.classList.add('hidden');
+            }
+          }
+          
+          // Apply sorting and show current page
+          window.sortCards();
+          showEventsForPage(currentPage);
+        };
+        
+        // Initialize event listeners for pagination
+        if (prevButton) {
+          prevButton.addEventListener('click', () => goToPage(currentPage - 1));
+        }
+        
+        if (nextButton) {
+          nextButton.addEventListener('click', () => goToPage(currentPage + 1));
+        }
+        
+        if (paginationButtons) {
+          paginationButtons.forEach(button => {
+            button.addEventListener('click', () => {
+              const page = parseInt(button.getAttribute('data-page'));
+              goToPage(page);
+            });
+          });
+        }
+        
+        // Remove hidden classes from initial display so we can initialize properly
+        allEventCards.forEach(card => {
+          if (!card.classList.contains('hidden')) {
+            card.classList.remove('hidden-by-filter');
+          }
+        });
+        
+        // Initialize page display
+        showEventsForPage(currentPage);
+        updatePaginationUI(currentPage);
+      }
     </script>
   </body>
 </html>
