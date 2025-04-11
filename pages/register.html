@@ -42,10 +42,54 @@
     <style>
       :where([class^="ri-"])::before { content: "\f3c2"; }
       body {
-      font-family: 'Inter', sans-serif;
+        font-family: 'Inter', sans-serif;
       }
       .hero-gradient {
-      background: linear-gradient(90deg, rgba(255,255,255,1) 0%, rgba(255,255,255,0.9) 50%, rgba(255,255,255,0) 100%);
+        background: linear-gradient(90deg, rgba(255,255,255,1) 0%, rgba(255,255,255,0.9) 50%, rgba(255,255,255,0) 100%);
+      }
+      
+      /* Form animations */
+      .form-input {
+        transition: all 0.3s ease;
+      }
+      
+      .form-input:focus {
+        transform: translateY(-1px);
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      }
+      
+      .form-label {
+        transition: all 0.3s ease;
+      }
+      
+      .form-input:focus + .form-label {
+        color: #8B0000;
+      }
+      
+      /* Button animations */
+      .button-hover {
+        transition: all 0.3s ease;
+      }
+      
+      .button-hover:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      }
+      
+      /* Modal animations */
+      .modal-enter {
+        animation: modalEnter 0.3s ease-out;
+      }
+      
+      @keyframes modalEnter {
+        from {
+          opacity: 0;
+          transform: scale(0.95);
+        }
+        to {
+          opacity: 1;
+          transform: scale(1);
+        }
       }
     </style>
   </head>
@@ -95,176 +139,237 @@
     <!-- Register Form Section -->
     <section class="py-16">
       <div class="container mx-auto px-4">
-        <div class="max-w-md mx-auto bg-white rounded-lg shadow-md overflow-hidden">
-          <div class="bg-primary py-4 px-6">
-            <h2 class="text-2xl font-bold text-white text-center">Đăng ký tài khoản</h2>
+        <div class="max-w-md mx-auto">
+          <!-- Progress Steps -->
+          <div class="flex items-center justify-between mb-8">
+            <div class="flex items-center">
+              <div class="w-8 h-8 bg-primary text-white rounded-full flex items-center justify-center">1</div>
+              <div class="ml-2 text-sm font-medium">Thông tin cá nhân</div>
+            </div>
+            <div class="flex-1 h-1 mx-4 bg-gray-200">
+              <div class="h-full bg-primary" style="width: 0%" id="progressBar"></div>
+            </div>
+            <div class="flex items-center">
+              <div class="w-8 h-8 bg-gray-200 text-gray-600 rounded-full flex items-center justify-center">2</div>
+              <div class="ml-2 text-sm font-medium text-gray-600">Hoàn tất</div>
+            </div>
           </div>
-          <div class="p-6">
-            <form id="registerForm">
-              <!-- Họ và tên Field -->
-              <div class="mb-4">
-                <label for="fullName" class="block text-gray-700 font-medium mb-2">Họ và tên</label>
+
+          <div class="bg-white rounded-lg shadow-lg overflow-hidden">
+            <div class="bg-primary py-6 px-6">
+              <h2 class="text-2xl font-bold text-white text-center">Đăng ký tài khoản</h2>
+              <p class="text-red-100 text-center mt-2">Tham gia cùng cộng đồng sinh viên BUH</p>
+            </div>
+            <div class="p-8">
+              <form id="registerForm" class="space-y-6">
+                <!-- Họ và tên Field -->
                 <div class="relative">
-                  <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                    <i class="ri-user-line text-gray-400"></i>
+                  <label for="fullName" class="block text-gray-700 font-medium mb-2">
+                    Họ và tên
+                    <span class="text-red-500">*</span>
+                  </label>
+                  <div class="relative">
+                    <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                      <i class="ri-user-line text-gray-400"></i>
+                    </div>
+                    <input
+                      type="text"
+                      id="fullName"
+                      name="fullName"
+                      class="form-input w-full pl-10 pr-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
+                      placeholder="Nhập họ và tên đầy đủ của bạn"
+                      required
+                    />
                   </div>
-                  <input
-                    type="text"
-                    id="fullName"
-                    name="fullName"
-                    class="w-full pl-10 pr-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
-                    placeholder="Nhập họ và tên đầy đủ của bạn"
+                </div>
+                
+                <!-- Email Field -->
+                <div class="relative">
+                  <label for="email" class="block text-gray-700 font-medium mb-2">
+                    Email trường học
+                    <span class="text-red-500">*</span>
+                  </label>
+                  <div class="relative">
+                    <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                      <i class="ri-mail-line text-gray-400"></i>
+                    </div>
+                    <input
+                      type="email"
+                      id="email"
+                      name="email"
+                      class="form-input w-full pl-10 pr-10 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
+                      placeholder="Nhập email trường học của bạn"
+                      required
+                    />
+                    <div class="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none opacity-0 transition-opacity duration-200" id="emailValidIcon">
+                      <i class="ri-checkbox-circle-line text-green-500"></i>
+                    </div>
+                    <div class="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none opacity-0 transition-opacity duration-200" id="emailInvalidIcon">
+                      <i class="ri-error-warning-line text-red-500"></i>
+                    </div>
+                  </div>
+                  <div class="mt-1">
+                    <p class="text-xs text-gray-500">
+                      <i class="ri-information-line align-middle"></i>
+                      Chỉ chấp nhận email có domain @sv.hub.edu.vn hoặc @hub.edu.vn
+                    </p>
+                    <p id="emailFeedback" class="text-xs text-red-500 mt-1 hidden"></p>
+                  </div>
+                </div>
+                
+                <!-- Mã sinh viên Field -->
+                <div class="relative">
+                  <label for="studentId" class="block text-gray-700 font-medium mb-2">
+                    Mã sinh viên / Mã nhân viên
+                    <span class="text-red-500">*</span>
+                  </label>
+                  <div class="relative">
+                    <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                      <i class="ri-shield-user-line text-gray-400"></i>
+                    </div>
+                    <input
+                      type="text"
+                      id="studentId"
+                      name="studentId"
+                      class="form-input w-full pl-10 pr-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
+                      placeholder="Nhập mã sinh viên hoặc mã nhân viên"
+                      required
+                    />
+                  </div>
+                </div>
+                
+                <!-- Khoa/Phòng ban Field -->
+                <div class="relative">
+                  <label for="department" class="block text-gray-700 font-medium mb-2">
+                    Khoa/Phòng ban
+                    <span class="text-red-500">*</span>
+                  </label>
+                  <div class="relative">
+                    <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                      <i class="ri-building-line text-gray-400"></i>
+                    </div>
+                    <select
+                      id="department"
+                      name="department"
+                      class="form-input w-full pl-10 pr-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent appearance-none"
+                      required
+                    >
+                      <option value="" disabled selected>Chọn khoa/phòng ban của bạn</option>
+                      <option value="tai-chinh-ngan-hang">Khoa Tài chính - Ngân hàng</option>
+                      <option value="ke-toan-kiem-toan">Khoa Kế toán - Kiểm toán</option>
+                      <option value="quan-tri-kinh-doanh">Khoa Quản trị Kinh doanh</option>
+                      <option value="he-thong-thong-tin-quan-ly">Khoa Hệ thống Thông tin Quản lý</option>
+                      <option value="kinh-te-luat">Khoa Kinh tế - Luật</option>
+                      <option value="tieng-anh-thuong-mai">Khoa Tiếng Anh Thương mại</option>
+                      <option value="ung-dung-toan-tin">Viện Ứng dụng Toán - Tin</option>
+                      <option value="phong-ban-khac">Phòng ban khác</option>
+                    </select>
+                    <div class="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
+                      <i class="ri-arrow-down-s-line text-gray-400"></i>
+                    </div>
+                  </div>
+                </div>
+                
+                <!-- Password Field -->
+                <div class="relative">
+                  <label for="password" class="block text-gray-700 font-medium mb-2">
+                    Mật khẩu
+                    <span class="text-red-500">*</span>
+                  </label>
+                  <div class="relative">
+                    <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                      <i class="ri-lock-line text-gray-400"></i>
+                    </div>
+                    <input
+                      type="password"
+                      id="password"
+                      name="password"
+                      class="form-input w-full pl-10 pr-20 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
+                      placeholder="Nhập mật khẩu (ít nhất 8 ký tự)"
+                      required
+                      minlength="8"
+                    />
+                    <div class="absolute inset-y-0 right-0 pr-3 flex items-center space-x-2">
+                      <div class="pointer-events-none opacity-0 transition-opacity duration-200" id="passwordValidIcon">
+                        <i class="ri-checkbox-circle-line text-green-500"></i>
+                      </div>
+                      <div class="pointer-events-none opacity-0 transition-opacity duration-200" id="passwordInvalidIcon">
+                        <i class="ri-error-warning-line text-red-500"></i>
+                      </div>
+                      <button type="button" id="showPassword" class="text-gray-400 hover:text-gray-500">
+                        <i class="ri-eye-off-line"></i>
+                      </button>
+                    </div>
+                  </div>
+                  <p id="passwordFeedback" class="text-xs text-red-500 mt-1 hidden"></p>
+                </div>
+                
+                <!-- Confirm Password Field -->
+                <div class="relative">
+                  <label for="confirmPassword" class="block text-gray-700 font-medium mb-2">
+                    Xác nhận mật khẩu
+                    <span class="text-red-500">*</span>
+                  </label>
+                  <div class="relative">
+                    <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                      <i class="ri-lock-line text-gray-400"></i>
+                    </div>
+                    <input
+                      type="password"
+                      id="confirmPassword"
+                      name="confirmPassword"
+                      class="form-input w-full pl-10 pr-20 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
+                      placeholder="Nhập lại mật khẩu của bạn"
+                      required
+                    />
+                    <div class="absolute inset-y-0 right-0 pr-3 flex items-center space-x-2">
+                      <div class="pointer-events-none opacity-0 transition-opacity duration-200" id="confirmPasswordValidIcon">
+                        <i class="ri-checkbox-circle-line text-green-500"></i>
+                      </div>
+                      <div class="pointer-events-none opacity-0 transition-opacity duration-200" id="confirmPasswordInvalidIcon">
+                        <i class="ri-error-warning-line text-red-500"></i>
+                      </div>
+                      <button type="button" id="showConfirmPassword" class="text-gray-400 hover:text-gray-500">
+                        <i class="ri-eye-off-line"></i>
+                      </button>
+                    </div>
+                  </div>
+                  <p id="confirmPasswordFeedback" class="text-xs text-red-500 mt-1 hidden"></p>
+                </div>
+                
+                <!-- Terms and Conditions Checkbox -->
+                <div class="flex items-center space-x-2">
+                  <input 
+                    type="checkbox" 
+                    id="terms" 
+                    name="terms" 
+                    class="h-4 w-4 text-primary focus:ring-primary border-gray-300 rounded"
                     required
                   />
+                  <label for="terms" class="text-sm text-gray-700">
+                    Tôi đồng ý với 
+                    <a href="#" class="text-primary hover:underline">Điều khoản sử dụng</a> 
+                    và
+                    <a href="#" class="text-primary hover:underline">Chính sách bảo mật</a>
+                  </label>
                 </div>
-              </div>
+                
+                <!-- Submit Button -->
+                <button
+                  type="submit"
+                  class="button-hover w-full bg-primary text-white py-3 px-4 !rounded-button hover:bg-primary/90 transition-colors font-medium flex items-center justify-center"
+                >
+                  <i class="ri-user-add-line mr-2"></i>
+                  Đăng ký
+                </button>
+              </form>
               
-              <!-- Email Field -->
-              <div class="mb-4">
-                <label for="email" class="block text-gray-700 font-medium mb-2">Email trường học</label>
-                <div class="relative">
-                  <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                    <i class="ri-mail-line text-gray-400"></i>
-                  </div>
-                  <input
-                    type="email"
-                    id="email"
-                    name="email"
-                    class="w-full pl-10 pr-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
-                    placeholder="Nhập email trường học của bạn (vd: abc@sv.buh.edu.vn)"
-                    required
-                  />
-                </div>
-                <p class="text-xs text-gray-500 mt-1">
-                  Chỉ chấp nhận email có domain @sv.buh.edu.vn hoặc @buh.edu.vn
+              <div class="mt-6 text-center">
+                <p class="text-gray-600">
+                  Đã có tài khoản? 
+                  <a href="login.html" class="text-primary font-medium hover:underline">Đăng nhập ngay</a>
                 </p>
               </div>
-              
-              <!-- Mã sinh viên Field -->
-              <div class="mb-4">
-                <label for="studentId" class="block text-gray-700 font-medium mb-2">Mã sinh viên / Mã nhân viên</label>
-                <div class="relative">
-                  <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                    <i class="ri-shield-user-line text-gray-400"></i>
-                  </div>
-                  <input
-                    type="text"
-                    id="studentId"
-                    name="studentId"
-                    class="w-full pl-10 pr-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
-                    placeholder="Nhập mã sinh viên hoặc mã nhân viên của bạn"
-                    required
-                  />
-                </div>
-              </div>
-              
-              <!-- Khoa/Phòng ban Field -->
-              <div class="mb-4">
-                <label for="department" class="block text-gray-700 font-medium mb-2">Khoa/Phòng ban</label>
-                <div class="relative">
-                  <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                    <i class="ri-building-line text-gray-400"></i>
-                  </div>
-                  <select
-                    id="department"
-                    name="department"
-                    class="w-full pl-10 pr-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
-                    required
-                  >
-                    <option value="" disabled selected>Chọn khoa/phòng ban của bạn</option>
-                    <option value="tai-chinh-ngan-hang">Khoa Tài chính - Ngân hàng</option>
-                    <option value="ke-toan-kiem-toan">Khoa Kế toán - Kiểm toán</option>
-                    <option value="quan-tri-kinh-doanh">Khoa Quản trị Kinh doanh</option>
-                    <option value="he-thong-thong-tin-quan-ly">Khoa Hệ thống Thông tin Quản lý</option>
-                    <option value="kinh-te-luat">Khoa Kinh tế - Luật</option>
-                    <option value="tieng-anh-thuong-mai">Khoa Tiếng Anh Thương mại</option>
-                    <option value="ung-dung-toan-tin">Viện Ứng dụng Toán - Tin</option>
-                    <option value="phong-ban-khac">Phòng ban khác</option>
-                  </select>
-                </div>
-              </div>
-              
-              <!-- Password Field -->
-              <div class="mb-4">
-                <label for="password" class="block text-gray-700 font-medium mb-2">Mật khẩu</label>
-                <div class="relative">
-                  <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                    <i class="ri-lock-line text-gray-400"></i>
-                  </div>
-                  <input
-                    type="password"
-                    id="password"
-                    name="password"
-                    class="w-full pl-10 pr-10 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
-                    placeholder="Nhập mật khẩu (ít nhất 8 ký tự)"
-                    required
-                    minlength="8"
-                  />
-                  <div class="absolute inset-y-0 right-0 pr-3 flex items-center">
-                    <button type="button" id="showPassword" class="text-gray-400 hover:text-gray-500">
-                      <i class="ri-eye-off-line"></i>
-                    </button>
-                  </div>
-                </div>
-                <p class="text-xs text-gray-500 mt-1">
-                  Mật khẩu phải có ít nhất 8 ký tự, bao gồm chữ hoa, chữ thường và số
-                </p>
-              </div>
-              
-              <!-- Confirm Password Field -->
-              <div class="mb-6">
-                <label for="confirmPassword" class="block text-gray-700 font-medium mb-2">Xác nhận mật khẩu</label>
-                <div class="relative">
-                  <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                    <i class="ri-lock-line text-gray-400"></i>
-                  </div>
-                  <input
-                    type="password"
-                    id="confirmPassword"
-                    name="confirmPassword"
-                    class="w-full pl-10 pr-10 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
-                    placeholder="Nhập lại mật khẩu của bạn"
-                    required
-                  />
-                  <div class="absolute inset-y-0 right-0 pr-3 flex items-center">
-                    <button type="button" id="showConfirmPassword" class="text-gray-400 hover:text-gray-500">
-                      <i class="ri-eye-off-line"></i>
-                    </button>
-                  </div>
-                </div>
-              </div>
-              
-              <!-- Terms and Conditions Checkbox -->
-              <div class="flex items-center mb-6">
-                <input 
-                  type="checkbox" 
-                  id="terms" 
-                  name="terms" 
-                  class="h-4 w-4 text-primary focus:ring-primary border-gray-300 rounded"
-                  required
-                />
-                <label for="terms" class="ml-2 block text-sm text-gray-700">
-                  Tôi đồng ý với 
-                  <a href="#" class="text-primary hover:underline">Điều khoản sử dụng</a> 
-                  và
-                  <a href="#" class="text-primary hover:underline">Chính sách bảo mật</a>
-                </label>
-              </div>
-              
-              <!-- Submit Button -->
-              <button
-                type="submit"
-                class="w-full bg-primary text-white py-2 px-4 !rounded-button hover:bg-primary/90 transition-colors font-medium"
-              >
-                Đăng ký
-              </button>
-            </form>
-            
-            <div class="mt-6 text-center">
-              <p class="text-gray-600">
-                Đã có tài khoản? 
-                <a href="login.html" class="text-primary font-medium hover:underline">Đăng nhập ngay</a>
-              </p>
             </div>
           </div>
         </div>
@@ -386,7 +491,7 @@
                 <div class="w-5 h-5 flex items-center justify-center mr-2">
                   <i class="ri-mail-line"></i>
                 </div>
-                <span>info@buh.edu.vn</span>
+                <span>info@hub.edu.vn</span>
               </li>
             </ul>
           </div>
@@ -398,6 +503,57 @@
         </div>
       </div>
     </footer>
+
+    <!-- Modals -->
+    <!-- Success Modal -->
+    <div id="successModal" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center z-50">
+      <div class="bg-white rounded-lg p-8 max-w-md w-full mx-4 relative">
+        <div class="flex items-center justify-center mb-6">
+          <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center">
+            <i class="ri-check-line text-4xl text-green-500"></i>
+          </div>
+        </div>
+        <h3 class="text-2xl font-bold text-center text-gray-800 mb-4">Đăng ký thành công!</h3>
+        <p class="text-gray-600 text-center mb-6">
+          Chúng tôi đã gửi email xác nhận đến địa chỉ email của bạn. Vui lòng kiểm tra và xác nhận tài khoản.
+        </p>
+        <div class="flex justify-center">
+          <button onclick="closeModal('successModal')" class="bg-primary text-white px-6 py-2 rounded-button hover:bg-primary/90 transition-colors">
+            Đóng
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Error Modal -->
+    <div id="errorModal" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center z-50">
+      <div class="bg-white rounded-lg p-8 max-w-md w-full mx-4 relative">
+        <div class="flex items-center justify-center mb-6">
+          <div class="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center">
+            <i class="ri-error-warning-line text-4xl text-red-500"></i>
+          </div>
+        </div>
+        <h3 class="text-2xl font-bold text-center text-gray-800 mb-4">Đăng ký thất bại</h3>
+        <p id="errorMessage" class="text-gray-600 text-center mb-6">
+          Có lỗi xảy ra trong quá trình đăng ký. Vui lòng thử lại sau.
+        </p>
+        <div class="flex justify-center">
+          <button onclick="closeModal('errorModal')" class="bg-primary text-white px-6 py-2 rounded-button hover:bg-primary/90 transition-colors">
+            Đóng
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Loading Modal -->
+    <div id="loadingModal" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center z-50">
+      <div class="bg-white rounded-lg p-8 max-w-md w-full mx-4 relative">
+        <div class="flex items-center justify-center mb-6">
+          <div class="w-16 h-16 border-4 border-primary border-t-transparent rounded-full animate-spin"></div>
+        </div>
+        <p class="text-gray-600 text-center">Đang xử lý yêu cầu...</p>
+      </div>
+    </div>
 
     <script>
       // Mobile menu toggle
@@ -473,59 +629,290 @@
       document.addEventListener("DOMContentLoaded", function () {
         const registerForm = document.getElementById("registerForm");
         
+        // Modal functions
+        window.showModal = function(modalId) {
+          const modal = document.getElementById(modalId);
+          modal.classList.remove('hidden');
+          modal.classList.add('flex');
+          modal.querySelector('.bg-white').classList.add('modal-enter');
+        }
+
+        window.closeModal = function(modalId) {
+          const modal = document.getElementById(modalId);
+          modal.classList.add('hidden');
+          modal.classList.remove('flex');
+          modal.querySelector('.bg-white').classList.remove('modal-enter');
+        }
+
+        window.showError = function(message) {
+          document.getElementById('errorMessage').textContent = message;
+          showModal('errorModal');
+        }
+
+        // Progress bar handling
+        const updateProgress = () => {
+          const form = document.getElementById('registerForm');
+          const inputs = form.querySelectorAll('input[required], select[required]');
+          let filledInputs = 0;
+          
+          inputs.forEach(input => {
+            if (input.type === 'checkbox') {
+              if (input.checked) filledInputs++;
+            } else if (input.value.trim() !== '') {
+              filledInputs++;
+            }
+          });
+          
+          const progress = (filledInputs / inputs.length) * 100;
+          document.getElementById('progressBar').style.width = `${progress}%`;
+          
+          // Update step indicators
+          if (progress === 100) {
+            document.querySelector('.flex.items-center:last-child div:first-child').classList.remove('bg-gray-200', 'text-gray-600');
+            document.querySelector('.flex.items-center:last-child div:first-child').classList.add('bg-primary', 'text-white');
+            document.querySelector('.flex.items-center:last-child div:last-child').classList.remove('text-gray-600');
+          } else {
+            document.querySelector('.flex.items-center:last-child div:first-child').classList.add('bg-gray-200', 'text-gray-600');
+            document.querySelector('.flex.items-center:last-child div:first-child').classList.remove('bg-primary', 'text-white');
+            document.querySelector('.flex.items-center:last-child div:last-child').classList.add('text-gray-600');
+          }
+        };
+
+        // Password strength indicators
+        const updatePasswordStrength = (password) => {
+          const indicators = {
+            length: password.length >= 8,
+            case: /(?=.*[a-z])(?=.*[A-Z])/.test(password),
+            number: /\d/.test(password),
+            special: /[!@#$%^&*(),.?":{}|<>]/.test(password)
+          };
+          
+          Object.entries(indicators).forEach(([key, valid], index) => {
+            const indicator = document.querySelectorAll('.text-gray-500')[index];
+            if (valid) {
+              indicator.classList.remove('text-gray-500');
+              indicator.classList.add('text-green-500');
+              indicator.querySelector('i').classList.remove('ri-checkbox-circle-line');
+              indicator.querySelector('i').classList.add('ri-checkbox-circle-fill');
+            } else {
+              indicator.classList.add('text-gray-500');
+              indicator.classList.remove('text-green-500');
+              indicator.querySelector('i').classList.add('ri-checkbox-circle-line');
+              indicator.querySelector('i').classList.remove('ri-checkbox-circle-fill');
+            }
+          });
+        };
+
+        // Form validation helper functions
+        const validateEmail = (email) => {
+          const emailRegex = /@(sv\.)?buh\.edu\.vn$/i;
+          return emailRegex.test(email);
+        }
+
+        const validatePassword = (password) => {
+          const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/;
+          return passwordRegex.test(password);
+        }
+
+        const validateStudentId = (studentId) => {
+          return studentId.length > 0;
+        }
+
         if (registerForm) {
-          registerForm.addEventListener("submit", function (event) {
+          // Helper function to show/hide validation icons
+          const toggleValidationIcons = (inputId, isValid) => {
+            const validIcon = document.getElementById(`${inputId}ValidIcon`);
+            const invalidIcon = document.getElementById(`${inputId}InvalidIcon`);
+            const input = document.getElementById(inputId);
+            const feedbackElement = document.getElementById(`${inputId}Feedback`);
+            
+            if (input.value.trim() === '') {
+              validIcon.style.opacity = '0';
+              invalidIcon.style.opacity = '0';
+              input.classList.remove('border-red-500', 'border-green-500');
+              feedbackElement.classList.add('hidden');
+              return;
+            }
+            
+            if (isValid) {
+              validIcon.style.opacity = '1';
+              invalidIcon.style.opacity = '0';
+              input.classList.remove('border-red-500');
+              input.classList.add('border-green-500');
+              feedbackElement.classList.add('hidden');
+            } else {
+              validIcon.style.opacity = '0';
+              invalidIcon.style.opacity = '1';
+              input.classList.remove('border-green-500');
+              input.classList.add('border-red-500');
+              feedbackElement.classList.remove('hidden');
+            }
+          };
+
+          // Add input event listeners for progress bar
+          registerForm.querySelectorAll('input, select').forEach(input => {
+            input.addEventListener('input', updateProgress);
+          });
+
+          // Real-time validation
+          const inputs = registerForm.querySelectorAll('input[required]');
+          inputs.forEach(input => {
+            input.addEventListener('input', function() {
+              switch(input.id) {
+                case 'email':
+                  const isValidEmail = validateEmail(input.value);
+                  toggleValidationIcons('email', isValidEmail);
+                  if (!isValidEmail && input.value.trim() !== '') {
+                    document.getElementById('emailFeedback').textContent = 'Email phải có đuôi @sv.hub.edu.vn hoặc @hub.edu.vn';
+                  }
+                  break;
+                case 'password':
+                  const isValidPassword = validatePassword(input.value);
+                  toggleValidationIcons('password', isValidPassword);
+                  if (!isValidPassword && input.value.trim() !== '') {
+                    document.getElementById('passwordFeedback').textContent = 'Mật khẩu phải có ít nhất 8 ký tự, bao gồm chữ hoa, chữ thường và số';
+                  }
+                  // Also check confirm password if it has value
+                  const confirmPassword = document.getElementById('confirmPassword');
+                  if (confirmPassword.value.trim() !== '') {
+                    const isMatch = confirmPassword.value === input.value;
+                    toggleValidationIcons('confirmPassword', isMatch);
+                    if (!isMatch) {
+                      document.getElementById('confirmPasswordFeedback').textContent = 'Mật khẩu xác nhận không khớp';
+                    }
+                  }
+                  break;
+                case 'confirmPassword':
+                  const password = document.getElementById('password').value;
+                  const isMatch = input.value === password;
+                  toggleValidationIcons('confirmPassword', isMatch);
+                  if (!isMatch && input.value.trim() !== '') {
+                    document.getElementById('confirmPasswordFeedback').textContent = 'Mật khẩu xác nhận không khớp';
+                  }
+                  break;
+                default:
+                  if (input.value.trim() !== '') {
+                    input.classList.remove('border-red-500');
+                    input.classList.add('border-green-500');
+                  } else {
+                    input.classList.remove('border-red-500', 'border-green-500');
+                  }
+              }
+            });
+
+            // Also trigger validation on blur
+            input.addEventListener('blur', function() {
+              if (input.value.trim() === '') {
+                input.classList.add('border-red-500');
+                const feedbackElement = document.getElementById(`${input.id}Feedback`);
+                if (feedbackElement) {
+                  feedbackElement.textContent = 'Trường này là bắt buộc';
+                  feedbackElement.classList.remove('hidden');
+                }
+              }
+            });
+          });
+
+          // Form submission handling
+          registerForm.addEventListener("submit", async function (event) {
             event.preventDefault();
             
-            // Lấy giá trị từ form
-            const fullName = document.getElementById("fullName").value;
-            const email = document.getElementById("email").value;
-            const studentId = document.getElementById("studentId").value;
-            const department = document.getElementById("department").value;
-            const password = document.getElementById("password").value;
-            const confirmPassword = document.getElementById("confirmPassword").value;
-            const terms = document.getElementById("terms").checked;
+            // Show loading
+            showModal('loadingModal');
             
-            // Kiểm tra email có đúng định dạng của trường không
-            const emailRegex = /@(sv\.)?buh\.edu\.vn$/i;
-            if (!emailRegex.test(email)) {
-              alert("Vui lòng sử dụng email có đuôi @sv.buh.edu.vn hoặc @buh.edu.vn");
-              return;
-            }
+            // Get form values
+            const formData = {
+              fullName: document.getElementById("fullName").value,
+              email: document.getElementById("email").value,
+              studentId: document.getElementById("studentId").value,
+              department: document.getElementById("department").value,
+              password: document.getElementById("password").value,
+              confirmPassword: document.getElementById("confirmPassword").value,
+              terms: document.getElementById("terms").checked
+            };
             
-            // Kiểm tra mật khẩu đủ mạnh không
-            const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/;
-            if (!passwordRegex.test(password)) {
-              alert("Mật khẩu phải có ít nhất 8 ký tự, bao gồm chữ hoa, chữ thường và số");
-              return;
-            }
-            
-            // Kiểm tra mật khẩu và xác nhận mật khẩu khớp nhau
-            if (password !== confirmPassword) {
-              alert("Mật khẩu và xác nhận mật khẩu không khớp");
-              return;
-            }
-            
-            // Kiểm tra đã đồng ý với điều khoản chưa
-            if (!terms) {
-              alert("Bạn phải đồng ý với Điều khoản sử dụng và Chính sách bảo mật");
-              return;
-            }
-            
-            // Xử lý đăng ký - thông thường sẽ gửi dữ liệu lên server
-            console.log("Register submitted:", { 
-              fullName, 
-              email, 
-              studentId, 
-              department, 
-              password 
+            // Reset all validation states
+            inputs.forEach(input => {
+              input.classList.remove('border-red-500', 'border-green-500');
+              const feedbackElement = document.getElementById(`${input.id}Feedback`);
+              if (feedbackElement) {
+                feedbackElement.classList.add('hidden');
+              }
             });
             
-            // Cho mục đích demo, có thể chuyển hướng đến trang đăng nhập
-            // window.location.href = "login.html";
+            // Validate all fields
+            let hasError = false;
             
-            // Thông báo đăng ký thành công
-            alert("Đăng ký thành công! Vui lòng kiểm tra email để xác nhận tài khoản.");
+            if (!formData.fullName || !formData.email || !formData.studentId || !formData.department || !formData.password) {
+              hasError = true;
+              inputs.forEach(input => {
+                if (!input.value.trim()) {
+                  input.classList.add('border-red-500');
+                  const feedbackElement = document.getElementById(`${input.id}Feedback`);
+                  if (feedbackElement) {
+                    feedbackElement.textContent = 'Trường này là bắt buộc';
+                    feedbackElement.classList.remove('hidden');
+                  }
+                }
+              });
+            }
+            
+            if (!validateEmail(formData.email)) {
+              hasError = true;
+              toggleValidationIcons('email', false);
+            }
+            
+            if (!validatePassword(formData.password)) {
+              hasError = true;
+              toggleValidationIcons('password', false);
+            }
+            
+            if (formData.password !== formData.confirmPassword) {
+              hasError = true;
+              toggleValidationIcons('confirmPassword', false);
+            }
+            
+            if (!formData.terms) {
+              hasError = true;
+              document.getElementById("terms").classList.add('border-red-500');
+            }
+            
+            if (hasError) {
+              closeModal('loadingModal');
+              showError('Vui lòng kiểm tra lại thông tin đăng ký');
+              return;
+            }
+
+            try {
+              // Giả lập API call
+              await new Promise(resolve => setTimeout(resolve, 1500));
+              
+              // Đóng loading và hiển thị thành công
+              closeModal('loadingModal');
+              showModal('successModal');
+              
+              // Reset form và validation states
+              registerForm.reset();
+              inputs.forEach(input => {
+                input.classList.remove('border-red-500', 'border-green-500');
+                const validIcon = document.getElementById(`${input.id}ValidIcon`);
+                const invalidIcon = document.getElementById(`${input.id}InvalidIcon`);
+                if (validIcon) validIcon.style.opacity = '0';
+                if (invalidIcon) invalidIcon.style.opacity = '0';
+              });
+              
+              // Reset progress bar
+              updateProgress();
+              
+              // Redirect sau 3 giây
+              setTimeout(() => {
+                window.location.href = 'login.html';
+              }, 3000);
+              
+            } catch (error) {
+              closeModal('loadingModal');
+              showError('Có lỗi xảy ra trong quá trình đăng ký. Vui lòng thử lại sau.');
+            }
           });
         }
       });

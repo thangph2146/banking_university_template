@@ -245,17 +245,17 @@
         <nav class="hidden md:flex items-center space-x-8" aria-label="Main navigation">
           <a
             href="index.html"
-            class="text-white font-medium hover:text-red-200 transition-colors py-2"
+            class="font-medium transition-colors py-2 border-b-2 border-white text-white transition-all duration-300 hover:-translate-y-1"
             aria-current="page"
             >Trang chủ</a
           >
-          <a href="events.html" class="text-red-100 hover:text-white transition-colors py-2"
+          <a href="events.html" class="font-medium text-white/80 hover:text-white transition-all duration-300 hover:-translate-y-1"
             >Sự kiện</a
           >
-          <a href="news.html" class="text-red-100 hover:text-white transition-colors py-2"
+          <a href="news.html" class="font-medium text-white/80 hover:text-white transition-all duration-300 hover:-translate-y-1"
             >Giới thiệu</a
           >
-          <a href="contact.html" class="text-red-100 hover:text-white transition-colors py-2"
+          <a href="contact.html" class="font-medium text-white/80 hover:text-white transition-all duration-300 hover:-translate-y-1"
             >Liên hệ</a
           >
         </nav>
@@ -852,7 +852,7 @@
             >
               <div class="md:w-1/3 h-48 md:h-auto overflow-hidden relative">
                 <img
-                  src="https://readdy.ai/api/search-image?query=Workshop%20with%20students%20participating%20in%20a%20financial%20simulation%20game%2C%20interactive%20learning%2C%20professional%20setting%2C%20university%20classroom&width=300&height=200&seq=upcoming1&orientation=portrait"
+                  src="https://readdy.ai/api/search-image?query=Workshop%20with%20students%20participating%20in%20a%20financial%20simulation%20game%2C%20interactive%2C%20professional%20setting%2C%20university%20classroom&width=300&height=200&seq=upcoming1&orientation=portrait"
                   alt="Workshop Đầu tư Chứng khoán"
                   class="w-full h-full object-cover object-center transition-transform duration-500 group-hover:scale-105"
                   loading="lazy"
@@ -1096,7 +1096,7 @@
                 <div class="w-5 h-5 flex items-center justify-center mr-2 text-red-200">
                   <i class="ri-mail-line"></i>
                 </div>
-                <span>info@buh.edu.vn</span>
+                <span>info@hub.edu.vn</span>
               </li>
             </ul>
             <div class="mt-4 p-4 bg-red-900/30 rounded-lg">
@@ -1137,12 +1137,12 @@
         </div>
         <nav class="p-4" aria-label="Mobile navigation">
           <ul class="space-y-4">
-            <li><a href="index.html" class="text-white font-medium block py-2 hover:translate-x-2 transition-transform" aria-current="page">Trang chủ</a></li>
-            <li><a href="events.html" class="text-red-100 block py-2 hover:text-white hover:translate-x-2 transition-all">Sự kiện</a></li>
-            <li><a href="news.html" class="text-red-100 block py-2 hover:text-white hover:translate-x-2 transition-all">Giới thiệu</a></li>
-            <li><a href="contact.html" class="text-red-100 block py-2 hover:text-white hover:translate-x-2 transition-all">Liên hệ</a></li>
-            <li class="pt-4 border-t border-red-900/30">
-              <a href="login.html" class="text-white font-medium block py-2 hover:translate-x-2 transition-transform">Đăng nhập</a>
+            <li><a href="index.html" class="font-medium text-white border-l-4 border-white pl-2 py-2 hover:translate-x-1 transition-transform" aria-current="page">Trang chủ</a></li>
+            <li><a href="events.html" class="font-medium text-white/80 hover:text-white py-2 hover:translate-x-1 transition-all">Sự kiện</a></li>
+            <li><a href="news.html" class="font-medium text-white/80 hover:text-white py-2 hover:translate-x-1 transition-all">Giới thiệu</a></li>
+            <li><a href="contact.html" class="font-medium text-white/80 hover:text-white py-2 hover:translate-x-1 transition-all">Liên hệ</a></li>
+            <li>
+              <a href="login.html" class="bg-white text-primary px-4 py-2 !rounded-button whitespace-nowrap block text-center mt-2 hover:bg-gray-100 transition-colors shadow-sm">Đăng nhập</a>
             </li>
             <li>
               <a href="register.html" class="bg-white text-primary px-4 py-2 !rounded-button whitespace-nowrap block text-center mt-2 hover:bg-gray-100 transition-colors shadow-sm">Đăng ký</a>
@@ -1425,6 +1425,60 @@
         
         // Initialize animated elements
         initAnimatedElements();
+        
+        // Add active class to current page in navigation
+        function setActiveMenu() {
+          const currentPath = window.location.pathname;
+          const navLinks = {
+            desktop: document.querySelectorAll('header nav.hidden.md\\:flex a'),
+            mobile: document.querySelectorAll('#mobile-menu nav ul li a')
+          };
+          
+          // Xử lý đường dẫn và tìm tên trang
+          const pageName = currentPath.split('/').pop() || 'index.html';
+          
+          // Đặt active cho menu desktop
+          navLinks.desktop.forEach(link => {
+            // Reset tất cả
+            link.classList.remove('border-b-2', 'border-white');
+            link.classList.add('text-white/80');
+            link.classList.remove('text-white');
+            link.removeAttribute('aria-current');
+            
+            // Kiểm tra nếu liên kết trùng với trang hiện tại
+            const linkHref = link.getAttribute('href');
+            if (linkHref === pageName || 
+                (pageName === 'index.html' && linkHref === 'index.html') ||
+                (pageName === '' && linkHref === 'index.html')) {
+              link.classList.add('border-b-2', 'border-white', 'text-white');
+              link.classList.remove('text-white/80');
+              link.setAttribute('aria-current', 'page');
+            }
+          });
+          
+          // Đặt active cho menu mobile
+          navLinks.mobile.forEach(link => {
+            // Reset tất cả
+            link.classList.remove('border-l-4', 'border-white', 'pl-2');
+            link.classList.remove('text-white');
+            link.removeAttribute('aria-current');
+            
+            // Kiểm tra nếu liên kết trùng với trang hiện tại
+            const linkHref = link.getAttribute('href');
+            if (linkHref === pageName || 
+                (pageName === 'index.html' && linkHref === 'index.html') ||
+                (pageName === '' && linkHref === 'index.html')) {
+              link.classList.add('border-l-4', 'border-white', 'pl-2', 'text-white');
+              link.classList.remove('text-white/80');
+              link.setAttribute('aria-current', 'page');
+            }
+          });
+        }
+        
+        // Gọi hàm thiết lập menu active khi trang đã tải
+        setActiveMenu();
+        
+        // Add animations to elements with data-animate attribute
       });
     </script>
   </body>

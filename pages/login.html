@@ -42,10 +42,80 @@
     <style>
       :where([class^="ri-"])::before { content: "\f3c2"; }
       body {
-      font-family: 'Inter', sans-serif;
+        font-family: 'Inter', sans-serif;
       }
       .hero-gradient {
-      background: linear-gradient(90deg, rgba(255,255,255,1) 0%, rgba(255,255,255,0.9) 50%, rgba(255,255,255,0) 100%);
+        background: linear-gradient(90deg, rgba(255,255,255,1) 0%, rgba(255,255,255,0.9) 50%, rgba(255,255,255,0) 100%);
+      }
+
+      /* Modal styles */
+      .modal {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+        z-index: 1000;
+        opacity: 0;
+        transition: opacity 0.3s ease-in-out;
+      }
+
+      .modal.show {
+        display: flex;
+        opacity: 1;
+      }
+
+      .modal-content {
+        background: white;
+        margin: auto;
+        padding: 1.5rem;
+        border-radius: 12px;
+        max-width: 400px;
+        width: 90%;
+        transform: translateY(-20px);
+        transition: transform 0.3s ease-in-out;
+        position: relative;
+      }
+
+      .modal.show .modal-content {
+        transform: translateY(0);
+      }
+
+      .modal-icon {
+        width: 48px;
+        height: 48px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 1rem;
+      }
+
+      .modal-icon.success {
+        background-color: #ecfdf5;
+        color: #059669;
+      }
+
+      .modal-icon.error {
+        background-color: #fef2f2;
+        color: #dc2626;
+      }
+
+      .modal-icon.warning {
+        background-color: #fffbeb;
+        color: #d97706;
+      }
+
+      @keyframes shake {
+        0%, 100% { transform: translateX(0); }
+        25% { transform: translateX(-5px); }
+        75% { transform: translateX(5px); }
+      }
+
+      .shake {
+        animation: shake 0.5s ease-in-out;
       }
     </style>
   </head>
@@ -95,101 +165,117 @@
     <!-- Login Form Section -->
     <section class="py-16">
       <div class="container mx-auto px-4">
-        <div class="max-w-md mx-auto bg-white rounded-lg shadow-md overflow-hidden">
-          <div class="bg-primary py-4 px-6">
-            <h2 class="text-2xl font-bold text-white text-center">Đăng nhập</h2>
-          </div>
-          <div class="p-6">
-            <form id="loginForm">
-              <!-- Email Field -->
-              <div class="mb-4">
-                <label for="email" class="block text-gray-700 font-medium mb-2">Email</label>
-                <div class="relative">
-                  <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                    <i class="ri-mail-line text-gray-400"></i>
+        <div class="max-w-md mx-auto">
+          <!-- Form Card -->
+          <div class="bg-white rounded-xl shadow-lg overflow-hidden">
+            <div class="bg-primary p-6 text-center">
+              <h2 class="text-2xl font-bold text-white">Đăng nhập</h2>
+              <p class="text-red-100 mt-2">Chào mừng bạn quay trở lại!</p>
+            </div>
+            <div class="p-6">
+              <form id="loginForm" class="space-y-6">
+                <!-- Email Field -->
+                <div>
+                  <label for="email" class="block text-gray-700 font-medium mb-2">Email</label>
+                  <div class="relative">
+                    <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                      <i class="ri-mail-line text-gray-400"></i>
+                    </div>
+                    <input
+                      type="email"
+                      id="email"
+                      name="email"
+                      class="w-full pl-10 pr-3 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all duration-200"
+                      placeholder="Nhập email của bạn"
+                      required
+                    />
+                    <div class="hidden absolute inset-y-0 right-0 pr-3 flex items-center">
+                      <i class="ri-error-warning-line text-red-500"></i>
+                    </div>
                   </div>
-                  <input
-                    type="email"
-                    id="email"
-                    name="email"
-                    class="w-full pl-10 pr-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
-                    placeholder="Nhập email của bạn"
-                    required
-                  />
+                  <p class="mt-1 text-sm text-red-500 hidden">Email không hợp lệ</p>
                 </div>
-              </div>
-              
-              <!-- Password Field -->
-              <div class="mb-6">
-                <div class="flex items-center justify-between mb-2">
-                  <label for="password" class="block text-gray-700 font-medium">Mật khẩu</label>
-                  <a href="#" class="text-sm text-primary hover:underline">Quên mật khẩu?</a>
-                </div>
-                <div class="relative">
-                  <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                    <i class="ri-lock-line text-gray-400"></i>
+                
+                <!-- Password Field -->
+                <div>
+                  <div class="flex items-center justify-between mb-2">
+                    <label for="password" class="block text-gray-700 font-medium">Mật khẩu</label>
+                    <a href="#" class="text-sm text-primary hover:text-primary/80 transition-colors">Quên mật khẩu?</a>
                   </div>
-                  <input
-                    type="password"
-                    id="password"
-                    name="password"
-                    class="w-full pl-10 pr-10 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
-                    placeholder="Nhập mật khẩu của bạn"
-                    required
-                  />
-                  <div class="absolute inset-y-0 right-0 pr-3 flex items-center">
-                    <button type="button" id="showPassword" class="text-gray-400 hover:text-gray-500">
+                  <div class="relative">
+                    <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                      <i class="ri-lock-line text-gray-400"></i>
+                    </div>
+                    <input
+                      type="password"
+                      id="password"
+                      name="password"
+                      class="w-full pl-10 pr-10 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all duration-200"
+                      placeholder="Nhập mật khẩu của bạn"
+                      required
+                    />
+                    <button 
+                      type="button" 
+                      id="showPassword" 
+                      class="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-400 hover:text-gray-600 transition-colors"
+                    >
                       <i class="ri-eye-off-line"></i>
                     </button>
                   </div>
+                  <p class="mt-1 text-sm text-red-500 hidden">Mật khẩu phải có ít nhất 6 ký tự</p>
                 </div>
+                
+                <!-- Remember Me Checkbox -->
+                <div class="flex items-center">
+                  <input 
+                    type="checkbox" 
+                    id="remember" 
+                    name="remember" 
+                    class="h-4 w-4 text-primary focus:ring-primary border-gray-300 rounded transition-colors"
+                  />
+                  <label for="remember" class="ml-2 block text-sm text-gray-700">
+                    Ghi nhớ đăng nhập
+                  </label>
+                </div>
+                
+                <!-- Submit Button -->
+                <button
+                  type="submit"
+                  class="w-full bg-primary text-white py-3 px-4 rounded-lg hover:bg-primary/90 transition-all duration-200 font-medium flex items-center justify-center"
+                  id="loginButton"
+                >
+                  <span>Đăng nhập</span>
+                  <i class="ri-arrow-right-line ml-2"></i>
+                </button>
+              </form>
+              
+              <div class="mt-6 text-center">
+                <p class="text-gray-600">
+                  Chưa có tài khoản? 
+                  <a href="register.html" class="text-primary font-medium hover:text-primary/80 transition-colors">Đăng ký ngay</a>
+                </p>
               </div>
               
-              <!-- Remember Me Checkbox -->
-              <div class="flex items-center mb-6">
-                <input 
-                  type="checkbox" 
-                  id="remember" 
-                  name="remember" 
-                  class="h-4 w-4 text-primary focus:ring-primary border-gray-300 rounded"
-                />
-                <label for="remember" class="ml-2 block text-sm text-gray-700">
-                  Ghi nhớ đăng nhập
-                </label>
-              </div>
-              
-              <!-- Submit Button -->
-              <button
-                type="submit"
-                class="w-full bg-primary text-white py-2 px-4 !rounded-button hover:bg-primary/90 transition-colors font-medium"
-              >
-                Đăng nhập
-              </button>
-            </form>
-            
-            <div class="mt-6 text-center">
-              <p class="text-gray-600">
-                Chưa có tài khoản? 
-                <a href="#" class="text-primary font-medium hover:underline">Đăng ký ngay</a>
-              </p>
-            </div>
-            
-            <!-- Social Login -->
-            <div class="mt-6">
-              <div class="relative">
-                <div class="absolute inset-0 flex items-center">
-                  <div class="w-full border-t border-gray-300"></div>
+              <!-- Social Login -->
+              <div class="mt-6">
+                <div class="relative">
+                  <div class="absolute inset-0 flex items-center">
+                    <div class="w-full border-t border-gray-300"></div>
+                  </div>
+                  <div class="relative flex justify-center text-sm">
+                    <span class="px-2 bg-white text-gray-500">Hoặc đăng nhập với</span>
+                  </div>
                 </div>
-                <div class="relative flex justify-center text-sm">
-                  <span class="px-2 bg-white text-gray-500">Hoặc đăng nhập với</span>
+                
+                <div class="mt-6">
+                  <button 
+                    type="button"
+                    class="w-full flex items-center justify-center px-4 py-3 border border-gray-300 rounded-lg shadow-sm bg-white hover:bg-gray-50 transition-all duration-200 space-x-2"
+                  >
+                    <img src="https://www.google.com/favicon.ico" alt="Google" class="w-5 h-5" />
+                    <span class="text-gray-700">Tiếp tục với Google</span>
+                  </button>
                 </div>
-              </div>
-              
-              <div class="mt-6 grid grid-cols-1 gap-3">
-                <a href="#" class="flex justify-center items-center px-4 py-2 border border-gray-300 rounded-md shadow-sm bg-white hover:bg-gray-50 transition-colors">
-                  <i class="ri-google-fill text-red-500 mr-2"></i>
-                  <span class="text-gray-700">Google</span>
-                </a>
               </div>
             </div>
           </div>
@@ -312,7 +398,7 @@
                   <div class="w-5 h-5 flex items-center justify-center mr-2">
                     <i class="ri-mail-line"></i>
                   </div>
-                  <span>info@buh.edu.vn</span>
+                  <span>info@hub.edu.vn</span>
                 </li>
               </ul>
             </div>
@@ -326,6 +412,51 @@
       </footer>
 
     <script>
+      // Modal functions
+      function showModal(modalId, message = null) {
+        const modal = document.getElementById(modalId);
+        if (message && modalId === 'errorModal') {
+          document.getElementById('errorMessage').textContent = message;
+        }
+        modal.classList.add('show');
+      }
+
+      function closeModal(modalId) {
+        const modal = document.getElementById(modalId);
+        modal.classList.remove('show');
+      }
+
+      // Form validation helper
+      function validateEmail(email) {
+        const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        return re.test(String(email).toLowerCase());
+      }
+
+      function showError(input, message) {
+        const parent = input.parentElement.parentElement;
+        const errorText = parent.querySelector('.text-red-500');
+        const errorIcon = parent.querySelector('.ri-error-warning-line')?.parentElement;
+        
+        input.classList.add('border-red-500');
+        errorText.textContent = message;
+        errorText.classList.remove('hidden');
+        if (errorIcon) errorIcon.classList.remove('hidden');
+        
+        // Add shake animation
+        input.classList.add('shake');
+        setTimeout(() => input.classList.remove('shake'), 500);
+      }
+
+      function clearError(input) {
+        const parent = input.parentElement.parentElement;
+        const errorText = parent.querySelector('.text-red-500');
+        const errorIcon = parent.querySelector('.ri-error-warning-line')?.parentElement;
+        
+        input.classList.remove('border-red-500');
+        errorText.classList.add('hidden');
+        if (errorIcon) errorIcon.classList.add('hidden');
+      }
+
       // Mobile menu toggle
       document.addEventListener("DOMContentLoaded", function () {
         const menuButton = document.querySelector("button.md\\:hidden");
@@ -333,31 +464,33 @@
         mobileMenu.className =
           "fixed inset-0 bg-primary z-50 transform translate-x-full transition-transform duration-300 ease-in-out";
         mobileMenu.innerHTML = `
-        <div class="p-4 flex justify-between items-center border-b border-red-900/30">
-          <a href="index.html" class="text-2xl font-['Pacifico'] text-white">logo</a>
-          <button class="w-10 h-10 flex items-center justify-center text-white">
-            <i class="ri-close-line ri-lg"></i>
-          </button>
-        </div>
-        <nav class="p-4">
-          <ul class="space-y-4">
-            <li><a href="index.html" class="text-red-100 block py-2">Trang chủ</a></li>
-            <li><a href="#" class="text-red-100 block py-2">Sự kiện</a></li>
-            <li><a href="#" class="text-red-100 block py-2">Giới thiệu</a></li>
-            <li><a href="#" class="text-red-100 block py-2">Liên hệ</a></li>
-            <li class="pt-4 border-t border-red-900/30">
-              <a href="login.html" class="text-white font-medium block py-2">Đăng nhập</a>
-            </li>
-            <li>
-              <a href="#" class="bg-white text-primary px-4 py-2 !rounded-button whitespace-nowrap block text-center mt-2">Đăng ký</a>
-            </li>
-          </ul>
-        </nav>
+          <div class="p-4 flex justify-between items-center border-b border-red-900/30">
+            <a href="index.html" class="text-2xl font-['Pacifico'] text-white">logo</a>
+            <button class="w-10 h-10 flex items-center justify-center text-white">
+              <i class="ri-close-line ri-lg"></i>
+            </button>
+          </div>
+          <nav class="p-4">
+            <ul class="space-y-4">
+              <li><a href="index.html" class="text-red-100 block py-2">Trang chủ</a></li>
+              <li><a href="events.html" class="text-red-100 block py-2">Sự kiện</a></li>
+              <li><a href="news.html" class="text-red-100 block py-2">Giới thiệu</a></li>
+              <li><a href="contact.html" class="text-red-100 block py-2">Liên hệ</a></li>
+              <li class="pt-4 border-t border-red-900/30">
+                <a href="login.html" class="text-white font-medium block py-2">Đăng nhập</a>
+              </li>
+              <li>
+                <a href="register.html" class="bg-white text-primary px-4 py-2 !rounded-button whitespace-nowrap block text-center mt-2">Đăng ký</a>
+              </li>
+            </ul>
+          </nav>
         `;
         document.body.appendChild(mobileMenu);
+        
         menuButton.addEventListener("click", function () {
           mobileMenu.classList.remove("translate-x-full");
         });
+        
         mobileMenu.querySelector("button").addEventListener("click", function () {
           mobileMenu.classList.add("translate-x-full");
         });
@@ -370,11 +503,9 @@
         
         if (showPasswordButton && passwordInput) {
           showPasswordButton.addEventListener("click", function () {
-            // Toggle password visibility
             const type = passwordInput.getAttribute("type") === "password" ? "text" : "password";
             passwordInput.setAttribute("type", type);
             
-            // Toggle icon
             const icon = showPasswordButton.querySelector("i");
             if (type === "text") {
               icon.classList.remove("ri-eye-off-line");
@@ -387,33 +518,140 @@
         }
       });
 
-      // Form validation
+      // Form validation and submission
       document.addEventListener("DOMContentLoaded", function () {
         const loginForm = document.getElementById("loginForm");
+        const emailInput = document.getElementById("email");
+        const passwordInput = document.getElementById("password");
+        
+        // Real-time validation
+        emailInput.addEventListener('input', function() {
+          if (this.value.length > 0) {
+            if (!validateEmail(this.value)) {
+              showError(this, 'Email không hợp lệ');
+            } else {
+              clearError(this);
+            }
+          } else {
+            clearError(this);
+          }
+        });
+
+        passwordInput.addEventListener('input', function() {
+          if (this.value.length > 0 && this.value.length < 6) {
+            showError(this, 'Mật khẩu phải có ít nhất 6 ký tự');
+          } else {
+            clearError(this);
+          }
+        });
         
         if (loginForm) {
-          loginForm.addEventListener("submit", function (event) {
+          loginForm.addEventListener("submit", async function (event) {
             event.preventDefault();
             
-            // Get form values
-            const email = document.getElementById("email").value;
-            const password = document.getElementById("password").value;
+            const email = emailInput.value;
+            const password = passwordInput.value;
             const remember = document.getElementById("remember").checked;
             
-            // Basic validation
-            if (!email || !password) {
-              alert("Vui lòng nhập đầy đủ thông tin đăng nhập");
+            // Validate email
+            if (!email) {
+              showError(emailInput, 'Vui lòng nhập email');
+              return;
+            }
+            if (!validateEmail(email)) {
+              showError(emailInput, 'Email không hợp lệ');
               return;
             }
             
-            // Here you would normally handle the login request to your server
-            console.log("Login submitted:", { email, password, remember });
+            // Validate password
+            if (!password) {
+              showError(passwordInput, 'Vui lòng nhập mật khẩu');
+              return;
+            }
+            if (password.length < 6) {
+              showError(passwordInput, 'Mật khẩu phải có ít nhất 6 ký tự');
+              return;
+            }
+
+            // Show loading state
+            const loginButton = document.getElementById('loginButton');
+            const originalContent = loginButton.innerHTML;
+            loginButton.innerHTML = '<i class="ri-loader-4-line animate-spin"></i>';
+            loginButton.disabled = true;
             
-            // For demo purposes, redirect to index page
-            // window.location.href = "index.html";
+            try {
+              // Simulate API call
+              await new Promise(resolve => setTimeout(resolve, 1500));
+              
+              // For demo purposes, show different modals based on email
+              if (email === 'demo@example.com') {
+                showModal('successModal');
+                setTimeout(() => {
+                  window.location.href = 'index.html';
+                }, 1500);
+              } else if (email === 'wrong@example.com') {
+                showModal('errorModal', 'Email hoặc mật khẩu không chính xác');
+              } else {
+                showModal('accountNotFoundModal');
+              }
+            } catch (error) {
+              showModal('errorModal', 'Có lỗi xảy ra. Vui lòng thử lại sau.');
+            } finally {
+              loginButton.innerHTML = originalContent;
+              loginButton.disabled = false;
+            }
           });
         }
       });
     </script>
+
+    <!-- Modal Components -->
+    <!-- Success Modal -->
+    <div id="successModal" class="modal">
+      <div class="modal-content">
+        <div class="modal-icon success">
+          <i class="ri-check-line text-2xl"></i>
+        </div>
+        <h3 class="text-xl font-semibold text-center mb-2">Đăng nhập thành công!</h3>
+        <p class="text-gray-600 text-center mb-6">Chào mừng bạn quay trở lại.</p>
+        <button onclick="closeModal('successModal')" class="w-full bg-primary text-white py-2 px-4 rounded-button hover:bg-primary/90 transition-colors">
+          Đóng
+        </button>
+      </div>
+    </div>
+
+    <!-- Error Modal -->
+    <div id="errorModal" class="modal">
+      <div class="modal-content">
+        <div class="modal-icon error">
+          <i class="ri-error-warning-line text-2xl"></i>
+        </div>
+        <h3 class="text-xl font-semibold text-center mb-2">Đăng nhập thất bại!</h3>
+        <p class="text-gray-600 text-center mb-6" id="errorMessage">Email hoặc mật khẩu không chính xác.</p>
+        <button onclick="closeModal('errorModal')" class="w-full bg-primary text-white py-2 px-4 rounded-button hover:bg-primary/90 transition-colors">
+          Thử lại
+        </button>
+      </div>
+    </div>
+
+    <!-- Account Not Found Modal -->
+    <div id="accountNotFoundModal" class="modal">
+      <div class="modal-content">
+        <div class="modal-icon warning">
+          <i class="ri-user-unfollow-line text-2xl"></i>
+        </div>
+        <h3 class="text-xl font-semibold text-center mb-2">Tài khoản không tồn tại</h3>
+        <p class="text-gray-600 text-center mb-6">Email này chưa được đăng ký trong hệ thống.</p>
+        <div class="space-y-3">
+          <button onclick="window.location.href='register.html'" class="w-full bg-primary text-white py-2 px-4 rounded-button hover:bg-primary/90 transition-colors">
+            Đăng ký ngay
+          </button>
+          <button onclick="closeModal('accountNotFoundModal')" class="w-full bg-gray-100 text-gray-700 py-2 px-4 rounded-button hover:bg-gray-200 transition-colors">
+            Thử lại
+          </button>
+        </div>
+      </div>
+    </div>
+
   </body>
 </html> 
