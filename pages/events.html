@@ -1296,128 +1296,231 @@
     </footer>
     
     <script>
-      // JavaScript functionality for the Events page
-      document.addEventListener("DOMContentLoaded", function () {
-        // Handle mobile menu functionality
-        const handleMobileMenu = () => {
-          // Mobile menu
-          const menuButton = document.querySelector("button.md\\:hidden");
-          const mobileMenu = document.createElement("div");
-          mobileMenu.id = "mobile-menu";
-          mobileMenu.className =
-            "fixed inset-0 bg-primary/95 z-50 transform translate-x-full transition-transform duration-300 ease-in-out backdrop-blur-sm";
-          
-          // Set mobile menu content
-          mobileMenu.innerHTML = `
-            <div class="p-4 flex justify-between items-center border-b border-red-900/30">
-              <a href="index.html" class="text-2xl font-pacifico text-white flex items-center">
-                <img src="../images/logo/logo-white-vertical.png" alt="Đại học Ngân hàng TP.HCM logo" class="w-12 h-12">
-              </a>
-              <button class="w-10 h-10 flex items-center justify-center text-white" aria-label="Đóng menu">
-                <i class="ri-close-line ri-lg"></i>
-              </button>
-            </div>
-            <nav class="p-4" aria-label="Mobile navigation">
-              <ul class="space-y-4">
-                <li><a href="index.html" class="font-medium text-white/80 hover:text-white py-2 hover:translate-x-1 transition-all block">Trang chủ</a></li>
-                <li><a href="events.html" class="font-medium text-white border-l-4 border-white pl-2 py-2 hover:translate-x-1 transition-transform block" aria-current="page">Sự kiện</a></li>
-                <li><a href="news.html" class="font-medium text-white/80 hover:text-white py-2 hover:translate-x-1 transition-all block">Giới thiệu</a></li>
-                <li><a href="contact.html" class="font-medium text-white/80 hover:text-white py-2 hover:translate-x-1 transition-all block">Liên hệ</a></li>
-                <li>
-                  <a href="login.html" class="bg-white text-primary px-4 py-2 !rounded-button whitespace-nowrap block text-center mt-2 hover:bg-gray-100 transition-colors shadow-sm">Đăng nhập</a>
-                </li>
-                <li>
-                  <a href="register.html" class="bg-white text-primary px-4 py-2 !rounded-button whitespace-nowrap block text-center mt-2 hover:bg-gray-100 transition-colors shadow-sm">Đăng ký</a>
-                </li>
-              </ul>
-            </nav>
-          `;
-          
-          // Add mobile menu to DOM
-          document.body.appendChild(mobileMenu);
-          
-          // Add event listeners for menu toggle
-          menuButton.addEventListener("click", function () {
-            mobileMenu.classList.remove("translate-x-full");
-          });
-          
-          mobileMenu.querySelector("button").addEventListener("click", function () {
-            mobileMenu.classList.add("translate-x-full");
-          });
-        };
+      /**
+       * Event Management Script
+       * This module handles all event listing functionality including:
+       * - Filtering
+       * - Sorting
+       * - Searching
+       * - Pagination
+       */
+      document.addEventListener("DOMContentLoaded", () => {
+        // Initialize all event functionality
+        initializeMobileMenu();
+        initializeEventFilters();
+        initializeSearchFunctionality();
+        initializeEventCardEffects();
+        initializePagination();
+      });
+      
+      /**
+       * Mobile menu functionality
+       */
+      const initializeMobileMenu = () => {
+        const menuButton = document.querySelector("button.md\\:hidden");
         
-        // Initialize mobile menu
-        handleMobileMenu();
+        // Skip if element doesn't exist
+        if (!menuButton) return;
+        
+        // Create mobile menu element
+        const mobileMenu = document.createElement("div");
+        mobileMenu.id = "mobile-menu";
+        mobileMenu.className = "fixed inset-0 bg-primary/95 z-50 transform translate-x-full transition-transform duration-300 ease-in-out backdrop-blur-sm";
+        
+        // Set mobile menu content
+        mobileMenu.innerHTML = `
+          <div class="p-4 flex justify-between items-center border-b border-red-900/30">
+            <a href="index.html" class="text-2xl font-pacifico text-white flex items-center">
+              <img src="../images/logo/logo-white-vertical.png" alt="Đại học Ngân hàng TP.HCM logo" class="w-12 h-12">
+            </a>
+            <button class="w-10 h-10 flex items-center justify-center text-white" aria-label="Đóng menu">
+              <i class="ri-close-line ri-lg"></i>
+            </button>
+          </div>
+          <nav class="p-4" aria-label="Mobile navigation">
+            <ul class="space-y-4">
+              <li><a href="index.html" class="font-medium text-white/80 hover:text-white py-2 hover:translate-x-1 transition-all block">Trang chủ</a></li>
+              <li><a href="events.html" class="font-medium text-white border-l-4 border-white pl-2 py-2 hover:translate-x-1 transition-transform block" aria-current="page">Sự kiện</a></li>
+              <li><a href="news.html" class="font-medium text-white/80 hover:text-white py-2 hover:translate-x-1 transition-all block">Giới thiệu</a></li>
+              <li><a href="contact.html" class="font-medium text-white/80 hover:text-white py-2 hover:translate-x-1 transition-all block">Liên hệ</a></li>
+              <li>
+                <a href="login.html" class="bg-white text-primary px-4 py-2 !rounded-button whitespace-nowrap block text-center mt-2 hover:bg-gray-100 transition-colors shadow-sm">Đăng nhập</a>
+              </li>
+              <li>
+                <a href="register.html" class="bg-white text-primary px-4 py-2 !rounded-button whitespace-nowrap block text-center mt-2 hover:bg-gray-100 transition-colors shadow-sm">Đăng ký</a>
+              </li>
+            </ul>
+          </nav>
+        `;
+        
+        // Add mobile menu to DOM
+        document.body.appendChild(mobileMenu);
+        
+        // Add event listeners for menu toggle
+        menuButton.addEventListener("click", () => {
+          mobileMenu.classList.remove("translate-x-full");
+        });
+        
+        mobileMenu.querySelector("button").addEventListener("click", () => {
+          mobileMenu.classList.add("translate-x-full");
+        });
         
         // Remove the built-in mobile menu
         const builtInMobileMenu = document.getElementById('mobile-menu');
         if (builtInMobileMenu) {
           builtInMobileMenu.remove();
         }
+      };
+      
+      /**
+       * Events filtering functionality
+       */
+      const initializeEventFilters = () => {
+        // Cache DOM elements
+        const elements = getEventFilterElements();
+        if (!elements.categoryFilter || !elements.timeFilter || !elements.locationFilter) return;
         
-        // Handle search functionality
-        const searchInput = document.getElementById('search-input');
-        const searchButton = document.getElementById('search-button');
+        // Set up event listeners
+        setupFilterEventListeners(elements);
         
-        if (searchButton && searchInput) {
-          // Search on button click
-          searchButton.addEventListener('click', function() {
-            performSearch(searchInput.value);
-          });
+        // Create mapping objects for display names
+        const mappings = createFilterMappings();
+        
+        // Event filter operations
+        const filterOperations = {
+          // Reset all filters
+          resetAllFilters: () => {
+            elements.categoryFilter.value = '';
+            elements.timeFilter.value = '';
+            elements.locationFilter.value = '';
+            applyFilters(elements, mappings);
+          },
           
-          // Search on Enter key press
-          searchInput.addEventListener('keypress', function(e) {
-            if (e.key === 'Enter') {
-              performSearch(searchInput.value);
+          // Reset a specific filter
+          resetFilter: (filterType) => {
+            if (filterType === 'category') {
+              elements.categoryFilter.value = '';
+            } else if (filterType === 'time') {
+              elements.timeFilter.value = '';
+            } else if (filterType === 'location') {
+              elements.locationFilter.value = '';
             }
-          });
-        }
-        
-        // Filter functionality
-        const categoryFilter = document.getElementById('category-filter');
-        const timeFilter = document.getElementById('time-filter');
-        const locationFilter = document.getElementById('location-filter');
-        const allEventCards = document.querySelectorAll('.event-card');
-        const noResultsElement = document.createElement('div');
-        
-        // Filter status elements
-        const filterStatus = document.getElementById('filter-status');
-        const categoryTag = document.getElementById('category-tag');
-        const timeTag = document.getElementById('time-tag');
-        const locationTag = document.getElementById('location-tag');
-        const clearAllFilters = document.getElementById('clear-all-filters');
-        
-        // Category name mapping for display
-        const categoryNames = {
-          "academic": "Học thuật",
-          "cultural": "Văn hóa",
-          "sports": "Thể thao",
-          "career": "Việc làm",
-          "volunteer": "Tình nguyện",
-          "music": "Âm nhạc",
-          "contest": "Cuộc thi",
-          "startup": "Khởi nghiệp"
+            applyFilters(elements, mappings);
+          },
+          
+          // Update the filter status bar
+          updateFilterStatusBar: () => {
+            const categoryValue = elements.categoryFilter.value;
+            const timeValue = elements.timeFilter.value;
+            const locationValue = elements.locationFilter.value;
+            
+            // Update category tag
+            if (categoryValue) {
+              elements.categoryTag.querySelector('.filter-tag-text').textContent = mappings.categoryNames[categoryValue] || categoryValue;
+              elements.categoryTag.classList.remove('hidden');
+            } else {
+              elements.categoryTag.classList.add('hidden');
+            }
+            
+            // Update time tag
+            if (timeValue) {
+              elements.timeTag.querySelector('.filter-tag-text').textContent = mappings.timeNames[timeValue] || timeValue;
+              elements.timeTag.classList.remove('hidden');
+            } else {
+              elements.timeTag.classList.add('hidden');
+            }
+            
+            // Update location tag
+            if (locationValue) {
+              elements.locationTag.querySelector('.filter-tag-text').textContent = mappings.locationNames[locationValue] || locationValue;
+              elements.locationTag.classList.remove('hidden');
+            } else {
+              elements.locationTag.classList.add('hidden');
+            }
+            
+            // Show/hide filter status bar
+            if (categoryValue || timeValue || locationValue) {
+              elements.filterStatus.classList.remove('hidden');
+            } else {
+              elements.filterStatus.classList.add('hidden');
+            }
+          }
         };
         
-        // Location name mapping for display
-        const locationNames = {
-          "hall": "Hội trường",
-          "library": "Thư viện",
-          "stadium": "Sân vận động",
-          "campus": "Khuôn viên"
-        };
+        // Make filter operations available globally (for other modules)
+        window.eventFilters = filterOperations;
         
-        // Time period mapping for display
-        const timeNames = {
-          "today": "Hôm nay",
-          "tomorrow": "Ngày mai",
-          "week": "Tuần này",
-          "month": "Tháng này"
+        // Apply filters when page loads (in case of URL parameters)
+        applyFilters(elements, mappings);
+      };
+      
+      /**
+       * Collects DOM elements related to event filtering
+       */
+      const getEventFilterElements = () => {
+        return {
+          // Filter inputs
+          categoryFilter: document.getElementById('category-filter'),
+          timeFilter: document.getElementById('time-filter'),
+          locationFilter: document.getElementById('location-filter'),
+          allEventCards: document.querySelectorAll('.event-card'),
+          eventGridContainer: document.querySelector('.grid.grid-cols-1.sm\\:grid-cols-2.lg\\:grid-cols-3'),
+          sortOption: document.getElementById('sort-option'),
+          
+          // Filter status elements
+          filterStatus: document.getElementById('filter-status'),
+          categoryTag: document.getElementById('category-tag'),
+          timeTag: document.getElementById('time-tag'),
+          locationTag: document.getElementById('location-tag'),
+          clearAllFilters: document.getElementById('clear-all-filters'),
+          
+          // No results element
+          noResultsElement: document.querySelector('.col-span-full.py-8.text-center') || createNoResultsElement()
         };
-        
-        // Create a "No Results" element to show when no events match filters
-        noResultsElement.classList.add('col-span-full', 'py-8', 'text-center', 'hidden');
-        noResultsElement.innerHTML = `
+      };
+      
+      /**
+       * Creates mappings for display names
+       */
+      const createFilterMappings = () => {
+        return {
+          // Category name mapping for display
+          categoryNames: {
+            "academic": "Học thuật",
+            "cultural": "Văn hóa",
+            "sports": "Thể thao",
+            "career": "Việc làm",
+            "volunteer": "Tình nguyện",
+            "music": "Âm nhạc",
+            "contest": "Cuộc thi",
+            "startup": "Khởi nghiệp"
+          },
+          
+          // Location name mapping for display
+          locationNames: {
+            "hall": "Hội trường",
+            "library": "Thư viện",
+            "stadium": "Sân vận động",
+            "campus": "Khuôn viên"
+          },
+          
+          // Time period mapping for display
+          timeNames: {
+            "today": "Hôm nay",
+            "tomorrow": "Ngày mai",
+            "week": "Tuần này",
+            "month": "Tháng này"
+          }
+        };
+      };
+      
+      /**
+       * Creates a "No Results" element for display when no events match filters
+       */
+      const createNoResultsElement = () => {
+        const element = document.createElement('div');
+        element.classList.add('col-span-full', 'py-8', 'text-center', 'hidden');
+        element.innerHTML = `
           <div class="flex flex-col items-center justify-center p-6 bg-gray-50 rounded-lg border border-gray-200">
             <i class="ri-search-line text-4xl text-gray-400 mb-3"></i>
             <h3 class="text-lg font-bold text-gray-700 mb-2">Không tìm thấy sự kiện</h3>
@@ -1431,277 +1534,270 @@
         // Add the No Results element to the container
         const eventGridContainer = document.querySelector('.grid.grid-cols-1.sm\\:grid-cols-2.lg\\:grid-cols-3');
         if (eventGridContainer) {
-          eventGridContainer.appendChild(noResultsElement);
+          eventGridContainer.appendChild(element);
         }
         
-        // Function to update filter status bar
-        function updateFilterStatusBar() {
-          const categoryValue = categoryFilter.value;
-          const timeValue = timeFilter.value;
-          const locationValue = locationFilter.value;
-          
-          // Update category tag
-          if (categoryValue) {
-            categoryTag.querySelector('.filter-tag-text').textContent = categoryNames[categoryValue] || categoryValue;
-            categoryTag.classList.remove('hidden');
-          } else {
-            categoryTag.classList.add('hidden');
-          }
-          
-          // Update time tag
-          if (timeValue) {
-            timeTag.querySelector('.filter-tag-text').textContent = timeNames[timeValue] || timeValue;
-            timeTag.classList.remove('hidden');
-          } else {
-            timeTag.classList.add('hidden');
-          }
-          
-          // Update location tag
-          if (locationValue) {
-            locationTag.querySelector('.filter-tag-text').textContent = locationNames[locationValue] || locationValue;
-            locationTag.classList.remove('hidden');
-          } else {
-            locationTag.classList.add('hidden');
-          }
-          
-          // Show/hide filter status bar
-          if (categoryValue || timeValue || locationValue) {
-            filterStatus.classList.remove('hidden');
-          } else {
-            filterStatus.classList.add('hidden');
-          }
-        }
-        
-        // Function to reset all filters
-        function resetFilters() {
-          categoryFilter.value = '';
-          timeFilter.value = '';
-          locationFilter.value = '';
-          applyFilters();
-        }
-        
-        // Function to reset a specific filter
-        function resetFilter(filterType) {
-          if (filterType === 'category') {
-            categoryFilter.value = '';
-          } else if (filterType === 'time') {
-            timeFilter.value = '';
-          } else if (filterType === 'location') {
-            locationFilter.value = '';
-          }
-          applyFilters();
-        }
-        
-        // Add event listener to reset button
-        document.addEventListener('click', function(e) {
+        return element;
+      };
+      
+      /**
+       * Set up event listeners for filters
+       */
+      const setupFilterEventListeners = (elements) => {
+        // Event delegation for filter tag removal and reset buttons
+        document.addEventListener('click', (e) => {
+          // Handle reset filters button
           if (e.target && e.target.id === 'reset-filters') {
-            resetFilters();
+            window.eventFilters.resetAllFilters();
           }
           
-          // Check for filter tag remove buttons
+          // Handle filter tag remove buttons
           if (e.target && e.target.closest('.filter-tag-remove')) {
             const button = e.target.closest('.filter-tag-remove');
             const filterType = button.getAttribute('data-filter');
-            resetFilter(filterType);
+            window.eventFilters.resetFilter(filterType);
           }
         });
         
-        // Add event listener to clear all filters button
-        if (clearAllFilters) {
-          clearAllFilters.addEventListener('click', resetFilters);
+        // Add listener to clear all filters button
+        if (elements.clearAllFilters) {
+          elements.clearAllFilters.addEventListener('click', window.eventFilters.resetAllFilters);
         }
         
-        // Add event listeners to filter select elements
-        if (categoryFilter && timeFilter && locationFilter) {
-          categoryFilter.addEventListener('change', applyFilters);
-          timeFilter.addEventListener('change', applyFilters);
-          locationFilter.addEventListener('change', applyFilters);
+        // Add listeners to filter select elements
+        if (elements.categoryFilter && elements.timeFilter && elements.locationFilter) {
+          elements.categoryFilter.addEventListener('change', () => applyFilters(elements));
+          elements.timeFilter.addEventListener('change', () => applyFilters(elements));
+          elements.locationFilter.addEventListener('change', () => applyFilters(elements));
+        }
+      };
+      
+      /**
+       * Apply filters to event cards
+       */
+      const applyFilters = (elements, mappings) => {
+        // Update filter status bar
+        window.eventFilters.updateFilterStatusBar();
+        
+        const categoryValue = elements.categoryFilter.value;
+        const timeValue = elements.timeFilter.value;
+        const locationValue = elements.locationFilter.value;
+        
+        let hasVisibleEvent = false;
+        
+        // Add animation when filtering
+        if (elements.eventGridContainer) {
+          elements.eventGridContainer.classList.add('opacity-60');
+          setTimeout(() => {
+            elements.eventGridContainer.classList.remove('opacity-60');
+          }, 300);
         }
         
-        // Function to apply filters
-        function applyFilters() {
-          const categoryValue = categoryFilter.value;
-          const timeValue = timeFilter.value;
-          const locationValue = locationFilter.value;
+        // Loop through all event cards
+        elements.allEventCards.forEach(card => {
+          // Get data attributes
+          const cardCategory = card.getAttribute('data-category');
+          const cardTime = card.getAttribute('data-time');
+          const cardLocation = card.getAttribute('data-location');
+          const cardDate = card.getAttribute('data-date');
           
-          // Update filter status bar
-          updateFilterStatusBar();
+          // Check if card matches all selected filters
+          const matchesCategory = categoryValue === '' || cardCategory === categoryValue;
+          const matchesLocation = locationValue === '' || cardLocation === locationValue;
+          let matchesTime = checkTimeFilter(timeValue, cardDate);
           
-          let hasVisibleEvent = false;
-          
-          // Add a subtle animation to the container when filtering
-          if (eventGridContainer) {
-            eventGridContainer.classList.add('opacity-60');
-            setTimeout(() => {
-              eventGridContainer.classList.remove('opacity-60');
-            }, 300);
-          }
-          
-          // Loop through all event cards
-          allEventCards.forEach(card => {
-            // Get data attributes
-            const cardCategory = card.getAttribute('data-category');
-            const cardTime = card.getAttribute('data-time');
-            const cardLocation = card.getAttribute('data-location');
-            const cardDate = card.getAttribute('data-date');
-            
-            // Check if card matches all selected filters
-            const matchesCategory = categoryValue === '' || cardCategory === categoryValue;
-            const matchesLocation = locationValue === '' || cardLocation === locationValue;
-            let matchesTime = true;
-            
-            // Special handling for time filter
-            if (timeValue !== '') {
-              const eventDate = new Date(cardDate);
-              const today = new Date();
-              const tomorrow = new Date();
-              tomorrow.setDate(today.getDate() + 1);
-              
-              const nextWeek = new Date();
-              nextWeek.setDate(today.getDate() + 7);
-              
-              const nextMonth = new Date();
-              nextMonth.setMonth(today.getMonth() + 1);
-              
-              if (timeValue === 'today') {
-                matchesTime = eventDate.toDateString() === today.toDateString();
-              } else if (timeValue === 'tomorrow') {
-                matchesTime = eventDate.toDateString() === tomorrow.toDateString();
-              } else if (timeValue === 'week') {
-                matchesTime = eventDate >= today && eventDate <= nextWeek;
-              } else if (timeValue === 'month') {
-                matchesTime = eventDate >= today && eventDate <= nextMonth;
-              }
-            }
-            
-            // Show or hide card based on filter matches
-            if (matchesCategory && matchesTime && matchesLocation) {
-              card.classList.remove('hidden');
-              hasVisibleEvent = true;
-            } else {
-              card.classList.add('hidden');
-            }
-          });
-          
-          // Show "No Results" message if no events match
-          if (!hasVisibleEvent) {
-            noResultsElement.classList.remove('hidden');
+          // Show or hide card based on filter matches
+          if (matchesCategory && matchesTime && matchesLocation) {
+            card.classList.remove('hidden');
+            hasVisibleEvent = true;
           } else {
-            noResultsElement.classList.add('hidden');
+            card.classList.add('hidden');
           }
-          
-          // Update counter display
-          const visibleCount = document.querySelectorAll('.event-card:not(.hidden)').length;
-          const totalCount = allEventCards.length;
-          
-          // If there is a counter element, update it
-          const counterElement = document.querySelector('.event-counter');
-          if (counterElement) {
-            if (visibleCount === totalCount) {
-              counterElement.textContent = `Hiển thị tất cả ${totalCount} sự kiện`;
-            } else {
-              counterElement.textContent = `Hiển thị ${visibleCount}/${totalCount} sự kiện`;
-            }
-          }
-          
-          // Sort visible cards
-          sortCards();
+        });
+        
+        // Show "No Results" message if no events match
+        if (!hasVisibleEvent) {
+          elements.noResultsElement.classList.remove('hidden');
+        } else {
+          elements.noResultsElement.classList.add('hidden');
         }
         
-        // Sorting functionality
-        const sortOption = document.getElementById('sort-option');
+        // Update counter display
+        updateEventCounter(elements);
         
-        if (sortOption) {
-          sortOption.addEventListener('change', sortCards);
+        // Sort visible cards
+        sortEventCards(elements);
+      };
+      
+      /**
+       * Check if an event date matches the time filter
+       */
+      const checkTimeFilter = (timeValue, cardDate) => {
+        if (timeValue === '') return true;
+        
+        const eventDate = new Date(cardDate);
+        const today = new Date();
+        const tomorrow = new Date();
+        tomorrow.setDate(today.getDate() + 1);
+        
+        const nextWeek = new Date();
+        nextWeek.setDate(today.getDate() + 7);
+        
+        const nextMonth = new Date();
+        nextMonth.setMonth(today.getMonth() + 1);
+        
+        if (timeValue === 'today') {
+          return eventDate.toDateString() === today.toDateString();
+        } else if (timeValue === 'tomorrow') {
+          return eventDate.toDateString() === tomorrow.toDateString();
+        } else if (timeValue === 'week') {
+          return eventDate >= today && eventDate <= nextWeek;
+        } else if (timeValue === 'month') {
+          return eventDate >= today && eventDate <= nextMonth;
         }
         
-        // Function to sort cards
-        function sortCards() {
-          // Get selected sort option
-          const sortValue = sortOption ? sortOption.value : 'newest';
+        return true;
+      };
+      
+      /**
+       * Update event counter display
+       */
+      const updateEventCounter = (elements) => {
+        const visibleCount = document.querySelectorAll('.event-card:not(.hidden)').length;
+        const totalCount = elements.allEventCards.length;
+        
+        // If there is a counter element, update it
+        const counterElement = document.querySelector('.event-counter');
+        if (counterElement) {
+          if (visibleCount === totalCount) {
+            counterElement.textContent = `Hiển thị tất cả ${totalCount} sự kiện`;
+          } else {
+            counterElement.textContent = `Hiển thị ${visibleCount}/${totalCount} sự kiện`;
+          }
+        }
+      };
+      
+      /**
+       * Sort event cards based on selected sort option
+       */
+      const sortEventCards = (elements) => {
+        // Get selected sort option
+        const sortValue = elements.sortOption ? elements.sortOption.value : 'newest';
+        
+        // Get only visible cards
+        const visibleCards = Array.from(document.querySelectorAll('.event-card:not(.hidden)'));
+        
+        // Sort the cards based on selected option
+        visibleCards.sort((a, b) => {
+          const dateA = new Date(a.getAttribute('data-date'));
+          const dateB = new Date(b.getAttribute('data-date'));
           
-          // Get only visible cards
-          const visibleCards = Array.from(document.querySelectorAll('.event-card:not(.hidden)'));
+          if (sortValue === 'newest') {
+            // Sort by date (newest first)
+            return dateB - dateA;
+          } else if (sortValue === 'upcoming') {
+            // Sort by date (upcoming first)
+            return dateA - dateB;
+          } else if (sortValue === 'popular') {
+            // Sort by popularity (participant count)
+            const participantsA = parseInt(a.querySelector('[class*="ri-user-line"]').parentNode.nextElementSibling.textContent.match(/\d+/)[0]);
+            const participantsB = parseInt(b.querySelector('[class*="ri-user-line"]').parentNode.nextElementSibling.textContent.match(/\d+/)[0]);
+            return participantsB - participantsA;
+          }
           
-          // Sort the cards based on selected option
-          visibleCards.sort((a, b) => {
-            const dateA = new Date(a.getAttribute('data-date'));
-            const dateB = new Date(b.getAttribute('data-date'));
-            
-            if (sortValue === 'newest') {
-              // Sort by date (newest first)
-              return dateB - dateA;
-            } else if (sortValue === 'upcoming') {
-              // Sort by date (upcoming first)
-              return dateA - dateB;
-            } else if (sortValue === 'popular') {
-              // Sort by popularity (participant count)
-              const participantsA = parseInt(a.querySelector('[class*="ri-user-line"]').parentNode.nextElementSibling.textContent.match(/\d+/)[0]);
-              const participantsB = parseInt(b.querySelector('[class*="ri-user-line"]').parentNode.nextElementSibling.textContent.match(/\d+/)[0]);
-              return participantsB - participantsA;
-            }
-            
-            return 0;
-          });
-          
-          // Apply animation classes for sorting effect
+          return 0;
+        });
+        
+        // Apply animation classes for sorting effect
+        visibleCards.forEach(card => {
+          card.classList.add('opacity-0', 'scale-95');
+          setTimeout(() => {
+            card.classList.remove('opacity-0', 'scale-95');
+          }, 50);
+        });
+        
+        // Reorder the cards in the container
+        const container = elements.eventGridContainer;
+        if (container) {
           visibleCards.forEach(card => {
-            card.classList.add('opacity-0', 'scale-95');
-            setTimeout(() => {
-              card.classList.remove('opacity-0', 'scale-95');
-            }, 50);
+            container.appendChild(card);
           });
-          
-          // Reorder the cards in the container
-          const container = document.querySelector('.grid.grid-cols-1.sm\\:grid-cols-2.lg\\:grid-cols-3');
-          if (container) {
-            visibleCards.forEach(card => {
-              container.appendChild(card);
-            });
+        }
+      };
+      
+      /**
+       * Initialize search functionality
+       */
+      const initializeSearchFunctionality = () => {
+        const searchInput = document.getElementById('search-input');
+        const searchButton = document.getElementById('search-button');
+        
+        if (!searchButton || !searchInput) return;
+        
+        // Search on button click
+        searchButton.addEventListener('click', () => {
+          performSearch(searchInput.value);
+        });
+        
+        // Search on Enter key press
+        searchInput.addEventListener('keypress', (e) => {
+          if (e.key === 'Enter') {
+            performSearch(searchInput.value);
           }
+        });
+      };
+      
+      /**
+       * Perform search on events
+       */
+      const performSearch = (query) => {
+        const searchInput = document.getElementById('search-input');
+        const elements = getEventFilterElements();
+        
+        if (query.trim() === '') {
+          // Show empty search validation
+          searchInput.classList.add('ring-2', 'ring-red-500', 'border-red-500');
+          setTimeout(() => {
+            searchInput.classList.remove('ring-2', 'ring-red-500', 'border-red-500');
+          }, 2000);
+          return;
         }
         
-        // Function to handle search (placeholder for actual implementation)
-        function performSearch(query) {
-          if (query.trim() === '') {
-            // Show empty search validation
-            searchInput.classList.add('ring-2', 'ring-red-500', 'border-red-500');
-            setTimeout(() => {
-              searchInput.classList.remove('ring-2', 'ring-red-500', 'border-red-500');
-            }, 2000);
-            return;
-          }
+        // Reset filters
+        window.eventFilters.resetAllFilters();
+        
+        let hasVisibleEvent = false;
+        query = query.toLowerCase();
+        
+        // Loop through all event cards
+        elements.allEventCards.forEach(card => {
+          const title = card.querySelector('h3').textContent.toLowerCase();
+          const location = card.querySelector('.flex.items-center.text-gray-600.mb-3')?.textContent.toLowerCase() || '';
+          const matchesQuery = title.includes(query) || location.includes(query);
           
-          // Reset filters
-          resetFilters();
-          
-          let hasVisibleEvent = false;
-          query = query.toLowerCase();
-          
-          // Loop through all event cards
-          allEventCards.forEach(card => {
-            const title = card.querySelector('h3').textContent.toLowerCase();
-            const matchesQuery = title.includes(query);
-            
-            if (matchesQuery) {
-              card.classList.remove('hidden');
-              hasVisibleEvent = true;
-            } else {
-              card.classList.add('hidden');
-            }
-          });
-          
-          // Show "No Results" message if no events match
-          if (!hasVisibleEvent) {
-            noResultsElement.classList.remove('hidden');
+          if (matchesQuery) {
+            card.classList.remove('hidden');
+            hasVisibleEvent = true;
           } else {
-            noResultsElement.classList.add('hidden');
+            card.classList.add('hidden');
           }
-          
-          console.log('Searching for:', query);
+        });
+        
+        // Show "No Results" message if no events match
+        if (!hasVisibleEvent) {
+          elements.noResultsElement.classList.remove('hidden');
+        } else {
+          elements.noResultsElement.classList.add('hidden');
         }
         
-        // Add subtle hover effects to event cards for better UX
+        // Update counter display
+        updateEventCounter(elements);
+      };
+      
+      /**
+       * Initialize event card effects
+       */
+      const initializeEventCardEffects = () => {
         const eventCards = document.querySelectorAll('.event-card');
         eventCards.forEach(card => {
           card.addEventListener('mouseenter', function() {
@@ -1712,23 +1808,17 @@
             this.classList.remove('shadow-md');
           });
         });
-
-        // Create global functions for pagination system to override
-        // Will be replaced by pagination implementation
-        window.applyFilters = applyFilters; 
-        window.sortCards = sortCards;
-        window.performSearch = performSearch;
-        
-        // Initialize pagination system (defined at the end of this script)
-        initPagination();
-      });
-
-      // Pagination functionality implementation
-      function initPagination() {
+      };
+      
+      /**
+       * Initialize pagination functionality
+       */
+      const initializePagination = () => {
         // Pagination settings
         const eventsPerPage = 9; // Display 9 events per page
         let currentPage = 1;
-        const allEventCards = document.querySelectorAll('.event-card');
+        const elements = getEventFilterElements();
+        const allEventCards = elements.allEventCards;
         const totalEvents = allEventCards.length;
         const totalPages = Math.ceil(totalEvents / eventsPerPage);
         
@@ -1737,35 +1827,28 @@
         const nextButton = document.getElementById('next-page');
         const paginationButtons = document.querySelectorAll('.pagination-button');
         
-        // Get filter elements for function implementation
-        const categoryFilter = document.getElementById('category-filter');
-        const timeFilter = document.getElementById('time-filter');
-        const locationFilter = document.getElementById('location-filter');
-        const noResultsElement = document.querySelector('.col-span-full.py-8.text-center') || 
-                                document.createElement('div');
-        const eventGridContainer = document.querySelector('.grid.grid-cols-1.sm\\:grid-cols-2.lg\\:grid-cols-3');
-        const sortOption = document.getElementById('sort-option');
-        const searchInput = document.getElementById('search-input');
+        // Skip if no pagination elements
+        if (!prevButton || !nextButton || paginationButtons.length === 0) return;
         
         // Function to show events for current page
         const showEventsForPage = (page) => {
-          // Calculate events to show
-          const startIndex = (page - 1) * eventsPerPage;
-          const endIndex = startIndex + eventsPerPage;
-          
-          // First hide all events
-          const filteredCards = Array.from(document.querySelectorAll('.event-card:not(.hidden-by-filter)'));
-          
-          filteredCards.forEach((card, index) => {
+          // Apply hidden-by-pagination class strategically
+          allEventCards.forEach((card, index) => {
+            // Check if card is already hidden by filter
+            if (card.classList.contains('hidden-by-filter')) return;
+            
+            const startIndex = (page - 1) * eventsPerPage;
+            const endIndex = startIndex + eventsPerPage;
+            
             if (index >= startIndex && index < endIndex) {
-              card.classList.remove('hidden-by-pagination');
+              card.classList.remove('hidden-by-pagination', 'hidden');
             } else {
-              card.classList.add('hidden-by-pagination');
+              card.classList.add('hidden-by-pagination', 'hidden');
             }
           });
           
-          // Update visibility based on both pagination and filters
-          updateEventVisibility();
+          // Update counter display
+          updateEventCounter(elements);
           
           // Scroll to top of events section
           const eventsSection = document.querySelector('.lg\\:w-3\\/4');
@@ -1804,254 +1887,32 @@
           updatePaginationUI(currentPage);
         };
         
-        // Add separate class for filter vs pagination hiding
+        // Add pagination classes for dual-filtering system
         allEventCards.forEach(card => {
-          // Add classes for pagination system without disturbing current classes
           card.classList.add('hidden-by-filter', 'hidden-by-pagination');
+          card.classList.remove('hidden-by-filter'); // Initially show all by filter
         });
         
-        // Function to update visibility based on both pagination and filters
-        function updateEventVisibility() {
-          allEventCards.forEach(card => {
-            if (card.classList.contains('hidden-by-filter') || card.classList.contains('hidden-by-pagination')) {
-              card.classList.add('hidden');
-            } else {
-              card.classList.remove('hidden');
-            }
+        // Set up pagination event listeners
+        paginationButtons.forEach(button => {
+          button.addEventListener('click', () => {
+            const page = parseInt(button.getAttribute('data-page'));
+            goToPage(page);
           });
-          
-          // Update counter display
-          const visibleCount = document.querySelectorAll('.event-card:not(.hidden)').length;
-          const counterElement = document.querySelector('.event-counter');
-          if (counterElement) {
-            if (visibleCount === 0) {
-              counterElement.textContent = 'Không có sự kiện nào phù hợp';
-            } else if (visibleCount === totalEvents) {
-              counterElement.textContent = `Hiển thị tất cả ${totalEvents} sự kiện`;
-            } else {
-              counterElement.textContent = `Hiển thị ${visibleCount}/${totalEvents} sự kiện`;
-            }
-          }
-        }
-        
-        // Override the existing filter function
-        window.applyFilters = function() {
-          const categoryValue = categoryFilter.value;
-          const timeValue = timeFilter.value;
-          const locationValue = locationFilter.value;
-          
-          // Update filter status bar
-          if (typeof updateFilterStatusBar === 'function') {
-            updateFilterStatusBar();
-          }
-          
-          // Reset pagination to page 1 when applying filters
-          currentPage = 1;
-          updatePaginationUI(currentPage);
-          
-          let hasVisibleEvent = false;
-          
-          // Add animation when filtering
-          if (eventGridContainer) {
-            eventGridContainer.classList.add('opacity-60');
-            setTimeout(() => {
-              eventGridContainer.classList.remove('opacity-60');
-            }, 300);
-          }
-          
-          // Loop through all event cards and apply filters
-          allEventCards.forEach(card => {
-            // Get data attributes
-            const cardCategory = card.getAttribute('data-category');
-            const cardTime = card.getAttribute('data-time');
-            const cardLocation = card.getAttribute('data-location');
-            const cardDate = card.getAttribute('data-date');
-            
-            // Check if card matches all selected filters
-            const matchesCategory = categoryValue === '' || cardCategory === categoryValue;
-            const matchesLocation = locationValue === '' || cardLocation === locationValue;
-            let matchesTime = true;
-            
-            // Special handling for time filter
-            if (timeValue !== '') {
-              const eventDate = new Date(cardDate);
-              const today = new Date();
-              const tomorrow = new Date();
-              tomorrow.setDate(today.getDate() + 1);
-              
-              const nextWeek = new Date();
-              nextWeek.setDate(today.getDate() + 7);
-              
-              const nextMonth = new Date();
-              nextMonth.setMonth(today.getMonth() + 1);
-              
-              if (timeValue === 'today') {
-                matchesTime = eventDate.toDateString() === today.toDateString();
-              } else if (timeValue === 'tomorrow') {
-                matchesTime = eventDate.toDateString() === tomorrow.toDateString();
-              } else if (timeValue === 'week') {
-                matchesTime = eventDate >= today && eventDate <= nextWeek;
-              } else if (timeValue === 'month') {
-                matchesTime = eventDate >= today && eventDate <= nextMonth;
-              }
-            }
-            
-            // Mark card as filtered or not filtered
-            if (matchesCategory && matchesTime && matchesLocation) {
-              card.classList.remove('hidden-by-filter');
-              hasVisibleEvent = true;
-            } else {
-              card.classList.add('hidden-by-filter');
-            }
-          });
-          
-          // Show "No Results" message if no events match
-          if (noResultsElement) {
-            if (!hasVisibleEvent) {
-              noResultsElement.classList.remove('hidden');
-            } else {
-              noResultsElement.classList.add('hidden');
-            }
-          }
-          
-          // Sort cards and show current page
-          window.sortCards();
-          showEventsForPage(currentPage);
-        };
-        
-        // Override the sort function
-        window.sortCards = function() {
-          // Get selected sort option
-          const sortValue = sortOption ? sortOption.value : 'newest';
-          
-          // Get all cards that pass the filter criteria
-          const filteredCards = Array.from(document.querySelectorAll('.event-card:not(.hidden-by-filter)'));
-          
-          // Sort the cards based on selected option
-          filteredCards.sort((a, b) => {
-            const dateA = new Date(a.getAttribute('data-date'));
-            const dateB = new Date(b.getAttribute('data-date'));
-            
-            if (sortValue === 'newest') {
-              // Sort by date (newest first)
-              return dateB - dateA;
-            } else if (sortValue === 'upcoming') {
-              // Sort by date (upcoming first)
-              return dateA - dateB;
-            } else if (sortValue === 'popular') {
-              // Sort by popularity (participant count)
-              const participantsA = parseInt(a.querySelector('[class*="ri-user-line"]').parentNode.nextElementSibling.textContent.match(/\d+/)[0]);
-              const participantsB = parseInt(b.querySelector('[class*="ri-user-line"]').parentNode.nextElementSibling.textContent.match(/\d+/)[0]);
-              return participantsB - participantsA;
-            }
-            
-            return 0;
-          });
-          
-          // Apply animation classes for sorting effect
-          filteredCards.forEach(card => {
-            card.classList.add('opacity-0', 'scale-95');
-            setTimeout(() => {
-              card.classList.remove('opacity-0', 'scale-95');
-            }, 50);
-          });
-          
-          // Reorder the cards in the container
-          const container = document.querySelector('.grid.grid-cols-1.sm\\:grid-cols-2.lg\\:grid-cols-3');
-          if (container) {
-            filteredCards.forEach(card => {
-              container.appendChild(card);
-            });
-          }
-          
-          // Show events for current page after sorting
-          showEventsForPage(currentPage);
-        };
-        
-        // Override the search function
-        window.performSearch = function(query) {
-          if (query.trim() === '') {
-            // Show empty search validation
-            searchInput.classList.add('ring-2', 'ring-red-500', 'border-red-500');
-            setTimeout(() => {
-              searchInput.classList.remove('ring-2', 'ring-red-500', 'border-red-500');
-            }, 2000);
-            return;
-          }
-          
-          // Reset filters but keep the search active
-          if (categoryFilter) categoryFilter.value = '';
-          if (timeFilter) timeFilter.value = '';
-          if (locationFilter) locationFilter.value = '';
-          
-          if (typeof updateFilterStatusBar === 'function') {
-            updateFilterStatusBar();
-          }
-          
-          // Reset to page 1 when searching
-          currentPage = 1;
-          updatePaginationUI(currentPage);
-          
-          let hasVisibleEvent = false;
-          query = query.toLowerCase();
-          
-          // Loop through all event cards and apply search filter
-          allEventCards.forEach(card => {
-            const title = card.querySelector('h3').textContent.toLowerCase();
-            const description = card.querySelector('.flex.items-center.text-gray-600.mb-3')?.textContent.toLowerCase() || '';
-            const matchesQuery = title.includes(query) || description.includes(query);
-            
-            if (matchesQuery) {
-              card.classList.remove('hidden-by-filter');
-              hasVisibleEvent = true;
-            } else {
-              card.classList.add('hidden-by-filter');
-            }
-          });
-          
-          // Show "No Results" message if no events match
-          if (noResultsElement) {
-            if (!hasVisibleEvent) {
-              noResultsElement.classList.remove('hidden');
-            } else {
-              noResultsElement.classList.add('hidden');
-            }
-          }
-          
-          // Apply sorting and show current page
-          window.sortCards();
-          showEventsForPage(currentPage);
-        };
-        
-        // Initialize event listeners for pagination
-        if (prevButton) {
-          prevButton.addEventListener('click', () => goToPage(currentPage - 1));
-        }
-        
-        if (nextButton) {
-          nextButton.addEventListener('click', () => goToPage(currentPage + 1));
-        }
-        
-        if (paginationButtons) {
-          paginationButtons.forEach(button => {
-            button.addEventListener('click', () => {
-              const page = parseInt(button.getAttribute('data-page'));
-              goToPage(page);
-            });
-          });
-        }
-        
-        // Remove hidden classes from initial display so we can initialize properly
-        allEventCards.forEach(card => {
-          if (!card.classList.contains('hidden')) {
-            card.classList.remove('hidden-by-filter');
-          }
         });
         
-        // Initialize page display
-        showEventsForPage(currentPage);
-        updatePaginationUI(currentPage);
-      }
+        prevButton.addEventListener('click', () => {
+          goToPage(currentPage - 1);
+        });
+        
+        nextButton.addEventListener('click', () => {
+          goToPage(currentPage + 1);
+        });
+        
+        // Initialize first page
+        showEventsForPage(1);
+        updatePaginationUI(1);
+      };
     </script>
   </body>
 </html>

@@ -168,6 +168,19 @@
         animation-delay: 500ms;
       }
       
+      /* Mobile menu animation */
+      .mobile-menu-item {
+        opacity: 0;
+        transform: translateY(10px);
+        transition: opacity 0.4s ease, transform 0.4s ease;
+        transition-delay: calc(var(--index) * 80ms);
+      }
+      
+      .translate-y-0 .mobile-menu-item {
+        opacity: 1;
+        transform: translateY(0);
+      }
+      
       /* Reveal animations on scroll */
       .reveal {
         opacity: 0;
@@ -272,12 +285,13 @@
           >
         </div>
         <button
-          class="md:hidden w-10 h-10 flex items-center justify-center text-white"
+          class="md:hidden w-10 h-10 flex items-center justify-center text-white focus:outline-none hover:text-secondary transition-colors relative focus:ring-2 focus:ring-white/50 rounded-md"
           aria-label="Mở menu"
           aria-expanded="false"
           aria-controls="mobile-menu"
         >
           <i class="ri-menu-line ri-lg"></i>
+          <span class="sr-only">Menu</span>
         </button>
       </div>
     </header>
@@ -877,14 +891,56 @@
     </footer>
 
     <script>
-      // Mobile menu toggle
       document.addEventListener("DOMContentLoaded", function () {
-        // Mobile menu
+        // Initialize all UI components and functionality
+        initMobileMenu();
+        initSmoothScrolling();
+        initBackToTopButton();
+        initHeroSlider();
+        initScrollAnimations();
+        setActiveMenuItems();
+        
+        // Initialize analytics tracking (can be extended in the future)
+        initInteractionTracking();
+      });
+
+      /**
+       * Mobile menu functionality
+       * Handles mobile menu opening/closing and related transitions
+       */
+      const initMobileMenu = () => {
         const menuButton = document.querySelector("button.md\\:hidden");
+        const mobileMenu = createMobileMenuElement();
+        document.body.appendChild(mobileMenu);
+        
+        // Open menu
+        menuButton.addEventListener("click", () => {
+          openMobileMenu(mobileMenu, menuButton);
+        });
+        
+        // Close menu
+        mobileMenu.querySelector("button").addEventListener("click", () => {
+          closeMobileMenu(mobileMenu, menuButton);
+        });
+
+        // Close when clicking outside of menu
+        document.addEventListener("click", (e) => {
+          if (!mobileMenu.contains(e.target) && 
+              !menuButton.contains(e.target) && 
+              !mobileMenu.classList.contains("-translate-y-full")) {
+            closeMobileMenu(mobileMenu, menuButton);
+          }
+        });
+      };
+
+      /**
+       * Creates the mobile menu element
+       * @returns {HTMLElement} The created mobile menu element
+       */
+      const createMobileMenuElement = () => {
         const mobileMenu = document.createElement("div");
         mobileMenu.id = "mobile-menu";
-        mobileMenu.className =
-          "fixed inset-0 bg-primary/95 z-50 transform translate-x-full transition-transform duration-300 ease-in-out backdrop-blur-sm";
+        mobileMenu.className = "fixed inset-0 bg-primary/95 z-50 transform -translate-y-full transition-transform duration-300 ease-in-out backdrop-blur-sm";
         mobileMenu.innerHTML = `
         <div class="p-4 flex justify-between items-center border-b border-red-900/30">
           <a href="index.html" class="text-2xl font-pacifico text-white flex items-center">
@@ -896,344 +952,468 @@
         </div>
         <nav class="p-4" aria-label="Mobile navigation">
           <ul class="space-y-4">
-            <li><a href="index.html" class="font-medium text-white border-l-4 border-white pl-2 py-2 hover:translate-x-1 transition-transform" aria-current="page">Trang chủ</a></li>
-            <li><a href="events.html" class="font-medium text-white/80 hover:text-white py-2 hover:translate-x-1 transition-all">Sự kiện</a></li>
-            <li><a href="blog.html" class="font-medium text-white/80 hover:text-white py-2 hover:translate-x-1 transition-all">Blog</a></li>
-            <li><a href="news.html" class="font-medium text-white/80 hover:text-white py-2 hover:translate-x-1 transition-all">Giới thiệu</a></li>
-            <li><a href="contact.html" class="font-medium text-white/80 hover:text-white py-2 hover:translate-x-1 transition-all">Liên hệ</a></li>
-            <li>
+            <li class="mobile-menu-item" style="--index: 0"><a href="index.html" class="font-medium text-white border-l-4 border-white pl-2 py-2 block transition-all duration-300 hover:translate-x-1" aria-current="page">Trang chủ</a></li>
+            <li class="mobile-menu-item" style="--index: 1"><a href="events.html" class="font-medium text-white/80 hover:text-white py-2 block transition-all duration-300 hover:translate-x-1">Sự kiện</a></li>
+            <li class="mobile-menu-item" style="--index: 2"><a href="blog.html" class="font-medium text-white/80 hover:text-white py-2 block transition-all duration-300 hover:translate-x-1">Blog</a></li>
+            <li class="mobile-menu-item" style="--index: 3"><a href="news.html" class="font-medium text-white/80 hover:text-white py-2 block transition-all duration-300 hover:translate-x-1">Giới thiệu</a></li>
+            <li class="mobile-menu-item" style="--index: 4"><a href="contact.html" class="font-medium text-white/80 hover:text-white py-2 block transition-all duration-300 hover:translate-x-1">Liên hệ</a></li>
+            <li class="mobile-menu-item" style="--index: 5">
               <a href="login.html" class="bg-white text-primary px-4 py-2 !rounded-button whitespace-nowrap block text-center mt-2 hover:bg-gray-100 transition-colors shadow-sm">Đăng nhập</a>
             </li>
-            <li>
+            <li class="mobile-menu-item" style="--index: 6">
               <a href="register.html" class="bg-white text-primary px-4 py-2 !rounded-button whitespace-nowrap block text-center mt-2 hover:bg-gray-100 transition-colors shadow-sm">Đăng ký</a>
             </li>
           </ul>
         </nav>
         `;
-        document.body.appendChild(mobileMenu);
-        
-        // Open menu
-        menuButton.addEventListener("click", function () {
-          mobileMenu.classList.remove("translate-x-full");
-          document.body.classList.add("overflow-hidden");
-          menuButton.setAttribute("aria-expanded", "true");
-        });
-        
-        // Close menu
-        mobileMenu.querySelector("button").addEventListener("click", function () {
-          mobileMenu.classList.add("translate-x-full");
-          document.body.classList.remove("overflow-hidden");
-          menuButton.setAttribute("aria-expanded", "false");
-        });
+        return mobileMenu;
+      };
 
-        // Add smooth scrolling to all links
+      /**
+       * Opens the mobile menu
+       * @param {HTMLElement} menu - The mobile menu element
+       * @param {HTMLElement} button - The toggle button
+       */
+      const openMobileMenu = (menu, button) => {
+        menu.classList.remove("-translate-y-full");
+        menu.classList.add("translate-y-0");
+        document.body.classList.add("overflow-hidden");
+        button.setAttribute("aria-expanded", "true");
+        
+        // Update button icon
+        const icon = button.querySelector("i");
+        if (icon) {
+          icon.className = "ri-close-line ri-lg";
+          icon.style.transition = "transform 0.3s ease";
+          icon.style.transform = "rotate(90deg)";
+        }
+      };
+
+      /**
+       * Closes the mobile menu
+       * @param {HTMLElement} menu - The mobile menu element
+       * @param {HTMLElement} button - The toggle button
+       */
+      const closeMobileMenu = (menu, button) => {
+        menu.classList.remove("translate-y-0");
+        menu.classList.add("-translate-y-full");
+        document.body.classList.remove("overflow-hidden");
+        button.setAttribute("aria-expanded", "false");
+        
+        // Reset button icon
+        const icon = button.querySelector("i");
+        if (icon) {
+          icon.className = "ri-menu-line ri-lg";
+          icon.style.transform = "rotate(0deg)";
+        }
+      };
+
+      /**
+       * Initialize smooth scrolling for anchor links
+       */
+      const initSmoothScrolling = () => {
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
           anchor.addEventListener('click', function (e) {
             if(this.getAttribute('href') !== '#') {
               e.preventDefault();
               
-              // Close mobile menu if open
+              // Close mobile menu if open on mobile devices
               if (window.innerWidth < 768) {
-                mobileMenu.classList.add("translate-x-full");
-                document.body.classList.remove("overflow-hidden");
-                menuButton.setAttribute("aria-expanded", "false");
+                const mobileMenu = document.getElementById('mobile-menu');
+                const menuButton = document.querySelector("button.md\\:hidden");
+                
+                if (mobileMenu && !mobileMenu.classList.contains("-translate-y-full")) {
+                  closeMobileMenu(mobileMenu, menuButton);
+                }
               }
               
-              const targetId = this.getAttribute('href');
-              const targetElement = document.querySelector(targetId);
-              
-              if (targetElement) {
-                window.scrollTo({
-                  top: targetElement.offsetTop - 80, // Account for sticky header
-                  behavior: 'smooth'
-                });
-              }
+              // Scroll to target
+              scrollToTarget(this.getAttribute('href'));
             }
           });
         });
-        
-        // Create back to top button
-        const backToTopBtn = document.createElement('button');
-        backToTopBtn.innerHTML = '<i class="ri-arrow-up-line"></i>';
-        backToTopBtn.className = 'fixed bottom-6 right-6 bg-primary text-white w-12 h-12 rounded-full flex items-center justify-center shadow-lg z-40 opacity-0 invisible transition-all duration-300 hover:bg-primary/90';
-        backToTopBtn.setAttribute('aria-label', 'Lên đầu trang');
+      };
+
+      /**
+       * Scroll to a target element by ID
+       * @param {string} targetId - The ID of the target element
+       */
+      const scrollToTarget = (targetId) => {
+        const targetElement = document.querySelector(targetId);
+        if (targetElement) {
+          window.scrollTo({
+            top: targetElement.offsetTop - 80, // Account for sticky header
+            behavior: 'smooth'
+          });
+        }
+      };
+
+      /**
+       * Initialize "back to top" button
+       */
+      const initBackToTopButton = () => {
+        const backToTopBtn = createBackToTopButton();
         document.body.appendChild(backToTopBtn);
         
-        // Show/hide back to top button based on scroll position
-        window.addEventListener('scroll', function() {
-          if (window.pageYOffset > 300) {
-            backToTopBtn.classList.add('opacity-100', 'visible');
-          } else {
-            backToTopBtn.classList.remove('opacity-100', 'visible');
-          }
+        // Show/hide button based on scroll position
+        window.addEventListener('scroll', () => {
+          toggleBackToTopButton(backToTopBtn);
         });
         
-        // Scroll to top when back to top button is clicked
-        backToTopBtn.addEventListener('click', function() {
+        // Scroll to top when button is clicked
+        backToTopBtn.addEventListener('click', () => {
           window.scrollTo({
             top: 0,
             behavior: 'smooth'
           });
         });
-        
-        // Add active class to current section in navigation
-        function highlightCurrentSection() {
-          const sections = document.querySelectorAll('section[id]');
-          const scrollPosition = window.pageYOffset + 100;
-          
-          sections.forEach(section => {
-            const sectionTop = section.offsetTop;
-            const sectionHeight = section.offsetHeight;
-            const sectionId = section.getAttribute('id');
-            
-            if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
-              document.querySelectorAll('nav a').forEach(link => {
-                link.classList.remove('text-white');
-                link.classList.add('text-red-100');
-                link.removeAttribute('aria-current');
-                
-                if (link.getAttribute('href') === '#' + sectionId) {
-                  link.classList.remove('text-red-100');
-                  link.classList.add('text-white');
-                  link.setAttribute('aria-current', 'true');
-                }
-              });
-            }
-          });
+      };
+
+      /**
+       * Creates the back to top button element
+       * @returns {HTMLElement} The created button
+       */
+      const createBackToTopButton = () => {
+        const button = document.createElement('button');
+        button.innerHTML = '<i class="ri-arrow-up-line"></i>';
+        button.className = 'fixed bottom-6 right-6 bg-primary text-white w-12 h-12 rounded-full flex items-center justify-center shadow-lg z-40 opacity-0 invisible transition-all duration-300 hover:bg-primary/90';
+        button.setAttribute('aria-label', 'Lên đầu trang');
+        return button;
+      };
+
+      /**
+       * Toggle back to top button visibility based on scroll position
+       * @param {HTMLElement} button - The back to top button
+       */
+      const toggleBackToTopButton = (button) => {
+        if (window.pageYOffset > 300) {
+          button.classList.add('opacity-100', 'visible');
+        } else {
+          button.classList.remove('opacity-100', 'visible');
         }
+      };
+
+      /**
+       * Initialize hero slider functionality
+       */
+      const initHeroSlider = () => {
+        const sliderElement = document.getElementById('hero-slider');
+        if (!sliderElement) return;
         
-        // Execute on scroll
-        window.addEventListener('scroll', highlightCurrentSection);
+        const slides = document.querySelectorAll('#hero-slider .slide');
+        const indicators = document.querySelectorAll('.slide-indicator');
+        const nextButton = document.getElementById('next-slide');
+        const prevButton = document.getElementById('prev-slide');
         
-        // Hero Slider Functionality
-        const initHeroSlider = () => {
-          const slides = document.querySelectorAll('#hero-slider .slide');
-          const indicators = document.querySelectorAll('.slide-indicator');
-          const nextButton = document.getElementById('next-slide');
-          const prevButton = document.getElementById('prev-slide');
-          let currentSlide = 0;
-          let slideInterval;
-          const intervalTime = 5000; // Time between automatic slide changes (5 seconds)
-          
-          // Function to update slider to show the current slide
-          const showSlide = (index) => {
-            // Hide all slides by setting opacity to 0
-            slides.forEach(slide => {
-              slide.classList.remove('opacity-100');
-              slide.classList.add('opacity-0');
-            });
-            
-            // Show the current slide by setting opacity to 1
-            slides[index].classList.remove('opacity-0');
-            slides[index].classList.add('opacity-100');
-            
-            // Update indicators
-            indicators.forEach(indicator => {
-              indicator.classList.remove('bg-white', 'active');
-              indicator.classList.add('bg-white/50');
-            });
-            
-            indicators[index].classList.remove('bg-white/50');
-            indicators[index].classList.add('bg-white', 'active');
-          };
-          
-          // Initialize the first slide
-          showSlide(currentSlide);
-          
-          // Function to advance to the next slide
-          const nextSlide = () => {
-            currentSlide = (currentSlide + 1) % slides.length;
-            showSlide(currentSlide);
-          };
-          
-          // Function to go to the previous slide
-          const prevSlide = () => {
-            currentSlide = (currentSlide - 1 + slides.length) % slides.length;
-            showSlide(currentSlide);
-          };
-          
-          // Set up automatic sliding
-          const startSlideTimer = () => {
-            slideInterval = setInterval(nextSlide, intervalTime);
-          };
-          
-          // Stop the automatic sliding
-          const stopSlideTimer = () => {
-            clearInterval(slideInterval);
-          };
-          
-          // Start the automatic sliding
+        let currentSlide = 0;
+        let slideInterval;
+        const intervalTime = 5000; // 5 seconds between slides
+        
+        // Show initial slide
+        showSlide(slides, indicators, currentSlide);
+        
+        // Start automatic sliding
+        startSlideTimer();
+        
+        // Event listeners for controls
+        nextButton.addEventListener('click', () => {
+          stopSlideTimer();
+          currentSlide = (currentSlide + 1) % slides.length;
+          showSlide(slides, indicators, currentSlide);
           startSlideTimer();
-          
-          // Event listeners for next and previous buttons
-          nextButton.addEventListener('click', () => {
-            stopSlideTimer(); // Stop automatic sliding when manually navigating
-            nextSlide();
-            startSlideTimer(); // Restart automatic sliding after manual navigation
-          });
-          
-          prevButton.addEventListener('click', () => {
+        });
+        
+        prevButton.addEventListener('click', () => {
+          stopSlideTimer();
+          currentSlide = (currentSlide - 1 + slides.length) % slides.length;
+          showSlide(slides, indicators, currentSlide);
+          startSlideTimer();
+        });
+        
+        // Handle indicator clicks
+        indicators.forEach((indicator, index) => {
+          indicator.addEventListener('click', () => {
             stopSlideTimer();
-            prevSlide();
+            currentSlide = index;
+            showSlide(slides, indicators, currentSlide);
             startSlideTimer();
           });
+        });
+        
+        // Pause on hover
+        sliderElement.addEventListener('mouseenter', stopSlideTimer);
+        sliderElement.addEventListener('mouseleave', startSlideTimer);
+        
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+          if (!isSliderInViewport(sliderElement)) return;
           
-          // Event listeners for indicator buttons
-          indicators.forEach((indicator, index) => {
-            indicator.addEventListener('click', () => {
-              stopSlideTimer();
-              currentSlide = index;
-              showSlide(currentSlide);
-              startSlideTimer();
-            });
-          });
-          
-          // Pause automatic sliding when hovering over the slider
-          const heroSlider = document.getElementById('hero-slider');
-          heroSlider.addEventListener('mouseenter', stopSlideTimer);
-          heroSlider.addEventListener('mouseleave', startSlideTimer);
-          
-          // Handle keyboard navigation for accessibility
-          document.addEventListener('keydown', (e) => {
-            if (e.key === 'ArrowLeft') {
-              stopSlideTimer();
-              prevSlide();
-              startSlideTimer();
-            } else if (e.key === 'ArrowRight') {
-              stopSlideTimer();
-              nextSlide();
-              startSlideTimer();
-            }
-          });
-          
-          // Support touch swipe on mobile
-          let touchStartX = 0;
-          let touchEndX = 0;
-          
-          heroSlider.addEventListener('touchstart', (e) => {
-            touchStartX = e.changedTouches[0].screenX;
-          }, { passive: true });
-          
-          heroSlider.addEventListener('touchend', (e) => {
-            touchEndX = e.changedTouches[0].screenX;
-            handleSwipe();
-          }, { passive: true });
-          
-          const handleSwipe = () => {
-            // Detect swipe direction (left or right)
-            if (touchEndX < touchStartX - 50) {
-              // Swipe left (next slide)
-              stopSlideTimer();
-              nextSlide();
-              startSlideTimer();
-            }
-            
-            if (touchEndX > touchStartX + 50) {
-              // Swipe right (previous slide)
-              stopSlideTimer();
-              prevSlide();
-              startSlideTimer();
-            }
-          };
+          if (e.key === 'ArrowLeft') {
+            stopSlideTimer();
+            currentSlide = (currentSlide - 1 + slides.length) % slides.length;
+            showSlide(slides, indicators, currentSlide);
+            startSlideTimer();
+          } else if (e.key === 'ArrowRight') {
+            stopSlideTimer();
+            currentSlide = (currentSlide + 1) % slides.length;
+            showSlide(slides, indicators, currentSlide);
+            startSlideTimer();
+          }
+        });
+        
+        // Touch support for mobile
+        setupTouchControls(sliderElement, slides, indicators);
+        
+        /**
+         * Start the automatic slide timer
+         */
+        function startSlideTimer() {
+          slideInterval = setInterval(() => {
+            currentSlide = (currentSlide + 1) % slides.length;
+            showSlide(slides, indicators, currentSlide);
+          }, intervalTime);
+        }
+        
+        /**
+         * Stop the automatic slide timer
+         */
+        function stopSlideTimer() {
+          clearInterval(slideInterval);
+        }
+      };
+
+      /**
+       * Show a specific slide in the slider
+       * @param {NodeList} slides - The slide elements
+       * @param {NodeList} indicators - The indicator elements
+       * @param {number} index - The index of the slide to show
+       */
+      const showSlide = (slides, indicators, index) => {
+        // Hide all slides
+        slides.forEach(slide => {
+          slide.classList.remove('opacity-100');
+          slide.classList.add('opacity-0');
+        });
+        
+        // Show current slide
+        slides[index].classList.remove('opacity-0');
+        slides[index].classList.add('opacity-100');
+        
+        // Update indicators
+        indicators.forEach(indicator => {
+          indicator.classList.remove('bg-white', 'active');
+          indicator.classList.add('bg-white/50');
+        });
+        
+        indicators[index].classList.remove('bg-white/50');
+        indicators[index].classList.add('bg-white', 'active');
+      };
+
+      /**
+       * Check if slider is currently visible in viewport
+       * @param {HTMLElement} element - The slider element
+       * @returns {boolean} Whether the slider is in viewport
+       */
+      const isSliderInViewport = (element) => {
+        const rect = element.getBoundingClientRect();
+        return (
+          rect.top <= (window.innerHeight || document.documentElement.clientHeight) &&
+          rect.bottom >= 0
+        );
+      };
+
+      /**
+       * Set up touch controls for the slider
+       * @param {HTMLElement} sliderElement - The slider container
+       * @param {NodeList} slides - The slide elements
+       * @param {NodeList} indicators - The indicator elements
+       */
+      const setupTouchControls = (sliderElement, slides, indicators) => {
+        let touchStartX = 0;
+        let touchEndX = 0;
+        let currentSlide = 0;
+        
+        sliderElement.addEventListener('touchstart', (e) => {
+          touchStartX = e.changedTouches[0].screenX;
+        }, { passive: true });
+        
+        sliderElement.addEventListener('touchend', (e) => {
+          touchEndX = e.changedTouches[0].screenX;
+          handleSwipe();
+        }, { passive: true });
+        
+        const handleSwipe = () => {
+          if (touchEndX < touchStartX - 50) {
+            // Swipe left (next slide)
+            currentSlide = (currentSlide + 1) % slides.length;
+            showSlide(slides, indicators, currentSlide);
+          } else if (touchEndX > touchStartX + 50) {
+            // Swipe right (previous slide)
+            currentSlide = (currentSlide - 1 + slides.length) % slides.length;
+            showSlide(slides, indicators, currentSlide);
+          }
         };
+      };
+
+      /**
+       * Initialize scroll-based animations
+       */
+      const initScrollAnimations = () => {
+        // Initial check for elements in viewport
+        handleScrollAnimations();
         
-        // Initialize the hero slider
-        if (document.getElementById('hero-slider')) {
-          initHeroSlider();
-        }
+        // Add scroll and resize event listeners
+        window.addEventListener('scroll', debounce(handleScrollAnimations, 50));
+        window.addEventListener('resize', debounce(handleScrollAnimations, 50));
         
-        // Reveal animations on scroll
-        function handleScrollAnimations() {
-          const reveals = document.querySelectorAll('.reveal, .reveal-left, .reveal-right, .reveal-scale');
-          const elementVisible = 150; // Distance in pixels from viewport when element becomes visible
-          
-          reveals.forEach(element => {
-            const windowHeight = window.innerHeight;
-            const elementTop = element.getBoundingClientRect().top;
-            
-            if (elementTop < windowHeight - elementVisible) {
-              element.classList.add('active');
-            }
-          });
-        }
-        
-        // Add scroll event listener
-        window.addEventListener('scroll', handleScrollAnimations);
-        
-        // Add resize event listener to handle animations on window resize
-        window.addEventListener('resize', handleScrollAnimations);
-        
-        // Add animations to elements with data-animate attribute
-        function initAnimatedElements() {
-          const animatedElements = document.querySelectorAll('[data-animate]');
-          
-          animatedElements.forEach(element => {
-            const animationType = element.getAttribute('data-animate');
-            const delay = element.getAttribute('data-delay') || 0;
-            
-            element.style.animationDelay = `${delay}ms`;
-            element.style.animationFillMode = 'both';
-            element.classList.add(`animate-${animationType}`);
-          });
-        }
-        
-        // Initialize animated elements
+        // Initialize elements with data-animate attribute
         initAnimatedElements();
+      };
+
+      /**
+       * Debounce function to limit how often a function is called
+       * @param {Function} func - Function to debounce
+       * @param {number} wait - Wait time in milliseconds
+       * @returns {Function} Debounced function
+       */
+      const debounce = (func, wait) => {
+        let timeout;
+        return function() {
+          const context = this;
+          const args = arguments;
+          clearTimeout(timeout);
+          timeout = setTimeout(() => {
+            func.apply(context, args);
+          }, wait);
+        };
+      };
+
+      /**
+       * Handle reveal animations based on scroll position
+       */
+      const handleScrollAnimations = () => {
+        const reveals = document.querySelectorAll('.reveal, .reveal-left, .reveal-right, .reveal-scale');
+        const elementVisible = 150; // Distance from viewport when element becomes visible
         
-        // Add active class to current page in navigation
-        function setActiveMenu() {
-          const currentPath = window.location.pathname;
-          const navLinks = {
-            desktop: document.querySelectorAll('header nav.hidden.md\\:flex a'),
-            mobile: document.querySelectorAll('#mobile-menu nav ul li a')
-          };
+        reveals.forEach(element => {
+          const windowHeight = window.innerHeight;
+          const elementTop = element.getBoundingClientRect().top;
           
-          // Xử lý đường dẫn và tìm tên trang
-          const pageName = currentPath.split('/').pop() || 'index.html';
+          if (elementTop < windowHeight - elementVisible) {
+            element.classList.add('active');
+          }
+        });
+      };
+
+      /**
+       * Initialize elements with data-animate attribute
+       */
+      const initAnimatedElements = () => {
+        const animatedElements = document.querySelectorAll('[data-animate]');
+        
+        animatedElements.forEach(element => {
+          const animationType = element.getAttribute('data-animate');
+          const delay = element.getAttribute('data-delay') || 0;
           
-          // Đặt active cho menu desktop
-          navLinks.desktop.forEach(link => {
-            // Reset tất cả
-            link.classList.remove('border-b-2', 'border-white');
+          element.style.animationDelay = `${delay}ms`;
+          element.style.animationFillMode = 'both';
+          element.classList.add(`animate-${animationType}`);
+        });
+      };
+
+      /**
+       * Set active menu items based on current page
+       */
+      const setActiveMenuItems = () => {
+        const currentPath = window.location.pathname;
+        const desktopLinks = document.querySelectorAll('header nav.hidden.md\\:flex a');
+        const mobileLinks = document.querySelectorAll('#mobile-menu nav ul li a');
+        
+        // Get current page name from path
+        const pageName = currentPath.split('/').pop() || 'index.html';
+        
+        // Update desktop menu
+        updateActiveLinks(desktopLinks, pageName);
+        
+        // Update mobile menu
+        updateActiveLinks(mobileLinks, pageName, true);
+      };
+
+      /**
+       * Update active state of navigation links
+       * @param {NodeList} links - The navigation links
+       * @param {string} currentPage - The current page name
+       * @param {boolean} isMobile - Whether these are mobile menu links
+       */
+      const updateActiveLinks = (links, currentPage, isMobile = false) => {
+        links.forEach(link => {
+          // Reset all links
+          if (isMobile) {
+            link.classList.remove('border-l-4', 'border-white', 'pl-2', 'text-white');
             link.classList.add('text-white/80');
-            link.classList.remove('text-white');
-            link.removeAttribute('aria-current');
-            
-            // Kiểm tra nếu liên kết trùng với trang hiện tại
-            const linkHref = link.getAttribute('href');
-            if (linkHref === pageName || 
-                (pageName === 'index.html' && linkHref === 'index.html') ||
-                (pageName === '' && linkHref === 'index.html')) {
-              link.classList.add('border-b-2', 'border-white', 'text-white');
-              link.classList.remove('text-white/80');
-              link.setAttribute('aria-current', 'page');
-            }
-          });
+          } else {
+            link.classList.remove('border-b-2', 'border-white', 'text-white');
+            link.classList.add('text-white/80');
+          }
+          link.removeAttribute('aria-current');
           
-          // Đặt active cho menu mobile
-          navLinks.mobile.forEach(link => {
-            // Reset tất cả
-            link.classList.remove('border-l-4', 'border-white', 'pl-2');
-            link.classList.remove('text-white');
-            link.removeAttribute('aria-current');
-            
-            // Kiểm tra nếu liên kết trùng với trang hiện tại
-            const linkHref = link.getAttribute('href');
-            if (linkHref === pageName || 
-                (pageName === 'index.html' && linkHref === 'index.html') ||
-                (pageName === '' && linkHref === 'index.html')) {
+          // Check if link matches current page
+          const linkHref = link.getAttribute('href');
+          const isActive = linkHref === currentPage || 
+                          (currentPage === 'index.html' && linkHref === 'index.html') ||
+                          (currentPage === '' && linkHref === 'index.html');
+          
+          if (isActive) {
+            if (isMobile) {
               link.classList.add('border-l-4', 'border-white', 'pl-2', 'text-white');
-              link.classList.remove('text-white/80');
-              link.setAttribute('aria-current', 'page');
+            } else {
+              link.classList.add('border-b-2', 'border-white', 'text-white');
             }
+            link.classList.remove('text-white/80');
+            link.setAttribute('aria-current', 'page');
+          }
+        });
+      };
+
+      /**
+       * Initialize interaction tracking for analytics
+       * This provides a foundation for future analytics implementation
+       */
+      const initInteractionTracking = () => {
+        // Track clicks on primary CTA buttons
+        trackElementInteractions('.bg-primary', 'click', 'primary-cta');
+        
+        // Track link clicks by category
+        trackElementInteractions('nav a', 'click', 'navigation');
+        trackElementInteractions('footer a', 'click', 'footer-link');
+        
+        // Track event card interactions
+        trackElementInteractions('.group.border.border-gray-100', 'click', 'event-card');
+      };
+      
+      /**
+       * Utility function to track element interactions
+       * @param {string} selector - CSS selector for elements to track
+       * @param {string} eventType - Event type to listen for (e.g., 'click')
+       * @param {string} category - Tracking category name
+       */
+      const trackElementInteractions = (selector, eventType, category) => {
+        const elements = document.querySelectorAll(selector);
+        
+        elements.forEach((element, index) => {
+          element.addEventListener(eventType, (e) => {
+            // Get the element's text content or href for identification
+            const label = element.textContent?.trim() || 
+                          element.getAttribute('href') || 
+                          `${category}-${index}`;
+            
+            // This can be replaced with actual analytics tracking code
+            console.debug(`[Analytics] Category: ${category}, Action: ${eventType}, Label: ${label}`);
+            
+            // Don't interfere with the default behavior
           });
-        }
-        
-        // Gọi hàm thiết lập menu active khi trang đã tải
-        setActiveMenu();
-        
-        // Add animations to elements with data-animate attribute
-      });
+        });
+      };
     </script>
   </body>
 </html>
