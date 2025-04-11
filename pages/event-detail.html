@@ -28,6 +28,8 @@
                 <span class="separator">/</span>
                 <a href="events.html">Danh sách sự kiện</a>
                 <span class="separator">/</span>
+                <a href="hoi-thao.html">Hội thảo</a>
+                <span class="separator">/</span>
                 <span class="current">Hội thảo "Xu hướng công nghệ tài chính 2023"</span>
             </nav>
 
@@ -35,13 +37,13 @@
                 <div class="event-detail-left">
                     <!-- Tab Navigation -->
                     <div class="event-tabs">
-                        <button class="tab-btn active" data-tab="chi-tiet">Chi tiết sự kiện</button>
+                        <button class="tab-btn" data-tab="chi-tiet">Chi tiết sự kiện</button>
                         <button class="tab-btn" data-tab="tinh-trang">Tình trạng đăng ký</button>
                         <button class="tab-btn" data-tab="form-dang-ky">Form đăng ký</button>
                     </div>
 
                     <!-- Tab Content -->
-                    <div class="tab-content active" id="chi-tiet">
+                    <div class="tab-content" id="chi-tiet">
                         <div class="event-info-grid">
                             <div class="info-item">
                                 <i class="far fa-calendar"></i>
@@ -65,17 +67,17 @@
                                 </div>
                             </div>
                             <div class="info-item">
-                                <i class="fas fa-video"></i>
-                                <div class="info-content">
-                                    <div class="info-label">Hình thức</div>
-                                    <div class="info-value">Online</div>
-                                </div>
-                            </div>
-                            <div class="info-item">
                                 <i class="fas fa-users"></i>
                                 <div class="info-content">
                                     <div class="info-label">Số lượng</div>
                                     <div class="info-value">250 người</div>
+                                </div>
+                            </div>
+                            <div class="info-item">
+                                <i class="fas fa-video"></i>
+                                <div class="info-content">
+                                    <div class="info-label">Hình thức</div>
+                                    <div class="info-value">Online</div>
                                 </div>
                             </div>
                             <div class="info-item">
@@ -86,47 +88,104 @@
                                 </div>
                             </div>
                         </div>
+
+                        <div class="event-timeline">
+                            <h3>Lịch trình sự kiện</h3>
+                            <div class="timeline">
+                                <div class="timeline-item">
+                                    <div class="timeline-point"></div>
+                                    <div class="timeline-content">
+                                        <div class="time">08:00 - 08:30</div>
+                                        <div class="activity">Đón tiếp đại biểu</div>
+                                    </div>
+                                </div>
+                                <div class="timeline-item">
+                                    <div class="timeline-point"></div>
+                                    <div class="timeline-content">
+                                        <div class="time">08:30 - 10:00</div>
+                                        <div class="activity">Phiên thảo luận 1: Xu hướng công nghệ tài chính</div>
+                                    </div>
+                                </div>
+                                <div class="timeline-item">
+                                    <div class="timeline-point"></div>
+                                    <div class="timeline-content">
+                                        <div class="time">10:15 - 11:45</div>
+                                        <div class="activity">Phiên thảo luận 2: Blockchain trong tài chính</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="event-description">
+                            <h3>Mô tả sự kiện</h3>
+                            <div class="description-content">
+                                <p>Chủ đề chính: Xu hướng công nghệ mới trong lĩnh vực công nghệ tài chính và blockchain.</p>
+                                <p>Chi tiết:</p>
+                                <ul>
+                                    <li>Xu hướng công nghệ mới và cơ hội việc làm trong lĩnh vực tài chính công nghệ</li>
+                                    <li>Blockchain và ứng dụng trong lĩnh vực tài chính</li>
+                                    <li>Các cơ hội khởi nghiệp trong lĩnh vực fintech</li>
+                                </ul>
+                            </div>
+                        </div>
                     </div>
 
                     <div class="tab-content" id="tinh-trang">
-                        <div class="registration-status-box">
-                            <h3>Tình trạng đăng ký</h3>
+                        <div class="registration-status">
+                            <div class="status-header">
+                                <h3>Tình trạng đăng ký</h3>
+                            </div>
                             <div class="status-stats">
                                 <div class="stat-item">
-                                    <div class="stat-label">Tổng số chỗ</div>
-                                    <div class="stat-value">250 chỗ</div>
+                                    <div class="stat-icon">
+                                        <i class="fas fa-users"></i>
+                                    </div>
+                                    <div class="stat-info">
+                                        <div class="stat-label">Tổng số chỗ</div>
+                                        <div class="stat-value">250 chỗ</div>
+                                    </div>
                                 </div>
                                 <div class="stat-item">
-                                    <div class="stat-label">Đã đăng ký</div>
-                                    <div class="stat-value">14 người</div>
+                                    <div class="stat-icon">
+                                        <i class="fas fa-user-check"></i>
+                                    </div>
+                                    <div class="stat-info">
+                                        <div class="stat-label">Đã đăng ký</div>
+                                        <div class="stat-value">14 người</div>
+                                    </div>
                                 </div>
                             </div>
                             <div class="registration-period">
-                                <p><i class="far fa-clock"></i> Đã kết thúc thời gian đăng ký</p>
+                                <div class="period-item">
+                                    <span class="label">Bắt đầu đăng ký:</span>
+                                    <span class="value">06/04/2023 00:00</span>
+                                </div>
+                                <div class="period-item">
+                                    <span class="label">Kết thúc đăng ký:</span>
+                                    <span class="value">09/04/2023 23:59</span>
+                                </div>
+                            </div>
+                            <div class="status-alert warning">
+                                <i class="fas fa-exclamation-triangle"></i>
+                                <span>Đã kết thúc thời gian đăng ký</span>
                             </div>
                         </div>
                     </div>
 
                     <div class="tab-content" id="form-dang-ky">
-                        <div class="registration-form">
-                            <div class="form-header">
-                                <h3>Đăng ký tham gia</h3>
+                        <div class="login-prompt">
+                            <div class="login-content">
+                                <h3>Đăng nhập để tiếp tục</h3>
+                                <p>Đăng nhập tài khoản để đăng ký tham gia sự kiện và nhận thông tin cập nhật</p>
+                                <button class="btn btn-primary btn-login">
+                                    <i class="fas fa-sign-in-alt"></i>
+                                    Đăng nhập để tiếp tục
+                                </button>
+                                <button class="btn btn-outline btn-register">
+                                    <i class="fas fa-user-plus"></i>
+                                    Đăng ký tài khoản mới
+                                </button>
                             </div>
-                            <form id="eventRegistrationForm">
-                                <div class="form-group">
-                                    <label>Họ và tên</label>
-                                    <input type="text" value="Phạm Hoàng Thắng" readonly>
-                                </div>
-                                <div class="form-group">
-                                    <label>Email</label>
-                                    <input type="email" value="sakem@buh.edu.vn" readonly>
-                                </div>
-                                <div class="form-group">
-                                    <label>Facebook</label>
-                                    <input type="text" value="facebook.com/hubuniversity" readonly>
-                                </div>
-                                <button type="submit" class="btn btn-primary">Đăng ký tham gia</button>
-                            </form>
                         </div>
                     </div>
                 </div>
@@ -137,6 +196,7 @@
                         <h3>Chia sẻ sự kiện</h3>
                         <div class="qr-code">
                             <img src="../images/qr-code.png" alt="QR Code">
+                            <p>Quét mã QR để xem trên điện thoại</p>
                         </div>
                         <div class="share-buttons">
                             <button class="btn" data-platform="facebook">
@@ -148,11 +208,11 @@
                             <button class="btn" data-platform="apple">
                                 <i class="fab fa-apple"></i>
                             </button>
-                            <button class="btn">
+                            <button class="btn" data-platform="copy">
                                 <i class="fas fa-share-alt"></i>
                             </button>
                         </div>
-                        <button class="btn btn-outline btn-block">Tải mã QR</button>
+                        <button class="btn btn-outline">Tải mã QR</button>
                     </div>
 
                     <!-- Statistics Section -->
@@ -175,6 +235,14 @@
                                 <span class="stat-label">Đã hoàn thành</span>
                                 <span class="stat-value">14</span>
                             </div>
+                            <div class="progress-bar">
+                                <div class="progress" style="width: 5%"></div>
+                                <span class="progress-text">Tỉ lệ đăng ký</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress" style="width: 21%"></div>
+                                <span class="progress-text">Tỉ lệ tham gia</span>
+                            </div>
                         </div>
                     </div>
 
@@ -184,9 +252,23 @@
                         <div class="organizer-info">
                             <h4>Trường Đại học Ngân hàng TP.HCM</h4>
                             <div class="contact-info">
-                                <p><i class="fas fa-map-marker-alt"></i> Địa chỉ cụ thể 5</p>
+                                <p><i class="fas fa-map-marker-alt"></i> 36 Tôn Thất Đạm, Q.1, TP.HCM</p>
                                 <p><i class="fas fa-phone"></i> (028) 38 212 593</p>
                                 <p><i class="fas fa-envelope"></i> info@buh.edu.vn</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="related-events">
+                        <h3>Sự kiện liên quan</h3>
+                        <div class="event-item">
+                            <div class="event-date">
+                                <span class="date">15</span>
+                                <span class="month">04/2023</span>
+                            </div>
+                            <div class="event-info">
+                                <h4>Hội thảo khoa học "Tài chính và Ngân hàng trong kỷ nguyên số"</h4>
+                                <p class="time">08:00</p>
                             </div>
                         </div>
                     </div>
