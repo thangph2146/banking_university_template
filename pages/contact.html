@@ -120,7 +120,7 @@
         class="container mx-auto px-4 py-2 flex items-center justify-between"
       >
         <a href="index.html" class="text-2xl font-['Pacifico'] text-white transition-all duration-300 hover:scale-105">
-            <img src="../images/logo/logo-white-vertical.png" alt="logo" class="w-12 h-12 md:w-16 md:h-16">
+            <img src="../images/logo/logo-white.png" alt="logo" class="w-12 h-12 md:w-16 md:h-16">
         </a>
         <nav class="hidden md:flex items-center space-x-8">
           <a
@@ -159,7 +159,7 @@
       <div id="mobile-menu" class="hidden md:hidden bg-primary/95 fixed inset-0 z-50">
         <div class="p-4 flex justify-between items-center border-b border-red-900/30">
           <a href="index.html" class="text-2xl font-['Pacifico'] text-white flex items-center">
-            <img src="../images/logo/logo-white-vertical.png" alt="Đại học Ngân hàng TP.HCM logo" class="w-12 h-12">
+            <img src="../images/logo/logo-white.png" alt="Đại học Ngân hàng TP.HCM logo" class="w-12 h-12">
           </a>
         </div>
         <nav class="p-4" aria-label="Mobile navigation">
@@ -437,14 +437,14 @@
     </section>
 
     <!-- Footer -->
-    <footer class="bg-primary text-red-100 py-12">
-      <div class="container mx-auto px-4">
+    <footer class="bg-primary text-red-100 py-10 md:py-12 relative overflow-hidden">
+      <div class="absolute inset-0 bg-gradient-to-b from-primary to-primary/90"></div>
+      <div class="container mx-auto px-4 relative z-10">
         <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
           <div>
-            <a href="index.html" class="text-2xl font-['Pacifico'] text-white mb-4 block"
-              >
-              <img src="../images/logo/logo-white-vertical.png" alt="logo" class="w-16 h-16">
-            </a>
+            <a href="index.html" class="text-2xl font-pacifico text-white mb-4 block flex items-center"
+              ><img src="../images/logo/logo-white.png" alt="Đại học Ngân hàng TP.HCM logo" class="w-32 h-32"></a
+            >
             <p class="mb-4">
               Hệ thống Quản lý Sự kiện Đại học Ngân hàng TP.HCM - Nơi kết nối
               sinh viên với các hoạt động học thuật và ngoại khóa.
@@ -453,20 +453,23 @@
               <a
                 href="#"
                 class="w-10 h-10 flex items-center justify-center bg-red-900/50 rounded-full hover:bg-white hover:text-primary transition-colors"
+                aria-label="Facebook"
               >
-                <i class="ri-facebook-fill text-white"></i>
+                <i class="ri-facebook-fill"></i>
               </a>
               <a
                 href="#"
                 class="w-10 h-10 flex items-center justify-center bg-red-900/50 rounded-full hover:bg-white hover:text-primary transition-colors"
+                aria-label="YouTube"
               >
-                <i class="ri-youtube-fill text-white"></i>
+                <i class="ri-youtube-fill"></i>
               </a>
               <a
                 href="#"
                 class="w-10 h-10 flex items-center justify-center bg-red-900/50 rounded-full hover:bg-white hover:text-primary transition-colors"
+                aria-label="Instagram"
               >
-                <i class="ri-instagram-fill text-white"></i>
+                <i class="ri-instagram-fill"></i>
               </a>
             </div>
           </div>
@@ -474,28 +477,28 @@
             <h3 class="text-white text-lg font-bold mb-4">Liên kết nhanh</h3>
             <ul class="space-y-2">
               <li>
-                <a href="index.html" class="hover:text-white transition-colors"
-                  >Trang chủ</a
+                <a href="index.html" class="hover:text-white transition-colors inline-flex items-center">
+                  <i class="ri-arrow-right-s-line mr-2"></i>Trang chủ</a
                 >
               </li>
               <li>
-                <a href="events.html" class="hover:text-white transition-colors"
-                  >Sự kiện</a
+                <a href="events.html" class="hover:text-white transition-colors inline-flex items-center">
+                  <i class="ri-arrow-right-s-line mr-2"></i>Sự kiện</a
                 >
               </li>
               <li>
-                <a href="login.html" class="hover:text-white transition-colors"
-                  >Đăng nhập</a
+                <a href="login.html" class="hover:text-white transition-colors inline-flex items-center">
+                  <i class="ri-arrow-right-s-line mr-2"></i>Đăng nhập</a
                 >
               </li>
               <li>
-                <a href="register.html" class="hover:text-white transition-colors"
-                  >Đăng ký</a
+                <a href="register.html" class="hover:text-white transition-colors inline-flex items-center">
+                  <i class="ri-arrow-right-s-line mr-2"></i>Đăng ký</a
                 >
               </li>
               <li>
-                <a href="news.html" class="hover:text-white transition-colors"
-                  >Giới thiệu</a
+                <a href="news.html" class="hover:text-white transition-colors inline-flex items-center">
+                  <i class="ri-arrow-right-s-line mr-2"></i>Giới thiệu</a
                 >
               </li>
             </ul>
@@ -504,37 +507,37 @@
             <h3 class="text-white text-lg font-bold mb-4">Hỗ trợ</h3>
             <ul class="space-y-2">
               <li>
-                <a href="guide.html" class="hover:text-white transition-colors"
-                  >Hướng dẫn sử dụng</a
+                <a href="user-guide.html" class="hover:text-white transition-colors inline-flex items-center">
+                  <i class="ri-arrow-right-s-line mr-2"></i>Hướng dẫn sử dụng</a
                 >
               </li>
               <li>
-                <a href="faq.html" class="hover:text-white transition-colors"
-                  >Câu hỏi thường gặp</a
+                <a href="faq.html" class="hover:text-white transition-colors inline-flex items-center">
+                  <i class="ri-arrow-right-s-line mr-2"></i>Câu hỏi thường gặp</a
                 >
               </li>
               <li>
-                <a href="privacy.html" class="hover:text-white transition-colors"
-                  >Chính sách bảo mật</a
+                <a href="privacy.html" class="hover:text-white transition-colors inline-flex items-center">
+                  <i class="ri-arrow-right-s-line mr-2"></i>Chính sách bảo mật</a
                 >
               </li>
               <li>
-                <a href="terms.html" class="hover:text-white transition-colors"
-                  >Điều khoản sử dụng</a
+                <a href="terms.html" class="hover:text-white transition-colors inline-flex items-center">
+                  <i class="ri-arrow-right-s-line mr-2"></i>Điều khoản sử dụng</a
                 >
               </li>
               <li>
-                <a href="contact.html" class="hover:text-white transition-colors"
-                  >Liên hệ hỗ trợ</a
+                <a href="contact.html" class="hover:text-white transition-colors inline-flex items-center">
+                  <i class="ri-arrow-right-s-line mr-2"></i>Liên hệ hỗ trợ</a
                 >
               </li>
             </ul>
           </div>
           <div>
             <h3 class="text-white text-lg font-bold mb-4">Liên hệ</h3>
-            <ul class="space-y-2">
+            <ul class="space-y-3">
               <li class="flex items-start">
-                <div class="w-5 h-5 flex items-center justify-center mr-2 mt-1">
+                <div class="w-5 h-5 flex items-center justify-center mr-2 mt-1 text-red-200">
                   <i class="ri-map-pin-line"></i>
                 </div>
                 <span
@@ -543,21 +546,30 @@
                 >
               </li>
               <li class="flex items-center">
-                <div class="w-5 h-5 flex items-center justify-center mr-2">
+                <div class="w-5 h-5 flex items-center justify-center mr-2 text-red-200">
                   <i class="ri-phone-line"></i>
                 </div>
                 <span>(028) 3829 1901</span>
               </li>
               <li class="flex items-center">
-                <div class="w-5 h-5 flex items-center justify-center mr-2">
+                <div class="w-5 h-5 flex items-center justify-center mr-2 text-red-200">
                   <i class="ri-mail-line"></i>
                 </div>
                 <span>info@hub.edu.vn</span>
               </li>
             </ul>
+            <div class="mt-4 p-4 bg-red-900/30 rounded-lg">
+              <h4 class="text-white font-medium mb-2">Đăng ký nhận tin</h4>
+              <form class="flex">
+                <input type="email" placeholder="Email của bạn" class="px-3 py-2 rounded-l-button text-sm w-full focus:outline-none text-gray-700" />
+                <button type="submit" class="bg-primary border border-white text-white px-3 py-2 rounded-r-button hover:bg-red-800 transition-colors">
+                  <i class="ri-send-plane-fill"></i>
+                </button>
+              </form>
+            </div>
           </div>
         </div>
-        <div class="border-t border-red-900/30 mt-10 pt-6 text-center">
+        <div class="border-t border-red-900/30 mt-8 pt-6 text-center">
           <p>
             &copy; 2025 Đại học Ngân hàng TP.HCM. Tất cả quyền được bảo lưu.
           </p>
