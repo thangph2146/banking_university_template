@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Đăng nhập - Hệ thống Quản lý Sự kiện</title>
+    <link rel="icon" href="../favicon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="../css/variables.css">
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/login.css">
+    <link rel="stylesheet" href="../css/particles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+<body>
+    <div class="login-page">
+        <!-- Particles.js container -->
+        <div id="particles-js"></div>
+        <div class="login-wrapper">
+            <div class="login-container">
+                <div class="login-left">
+                    <div class="login-left-content">
+                        <a class="logo" href="index.html">
+                            <img src="../images/logo/logo-white.png" alt="Logo Đại học Ngân hàng TP.HCM" style="width: 300px; height: 100%;">
+                        </a>
+                        <div class="event-highlights">
+                            <div class="event-list">
+                                <div class="event-item">
+                                    <div class="event-icon">
+                                        <i class="fas fa-calendar-alt"></i>
+                                    </div>
+                                    <div class="event-info">
+                                        <h3>Ngày hội việc làm 2025</h3>
+                                        <p>Cơ hội kết nối với hơn <span class="highlight">50+ doanh nghiệp hàng
+                                                đầu</span></p>
+                                    </div>
+                                </div>
+                                <div class="event-item">
+                                    <div class="event-icon">
+                                        <i class="fas fa-microphone"></i>
+                                    </div>
+                                    <div class="event-info">
+                                        <h3>Hội thảo chuyên đề</h3>
+                                        <p>Gặp gỡ các chuyên gia trong ngành tài chính - ngân hàng</p>
+                                    </div>
+                                </div>
+                                <div class="event-item">
+                                    <div class="event-icon">
+                                        <i class="fas fa-trophy"></i>
+                                    </div>
+                                    <div class="event-info">
+                                        <h3>Cuộc thi tài năng sinh viên</h3>
+                                        <p>Cơ hội giành học bổng và những phần quà giá trị</p>
+                                    </div>
+                                </div>
+                                <div class="event-item">
+                                    <div class="event-icon">
+                                        <i class="fas fa-users"></i>
+                                    </div>
+                                    <div class="event-info">
+                                        <h3>Hoạt động câu lạc bộ</h3>
+                                        <p>Tham gia và phát triển kỹ năng mềm cùng các CLB sinh viên</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="copyright">
+                            <p>© 2025 Trường Đại học Ngân hàng TP. Hồ Chí Minh</p>
+                            <p>36 Tôn Thất Đạm, Phường Nguyễn Thái Bình, Quận 1, TP.HCM</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="login-right">
+                    <div class="login-form-container">
+                        <h1>HỆ THỐNG ĐĂNG KÝ SỰ KIỆN</h1>
+                        <p class="subtitle">Đăng nhập để đăng ký và tham gia các sự kiện đặc biệt của trường</p>
+                        <form class="login-form" id="loginForm" method="post">
+                            <div class="form-group">
+                                <label for="email">Email sinh viên</label>
+                                <div class="input-group">
+                                    <span class="input-icon">
+                                        <i class="fas fa-envelope"></i>
+                                    </span>
+                                    <input type="email" id="email" name="email" placeholder="Nhập email sinh viên"
+                                        required>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="password">Mật khẩu</label>
+                                <div class="input-group">
+                                    <span class="input-icon">
+                                        <i class="fas fa-lock"></i>
+                                    </span>
+                                    <input type="password" id="password" name="password" placeholder="Nhập mật khẩu"
+                                        required>
+                                    <button type="button" class="toggle-password" aria-label="Hiển thị mật khẩu">
+                                        <i class="far fa-eye-slash"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="form-options">
+                                <label class="remember-me">
+                                    <input type="checkbox" id="rememberMe" name="rememberMe">
+                                    <span>Ghi nhớ đăng nhập</span>
+                                </label>
+                                <a href="forgot-password.html" class="forgot-password">Quên mật khẩu?</a>
+                            </div>
+                            <button type="submit" class="btn-login">
+                                <i class="fas fa-sign-in-alt"></i>
+                                Đăng nhập
+                            </button>
+                            <div class="divider">
+                                <span>HOẶC</span>
+                            </div>
+                            <button type="button" class="btn-google">
+                                <img src="../images/google-icon.svg" alt="Google" width="18" height="18">
+                                Đăng nhập bằng Google
+                            </button>
+                            <div class="register-link">
+                                <span>Chưa có tài khoản?</span>
+                                <a href="register.html">Đăng ký tài khoản</a>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    <script src="../js/particles-config.js"></script>
+    <script src="../js/login.js"></script>
+</body>
+
+</html>

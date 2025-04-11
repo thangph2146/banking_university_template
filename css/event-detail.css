@@ -1,0 +1,303 @@
+/* Event Detail Page Styles */
+:root {
+    --primary-color: #8B0000;
+    --secondary-color: #333;
+    --border-color: #E5E5E5;
+    --text-color: #333;
+    --light-bg: #F8F9FA;
+    --success-color: #28A745;
+    --gray-text: #666;
+}
+
+/* Breadcrumb Styles */
+.breadcrumb {
+    padding: 1rem 0;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.9rem;
+}
+
+.breadcrumb a {
+    color: var(--text-color);
+    text-decoration: none;
+}
+
+.breadcrumb .separator {
+    color: #666;
+}
+
+.breadcrumb .current {
+    color: var(--primary-color);
+    font-weight: 500;
+}
+
+/* Main Content Layout */
+.event-detail-wrapper {
+    display: grid;
+    grid-template-columns: 2.5fr 1fr;
+    gap: 2rem;
+    padding: 2rem 0;
+}
+
+/* Tab Navigation */
+.event-tabs {
+    display: flex;
+    gap: 0;
+    margin-bottom: 2rem;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.tab-btn {
+    padding: 0.75rem 1.5rem;
+    border: none;
+    background: none;
+    cursor: pointer;
+    font-weight: 500;
+    color: var(--gray-text);
+    position: relative;
+    transition: color 0.3s;
+}
+
+.tab-btn.active {
+    color: var(--primary-color);
+    font-weight: 600;
+}
+
+.tab-btn.active::after {
+    content: '';
+    position: absolute;
+    bottom: -1px;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background-color: var(--primary-color);
+}
+
+/* Event Info Grid */
+.event-info-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+    padding: 1.5rem;
+    background-color: var(--light-bg);
+    border-radius: 8px;
+    margin-bottom: 2rem;
+}
+
+.info-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    padding: 1rem;
+    background: #fff;
+    border-radius: 6px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+.info-item i {
+    color: var(--primary-color);
+    font-size: 1.2rem;
+    margin-top: 0.2rem;
+}
+
+.info-content {
+    flex: 1;
+}
+
+.info-label {
+    color: var(--gray-text);
+    font-size: 0.9rem;
+    margin-bottom: 0.25rem;
+}
+
+.info-value {
+    font-weight: 500;
+    color: var(--text-color);
+}
+
+/* Registration Status Box */
+.registration-status-box {
+    background-color: #fff;
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+.status-stats {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+    margin: 1.5rem 0;
+    text-align: center;
+}
+
+.stat-item {
+    background: var(--light-bg);
+    padding: 1rem;
+    border-radius: 6px;
+}
+
+.stat-label {
+    color: var(--gray-text);
+    font-size: 0.9rem;
+    margin-bottom: 0.5rem;
+}
+
+.stat-value {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--primary-color);
+}
+
+/* Right Sidebar */
+.event-detail-right > div {
+    background-color: #fff;
+    padding: 1.5rem;
+    border-radius: 8px;
+    margin-bottom: 1.5rem;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+.share-section h3,
+.stats-section h3,
+.organizer-section h3 {
+    font-size: 1.1rem;
+    margin-bottom: 1.5rem;
+    color: var(--text-color);
+}
+
+.share-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 0.75rem;
+    margin: 1rem 0;
+}
+
+.share-buttons .btn {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid var(--border-color);
+    color: var(--gray-text);
+    transition: all 0.3s;
+}
+
+.share-buttons .btn:hover {
+    background: var(--light-bg);
+    color: var(--primary-color);
+}
+
+/* Success Message Styles */
+.success-message {
+    text-align: center;
+    padding: 3rem 2rem;
+}
+
+.success-message i {
+    font-size: 4rem;
+    color: var(--success-color);
+    margin-bottom: 1.5rem;
+}
+
+.success-message h3 {
+    color: var(--success-color);
+    margin-bottom: 1rem;
+}
+
+.success-message .event-info {
+    background: var(--light-bg);
+    padding: 1.5rem;
+    border-radius: 8px;
+    margin-top: 2rem;
+}
+
+.success-message .event-info p {
+    margin: 0.5rem 0;
+    color: var(--gray-text);
+}
+
+.success-message .event-info strong {
+    color: var(--text-color);
+    margin-right: 0.5rem;
+}
+
+/* Registration Form */
+.registration-form {
+    background-color: #fff;
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    color: var(--gray-text);
+    font-size: 0.9rem;
+}
+
+.form-group input[readonly] {
+    background-color: var(--light-bg);
+    border: 1px solid var(--border-color);
+    padding: 0.75rem;
+    border-radius: 6px;
+    width: 100%;
+    color: var(--text-color);
+    font-size: 0.95rem;
+}
+
+.btn-primary {
+    background: var(--primary-color);
+    color: #fff;
+    border: none;
+    padding: 0.75rem 1.5rem;
+    border-radius: 6px;
+    font-weight: 500;
+    cursor: pointer;
+    width: 100%;
+    transition: background 0.3s;
+}
+
+.btn-primary:hover {
+    background: #990000;
+}
+
+/* Responsive Design */
+@media (max-width: 992px) {
+    .event-detail-wrapper {
+        grid-template-columns: 1fr;
+    }
+    
+    .event-info-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 768px) {
+    .event-tabs {
+        flex-wrap: wrap;
+        gap: 0.5rem;
+    }
+    
+    .tab-btn {
+        flex: 1;
+        text-align: center;
+        min-width: 150px;
+    }
+    
+    .status-stats {
+        grid-template-columns: 1fr;
+    }
+    
+    .info-item {
+        padding: 0.75rem;
+    }
+} 

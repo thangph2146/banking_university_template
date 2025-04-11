@@ -1,0 +1,960 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hồ sơ cá nhân - Đại Học Ngân Hàng TP.HCM</title>
+    <link rel="icon" href="../favicon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <meta name="description" content="Quản lý thông tin cá nhân tại Đại học Ngân hàng TP.HCM">
+</head>
+<body>
+    <!-- Header -->
+    <header class="unified-header">
+        <div class="container">
+            <a href="../index.html" class="unified-logo">
+                <img src="../images/logo/logo.svg" alt="Logo Đại học Ngân hàng TP.HCM">
+                <span>Đại học Ngân hàng TP.HCM</span>
+            </a>
+            
+            <div class="unified-nav">
+                <ul class="unified-nav-list">
+                    <li><a href="../index.html"><i class="fas fa-home"></i> Trang chủ</a></li>
+                    <li><a href="events.html"><i class="fas fa-calendar-alt"></i> Sự kiện</a></li>
+                    <li><a href="event-category.html"><i class="fas fa-tag"></i> Danh mục</a></li>
+                    <li><a href="about.html"><i class="fas fa-info-circle"></i> Giới thiệu</a></li>
+                    <li><a href="#"><i class="fas fa-newspaper"></i> Tin tức</a></li>
+                </ul>
+            </div>
+            
+            <div class="unified-search">
+                <input type="text" placeholder="Tìm kiếm sự kiện...">
+                <button type="button"><i class="fas fa-search"></i></button>
+            </div>
+            
+            <div class="unified-auth-buttons">
+                <!-- This will be replaced by user dropdown via JavaScript -->
+            </div>
+            
+            <button class="hamburger-menu">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </header>
+    
+    <!-- Mobile Nav -->
+    <div class="mobile-nav">
+        <ul class="mobile-nav-list">
+            <li><a href="../index.html"><i class="fas fa-home"></i> Trang chủ</a></li>
+            <li><a href="events.html"><i class="fas fa-calendar-alt"></i> Sự kiện</a></li>
+            <li><a href="event-category.html"><i class="fas fa-tag"></i> Danh mục</a></li>
+            <li><a href="about.html"><i class="fas fa-info-circle"></i> Giới thiệu</a></li>
+            <li><a href="#"><i class="fas fa-newspaper"></i> Tin tức</a></li>
+        </ul>
+        <div class="unified-search">
+            <input type="text" placeholder="Tìm kiếm sự kiện...">
+            <button type="button"><i class="fas fa-search"></i></button>
+        </div>
+        <div class="unified-auth-buttons">
+            <!-- This will be replaced by user dropdown via JavaScript -->
+        </div>
+    </div>
+
+    <!-- Profile Section -->
+    <section class="profile-section">
+        <div class="container">
+            <!-- Breadcrumb -->
+            <div class="breadcrumb-container fade-in">
+                <ul class="breadcrumb">
+                    <li><a href="../index.html">Trang chủ</a></li>
+                    <li><a href="student-dashboard.html">Quản lý sự kiện</a></li>
+                    <li>Hồ sơ cá nhân</li>
+                </ul>
+            </div>
+            
+            <div class="profile-container">
+                <!-- Sidebar -->
+                <div class="dashboard-sidebar fade-in-left">
+                    <div class="user-profile">
+                        <div class="user-avatar">
+                            <img src="https://placehold.co/150x150" alt="Avatar" id="userAvatar">
+                            <div class="avatar-edit">
+                                <label for="avatarUpload">
+                                    <i class="fas fa-camera"></i>
+                                </label>
+                                <input type="file" id="avatarUpload" accept="image/*" style="display: none;">
+                            </div>
+                        </div>
+                        <div class="user-info">
+                            <h3 id="userName">Nguyễn Văn A</h3>
+                            <p id="userEmail">student@buh.edu.vn</p>
+                        </div>
+                    </div>
+                    
+                    <div class="dashboard-nav">
+                        <ul>
+                            <li>
+                                <a href="student-dashboard.html">
+                                    <i class="fas fa-tachometer-alt"></i>
+                                    <span>Tổng quan</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="student-events.html">
+                                    <i class="fas fa-calendar-check"></i>
+                                    <span>Sự kiện của tôi</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="student-saved.html">
+                                    <i class="fas fa-bookmark"></i>
+                                    <span>Sự kiện đã lưu</span>
+                                </a>
+                            </li>
+                            <li class="active">
+                                <a href="profile.html">
+                                    <i class="fas fa-user"></i>
+                                    <span>Hồ sơ cá nhân</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="student-certificates.html">
+                                    <i class="fas fa-certificate"></i>
+                                    <span>Chứng chỉ</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="student-settings.html">
+                                    <i class="fas fa-cog"></i>
+                                    <span>Cài đặt</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#" id="logoutBtn">
+                                    <i class="fas fa-sign-out-alt"></i>
+                                    <span>Đăng xuất</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <!-- Main Content -->
+                <div class="profile-main fade-in-right">
+                    <div class="profile-header">
+                        <h1>Hồ sơ cá nhân</h1>
+                        <p>Quản lý thông tin cá nhân của bạn</p>
+                    </div>
+                    
+                    <!-- Profile Tabs -->
+                    <div class="profile-tabs">
+                        <button class="profile-tab active" data-tab="personal-info">Thông tin cá nhân</button>
+                        <button class="profile-tab" data-tab="academic-info">Thông tin học tập</button>
+                        <button class="profile-tab" data-tab="security">Bảo mật</button>
+                    </div>
+                    
+                    <!-- Personal Info Tab -->
+                    <div class="profile-tab-content active" id="personal-info">
+                        <div class="profile-form-container">
+                            <form id="personalInfoForm">
+                                <!-- Alert Messages -->
+                                <div class="alert alert-success" id="personalInfoSuccess" style="display: none;">
+                                    <i class="fas fa-check-circle"></i>
+                                    <div>
+                                        <h4>Cập nhật thành công</h4>
+                                        <p>Thông tin cá nhân của bạn đã được cập nhật.</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="alert alert-error" id="personalInfoError" style="display: none;">
+                                    <i class="fas fa-exclamation-circle"></i>
+                                    <div>
+                                        <h4>Cập nhật thất bại</h4>
+                                        <p>Đã xảy ra lỗi khi cập nhật thông tin. Vui lòng thử lại.</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="fullName">Họ và tên <span class="required">*</span></label>
+                                    <input type="text" id="fullName" name="fullName" required>
+                                    <div class="validation-error" id="fullNameError"></div>
+                                </div>
+                                
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="email">Email <span class="required">*</span></label>
+                                        <input type="email" id="email" name="email" readonly>
+                                        <small class="form-text">Email không thể thay đổi.</small>
+                                    </div>
+                                    
+                                    <div class="form-group">
+                                        <label for="phone">Số điện thoại <span class="required">*</span></label>
+                                        <input type="tel" id="phone" name="phone" required>
+                                        <div class="validation-error" id="phoneError"></div>
+                                    </div>
+                                </div>
+                                
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="birthdate">Ngày sinh</label>
+                                        <input type="date" id="birthdate" name="birthdate">
+                                    </div>
+                                    
+                                    <div class="form-group">
+                                        <label for="gender">Giới tính</label>
+                                        <select id="gender" name="gender">
+                                            <option value="">Chọn giới tính</option>
+                                            <option value="male">Nam</option>
+                                            <option value="female">Nữ</option>
+                                            <option value="other">Khác</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="address">Địa chỉ</label>
+                                    <textarea id="address" name="address" rows="3"></textarea>
+                                </div>
+                                
+                                <div class="form-actions">
+                                    <button type="submit" class="btn btn-primary">Lưu thay đổi</button>
+                                    <button type="reset" class="btn btn-outline">Đặt lại</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    
+                    <!-- Academic Info Tab -->
+                    <div class="profile-tab-content" id="academic-info">
+                        <div class="profile-form-container">
+                            <form id="academicInfoForm">
+                                <!-- Alert Messages -->
+                                <div class="alert alert-success" id="academicInfoSuccess" style="display: none;">
+                                    <i class="fas fa-check-circle"></i>
+                                    <div>
+                                        <h4>Cập nhật thành công</h4>
+                                        <p>Thông tin học tập của bạn đã được cập nhật.</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="alert alert-error" id="academicInfoError" style="display: none;">
+                                    <i class="fas fa-exclamation-circle"></i>
+                                    <div>
+                                        <h4>Cập nhật thất bại</h4>
+                                        <p>Đã xảy ra lỗi khi cập nhật thông tin. Vui lòng thử lại.</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="studentId">Mã số sinh viên <span class="required">*</span></label>
+                                        <input type="text" id="studentId" name="studentId" required>
+                                        <div class="validation-error" id="studentIdError"></div>
+                                    </div>
+                                    
+                                    <div class="form-group">
+                                        <label for="faculty">Khoa <span class="required">*</span></label>
+                                        <select id="faculty" name="faculty" required>
+                                            <option value="">Chọn khoa</option>
+                                            <option value="finance-banking">Tài chính - Ngân hàng</option>
+                                            <option value="accounting">Kế toán</option>
+                                            <option value="management">Quản trị Kinh doanh</option>
+                                            <option value="it">Hệ thống Thông tin</option>
+                                            <option value="law">Luật Kinh tế</option>
+                                        </select>
+                                        <div class="validation-error" id="facultyError"></div>
+                                    </div>
+                                </div>
+                                
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="major">Chuyên ngành</label>
+                                        <select id="major" name="major">
+                                            <option value="">Chọn chuyên ngành</option>
+                                            <!-- Options will be dynamically loaded based on faculty -->
+                                        </select>
+                                    </div>
+                                    
+                                    <div class="form-group">
+                                        <label for="class">Lớp</label>
+                                        <input type="text" id="class" name="class">
+                                    </div>
+                                </div>
+                                
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="enrollmentYear">Năm nhập học</label>
+                                        <select id="enrollmentYear" name="enrollmentYear">
+                                            <option value="">Chọn năm</option>
+                                            <option value="2023">2023</option>
+                                            <option value="2022">2022</option>
+                                            <option value="2021">2021</option>
+                                            <option value="2020">2020</option>
+                                            <option value="2019">2019</option>
+                                        </select>
+                                    </div>
+                                    
+                                    <div class="form-group">
+                                        <label for="graduationYear">Năm tốt nghiệp (dự kiến)</label>
+                                        <select id="graduationYear" name="graduationYear">
+                                            <option value="">Chọn năm</option>
+                                            <option value="2027">2027</option>
+                                            <option value="2026">2026</option>
+                                            <option value="2025">2025</option>
+                                            <option value="2024">2024</option>
+                                            <option value="2023">2023</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                
+                                <div class="form-actions">
+                                    <button type="submit" class="btn btn-primary">Lưu thay đổi</button>
+                                    <button type="reset" class="btn btn-outline">Đặt lại</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    
+                    <!-- Security Tab -->
+                    <div class="profile-tab-content" id="security">
+                        <div class="profile-form-container">
+                            <form id="securityForm">
+                                <!-- Alert Messages -->
+                                <div class="alert alert-success" id="securitySuccess" style="display: none;">
+                                    <i class="fas fa-check-circle"></i>
+                                    <div>
+                                        <h4>Cập nhật thành công</h4>
+                                        <p>Mật khẩu của bạn đã được cập nhật.</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="alert alert-error" id="securityError" style="display: none;">
+                                    <i class="fas fa-exclamation-circle"></i>
+                                    <div>
+                                        <h4>Cập nhật thất bại</h4>
+                                        <p>Đã xảy ra lỗi khi cập nhật mật khẩu. Vui lòng thử lại.</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="currentPassword">Mật khẩu hiện tại <span class="required">*</span></label>
+                                    <div class="password-input-group">
+                                        <input type="password" id="currentPassword" name="currentPassword" required>
+                                        <button type="button" class="password-toggle" title="Hiện/ẩn mật khẩu">
+                                            <i class="fas fa-eye"></i>
+                                        </button>
+                                    </div>
+                                    <div class="validation-error" id="currentPasswordError"></div>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="newPassword">Mật khẩu mới <span class="required">*</span></label>
+                                    <div class="password-input-group">
+                                        <input type="password" id="newPassword" name="newPassword" required>
+                                        <button type="button" class="password-toggle" title="Hiện/ẩn mật khẩu">
+                                            <i class="fas fa-eye"></i>
+                                        </button>
+                                    </div>
+                                    <div class="validation-error" id="newPasswordError"></div>
+                                    <div class="password-strength">
+                                        <div class="strength-meter">
+                                            <div class="strength-meter-fill" data-strength="0"></div>
+                                        </div>
+                                        <div class="strength-text">Độ mạnh: <span>Yếu</span></div>
+                                    </div>
+                                    <small class="form-text">Mật khẩu phải có ít nhất 8 ký tự, bao gồm chữ hoa, chữ thường, số và ký tự đặc biệt.</small>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="confirmPassword">Xác nhận mật khẩu mới <span class="required">*</span></label>
+                                    <div class="password-input-group">
+                                        <input type="password" id="confirmPassword" name="confirmPassword" required>
+                                        <button type="button" class="password-toggle" title="Hiện/ẩn mật khẩu">
+                                            <i class="fas fa-eye"></i>
+                                        </button>
+                                    </div>
+                                    <div class="validation-error" id="confirmPasswordError"></div>
+                                </div>
+                                
+                                <div class="form-actions">
+                                    <button type="submit" class="btn btn-primary">Đổi mật khẩu</button>
+                                    <button type="reset" class="btn btn-outline">Đặt lại</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="unified-footer">
+        <div class="container">
+            <div class="footer-top">
+                <div class="footer-col footer-about">
+                    <a href="../index.html" class="footer-logo">
+                        <img src="../images/logo/logo.svg" alt="Logo Đại học Ngân hàng TP.HCM">
+                    </a>
+                    <p>Đại học Ngân hàng TP.HCM là trường đại học công lập chuyên đào tạo về lĩnh vực tài chính, ngân hàng hàng đầu tại Việt Nam.</p>
+                    <div class="social-links">
+                        <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                        <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                <div class="footer-col footer-links">
+                    <h3>Liên kết</h3>
+                    <ul>
+                        <li><a href="../index.html">Trang chủ</a></li>
+                        <li><a href="events.html">Sự kiện</a></li>
+                        <li><a href="event-category.html">Danh mục</a></li>
+                        <li><a href="about.html">Giới thiệu</a></li>
+                        <li><a href="#">Tin tức</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col footer-links">
+                    <h3>Hỗ trợ</h3>
+                    <ul>
+                        <li><a href="#">Câu hỏi thường gặp</a></li>
+                        <li><a href="#">Điều khoản sử dụng</a></li>
+                        <li><a href="#">Chính sách bảo mật</a></li>
+                        <li><a href="#">Hướng dẫn đăng ký</a></li>
+                        <li><a href="#">Liên hệ hỗ trợ</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col footer-contact">
+                    <h3>Liên hệ</h3>
+                    <p><i class="fas fa-map-marker-alt"></i> 36 Tôn Thất Đạm, Phường Nguyễn Thái Bình, Quận 1, TP.HCM</p>
+                    <p><i class="fas fa-phone-alt"></i> (028) 3829 1901</p>
+                    <p><i class="fas fa-envelope"></i> info@buh.edu.vn</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <div class="copyright">
+                    <p>&copy; 2023 Đại học Ngân hàng TP.HCM. Tất cả quyền được bảo lưu.</p>
+                </div>
+            </div>
+        </div>
+        
+        <button id="backToTop" class="back-to-top">
+            <i class="fas fa-arrow-up"></i>
+        </button>
+    </footer>
+
+    <!-- Loading Spinner -->
+    <div class="spinner-overlay">
+        <div class="spinner"></div>
+    </div>
+
+    <!-- Toast Container -->
+    <div class="toast-container"></div>
+
+    <script src="../js/script.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Check if user is logged in
+            const user = JSON.parse(localStorage.getItem('user'));
+            
+            if (!user) {
+                // Redirect to login page if not logged in
+                window.location.href = 'login.html';
+                return;
+            }
+            
+            // Update user information
+            document.getElementById('userName').textContent = user.name || 'Người dùng';
+            document.getElementById('userEmail').textContent = user.email || '';
+            
+            // Load user avatar if available
+            if (user.avatar) {
+                document.getElementById('userAvatar').src = user.avatar;
+            }
+            
+            // Fill personal info form
+            document.getElementById('fullName').value = user.name || '';
+            document.getElementById('email').value = user.email || '';
+            document.getElementById('phone').value = user.phone || '';
+            document.getElementById('birthdate').value = user.birthdate || '';
+            document.getElementById('gender').value = user.gender || '';
+            document.getElementById('address').value = user.address || '';
+            
+            // Fill academic info form
+            document.getElementById('studentId').value = user.studentId || '';
+            document.getElementById('faculty').value = user.faculty || '';
+            document.getElementById('class').value = user.class || '';
+            document.getElementById('enrollmentYear').value = user.enrollmentYear || '';
+            document.getElementById('graduationYear').value = user.graduationYear || '';
+            
+            // Update majors based on faculty
+            updateMajors();
+            
+            // Set major if available
+            if (user.major) {
+                document.getElementById('major').value = user.major;
+            }
+            
+            // Tab switching
+            const tabs = document.querySelectorAll('.profile-tab');
+            const tabContents = document.querySelectorAll('.profile-tab-content');
+            
+            tabs.forEach(tab => {
+                tab.addEventListener('click', function() {
+                    // Remove active class from all tabs
+                    tabs.forEach(t => t.classList.remove('active'));
+                    
+                    // Add active class to clicked tab
+                    this.classList.add('active');
+                    
+                    // Hide all tab contents
+                    tabContents.forEach(content => content.classList.remove('active'));
+                    
+                    // Show corresponding tab content
+                    const tabId = this.getAttribute('data-tab');
+                    document.getElementById(tabId).classList.add('active');
+                });
+            });
+            
+            // Faculty change event
+            document.getElementById('faculty').addEventListener('change', updateMajors);
+            
+            // Personal info form submission
+            document.getElementById('personalInfoForm').addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                // Validate form
+                let isValid = true;
+                
+                // Validate full name
+                const fullName = document.getElementById('fullName');
+                if (fullName.value.trim() === '') {
+                    showError(fullName, 'fullNameError', 'Vui lòng nhập họ và tên');
+                    isValid = false;
+                } else {
+                    hideError(fullName, 'fullNameError');
+                }
+                
+                // Validate phone
+                const phone = document.getElementById('phone');
+                if (!validatePhone(phone.value)) {
+                    showError(phone, 'phoneError', 'Vui lòng nhập số điện thoại hợp lệ');
+                    isValid = false;
+                } else {
+                    hideError(phone, 'phoneError');
+                }
+                
+                if (isValid) {
+                    // Show loading spinner
+                    showSpinner();
+                    
+                    // Simulate API call
+                    setTimeout(function() {
+                        // Hide spinner
+                        hideSpinner();
+                        
+                        // Update user data in localStorage
+                        user.name = fullName.value;
+                        user.phone = phone.value;
+                        user.birthdate = document.getElementById('birthdate').value;
+                        user.gender = document.getElementById('gender').value;
+                        user.address = document.getElementById('address').value;
+                        
+                        localStorage.setItem('user', JSON.stringify(user));
+                        
+                        // Update displayed user name
+                        document.getElementById('userName').textContent = user.name;
+                        
+                        // Show success message
+                        document.getElementById('personalInfoSuccess').style.display = 'flex';
+                        document.getElementById('personalInfoError').style.display = 'none';
+                        
+                        // Hide success message after 3 seconds
+                        setTimeout(function() {
+                            document.getElementById('personalInfoSuccess').style.display = 'none';
+                        }, 3000);
+                        
+                        // Show toast
+                        showToast('success', 'Cập nhật thành công', 'Thông tin cá nhân của bạn đã được cập nhật.');
+                    }, 1500);
+                }
+            });
+            
+            // Academic info form submission
+            document.getElementById('academicInfoForm').addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                // Validate form
+                let isValid = true;
+                
+                // Validate student ID
+                const studentId = document.getElementById('studentId');
+                if (studentId.value.trim() === '') {
+                    showError(studentId, 'studentIdError', 'Vui lòng nhập mã số sinh viên');
+                    isValid = false;
+                } else {
+                    hideError(studentId, 'studentIdError');
+                }
+                
+                // Validate faculty
+                const faculty = document.getElementById('faculty');
+                if (faculty.value === '') {
+                    showError(faculty, 'facultyError', 'Vui lòng chọn khoa');
+                    isValid = false;
+                } else {
+                    hideError(faculty, 'facultyError');
+                }
+                
+                if (isValid) {
+                    // Show loading spinner
+                    showSpinner();
+                    
+                    // Simulate API call
+                    setTimeout(function() {
+                        // Hide spinner
+                        hideSpinner();
+                        
+                        // Update user data in localStorage
+                        user.studentId = studentId.value;
+                        user.faculty = faculty.value;
+                        user.major = document.getElementById('major').value;
+                        user.class = document.getElementById('class').value;
+                        user.enrollmentYear = document.getElementById('enrollmentYear').value;
+                        user.graduationYear = document.getElementById('graduationYear').value;
+                        
+                        localStorage.setItem('user', JSON.stringify(user));
+                        
+                        // Show success message
+                        document.getElementById('academicInfoSuccess').style.display = 'flex';
+                        document.getElementById('academicInfoError').style.display = 'none';
+                        
+                        // Hide success message after 3 seconds
+                        setTimeout(function() {
+                            document.getElementById('academicInfoSuccess').style.display = 'none';
+                        }, 3000);
+                        
+                        // Show toast
+                        showToast('success', 'Cập nhật thành công', 'Thông tin học tập của bạn đã được cập nhật.');
+                    }, 1500);
+                }
+            });
+            
+            // Security form submission
+            document.getElementById('securityForm').addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                // Validate form
+                let isValid = true;
+                
+                // Validate current password
+                const currentPassword = document.getElementById('currentPassword');
+                if (currentPassword.value.trim() === '') {
+                    showError(currentPassword, 'currentPasswordError', 'Vui lòng nhập mật khẩu hiện tại');
+                    isValid = false;
+                } else {
+                    hideError(currentPassword, 'currentPasswordError');
+                }
+                
+                // Validate new password
+                const newPassword = document.getElementById('newPassword');
+                if (newPassword.value.length < 8) {
+                    showError(newPassword, 'newPasswordError', 'Mật khẩu phải có ít nhất 8 ký tự');
+                    isValid = false;
+                } else if (!validatePassword(newPassword.value)) {
+                    showError(newPassword, 'newPasswordError', 'Mật khẩu phải bao gồm chữ hoa, chữ thường, số và ký tự đặc biệt');
+                    isValid = false;
+                } else {
+                    hideError(newPassword, 'newPasswordError');
+                }
+                
+                // Validate confirm password
+                const confirmPassword = document.getElementById('confirmPassword');
+                if (confirmPassword.value !== newPassword.value) {
+                    showError(confirmPassword, 'confirmPasswordError', 'Mật khẩu xác nhận không khớp');
+                    isValid = false;
+                } else {
+                    hideError(confirmPassword, 'confirmPasswordError');
+                }
+                
+                if (isValid) {
+                    // Show loading spinner
+                    showSpinner();
+                    
+                    // Simulate API call
+                    setTimeout(function() {
+                        // Hide spinner
+                        hideSpinner();
+                        
+                        // In a real app, you would send the password change request to the server
+                        // For this template, we'll just show a success message
+                        
+                        // Show success message
+                        document.getElementById('securitySuccess').style.display = 'flex';
+                        document.getElementById('securityError').style.display = 'none';
+                        
+                        // Hide success message after 3 seconds
+                        setTimeout(function() {
+                            document.getElementById('securitySuccess').style.display = 'none';
+                        }, 3000);
+                        
+                        // Reset form
+                        document.getElementById('securityForm').reset();
+                        
+                        // Reset password strength meter
+                        updatePasswordStrength('');
+                        
+                        // Show toast
+                        showToast('success', 'Cập nhật thành công', 'Mật khẩu của bạn đã được cập nhật.');
+                    }, 1500);
+                }
+            });
+            
+            // Password strength meter
+            document.getElementById('newPassword').addEventListener('input', function() {
+                updatePasswordStrength(this.value);
+            });
+            
+            // Password toggle
+            document.querySelectorAll('.password-toggle').forEach(toggle => {
+                toggle.addEventListener('click', function() {
+                    const passwordInput = this.previousElementSibling;
+                    const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+                    passwordInput.setAttribute('type', type);
+                    
+                    // Toggle icon
+                    const icon = this.querySelector('i');
+                    if (type === 'text') {
+                        icon.classList.remove('fa-eye');
+                        icon.classList.add('fa-eye-slash');
+                    } else {
+                        icon.classList.remove('fa-eye-slash');
+                        icon.classList.add('fa-eye');
+                    }
+                });
+            });
+            
+            // Avatar upload
+            document.getElementById('avatarUpload').addEventListener('change', function(e) {
+                const file = e.target.files[0];
+                
+                if (file) {
+                    const reader = new FileReader();
+                    
+                    reader.onload = function(e) {
+                        document.getElementById('userAvatar').src = e.target.result;
+                        
+                        // In a real app, you would upload the image to a server
+                        // For this template, we'll just store it in localStorage
+                        user.avatar = e.target.result;
+                        localStorage.setItem('user', JSON.stringify(user));
+                        
+                        showToast('success', 'Cập nhật thành công', 'Ảnh đại diện đã được cập nhật.');
+                    };
+                    
+                    reader.readAsDataURL(file);
+                }
+            });
+            
+            // Logout button
+            document.getElementById('logoutBtn').addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                // Clear user data
+                localStorage.removeItem('user');
+                
+                // Show success toast
+                showToast('success', 'Đăng xuất thành công', 'Bạn đã đăng xuất khỏi hệ thống.');
+                
+                // Redirect to home page after 1 second
+                setTimeout(function() {
+                    window.location.href = '../index.html';
+                }, 1000);
+            });
+        });
+        
+        // Function to update majors based on selected faculty
+        function updateMajors() {
+            const faculty = document.getElementById('faculty').value;
+            const majorSelect = document.getElementById('major');
+            
+            // Clear current options
+            majorSelect.innerHTML = '<option value="">Chọn chuyên ngành</option>';
+            
+            // Add options based on selected faculty
+            if (faculty === 'finance-banking') {
+                addOption(majorSelect, 'banking', 'Ngân hàng');
+                addOption(majorSelect, 'finance', 'Tài chính');
+                addOption(majorSelect, 'investment', 'Đầu tư');
+            } else if (faculty === 'accounting') {
+                addOption(majorSelect, 'financial-accounting', 'Kế toán tài chính');
+                addOption(majorSelect, 'management-accounting', 'Kế toán quản trị');
+                addOption(majorSelect, 'auditing', 'Kiểm toán');
+            } else if (faculty === 'management') {
+                addOption(majorSelect, 'business-admin', 'Quản trị kinh doanh');
+                addOption(majorSelect, 'marketing', 'Marketing');
+                addOption(majorSelect, 'hrm', 'Quản trị nhân lực');
+            } else if (faculty === 'it') {
+                addOption(majorSelect, 'information-systems', 'Hệ thống thông tin');
+                addOption(majorSelect, 'software-engineering', 'Kỹ thuật phần mềm');
+                addOption(majorSelect, 'data-science', 'Khoa học dữ liệu');
+            } else if (faculty === 'law') {
+                addOption(majorSelect, 'business-law', 'Luật kinh doanh');
+                addOption(majorSelect, 'banking-law', 'Luật ngân hàng');
+                addOption(majorSelect, 'international-law', 'Luật quốc tế');
+            }
+        }
+        
+        // Function to add option to select element
+        function addOption(selectElement, value, text) {
+            const option = document.createElement('option');
+            option.value = value;
+            option.textContent = text;
+            selectElement.appendChild(option);
+        }
+        
+        // Function to validate phone number
+        function validatePhone(phone) {
+            const re = /^[0-9]{10,11}$/;
+            return re.test(String(phone));
+        }
+        
+        // Function to validate password
+        function validatePassword(password) {
+            // Password must contain at least one uppercase letter, one lowercase letter, one number, and one special character
+            const re = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+            return re.test(String(password));
+        }
+        
+        // Function to update password strength meter
+        function updatePasswordStrength(password) {
+            const strengthMeter = document.querySelector('.strength-meter-fill');
+            const strengthText = document.querySelector('.strength-text span');
+            
+            let strength = 0;
+            
+            if (password.length >= 8) strength += 1;
+            if (password.match(/[a-z]+/)) strength += 1;
+            if (password.match(/[A-Z]+/)) strength += 1;
+            if (password.match(/[0-9]+/)) strength += 1;
+            if (password.match(/[@$!%*?&]+/)) strength += 1;
+            
+            strengthMeter.setAttribute('data-strength', strength);
+            
+            switch (strength) {
+                case 0:
+                case 1:
+                    strengthText.textContent = 'Yếu';
+                    strengthText.style.color = '#dc3545';
+                    break;
+                case 2:
+                case 3:
+                    strengthText.textContent = 'Trung bình';
+                    strengthText.style.color = '#ffc107';
+                    break;
+                case 4:
+                    strengthText.textContent = 'Mạnh';
+                    strengthText.style.color = '#28a745';
+                    break;
+                case 5:
+                    strengthText.textContent = 'Rất mạnh';
+                    strengthText.style.color = '#28a745';
+                    break;
+            }
+        }
+        
+        // Function to show error message
+        function showError(input, errorId, message) {
+            input.classList.add('error');
+            input.classList.remove('success');
+            const errorElement = document.getElementById(errorId);
+            if (errorElement) {
+                errorElement.textContent = message;
+                errorElement.style.display = 'block';
+            }
+        }
+        
+        // Function to hide error message
+        function hideError(input, errorId) {
+            input.classList.remove('error');
+            input.classList.add('success');
+            const errorElement = document.getElementById(errorId);
+            if (errorElement) {
+                errorElement.style.display = 'none';
+            }
+        }
+        
+        // Function to show spinner
+        function showSpinner() {
+            document.querySelector('.spinner-overlay').classList.add('active');
+        }
+        
+        // Function to hide spinner
+        function hideSpinner() {
+            document.querySelector('.spinner-overlay').classList.remove('active');
+        }
+        
+        // Function to show toast
+        function showToast(type, title, message) {
+            const toastContainer = document.querySelector('.toast-container');
+            
+            // Create toast element
+            const toast = document.createElement('div');
+            toast.className = `toast ${type}`;
+            
+            // Set icon based on type
+            let icon = '';
+            switch (type) {
+                case 'success':
+                    icon = 'fa-check-circle';
+                    break;
+                case 'error':
+                    icon = 'fa-exclamation-circle';
+                    break;
+                case 'info':
+                    icon = 'fa-info-circle';
+                    break;
+                case 'warning':
+                    icon = 'fa-exclamation-triangle';
+                    break;
+            }
+            
+            // Create toast content
+            toast.innerHTML = `
+                <div class="toast-icon">
+                    <i class="fas ${icon}"></i>
+                </div>
+                <div class="toast-content">
+                    <div class="toast-title">${title}</div>
+                    <div class="toast-message">${message}</div>
+                </div>
+                <button class="toast-close">
+                    <i class="fas fa-times"></i>
+                </button>
+            `;
+            
+            // Add toast to container
+            toastContainer.appendChild(toast);
+            
+            // Add close event listener
+            toast.querySelector('.toast-close').addEventListener('click', function() {
+                toast.style.animation = 'slideOut 0.3s forwards';
+                setTimeout(function() {
+                    toast.remove();
+                }, 300);
+            });
+            
+            // Auto remove after 5 seconds
+            setTimeout(function() {
+                if (toast.parentNode) {
+                    toast.style.animation = 'slideOut 0.3s forwards';
+                    setTimeout(function() {
+                        toast.remove();
+                    }, 300);
+                }
+            }, 5000);
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chi tiết sự kiện - Đại Học Ngân Hàng TP.HCM</title>
+    <link rel="icon" href="../favicon.svg" type="image/svg+xml">
+    <!-- Global styles -->
+    <link rel="stylesheet" href="../css/styles.css">
+    <!-- Component styles -->
+    <link rel="stylesheet" href="../css/components/header.css">
+    <link rel="stylesheet" href="../css/components/footer.css">
+    <!-- Page specific styles -->
+    <link rel="stylesheet" href="../css/event-detail.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <meta name="description" content="Thông tin chi tiết về sự kiện và đăng ký tham gia tại Đại học Ngân hàng TP.HCM">
+</head>
+<body>
+    <!-- Header Component -->
+    <div id="header-component"></div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <div class="container">
+            <!-- Breadcrumb -->
+            <nav class="breadcrumb">
+                <a href="../index.html">Trang chủ</a>
+                <span class="separator">/</span>
+                <a href="events.html">Danh sách sự kiện</a>
+                <span class="separator">/</span>
+                <span class="current">Hội thảo "Xu hướng công nghệ tài chính 2023"</span>
+            </nav>
+
+            <div class="event-detail-wrapper">
+                <div class="event-detail-left">
+                    <!-- Tab Navigation -->
+                    <div class="event-tabs">
+                        <button class="tab-btn active" data-tab="chi-tiet">Chi tiết sự kiện</button>
+                        <button class="tab-btn" data-tab="tinh-trang">Tình trạng đăng ký</button>
+                        <button class="tab-btn" data-tab="form-dang-ky">Form đăng ký</button>
+                    </div>
+
+                    <!-- Tab Content -->
+                    <div class="tab-content active" id="chi-tiet">
+                        <div class="event-info-grid">
+                            <div class="info-item">
+                                <i class="far fa-calendar"></i>
+                                <div class="info-content">
+                                    <div class="info-label">Ngày tổ chức</div>
+                                    <div class="info-value">15/04/2023</div>
+                                </div>
+                            </div>
+                            <div class="info-item">
+                                <i class="far fa-clock"></i>
+                                <div class="info-content">
+                                    <div class="info-label">Thời gian</div>
+                                    <div class="info-value">08:00 - 16:00</div>
+                                </div>
+                            </div>
+                            <div class="info-item">
+                                <i class="fas fa-map-marker-alt"></i>
+                                <div class="info-content">
+                                    <div class="info-label">Địa điểm</div>
+                                    <div class="info-value">CS Thủ Đức</div>
+                                </div>
+                            </div>
+                            <div class="info-item">
+                                <i class="fas fa-video"></i>
+                                <div class="info-content">
+                                    <div class="info-label">Hình thức</div>
+                                    <div class="info-value">Online</div>
+                                </div>
+                            </div>
+                            <div class="info-item">
+                                <i class="fas fa-users"></i>
+                                <div class="info-content">
+                                    <div class="info-label">Số lượng</div>
+                                    <div class="info-value">250 người</div>
+                                </div>
+                            </div>
+                            <div class="info-item">
+                                <i class="far fa-calendar-alt"></i>
+                                <div class="info-content">
+                                    <div class="info-label">Thời gian đăng ký</div>
+                                    <div class="info-value">Từ 06/04/2023 đến 09/04/2023</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="tab-content" id="tinh-trang">
+                        <div class="registration-status-box">
+                            <h3>Tình trạng đăng ký</h3>
+                            <div class="status-stats">
+                                <div class="stat-item">
+                                    <div class="stat-label">Tổng số chỗ</div>
+                                    <div class="stat-value">250 chỗ</div>
+                                </div>
+                                <div class="stat-item">
+                                    <div class="stat-label">Đã đăng ký</div>
+                                    <div class="stat-value">14 người</div>
+                                </div>
+                            </div>
+                            <div class="registration-period">
+                                <p><i class="far fa-clock"></i> Đã kết thúc thời gian đăng ký</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="tab-content" id="form-dang-ky">
+                        <div class="registration-form">
+                            <div class="form-header">
+                                <h3>Đăng ký tham gia</h3>
+                            </div>
+                            <form id="eventRegistrationForm">
+                                <div class="form-group">
+                                    <label>Họ và tên</label>
+                                    <input type="text" value="Phạm Hoàng Thắng" readonly>
+                                </div>
+                                <div class="form-group">
+                                    <label>Email</label>
+                                    <input type="email" value="sakem@buh.edu.vn" readonly>
+                                </div>
+                                <div class="form-group">
+                                    <label>Facebook</label>
+                                    <input type="text" value="facebook.com/hubuniversity" readonly>
+                                </div>
+                                <button type="submit" class="btn btn-primary">Đăng ký tham gia</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="event-detail-right">
+                    <!-- QR Code Section -->
+                    <div class="share-section">
+                        <h3>Chia sẻ sự kiện</h3>
+                        <div class="qr-code">
+                            <img src="../images/qr-code.png" alt="QR Code">
+                        </div>
+                        <div class="share-buttons">
+                            <button class="btn" data-platform="facebook">
+                                <i class="fab fa-facebook-f"></i>
+                            </button>
+                            <button class="btn" data-platform="reddit">
+                                <i class="fab fa-reddit-alien"></i>
+                            </button>
+                            <button class="btn" data-platform="apple">
+                                <i class="fab fa-apple"></i>
+                            </button>
+                            <button class="btn">
+                                <i class="fas fa-share-alt"></i>
+                            </button>
+                        </div>
+                        <button class="btn btn-outline btn-block">Tải mã QR</button>
+                    </div>
+
+                    <!-- Statistics Section -->
+                    <div class="stats-section">
+                        <h3>Thống kê sự kiện</h3>
+                        <div class="stat-list">
+                            <div class="stat-item">
+                                <span class="stat-label">Lượt xem</span>
+                                <span class="stat-value">164</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-label">Người đăng ký</span>
+                                <span class="stat-value">14</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-label">Đã tham gia</span>
+                                <span class="stat-value">0</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-label">Đã hoàn thành</span>
+                                <span class="stat-value">14</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Organizer Section -->
+                    <div class="organizer-section">
+                        <h3>Ban tổ chức</h3>
+                        <div class="organizer-info">
+                            <h4>Trường Đại học Ngân hàng TP.HCM</h4>
+                            <div class="contact-info">
+                                <p><i class="fas fa-map-marker-alt"></i> Địa chỉ cụ thể 5</p>
+                                <p><i class="fas fa-phone"></i> (028) 38 212 593</p>
+                                <p><i class="fas fa-envelope"></i> info@buh.edu.vn</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer Component -->
+    <div id="footer-component"></div>
+
+    <!-- Registration Modal -->
+    <div class="modal" id="eventRegistrationModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Đăng ký tham gia sự kiện</h2>
+                <button class="modal-close"><i class="fas fa-times"></i></button>
+            </div>
+            <div class="modal-body">
+                <form id="eventRegistrationForm">
+                    <div class="form-group">
+                        <label for="regFullName">Họ và tên <span class="required">*</span></label>
+                        <input type="text" id="regFullName" required>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="regEmail">Email <span class="required">*</span></label>
+                            <input type="email" id="regEmail" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="regPhone">Số điện thoại <span class="required">*</span></label>
+                            <input type="tel" id="regPhone" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="regStudentId">Mã số sinh viên</label>
+                            <input type="text" id="regStudentId">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="regFaculty">Khoa/Đơn vị</label>
+                            <select id="regFaculty">
+                                <option value="">Chọn khoa/đơn vị</option>
+                                <option value="finance-banking">Tài chính - Ngân hàng</option>
+                                <option value="accounting">Kế toán</option>
+                                <option value="management">Quản trị Kinh doanh</option>
+                                <option value="it">Hệ thống Thông tin</option>
+                                <option value="law">Luật Kinh tế</option>
+                                <option value="other">Khác</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="regNote">Ghi chú</label>
+                        <textarea id="regNote" rows="3" placeholder="Nhập ghi chú hoặc câu hỏi (nếu có)"></textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <div class="checkbox-container">
+                            <input type="checkbox" id="regAgree" required>
+                            <label for="regAgree">Tôi đồng ý với <a href="#">điều khoản tham gia</a> và cam kết tham dự sự kiện đúng giờ</label>
+                        </div>
+                    </div>
+                    
+                    <button type="submit" class="btn btn-primary btn-block">Đăng ký tham gia</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Login Required Modal -->
+    <div class="modal" id="loginRequiredModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Yêu cầu đăng nhập</h2>
+                <button class="modal-close"><i class="fas fa-times"></i></button>
+            </div>
+            <div class="modal-body">
+                <div class="login-required-content">
+                    <i class="fas fa-user-lock"></i>
+                    <h3>Vui lòng đăng nhập để đăng ký tham gia sự kiện</h3>
+                    <p>Bạn cần đăng nhập hoặc đăng ký tài khoản để có thể đăng ký tham gia sự kiện này.</p>
+                    <div class="login-required-actions">
+                        <a href="login.html" class="btn btn-primary">Đăng nhập</a>
+                        <a href="register.html" class="btn btn-outline">Đăng ký tài khoản</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Registration Success Modal -->
+    <div class="modal" id="registrationSuccessModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Đăng ký thành công</h2>
+                <button class="modal-close"><i class="fas fa-times"></i></button>
+            </div>
+            <div class="modal-body">
+                <div class="success-message">
+                    <i class="fas fa-check-circle"></i>
+                    <p>Bạn đã đăng ký tham gia sự kiện này</p>
+                    <div class="event-info">
+                        <p><strong>Thời gian:</strong> 10/04/2023 09:00</p>
+                        <p><strong>Địa điểm:</strong> CS Tân Thới Kiệm</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Share Modal -->
+    <div class="modal" id="shareModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Chia sẻ sự kiện</h2>
+                <button class="modal-close"><i class="fas fa-times"></i></button>
+            </div>
+            <div class="modal-body">
+                <div class="share-content">
+                    <p>Chia sẻ sự kiện này với bạn bè:</p>
+                    <div class="share-buttons">
+                        <a href="#" class="share-button facebook">
+                            <i class="fab fa-facebook-f"></i>
+                            <span>Facebook</span>
+                        </a>
+                        <a href="#" class="share-button twitter">
+                            <i class="fab fa-twitter"></i>
+                            <span>Twitter</span>
+                        </a>
+                        <a href="#" class="share-button linkedin">
+                            <i class="fab fa-linkedin-in"></i>
+                            <span>LinkedIn</span>
+                        </a>
+                        <a href="#" class="share-button email">
+                            <i class="fas fa-envelope"></i>
+                            <span>Email</span>
+                        </a>
+                    </div>
+                    <div class="share-link">
+                        <input type="text" id="shareLink" value="https://buh.edu.vn/events/hoi-thao-khoi-nghiep-cong-nghe-2023" readonly>
+                        <button id="copyLinkBtn" class="btn btn-sm btn-primary">Sao chép</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <!-- Component loader -->
+    <script src="../js/components/load-components.js"></script>
+    <!-- Global scripts -->
+    <script src="../js/script.js"></script>
+    <!-- Page specific scripts -->
+    <script src="../js/event-detail.js"></script>
+</body>
+</html>
