@@ -84,7 +84,7 @@
 
         <!-- Countdown Section -->
         <section class="countdown-section">
-            <div class="container">
+            <div class="container countdown-container">
                 <h2>Hội thảo khoa học "Tài chính và Ngân hàng trong kỷ nguyên số" sẽ diễn ra sau</h2>
                 <div class="countdown-timer">
                     <div class="countdown-item">
@@ -116,7 +116,7 @@
                     <!-- Event Card 1 -->
                     <div class="event-card">
                         <div class="event-card__image">
-                            <img src="images/events/event1.jpg" alt="Hội thảo khoa học">
+                            <img src="images\logo\logo.png" alt="Hội thảo khoa học">
                         </div>
                         <div class="event-card__content">
                             <div class="event-card__category">
@@ -141,7 +141,7 @@
                     <!-- Event Card 2 -->
                     <div class="event-card">
                         <div class="event-card__image">
-                            <img src="images/events/event2.jpg" alt="Ngày hội việc làm">
+                            <img src="images\logo\logo.png" alt="Ngày hội việc làm">
                         </div>
                         <div class="event-card__content">
                             <div class="event-card__category">
@@ -197,31 +197,57 @@
         <!-- About Section -->
         <section class="about">
             <div class="container">
-                <h2>Về chúng tôi</h2>
-                <p>HUB là nơi kết nối sinh viên, giảng viên và các chuyên gia trong lĩnh vực tài chính ngân hàng.</p>
+                <h2 class="section-title">Về chúng tôi</h2>
+                <div class="about-content">
+                    <div class="about-image">
+                        <img src="images\logo\logo.png" alt="Về chúng tôi">
+                    </div>
+                    <div class="about-text">
+                        <h3>HUB - Cộng đồng tài chính ngân hàng</h3>
+                        <p>HUB là nơi kết nối sinh viên, giảng viên và các chuyên gia trong lĩnh vực tài chính ngân hàng. Chúng tôi cung cấp nền tảng để chia sẻ kiến thức, kinh nghiệm và cơ hội phát triển nghề nghiệp.</p>
+                        <ul class="about-features">
+                            <li><i class="fas fa-check-circle"></i> Kết nối với chuyên gia hàng đầu</li>
+                            <li><i class="fas fa-check-circle"></i> Cơ hội thực tập và việc làm</li>
+                            <li><i class="fas fa-check-circle"></i> Chia sẻ kiến thức và kinh nghiệm</li>
+                        </ul>
+                        <a href="#" class="btn btn-primary">Tìm hiểu thêm</a>
+                    </div>
+                </div>
             </div>
         </section>
 
         <!-- Quick Links Section -->
         <section class="quick-links">
             <div class="container">
-                <h2>Liên kết nhanh</h2>
+                <h2 class="section-title">Liên kết nhanh</h2>
                 <div class="quick-links-grid">
                     <a href="#" class="quick-link-card">
-                        <i class="fas fa-calendar-alt"></i>
+                        <div class="quick-link-icon">
+                            <i class="fas fa-calendar-alt"></i>
+                        </div>
                         <h3>Lịch học</h3>
+                        <p>Xem lịch học và lịch thi của các lớp</p>
                     </a>
                     <a href="#" class="quick-link-card">
-                        <i class="fas fa-book"></i>
+                        <div class="quick-link-icon">
+                            <i class="fas fa-book"></i>
+                        </div>
                         <h3>Thư viện</h3>
+                        <p>Truy cập tài liệu học tập và nghiên cứu</p>
                     </a>
                     <a href="#" class="quick-link-card">
-                        <i class="fas fa-graduation-cap"></i>
+                        <div class="quick-link-icon">
+                            <i class="fas fa-graduation-cap"></i>
+                        </div>
                         <h3>Đào tạo</h3>
+                        <p>Thông tin về chương trình đào tạo</p>
                     </a>
                     <a href="#" class="quick-link-card">
-                        <i class="fas fa-newspaper"></i>
+                        <div class="quick-link-icon">
+                            <i class="fas fa-newspaper"></i>
+                        </div>
                         <h3>Tin tức</h3>
+                        <p>Cập nhật tin tức mới nhất từ trường</p>
                     </a>
                 </div>
             </div>
@@ -259,6 +285,8 @@
 
         <!-- Registration Form -->
         <section class="registration-section">
+            <!-- Particles.js container -->
+            <div id="particles-js"></div>
             <div class="container">
                 <div class="registration-form">
                     <h2>Đăng Ký Tham Gia</h2>
