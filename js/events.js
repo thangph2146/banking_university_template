@@ -53,29 +53,149 @@ document.addEventListener('DOMContentLoaded', function() {
         const card = document.createElement('article');
         card.className = 'event-card';
         
+        // Format date and time
+        const formattedDate = formatDate(event.startDate);
+        const formattedTime = formatTime(event.startTime);
+        
+        // Calculate registration percentage
+        const registrationPercentage = Math.round((event.registeredCount / event.maxParticipants) * 100);
+        
         card.innerHTML = `
             <div class="event-image">
-                <img src="${event.image}" alt="${event.title}">
+                <img src="${event.image || '../images/event-placeholder.jpg'}" alt="${event.title}">
                 <span class="event-status ${event.status.toLowerCase()}">${getStatusText(event.status)}</span>
             </div>
             <div class="event-content">
-                <h3 class="event-title">${event.title}</h3>
-                <div class="event-info">
-                    <span><i class="far fa-calendar"></i> ${formatDate(event.startDate)}</span>
-                    <span><i class="far fa-clock"></i> ${formatTime(event.startTime)}</span>
+                <div class="event-meta">
+                    <span><i class="far fa-calendar"></i> ${formattedDate}</span>
+                    <span><i class="far fa-clock"></i> ${formattedTime}</span>
                     <span><i class="fas fa-map-marker-alt"></i> ${event.location}</span>
                 </div>
+                <h3 class="event-title">${event.title}</h3>
                 <p class="event-description">${event.description}</p>
-                <div class="event-footer">
-                    <a href="event-detail.html?id=${event.id}" class="btn btn-primary">Xem chi tiết</a>
-                    <span class="event-registrations">
-                        <i class="fas fa-users"></i> ${event.registeredCount}/${event.maxParticipants}
+                <div class="event-stats">
+                    <span class="participants">
+                        <i class="fas fa-users"></i> 
+                        <span class="registration-count">${event.registeredCount}/${event.maxParticipants}</span>
+                        <div class="registration-progress">
+                            <div class="progress-bar" style="width: ${registrationPercentage}%"></div>
+                        </div>
                     </span>
+                    <span class="format ${event.format.toLowerCase()}">
+                        <i class="fas ${getFormatIcon(event.format)}"></i> ${event.format}
+                    </span>
+                </div>
+                <div class="event-footer">
+                    <div class="event-views">
+                        <i class="far fa-eye"></i> ${formatNumber(event.views)} lượt xem
+                        <span class="dot">•</span>
+                        <i class="fas fa-user-check"></i> ${formatNumber(event.registeredCount)} đã đăng ký
+                    </div>
+                    <div class="event-actions">
+                        <a href="event-detail.html?id=${event.id}" class="btn-view">
+                            Xem chi tiết <i class="fas fa-arrow-right"></i>
+                        </a>
+                        <a href="#" class="btn-register" data-event-id="${event.id}">
+                            ${isUserLoggedIn() ? 'Đăng ký ngay' : 'Đăng nhập để đăng ký'}
+                        </a>
+                    </div>
                 </div>
             </div>
         `;
-
+        
+        // Add event listeners
+        const registerBtn = card.querySelector('.btn-register');
+        registerBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            if (isUserLoggedIn()) {
+                registerForEvent(event.id);
+            } else {
+                redirectToLogin();
+            }
+        });
+        
         return card;
+    }
+
+    // Helper function to get format icon
+    function getFormatIcon(format) {
+        const formatIcons = {
+            'Online': 'fa-video',
+            'Offline': 'fa-map-marker-alt',
+            'Hybrid': 'fa-laptop'
+        };
+        return formatIcons[format] || 'fa-calendar';
+    }
+
+    // Helper function to format numbers with commas
+    function formatNumber(num) {
+        return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    }
+
+    // Helper function to check if user is logged in
+    function isUserLoggedIn() {
+        // This should be replaced with your actual authentication check
+        return localStorage.getItem('userToken') !== null;
+    }
+
+    // Function to handle event registration
+    function registerForEvent(eventId) {
+        // Show loading state
+        const registerBtn = document.querySelector(`.btn-register[data-event-id="${eventId}"]`);
+        const originalText = registerBtn.textContent;
+        registerBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Đang xử lý...';
+        registerBtn.disabled = true;
+        
+        // Simulate API call
+        setTimeout(() => {
+            // Reset button state
+            registerBtn.innerHTML = originalText;
+            registerBtn.disabled = false;
+            
+            // Show success message
+            showNotification('Đăng ký sự kiện thành công!', 'success');
+        }, 1500);
+    }
+
+    // Function to redirect to login page
+    function redirectToLogin() {
+        // Store the current URL to redirect back after login
+        localStorage.setItem('redirectAfterLogin', window.location.href);
+        window.location.href = '/login.html';
+    }
+
+    // Function to show notification
+    function showNotification(message, type = 'info') {
+        const notification = document.createElement('div');
+        notification.className = `notification ${type}`;
+        notification.innerHTML = `
+            <div class="notification-content">
+                <i class="fas ${type === 'success' ? 'fa-check-circle' : 'fa-info-circle'}"></i>
+                <span>${message}</span>
+            </div>
+            <button class="notification-close"><i class="fas fa-times"></i></button>
+        `;
+        
+        document.body.appendChild(notification);
+        
+        // Add event listener to close button
+        const closeBtn = notification.querySelector('.notification-close');
+        closeBtn.addEventListener('click', () => {
+            notification.classList.add('fade-out');
+            setTimeout(() => {
+                notification.remove();
+            }, 300);
+        });
+        
+        // Auto remove after 5 seconds
+        setTimeout(() => {
+            if (document.body.contains(notification)) {
+                notification.classList.add('fade-out');
+                setTimeout(() => {
+                    notification.remove();
+                }, 300);
+            }
+        }, 5000);
     }
 
     // Hàm cập nhật phân trang
