@@ -568,15 +568,17 @@
     </footer>
     
     <script>
-      // Mobile menu toggle functionality
       document.addEventListener("DOMContentLoaded", function () {
+        // Mobile menu toggle functionality
         const menuButton = document.querySelector("button.md\\:hidden");
         const mobileMenu = document.createElement("div");
         mobileMenu.className =
           "fixed inset-0 bg-primary z-50 transform translate-x-full transition-transform duration-300 ease-in-out";
         mobileMenu.innerHTML = `
         <div class="p-4 flex justify-between items-center border-b border-red-900/30">
-          <a href="#" class="text-2xl font-['Pacifico'] text-white">logo</a>
+          <a href="index.html" class="text-2xl font-['Pacifico'] text-white">
+            <img src="../images/logo/logo-white.png" alt="logo" class="w-16 h-16">
+          </a>
           <button class="w-10 h-10 flex items-center justify-center text-white">
             <i class="ri-close-line ri-lg"></i>
           </button>
@@ -585,6 +587,7 @@
           <ul class="space-y-4">
             <li><a href="index.html" class="text-red-100 block py-2 hover:text-white">Trang chủ</a></li>
             <li><a href="events.html" class="text-red-100 block py-2 hover:text-white">Sự kiện</a></li>
+            <li><a href="blog.html" class="text-red-100 block py-2 hover:text-white">Blog</a></li>
             <li><a href="news.html" class="text-red-100 block py-2 hover:text-white">Giới thiệu</a></li>
             <li><a href="contact.html" class="text-red-100 block py-2 hover:text-white">Liên hệ</a></li>
             <li class="pt-4 border-t border-red-900/30">
@@ -607,6 +610,92 @@
         mobileMenu.querySelector("button").addEventListener("click", function () {
           mobileMenu.classList.add("translate-x-full");
         });
+
+        // Smooth scroll for anchor links
+        const scrollToSection = (targetId) => {
+          const targetElement = document.getElementById(targetId);
+          if (targetElement) {
+            window.scrollTo({
+              top: targetElement.offsetTop - 100,
+              behavior: 'smooth'
+            });
+          }
+        };
+
+        // Create table of contents dynamically
+        const createTableOfContents = () => {
+          const tocContainer = document.createElement('div');
+          tocContainer.className = 'bg-white border border-gray-200 rounded-lg p-6 shadow-sm mb-8';
+          tocContainer.innerHTML = '<h3 class="text-xl font-semibold text-gray-900 mb-4">Mục lục</h3>';
+          
+          const tocList = document.createElement('ul');
+          tocList.className = 'space-y-2';
+          
+          const sections = document.querySelectorAll('h2[id]');
+          sections.forEach(section => {
+            const listItem = document.createElement('li');
+            const link = document.createElement('a');
+            link.textContent = section.textContent;
+            link.href = '#' + section.id;
+            link.className = 'text-primary hover:underline flex items-center';
+            link.innerHTML = `<i class="ri-arrow-right-s-line mr-2"></i>${section.textContent}`;
+            
+            link.addEventListener('click', (e) => {
+              e.preventDefault();
+              scrollToSection(section.id);
+            });
+            
+            listItem.appendChild(link);
+            tocList.appendChild(listItem);
+          });
+          
+          tocContainer.appendChild(tocList);
+          
+          // Insert after the introduction section
+          const introSection = document.querySelector('.bg-blue-50');
+          if (introSection) {
+            introSection.parentNode.insertBefore(tocContainer, introSection.nextSibling);
+          }
+        };
+
+        // Add IDs to heading elements for navigation
+        const addHeadingIds = () => {
+          const headings = document.querySelectorAll('h2, h3');
+          headings.forEach(heading => {
+            if (!heading.id) {
+              // Create ID from heading text
+              const id = heading.textContent
+                .toLowerCase()
+                .replace(/[^a-z0-9]+/g, '-')
+                .replace(/(^-|-$)/g, '');
+              heading.id = id;
+            }
+          });
+        };
+
+        // Initialize page functionality
+        const initUserGuide = () => {
+          addHeadingIds();
+          createTableOfContents();
+          
+          // Handle newsletter form submission
+          const newsletterForm = document.querySelector('footer form');
+          if (newsletterForm) {
+            newsletterForm.addEventListener('submit', function(e) {
+              e.preventDefault();
+              const emailInput = this.querySelector('input[type="email"]');
+              if (emailInput && emailInput.value) {
+                alert('Cảm ơn bạn đã đăng ký nhận tin!');
+                emailInput.value = '';
+              } else {
+                alert('Vui lòng nhập địa chỉ email của bạn.');
+              }
+            });
+          }
+        };
+
+        // Run initialization
+        initUserGuide();
       });
     </script>
   </body>

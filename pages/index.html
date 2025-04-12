@@ -15,236 +15,10 @@
       href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css"
       rel="stylesheet"
     />
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link href="../public/css/custom.css" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com/3.4.16"></script>
-    <script>
-      tailwind.config = {
-        theme: {
-          extend: {
-            colors: {
-              primary: "#8B0000",
-              secondary: "#FF5252",
-            },
-            borderRadius: {
-              none: "0px",
-              sm: "4px",
-              DEFAULT: "8px",
-              md: "12px",
-              lg: "16px",
-              xl: "20px",
-              "2xl": "24px",
-              "3xl": "32px",
-              full: "9999px",
-              button: "8px",
-            },
-            fontFamily: {
-              sans: ['Inter', 'sans-serif'],
-              pacifico: ['Pacifico', 'cursive'],
-            },
-            keyframes: {
-              'fade-in-up': {
-                '0%': {
-                  opacity: '0',
-                  transform: 'translateY(20px)'
-                },
-                '100%': {
-                  opacity: '1',
-                  transform: 'translateY(0)'
-                },
-              },
-              'fade-in': {
-                '0%': {
-                  opacity: '0'
-                },
-                '100%': {
-                  opacity: '1'
-                },
-              },
-              'fade-in-left': {
-                '0%': {
-                  opacity: '0',
-                  transform: 'translateX(-20px)'
-                },
-                '100%': {
-                  opacity: '1',
-                  transform: 'translateX(0)'
-                },
-              },
-              'fade-in-right': {
-                '0%': {
-                  opacity: '0',
-                  transform: 'translateX(20px)'
-                },
-                '100%': {
-                  opacity: '1',
-                  transform: 'translateX(0)'
-                },
-              },
-              'scale-in': {
-                '0%': {
-                  opacity: '0',
-                  transform: 'scale(0.95)'
-                },
-                '100%': {
-                  opacity: '1',
-                  transform: 'scale(1)'
-                },
-              },
-              'bounce-subtle': {
-                '0%, 100%': {
-                  transform: 'translateY(0)'
-                },
-                '50%': {
-                  transform: 'translateY(-5px)'
-                },
-              },
-              'pulse-subtle': {
-                '0%, 100%': {
-                  opacity: '1'
-                },
-                '50%': {
-                  opacity: '0.85'
-                },
-              },
-              'spin-slow': {
-                '0%': {
-                  transform: 'rotate(0deg)'
-                },
-                '100%': {
-                  transform: 'rotate(360deg)'
-                },
-              }
-            },
-            animation: {
-              'fade-in-up': 'fade-in-up 0.8s ease-out forwards',
-              'fade-in': 'fade-in 1s ease-out forwards',
-              'fade-in-left': 'fade-in-left 0.8s ease-out forwards',
-              'fade-in-right': 'fade-in-right 0.8s ease-out forwards',
-              'scale-in': 'scale-in 0.6s ease-out forwards',
-              'bounce-subtle': 'bounce-subtle 2s ease-in-out infinite',
-              'pulse-subtle': 'pulse-subtle 3s ease-in-out infinite',
-              'spin-slow': 'spin-slow 8s linear infinite',
-            }
-          },
-        },
-      };
-    </script>
-    <style>
-      :where([class^="ri-"])::before { content: "\f3c2"; }
-      .hero-gradient {
-        background: linear-gradient(90deg, rgba(255,255,255,1) 0%, rgba(255,255,255,0.9) 50%, rgba(255,255,255,0) 100%);
-      }
-      /* Smooth scroll behavior */
-      html {
-        scroll-behavior: smooth;
-      }
-      /* Improved focus states for accessibility */
-      a:focus, button:focus {
-        outline: 2px solid #FF5252;
-        outline-offset: 2px;
-      }
-      
-      /* Hero slider dot indicator active state */
-      .slide-indicator.active {
-        box-shadow: 0 0 0 2px rgba(255,255,255,0.5);
-      }
-      
-      /* Delay animation timing for staggered animations */
-      .animate-fade-in-up {
-        animation-delay: 300ms;
-      }
-      .delay-100 {
-        animation-delay: 100ms;
-      }
-      .delay-200 {
-        animation-delay: 200ms;
-      }
-      .delay-300 {
-        animation-delay: 300ms;
-      }
-      .delay-400 {
-        animation-delay: 400ms;
-      }
-      .delay-500 {
-        animation-delay: 500ms;
-      }
-      
-      /* Mobile menu animation */
-      .mobile-menu-item {
-        opacity: 0;
-        transform: translateY(10px);
-        transition: opacity 0.4s ease, transform 0.4s ease;
-        transition-delay: calc(var(--index) * 80ms);
-      }
-      
-      .translate-y-0 .mobile-menu-item {
-        opacity: 1;
-        transform: translateY(0);
-      }
-      
-      /* Reveal animations on scroll */
-      .reveal {
-        opacity: 0;
-        transform: translateY(20px);
-        transition: opacity 0.8s ease, transform 0.8s ease;
-      }
-      .reveal.active {
-        opacity: 1;
-        transform: translateY(0);
-      }
-      .reveal-left {
-        opacity: 0;
-        transform: translateX(-20px);
-        transition: opacity 0.8s ease, transform 0.8s ease;
-      }
-      .reveal-left.active {
-        opacity: 1;
-        transform: translateX(0);
-      }
-      .reveal-right {
-        opacity: 0;
-        transform: translateX(20px);
-        transition: opacity 0.8s ease, transform 0.8s ease;
-      }
-      .reveal-right.active {
-        opacity: 1;
-        transform: translateX(0);
-      }
-      .reveal-scale {
-        opacity: 0;
-        transform: scale(0.95);
-        transition: opacity 0.6s ease, transform 0.6s ease;
-      }
-      .reveal-scale.active {
-        opacity: 1;
-        transform: scale(1);
-      }
-      
-      /* Hide scrollbar for carousel */
-      .scrollbar-hide {
-        -ms-overflow-style: none;  /* IE and Edge */
-        scrollbar-width: none;  /* Firefox */
-      }
-      .scrollbar-hide::-webkit-scrollbar {
-        display: none; /* Chrome, Safari and Opera */
-      }
-      
-      /* Welcome banner styles */
-      .welcome-tag {
-        position: relative;
-        overflow: hidden;
-      }
-      .welcome-tag:after {
-        content: '';
-        position: absolute;
-        top: 0;
-        right: -10px;
-        width: 0;
-        height: 0;
-        border-style: solid;
-        border-width: 0 10px 10px 0;
-        border-color: transparent #8B0000 transparent transparent;
-      }
-    </style>
+    <script src="../public/js/tailwind.config.js"></script>
   </head>
   <body class="bg-gray-50">
     <!-- Header -->
@@ -295,6 +69,34 @@
         </button>
       </div>
     </header>
+    
+    <!-- Mobile menu (hidden by default) -->
+    <div id="mobile-menu" class="md:hidden bg-primary/95 fixed inset-0 z-50 transform translate-x-full transition-transform duration-300 ease-in-out backdrop-blur-sm">
+      <div class="p-4 flex justify-between items-center border-b border-red-900/30">
+        <a href="index.html" class="text-2xl font-pacifico text-white flex items-center">
+          <img src="../images/logo/logo-white-vertical.png" alt="Đại học Ngân hàng TP.HCM logo" class="w-12 h-12">
+        </a>
+        <button class="w-10 h-10 flex items-center justify-center text-white" aria-label="Đóng menu" id="mobile-menu-close">
+          <i class="ri-close-line ri-lg"></i>
+        </button>
+      </div>
+      <nav class="p-4" aria-label="Mobile navigation">
+        <ul class="space-y-4">
+          <li class="mobile-menu-item" style="--index: 0"><a href="index.html" class="font-medium text-white border-l-4 border-white pl-2 py-2 block transition-all duration-300 hover:translate-x-1" aria-current="page">Trang chủ</a></li>
+          <li class="mobile-menu-item" style="--index: 1"><a href="events.html" class="font-medium text-white/80 hover:text-white py-2 block transition-all duration-300 hover:translate-x-1">Sự kiện</a></li>
+          <li class="mobile-menu-item" style="--index: 2"><a href="blog.html" class="font-medium text-white/80 hover:text-white py-2 block transition-all duration-300 hover:translate-x-1">Blog</a></li>
+          <li class="mobile-menu-item" style="--index: 3"><a href="news.html" class="font-medium text-white/80 hover:text-white py-2 block transition-all duration-300 hover:translate-x-1">Giới thiệu</a></li>
+          <li class="mobile-menu-item" style="--index: 4"><a href="contact.html" class="font-medium text-white/80 hover:text-white py-2 block transition-all duration-300 hover:translate-x-1">Liên hệ</a></li>
+          <li class="mobile-menu-item pt-4 border-t border-red-900/30" style="--index: 5">
+            <a href="login.html" class="bg-white text-primary px-4 py-2 !rounded-button whitespace-nowrap block text-center hover:bg-gray-100 transition-colors shadow-sm mt-4">Đăng nhập</a>
+          </li>
+          <li class="mobile-menu-item pt-2" style="--index: 6">
+            <a href="register.html" class="bg-white text-primary px-4 py-2 !rounded-button whitespace-nowrap block text-center hover:bg-gray-100 transition-colors shadow-sm mt-2">Đăng ký</a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+    
     <!-- Hero Section -->
     <section class="relative overflow-hidden min-h-[92vh]">
       <!-- Hero Slider -->
@@ -909,103 +711,71 @@
        * Handles mobile menu opening/closing and related transitions
        */
       const initMobileMenu = () => {
-        const menuButton = document.querySelector("button.md\\:hidden");
-        const mobileMenu = createMobileMenuElement();
-        document.body.appendChild(mobileMenu);
+        const menuButton = document.getElementById("mobile-menu-button");
+        const mobileMenu = document.getElementById("mobile-menu");
+        const closeButton = mobileMenu.querySelector("button[aria-label='Đóng menu']");
         
         // Open menu
         menuButton.addEventListener("click", () => {
-          openMobileMenu(mobileMenu, menuButton);
+          mobileMenu.classList.remove("translate-x-full");
+          document.body.classList.add("overflow-hidden");
+          menuButton.setAttribute("aria-expanded", "true");
+          
+          // Toggle icon between menu and close
+          const icon = menuButton.querySelector("i");
+          if (icon) {
+            icon.className = "ri-close-line ri-lg";
+          }
         });
         
         // Close menu
-        mobileMenu.querySelector("button").addEventListener("click", () => {
-          closeMobileMenu(mobileMenu, menuButton);
+        closeButton.addEventListener("click", () => {
+          mobileMenu.classList.add("translate-x-full");
+          document.body.classList.remove("overflow-hidden");
+          menuButton.setAttribute("aria-expanded", "false");
+          
+          const icon = menuButton.querySelector("i");
+          if (icon) {
+            icon.className = "ri-menu-line ri-lg";
+          }
         });
-
+        
         // Close when clicking outside of menu
         document.addEventListener("click", (e) => {
           if (!mobileMenu.contains(e.target) && 
               !menuButton.contains(e.target) && 
-              !mobileMenu.classList.contains("-translate-y-full")) {
-            closeMobileMenu(mobileMenu, menuButton);
+              !mobileMenu.classList.contains("translate-x-full")) {
+            mobileMenu.classList.add("translate-x-full");
+            document.body.classList.remove("overflow-hidden");
+            menuButton.setAttribute("aria-expanded", "false");
+            
+            const icon = menuButton.querySelector("i");
+            if (icon) {
+              icon.className = "ri-menu-line ri-lg";
+            }
           }
         });
-      };
-
-      /**
-       * Creates the mobile menu element
-       * @returns {HTMLElement} The created mobile menu element
-       */
-      const createMobileMenuElement = () => {
-        const mobileMenu = document.createElement("div");
-        mobileMenu.id = "mobile-menu";
-        mobileMenu.className = "fixed inset-0 bg-primary/95 z-50 transform -translate-y-full transition-transform duration-300 ease-in-out backdrop-blur-sm";
-        mobileMenu.innerHTML = `
-        <div class="p-4 flex justify-between items-center border-b border-red-900/30">
-          <a href="index.html" class="text-2xl font-pacifico text-white flex items-center">
-            <img src="../images/logo/logo-white-vertical.png" alt="Đại học Ngân hàng TP.HCM logo" class="w-12 h-12">
-          </a>
-          <button class="w-10 h-10 flex items-center justify-center text-white" aria-label="Đóng menu">
-            <i class="ri-close-line ri-lg"></i>
-          </button>
-        </div>
-        <nav class="p-4" aria-label="Mobile navigation">
-          <ul class="space-y-4">
-            <li class="mobile-menu-item" style="--index: 0"><a href="index.html" class="font-medium text-white border-l-4 border-white pl-2 py-2 block transition-all duration-300 hover:translate-x-1" aria-current="page">Trang chủ</a></li>
-            <li class="mobile-menu-item" style="--index: 1"><a href="events.html" class="font-medium text-white/80 hover:text-white py-2 block transition-all duration-300 hover:translate-x-1">Sự kiện</a></li>
-            <li class="mobile-menu-item" style="--index: 2"><a href="blog.html" class="font-medium text-white/80 hover:text-white py-2 block transition-all duration-300 hover:translate-x-1">Blog</a></li>
-            <li class="mobile-menu-item" style="--index: 3"><a href="news.html" class="font-medium text-white/80 hover:text-white py-2 block transition-all duration-300 hover:translate-x-1">Giới thiệu</a></li>
-            <li class="mobile-menu-item" style="--index: 4"><a href="contact.html" class="font-medium text-white/80 hover:text-white py-2 block transition-all duration-300 hover:translate-x-1">Liên hệ</a></li>
-            <li class="mobile-menu-item" style="--index: 5">
-              <a href="login.html" class="bg-white text-primary px-4 py-2 !rounded-button whitespace-nowrap block text-center mt-2 hover:bg-gray-100 transition-colors shadow-sm">Đăng nhập</a>
-            </li>
-            <li class="mobile-menu-item" style="--index: 6">
-              <a href="register.html" class="bg-white text-primary px-4 py-2 !rounded-button whitespace-nowrap block text-center mt-2 hover:bg-gray-100 transition-colors shadow-sm">Đăng ký</a>
-            </li>
-          </ul>
-        </nav>
-        `;
-        return mobileMenu;
-      };
-
-      /**
-       * Opens the mobile menu
-       * @param {HTMLElement} menu - The mobile menu element
-       * @param {HTMLElement} button - The toggle button
-       */
-      const openMobileMenu = (menu, button) => {
-        menu.classList.remove("-translate-y-full");
-        menu.classList.add("translate-y-0");
-        document.body.classList.add("overflow-hidden");
-        button.setAttribute("aria-expanded", "true");
         
-        // Update button icon
-        const icon = button.querySelector("i");
-        if (icon) {
-          icon.className = "ri-close-line ri-lg";
-          icon.style.transition = "transform 0.3s ease";
-          icon.style.transform = "rotate(90deg)";
-        }
-      };
-
-      /**
-       * Closes the mobile menu
-       * @param {HTMLElement} menu - The mobile menu element
-       * @param {HTMLElement} button - The toggle button
-       */
-      const closeMobileMenu = (menu, button) => {
-        menu.classList.remove("translate-y-0");
-        menu.classList.add("-translate-y-full");
-        document.body.classList.remove("overflow-hidden");
-        button.setAttribute("aria-expanded", "false");
+        // Close menu on escape key
+        document.addEventListener("keydown", (e) => {
+          if (e.key === "Escape" && !mobileMenu.classList.contains("translate-x-full")) {
+            mobileMenu.classList.add("translate-x-full");
+            document.body.classList.remove("overflow-hidden");
+            menuButton.setAttribute("aria-expanded", "false");
+            
+            const icon = menuButton.querySelector("i");
+            if (icon) {
+              icon.className = "ri-menu-line ri-lg";
+            }
+          }
+        });
         
-        // Reset button icon
-        const icon = button.querySelector("i");
-        if (icon) {
-          icon.className = "ri-menu-line ri-lg";
-          icon.style.transform = "rotate(0deg)";
-        }
+        // Add animation delay to menu items for staggered entrance
+        const menuItems = mobileMenu.querySelectorAll('.mobile-menu-item');
+        menuItems.forEach((item, index) => {
+          item.style.setProperty('--index', index);
+          item.classList.add('animate-fade-in-up-delayed');
+        });
       };
 
       /**
@@ -1020,10 +790,17 @@
               // Close mobile menu if open on mobile devices
               if (window.innerWidth < 768) {
                 const mobileMenu = document.getElementById('mobile-menu');
-                const menuButton = document.querySelector("button.md\\:hidden");
+                const menuButton = document.getElementById('mobile-menu-button');
                 
-                if (mobileMenu && !mobileMenu.classList.contains("-translate-y-full")) {
-                  closeMobileMenu(mobileMenu, menuButton);
+                if (mobileMenu && !mobileMenu.classList.contains("translate-x-full")) {
+                  mobileMenu.classList.add("translate-x-full");
+                  document.body.classList.remove("overflow-hidden");
+                  menuButton.setAttribute("aria-expanded", "false");
+                  
+                  const icon = menuButton.querySelector("i");
+                  if (icon) {
+                    icon.className = "ri-menu-line ri-lg";
+                  }
                 }
               }
               

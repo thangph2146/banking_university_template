@@ -15,39 +15,8 @@
       rel="stylesheet"
     />
     <script src="https://cdn.tailwindcss.com/3.4.16"></script>
-    <script>
-      tailwind.config = {
-        theme: {
-          extend: {
-            colors: {
-              primary: "#8B0000",
-              secondary: "#FF5252",
-            },
-            borderRadius: {
-              none: "0px",
-              sm: "4px",
-              DEFAULT: "8px",
-              md: "12px",
-              lg: "16px",
-              xl: "20px",
-              "2xl": "24px",
-              "3xl": "32px",
-              full: "9999px",
-              button: "8px",
-            },
-          },
-        },
-      };
-    </script>
-    <style>
-      :where([class^="ri-"])::before { content: "\f3c2"; }
-      body {
-      font-family: 'Inter', sans-serif;
-      }
-      .hero-gradient {
-      background: linear-gradient(90deg, rgba(255,255,255,1) 0%, rgba(255,255,255,0.9) 50%, rgba(255,255,255,0) 100%);
-      }
-    </style>
+    <link href="../public/css/custom.css" rel="stylesheet">
+    <script src="../public/js/tailwind.config.js"></script>
   </head>
   <body class="bg-gray-50">
     <!-- Header -->

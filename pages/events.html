@@ -4,76 +4,6 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Danh sách Sự kiện</title>
-    <script src="https://cdn.tailwindcss.com/3.4.16"></script>
-    <script>
-      tailwind.config = {
-        theme: {
-          extend: {
-            colors: {
-              primary: "#800000",
-              secondary: "#FF6B6B",
-            },
-            borderRadius: {
-              none: "0px",
-              sm: "4px",
-              DEFAULT: "8px",
-              md: "12px",
-              lg: "16px",
-              xl: "20px",
-              "2xl": "24px",
-              "3xl": "32px",
-              full: "9999px",
-              button: "8px",
-            },
-            animation: {
-              'fade-in': 'fadeIn 0.5s ease-in-out',
-              'slide-up': 'slideUp 0.5s ease-out',
-              'slide-down': 'slideDown 0.3s ease-out',
-              'slide-left': 'slideLeft 0.5s ease-out',
-              'slide-right': 'slideRight 0.5s ease-out',
-              'bounce-sm': 'bounceSm 1s infinite',
-              'pulse-light': 'pulseLight 2s infinite',
-              'spin-slow': 'spin 3s linear infinite',
-              'float': 'float 3s ease-in-out infinite',
-            },
-            keyframes: {
-              fadeIn: {
-                '0%': { opacity: '0' },
-                '100%': { opacity: '1' },
-              },
-              slideUp: {
-                '0%': { transform: 'translateY(20px)', opacity: '0' },
-                '100%': { transform: 'translateY(0)', opacity: '1' },
-              },
-              slideDown: {
-                '0%': { transform: 'translateY(-10px)', opacity: '0' },
-                '100%': { transform: 'translateY(0)', opacity: '1' },
-              },
-              slideLeft: {
-                '0%': { transform: 'translateX(20px)', opacity: '0' },
-                '100%': { transform: 'translateX(0)', opacity: '1' },
-              },
-              slideRight: {
-                '0%': { transform: 'translateX(-20px)', opacity: '0' },
-                '100%': { transform: 'translateX(0)', opacity: '1' },
-              },
-              bounceSm: {
-                '0%, 100%': { transform: 'translateY(0)' },
-                '50%': { transform: 'translateY(-4px)' },
-              },
-              pulseLight: {
-                '0%, 100%': { opacity: '1' },
-                '50%': { opacity: '0.7' },
-              },
-              float: {
-                '0%, 100%': { transform: 'translateY(0)' },
-                '50%': { transform: 'translateY(-5px)' },
-              },
-            },
-          },
-        },
-      };
-    </script>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -84,53 +14,9 @@
       href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css"
       rel="stylesheet"
     />
-    <style>
-      :where([class^="ri-"])::before { content: "\f3c2"; }
-      body {
-      font-family: 'Inter', sans-serif;
-      scroll-behavior: smooth;
-      }
-      .event-card:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
-      }
-      input[type="number"]::-webkit-inner-spin-button,
-      input[type="number"]::-webkit-outer-spin-button {
-      -webkit-appearance: none;
-      margin: 0;
-      }
-      /* Custom animations */
-      @keyframes float {
-        0%, 100% { transform: translateY(0); }
-        50% { transform: translateY(-10px); }
-      }
-      .float-animation {
-        animation: float 3s ease-in-out infinite;
-      }
-      @keyframes pulse-soft {
-        0%, 100% { transform: scale(1); }
-        50% { transform: scale(1.05); }
-      }
-      .pulse-soft {
-        animation: pulse-soft 2s infinite;
-      }
-      .scale-hover {
-        transition: transform 0.3s ease;
-      }
-      .scale-hover:hover {
-        transform: scale(1.03);
-      }
-      /* Additional animations for events page */
-      @keyframes shake {
-        0%, 100% { transform: translateX(0); }
-        25% { transform: translateX(-5px); }
-        50% { transform: translateX(5px); }
-        75% { transform: translateX(-5px); }
-      }
-      .animate-shake {
-        animation: shake 0.5s ease-in-out;
-      }
-    </style>
+    <link href="../public/css/custom.css" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com/3.4.16"></script>
+    <script src="../public/js/tailwind.config.js"></script>
   </head>
   <body class="bg-gray-50 min-h-screen">
     <!-- Header -->

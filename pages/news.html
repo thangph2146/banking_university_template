@@ -156,15 +156,45 @@
           ký</a>
       </div>
       <!-- Mobile menu button -->
-      <button id="mobile-menu-button"
-        class="md:hidden text-white focus:outline-none hover:text-secondary transition-colors" aria-label="Mở menu"
-        aria-expanded="false" aria-controls="mobile-menu">
-        <i class="ri-menu-line text-2xl"></i>
+      <button 
+        id="mobile-menu-button"
+        class="md:hidden w-10 h-10 flex items-center justify-center text-white focus:outline-none hover:text-secondary transition-colors relative focus:ring-2 focus:ring-white/50 rounded-md"
+        aria-label="Mở menu"
+        aria-expanded="false"
+        aria-controls="mobile-menu"
+      >
+        <i class="ri-menu-line ri-lg"></i>
+        <span class="sr-only">Menu</span>
       </button>
     </div>
-
-
   </header>
+
+  <!-- Mobile menu (hidden by default) -->
+  <div id="mobile-menu" class="md:hidden bg-primary/95 fixed inset-0 z-50 transform translate-x-full transition-transform duration-300 ease-in-out backdrop-blur-sm">
+    <div class="p-4 flex justify-between items-center border-b border-red-900/30">
+      <a href="index.html" class="text-2xl font-pacifico text-white flex items-center">
+        <img src="../images/logo/logo-white-vertical.png" alt="Đại học Ngân hàng TP.HCM logo" class="w-12 h-12">
+      </a>
+      <button class="w-10 h-10 flex items-center justify-center text-white" aria-label="Đóng menu" id="mobile-menu-close">
+        <i class="ri-close-line ri-lg"></i>
+      </button>
+    </div>
+    <nav class="p-4" aria-label="Mobile navigation">
+      <ul class="space-y-4">
+        <li><a href="index.html" class="font-medium text-white/80 hover:text-white py-2 block transition-all duration-300 hover:translate-x-1">Trang chủ</a></li>
+        <li><a href="events.html" class="font-medium text-white/80 hover:text-white py-2 block transition-all duration-300 hover:translate-x-1">Sự kiện</a></li>
+        <li><a href="blog.html" class="font-medium text-white/80 hover:text-white py-2 block transition-all duration-300 hover:translate-x-1">Blog</a></li>
+        <li><a href="news.html" class="font-medium text-white border-l-4 border-white pl-2 py-2 block transition-all duration-300 hover:translate-x-1" aria-current="page">Giới thiệu</a></li>
+        <li><a href="contact.html" class="font-medium text-white/80 hover:text-white py-2 block transition-all duration-300 hover:translate-x-1">Liên hệ</a></li>
+        <li class="pt-4 border-t border-red-900/30">
+          <a href="login.html" class="bg-white text-primary px-4 py-2 !rounded-button whitespace-nowrap block text-center hover:bg-gray-100 transition-colors shadow-sm">Đăng nhập</a>
+        </li>
+        <li class="pt-2">
+          <a href="register.html" class="bg-white text-primary px-4 py-2 !rounded-button whitespace-nowrap block text-center hover:bg-gray-100 transition-colors shadow-sm">Đăng ký</a>
+        </li>
+      </ul>
+    </nav>
+  </div>
 
   <!-- Hero Section -->
   <section class="relative overflow-hidden">
@@ -620,49 +650,62 @@
     const initializeDocument = () => {
       // Function to handle mobile menu toggle
       const setupMobileMenu = () => {
-        const menuButton = document.querySelector("button.md\\:hidden");
-        const mobileMenu = document.createElement("div");
-        mobileMenu.id = "mobile-menu";
-        mobileMenu.className =
-          "fixed inset-0 bg-primary/95 z-50 transform translate-x-full transition-transform duration-300 ease-in-out backdrop-blur-sm";
-        mobileMenu.innerHTML = `
-          <div class="p-4 flex justify-between items-center border-b border-red-900/30">
-            <a href="index.html" class="text-2xl font-['Pacifico'] text-white flex items-center">
-              <img src="../images/logo/logo-white-vertical.png" alt="Đại học Ngân hàng TP.HCM logo" class="w-12 h-12">
-            </a>
-            <button class="w-10 h-10 flex items-center justify-center text-white" aria-label="Đóng menu">
-              <i class="ri-close-line ri-lg"></i>
-            </button>
-          </div>
-          <nav class="p-4" aria-label="Mobile navigation">
-            <ul class="space-y-4">
-              <li><a href="index.html" class="font-medium text-white/80 hover:text-white py-2 hover:translate-x-1 transition-transform">Trang chủ</a></li>
-              <li><a href="events.html" class="font-medium text-white/80 hover:text-white py-2 hover:translate-x-1 transition-transform">Sự kiện</a></li>
-              <li><a href="news.html" class="font-medium text-white border-l-4 border-white pl-2 py-2 hover:translate-x-1 transition-transform" aria-current="page">Giới thiệu</a></li>
-              <li><a href="contact.html" class="font-medium text-white/80 hover:text-white py-2 hover:translate-x-1 transition-transform">Liên hệ</a></li>
-              <li>
-                <a href="login.html" class="bg-white text-primary px-4 py-2 !rounded-button whitespace-nowrap block text-center mt-4 hover:bg-gray-100 transition-colors shadow-sm">Đăng nhập</a>
-              </li>
-              <li>
-                <a href="register.html" class="bg-white text-primary px-4 py-2 !rounded-button whitespace-nowrap block text-center mt-2 hover:bg-gray-100 transition-colors shadow-sm">Đăng ký</a>
-              </li>
-            </ul>
-          </nav>
-          `;
-        document.body.appendChild(mobileMenu);
-
+        const menuButton = document.getElementById("mobile-menu-button");
+        const mobileMenu = document.getElementById("mobile-menu");
+        const closeButton = document.getElementById("mobile-menu-close");
+        
         // Open menu
-        menuButton.addEventListener("click", function () {
+        menuButton.addEventListener("click", function() {
           mobileMenu.classList.remove("translate-x-full");
           document.body.classList.add("overflow-hidden");
           menuButton.setAttribute("aria-expanded", "true");
+          
+          // Toggle icon between menu and close
+          const icon = menuButton.querySelector("i");
+          if (icon) {
+            icon.className = "ri-close-line ri-lg";
+          }
         });
-
+        
         // Close menu
-        mobileMenu.querySelector("button").addEventListener("click", function () {
+        closeButton.addEventListener("click", function() {
           mobileMenu.classList.add("translate-x-full");
           document.body.classList.remove("overflow-hidden");
           menuButton.setAttribute("aria-expanded", "false");
+          
+          const icon = menuButton.querySelector("i");
+          if (icon) {
+            icon.className = "ri-menu-line ri-lg";
+          }
+        });
+        
+        // Close menu when clicking outside
+        document.addEventListener("click", function(e) {
+          if (!mobileMenu.contains(e.target) && !menuButton.contains(e.target) && 
+              !mobileMenu.classList.contains("translate-x-full")) {
+            mobileMenu.classList.add("translate-x-full");
+            document.body.classList.remove("overflow-hidden");
+            menuButton.setAttribute("aria-expanded", "false");
+            
+            const icon = menuButton.querySelector("i");
+            if (icon) {
+              icon.className = "ri-menu-line ri-lg";
+            }
+          }
+        });
+        
+        // Close menu on escape key
+        document.addEventListener("keydown", function(e) {
+          if (e.key === "Escape" && !mobileMenu.classList.contains("translate-x-full")) {
+            mobileMenu.classList.add("translate-x-full");
+            document.body.classList.remove("overflow-hidden");
+            menuButton.setAttribute("aria-expanded", "false");
+            
+            const icon = menuButton.querySelector("i");
+            if (icon) {
+              icon.className = "ri-menu-line ri-lg";
+            }
+          }
         });
       };
 
