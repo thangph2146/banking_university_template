@@ -64,6 +64,33 @@
       </div>
     </header>
 
+    <!-- Mobile Menu (hidden by default) -->
+    <div class="fixed inset-0 bg-primary z-50 transform translate-x-full transition-transform duration-300 ease-in-out">
+      <div class="p-4 flex justify-between items-center border-b border-red-900/30">
+        <a href="index.html" class="text-2xl font-['Pacifico'] text-white">
+          <img src="../images/logo/logo-white-vertical.png" alt="logo" class="w-16 h-16">
+        </a>
+        <button class="w-10 h-10 flex items-center justify-center text-white">
+          <i class="ri-close-line ri-lg"></i>
+        </button>
+      </div>
+      <nav class="p-4">
+        <ul class="space-y-4">
+          <li><a href="index.html" class="text-red-100 block py-2 hover:text-white">Trang chủ</a></li>
+          <li><a href="events.html" class="text-red-100 block py-2 hover:text-white">Sự kiện</a></li>
+          <li><a href="blog.html" class="text-red-100 block py-2 hover:text-white">Blog</a></li>
+          <li><a href="news.html" class="text-red-100 block py-2 hover:text-white">Giới thiệu</a></li>
+          <li><a href="contact.html" class="text-red-100 block py-2 hover:text-white">Liên hệ</a></li>
+          <li class="pt-4 border-t border-red-900/30">
+            <a href="login.html" class="text-white font-medium block py-2">Đăng nhập</a>
+          </li>
+          <li>
+            <a href="register.html" class="bg-white text-primary px-4 py-2 !rounded-button whitespace-nowrap block text-center mt-2">Đăng ký</a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+
     <!-- Page Title -->
     <section class="bg-primary py-12">
       <div class="container mx-auto px-4 text-center">
@@ -752,50 +779,6 @@
       </div>
     </footer>
     
-    <script>
-      // Mobile menu toggle functionality
-      document.addEventListener("DOMContentLoaded", function () {
-        // Mobile menu
-        const menuButton = document.querySelector("button.md\\:hidden");
-        const mobileMenu = document.createElement("div");
-        mobileMenu.className =
-          "fixed inset-0 bg-primary z-50 transform translate-x-full transition-transform duration-300 ease-in-out";
-        mobileMenu.innerHTML = `
-        <div class="p-4 flex justify-between items-center border-b border-red-900/30">
-          <a href="index.html" class="text-2xl font-['Pacifico'] text-white">
-            <img src="../images/logo/logo-white-vertical.png" alt="logo" class="w-16 h-16">
-          </a>
-          <button class="w-10 h-10 flex items-center justify-center text-white">
-            <i class="ri-close-line ri-lg"></i>
-          </button>
-        </div>
-        <nav class="p-4">
-          <ul class="space-y-4">
-            <li><a href="index.html" class="text-red-100 block py-2 hover:text-white">Trang chủ</a></li>
-            <li><a href="events.html" class="text-red-100 block py-2 hover:text-white">Sự kiện</a></li>
-            <li><a href="news.html" class="text-red-100 block py-2 hover:text-white">Giới thiệu</a></li>
-            <li><a href="contact.html" class="text-red-100 block py-2 hover:text-white">Liên hệ</a></li>
-            <li class="pt-4 border-t border-red-900/30">
-              <a href="login.html" class="text-white font-medium block py-2">Đăng nhập</a>
-            </li>
-            <li>
-              <a href="register.html" class="bg-white text-primary px-4 py-2 !rounded-button whitespace-nowrap block text-center mt-2">Đăng ký</a>
-            </li>
-          </ul>
-        </nav>
-        `;
-        document.body.appendChild(mobileMenu);
-        
-        // Open mobile menu
-        menuButton.addEventListener("click", function () {
-          mobileMenu.classList.remove("translate-x-full");
-        });
-        
-        // Close mobile menu
-        mobileMenu.querySelector("button").addEventListener("click", function () {
-          mobileMenu.classList.add("translate-x-full");
-        });
-      });
-    </script>
+    <script src="../public/js/privacy.js"></script>
   </body>
 </html> 

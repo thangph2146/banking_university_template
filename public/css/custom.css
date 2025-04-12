@@ -142,4 +142,105 @@ body {
 
 .animate-shake {
   animation: shake 0.5s cubic-bezier(.36,.07,.19,.97) both;
+}
+
+/* Blog Detail Page Animations */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideInUp {
+  from { 
+    transform: translateY(20px);
+    opacity: 0;
+  }
+  to { 
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes timelinePulse {
+  0% { transform: scale(1); background-color: rgba(220, 38, 38, 0.1); }
+  50% { transform: scale(1.1); background-color: rgba(220, 38, 38, 0.2); }
+  100% { transform: scale(1); background-color: rgba(220, 38, 38, 0.1); }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.5s ease forwards;
+}
+
+.animate-comment {
+  animation: slideInUp 0.5s ease forwards;
+}
+
+.animate-author-image {
+  animation: slideInUp 0.5s ease 0.1s forwards;
+}
+
+.animate-author-content {
+  animation: slideInUp 0.5s ease 0.2s forwards;
+}
+
+.animate-author-related {
+  animation: slideInUp 0.5s ease 0.3s forwards;
+}
+
+.animate-related-article {
+  animation: slideInUp 0.5s ease forwards;
+}
+
+.animate-speakers {
+  animation: slideInUp 0.5s ease forwards;
+}
+
+.timeline-item {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.timeline-item.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.animate-progress {
+  animation: progressBar 1s ease-out forwards;
+}
+
+@keyframes progressBar {
+  from { width: 0; }
+}
+
+.animate-pulse-slow {
+  animation: pulseSlow 3s infinite;
+}
+
+@keyframes pulseSlow {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.7; }
+}
+
+.animate-pulse-light {
+  animation: pulseLight 4s infinite;
+}
+
+@keyframes pulseLight {
+  0%, 100% { transform: scale(1); opacity: 0.2; }
+  50% { transform: scale(1.2); opacity: 0.1; }
+}
+
+/* Tab animations */
+.tab-content {
+  transition: opacity 0.3s ease-in-out;
+}
+
+.tab-content.hidden {
+  display: none;
+}
+
+.tab-content.block:not(.opacity-0) {
+  opacity: 1;
 } 
