@@ -17,34 +17,6 @@
     <link href="../public/css/custom.css" rel="stylesheet" />
     <script src="https://cdn.tailwindcss.com/3.4.16"></script>
     <script src="../public/js/tailwind.config.js"></script>
-    <style>
-      :where([class^="ri-"])::before { content: "\f3c2"; }
-      body {
-      font-family: 'Inter', sans-serif;
-      }
-      .hero-gradient {
-      background: linear-gradient(90deg, rgba(255,255,255,1) 0%, rgba(255,255,255,0.9) 50%, rgba(255,255,255,0) 100%);
-      }
-      
-      /* Accordion styles */
-      .faq-item-body {
-        max-height: 0;
-        overflow: hidden;
-        transition: max-height 0.3s ease;
-      }
-      
-      .faq-item.active .faq-item-body {
-        max-height: 1000px;
-      }
-      
-      .faq-item-header i {
-        transition: transform 0.3s ease;
-      }
-      
-      .faq-item.active .faq-item-header i {
-        transform: rotate(180deg);
-      }
-    </style>
   </head>
   <body class="bg-gray-50">
     <!-- Header -->
