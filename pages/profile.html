@@ -79,11 +79,16 @@
             </div>
           </div>
         </div>
-        <button id="mobile-menu-button"
-          class="md:hidden w-10 h-10 flex items-center justify-center text-white focus:outline-none hover:text-secondary transition-colors"
-        >
-          <i class="ri-menu-line ri-lg"></i>
-        </button>
+        <div class="flex items-center space-x-4">
+          <button id="mobile-menu-button"
+            class="md:hidden w-10 h-10 flex items-center justify-center text-white focus:outline-none hover:text-secondary transition-colors"
+            aria-label="Mở menu trên điện thoại"
+            aria-expanded="false"
+            aria-controls="mobile-menu"
+          >
+            <i class="ri-menu-line ri-lg"></i>
+          </button>
+        </div>
       </div>
       
       <!-- Mobile Menu -->
@@ -115,7 +120,7 @@
             <li><a href="#" class="font-medium text-white/80 hover:text-white py-2 block transition-all duration-300 hover:translate-x-1">Cài đặt</a></li>
             <li class="pt-4">
               <a href="login.html" class="bg-white text-primary px-4 py-2 !rounded-button whitespace-nowrap block text-center hover:bg-gray-100 transition-colors shadow-sm">
-                <i class="ri-logout-box-r-line mr-2"></i>Đăng xuất
+                <p class="text-center text-primary"><i class="ri-logout-box-r-line mr-2"></i>Đăng xuất</p>
               </a>
             </li>
           </ul>

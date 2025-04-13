@@ -25,64 +25,41 @@ document.addEventListener("DOMContentLoaded", () => {
  * Handles mobile menu opening/closing and related transitions
  */
 const initMobileMenu = () => {
-  try {
-    const menuButton = document.querySelector("button.md\\:hidden");
-    const mobileMenu = document.createElement("div");
+  const menuButton = document.querySelector("#mobile-menu-button");
+  const mobileMenu = document.querySelector("#mobile-menu");
+  const closeButton = document.querySelector("#mobile-menu-close");
+  
+  if (!menuButton || !mobileMenu || !closeButton) return;
+  
+  // Open menu
+  menuButton.addEventListener("click", () => {
+    mobileMenu.classList.remove("translate-x-full");
+    document.body.classList.add("overflow-hidden");
+    menuButton.setAttribute("aria-expanded", "true");
     
-    // Create mobile menu if it doesn't exist yet
-    if (!menuButton) return;
-    
-    // Set up mobile menu
-    mobileMenu.className = "fixed inset-0 bg-primary z-50 transform translate-x-full transition-transform duration-300 ease-in-out";
-    mobileMenu.id = "mobile-menu";
-    
-    mobileMenu.innerHTML = `
-      <div class="p-4 flex justify-between items-center border-b border-red-900/30">
-        <a href="index.html" class="text-2xl font-['Pacifico'] text-white">
-          <img src="../images/logo/logo-white-vertical.png" alt="logo" class="w-16 h-16">
-        </a>
-        <button class="w-10 h-10 flex items-center justify-center text-white" aria-label="Đóng menu">
-          <i class="ri-close-line ri-lg"></i>
-        </button>
-      </div>
-      <nav class="p-4">
-        <ul class="space-y-4">
-          <li><a href="index.html" class="text-red-100 block py-2">Trang chủ</a></li>
-          <li><a href="events.html" class="text-red-100 block py-2">Sự kiện</a></li>
-          <li><a href="blog.html" class="text-red-100 block py-2">Blog</a></li>
-          <li><a href="news.html" class="text-red-100 block py-2">Giới thiệu</a></li>
-          <li><a href="contact.html" class="text-red-100 block py-2">Liên hệ</a></li>
-          <li class="pt-4 border-t border-red-900/30">
-            <a href="login.html" class="text-white font-medium block py-2">Đăng nhập</a>
-          </li>
-          <li>
-            <a href="register.html" class="bg-white text-primary px-4 py-2 !rounded-button whitespace-nowrap block text-center mt-2">Đăng ký</a>
-          </li>
-        </ul>
-      </nav>
-    `;
-    
-    // Only append if not already in the DOM
-    if (!document.getElementById("mobile-menu")) {
-      document.body.appendChild(mobileMenu);
+    const icon = menuButton.querySelector("i");
+    if (icon) {
+      icon.className = "ri-close-line ri-lg";
     }
+  });
+  
+  // Close menu
+  closeButton.addEventListener("click", () => {
+    mobileMenu.classList.add("translate-x-full");
+    document.body.classList.remove("overflow-hidden");
+    menuButton.setAttribute("aria-expanded", "false");
     
-    // Open menu
-    menuButton.addEventListener("click", () => {
-      mobileMenu.classList.remove("translate-x-full");
-      document.body.classList.add("overflow-hidden");
-      menuButton.setAttribute("aria-expanded", "true");
-      
-      // Toggle icon
-      const icon = menuButton.querySelector("i");
-      if (icon) {
-        icon.className = "ri-close-line ri-lg";
-      }
-    });
-    
-    // Close menu
-    const closeButton = mobileMenu.querySelector("button[aria-label='Đóng menu']");
-    closeButton.addEventListener("click", () => {
+    const icon = menuButton.querySelector("i");
+    if (icon) {
+      icon.className = "ri-menu-line ri-lg";
+    }
+  });
+  
+  // Close when clicking outside
+  document.addEventListener("click", (e) => {
+    if (!mobileMenu.contains(e.target) && 
+        !menuButton.contains(e.target) && 
+        !mobileMenu.classList.contains("translate-x-full")) {
       mobileMenu.classList.add("translate-x-full");
       document.body.classList.remove("overflow-hidden");
       menuButton.setAttribute("aria-expanded", "false");
@@ -91,40 +68,22 @@ const initMobileMenu = () => {
       if (icon) {
         icon.className = "ri-menu-line ri-lg";
       }
-    });
-    
-    // Close when clicking outside
-    document.addEventListener("click", (e) => {
-      if (!mobileMenu.contains(e.target) && 
-          !menuButton.contains(e.target) && 
-          !mobileMenu.classList.contains("translate-x-full")) {
-        mobileMenu.classList.add("translate-x-full");
-        document.body.classList.remove("overflow-hidden");
-        menuButton.setAttribute("aria-expanded", "false");
-        
-        const icon = menuButton.querySelector("i");
-        if (icon) {
-          icon.className = "ri-menu-line ri-lg";
-        }
+    }
+  });
+  
+  // Close menu on escape key
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && !mobileMenu.classList.contains("translate-x-full")) {
+      mobileMenu.classList.add("translate-x-full");
+      document.body.classList.remove("overflow-hidden");
+      menuButton.setAttribute("aria-expanded", "false");
+      
+      const icon = menuButton.querySelector("i");
+      if (icon) {
+        icon.className = "ri-menu-line ri-lg";
       }
-    });
-    
-    // Close menu on escape key
-    document.addEventListener("keydown", (e) => {
-      if (e.key === "Escape" && !mobileMenu.classList.contains("translate-x-full")) {
-        mobileMenu.classList.add("translate-x-full");
-        document.body.classList.remove("overflow-hidden");
-        menuButton.setAttribute("aria-expanded", "false");
-        
-        const icon = menuButton.querySelector("i");
-        if (icon) {
-          icon.className = "ri-menu-line ri-lg";
-        }
-      }
-    });
-  } catch (error) {
-    console.error("Error initializing mobile menu:", error);
-  }
+    }
+  });
 };
 
 /**

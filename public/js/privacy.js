@@ -22,79 +22,65 @@ document.addEventListener("DOMContentLoaded", () => {
  * Handles mobile menu opening/closing and related transitions
  */
 const initMobileMenu = () => {
-  try {
-    const menuButton = document.querySelector("button.md\\:hidden");
-    const mobileMenu = document.querySelector(".fixed.inset-0.bg-primary.z-50");
+  const menuButton = document.querySelector("#mobile-menu-button");
+  const mobileMenu = document.querySelector("#mobile-menu");
+  const closeButton = document.querySelector("#mobile-menu-close");
+  
+  if (!menuButton || !mobileMenu || !closeButton) return;
+  
+  // Open menu
+  menuButton.addEventListener("click", () => {
+    mobileMenu.classList.remove("translate-x-full");
+    document.body.classList.add("overflow-hidden");
+    menuButton.setAttribute("aria-expanded", "true");
     
-    if (!menuButton || !mobileMenu) return;
+    const icon = menuButton.querySelector("i");
+    if (icon) {
+      icon.className = "ri-close-line ri-lg";
+    }
+  });
+  
+  // Close menu
+  closeButton.addEventListener("click", () => {
+    mobileMenu.classList.add("translate-x-full");
+    document.body.classList.remove("overflow-hidden");
+    menuButton.setAttribute("aria-expanded", "false");
     
-    // Check if menu already has event listeners
-    if (menuButton.hasAttribute('data-initialized')) return;
-    menuButton.setAttribute('data-initialized', 'true');
-    
-    // Open menu
-    menuButton.addEventListener("click", () => {
-      mobileMenu.classList.remove("translate-x-full");
-      document.body.classList.add("overflow-hidden");
+    const icon = menuButton.querySelector("i");
+    if (icon) {
+      icon.className = "ri-menu-line ri-lg";
+    }
+  });
+  
+  // Close when clicking outside
+  document.addEventListener("click", (e) => {
+    if (!mobileMenu.contains(e.target) && 
+        !menuButton.contains(e.target) && 
+        !mobileMenu.classList.contains("translate-x-full")) {
+      mobileMenu.classList.add("translate-x-full");
+      document.body.classList.remove("overflow-hidden");
+      menuButton.setAttribute("aria-expanded", "false");
       
-      // Toggle icon
       const icon = menuButton.querySelector("i");
       if (icon) {
-        icon.className = "ri-close-line ri-lg";
+        icon.className = "ri-menu-line ri-lg";
       }
-    });
-    
-    // Close menu
-    const closeButton = mobileMenu.querySelector("button");
-    if (closeButton) {
-      closeButton.addEventListener("click", () => {
-        mobileMenu.classList.add("translate-x-full");
-        document.body.classList.remove("overflow-hidden");
-        
-        const icon = menuButton.querySelector("i");
-        if (icon) {
-          icon.className = "ri-menu-line ri-lg";
-        }
-      });
     }
-    
-    // Close when clicking outside
-    document.addEventListener("click", (e) => {
-      if (!mobileMenu.contains(e.target) && 
-          !menuButton.contains(e.target) && 
-          !mobileMenu.classList.contains("translate-x-full")) {
-        mobileMenu.classList.add("translate-x-full");
-        document.body.classList.remove("overflow-hidden");
-        
-        const icon = menuButton.querySelector("i");
-        if (icon) {
-          icon.className = "ri-menu-line ri-lg";
-        }
+  });
+  
+  // Close menu on escape key
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && !mobileMenu.classList.contains("translate-x-full")) {
+      mobileMenu.classList.add("translate-x-full");
+      document.body.classList.remove("overflow-hidden");
+      menuButton.setAttribute("aria-expanded", "false");
+      
+      const icon = menuButton.querySelector("i");
+      if (icon) {
+        icon.className = "ri-menu-line ri-lg";
       }
-    });
-    
-    // Close menu on escape key
-    document.addEventListener("keydown", (e) => {
-      if (e.key === "Escape" && !mobileMenu.classList.contains("translate-x-full")) {
-        mobileMenu.classList.add("translate-x-full");
-        document.body.classList.remove("overflow-hidden");
-        
-        const icon = menuButton.querySelector("i");
-        if (icon) {
-          icon.className = "ri-menu-line ri-lg";
-        }
-      }
-    });
-    
-    // Animate menu items with staggered entrance
-    const menuItems = mobileMenu.querySelectorAll('nav ul li a');
-    menuItems.forEach((item, index) => {
-      item.style.setProperty('--index', index);
-      item.classList.add('animate-fade-in-up-delayed');
-    });
-  } catch (error) {
-    console.error("Error initializing mobile menu:", error);
-  }
+    }
+  });
 };
 
 /**

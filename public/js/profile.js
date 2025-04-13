@@ -47,40 +47,54 @@ const initMobileMenu = () => {
   
   if (!menuButton || !mobileMenu || !closeButton) return;
   
-  // Toggle menu function
-  const toggleMenu = () => {
-    const isOpen = !mobileMenu.classList.contains("translate-x-full");
-    
-    if (isOpen) {
-      // Close menu
-      mobileMenu.classList.add("translate-x-full");
-      document.body.classList.remove("overflow-hidden");
-      menuButton.setAttribute("aria-expanded", "false");
-    } else {
-      // Open menu
+  // Open menu
+  menuButton.addEventListener("click", () => {
+    mobileMenu.classList.remove("hidden");
+    // Đợi một chút để DOM cập nhật trước khi thêm transform
+    setTimeout(() => {
       mobileMenu.classList.remove("translate-x-full");
       document.body.classList.add("overflow-hidden");
       menuButton.setAttribute("aria-expanded", "true");
+      
+      const icon = menuButton.querySelector("i");
+      if (icon) {
+        icon.className = "ri-close-line ri-lg";
+      }
+    }, 10);
+  });
+  
+  // Close menu
+  const closeMenu = () => {
+    mobileMenu.classList.add("translate-x-full");
+    document.body.classList.remove("overflow-hidden");
+    menuButton.setAttribute("aria-expanded", "false");
+    
+    const icon = menuButton.querySelector("i");
+    if (icon) {
+      icon.className = "ri-menu-line ri-lg";
     }
+    
+    // Đợi animation kết thúc rồi mới ẩn menu
+    mobileMenu.addEventListener("transitionend", () => {
+      mobileMenu.classList.add("hidden");
+    }, { once: true });
   };
   
-  // Event listeners
-  menuButton.addEventListener("click", toggleMenu);
-  closeButton.addEventListener("click", toggleMenu);
+  closeButton.addEventListener("click", closeMenu);
   
   // Close when clicking outside
   document.addEventListener("click", (e) => {
-    if (!mobileMenu.classList.contains("translate-x-full") && 
+    if (!mobileMenu.classList.contains("hidden") && 
         !mobileMenu.contains(e.target) && 
         !menuButton.contains(e.target)) {
-      toggleMenu();
+      closeMenu();
     }
   });
   
   // Close menu on escape key
   document.addEventListener("keydown", (e) => {
-    if (e.key === "Escape" && !mobileMenu.classList.contains("translate-x-full")) {
-      toggleMenu();
+    if (e.key === "Escape" && !mobileMenu.classList.contains("hidden")) {
+      closeMenu();
     }
   });
 };
