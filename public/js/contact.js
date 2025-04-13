@@ -40,60 +40,65 @@ const initAOS = () => {
  * Initialize mobile menu functionality
  */
 const initMobileMenu = () => {
-  const menuButton = document.getElementById('mobile-menu-button');
-  const mobileMenu = document.getElementById('mobile-menu');
-  const closeButton = mobileMenu?.querySelector("button[aria-label='Đóng menu']");
+  const menuButton = document.querySelector("#mobile-menu-button");
+  const mobileMenu = document.querySelector("#mobile-menu");
+  const closeButton = document.querySelector("#mobile-menu-close");
   
-  if (!menuButton || !mobileMenu || !closeButton) {
-    return;
-  }
+  if (!menuButton || !mobileMenu || !closeButton) return;
   
-  try {
-    // Toggle icon function
-    const toggleMenuIcon = (isOpen) => {
-      const icon = menuButton.querySelector("i");
-      if (icon) {
-        icon.className = isOpen ? "ri-close-line ri-lg" : "ri-menu-line ri-lg";
-      }
-    };
+  // Open menu
+  menuButton.addEventListener("click", () => {
+    mobileMenu.classList.remove("translate-x-full");
+    document.body.classList.add("overflow-hidden");
+    menuButton.setAttribute("aria-expanded", "true");
     
-    // Close menu function
-    const closeMenu = () => {
+    const icon = menuButton.querySelector("i");
+    if (icon) {
+      icon.className = "ri-close-line ri-lg";
+    }
+  });
+  
+  // Close menu
+  closeButton.addEventListener("click", () => {
+    mobileMenu.classList.add("translate-x-full");
+    document.body.classList.remove("overflow-hidden");
+    menuButton.setAttribute("aria-expanded", "false");
+    
+    const icon = menuButton.querySelector("i");
+    if (icon) {
+      icon.className = "ri-menu-line ri-lg";
+    }
+  });
+  
+  // Close when clicking outside
+  document.addEventListener("click", (e) => {
+    if (!mobileMenu.contains(e.target) && 
+        !menuButton.contains(e.target) && 
+        !mobileMenu.classList.contains("translate-x-full")) {
       mobileMenu.classList.add("translate-x-full");
       document.body.classList.remove("overflow-hidden");
       menuButton.setAttribute("aria-expanded", "false");
-      toggleMenuIcon(false);
-    };
-    
-    // Open menu
-    menuButton.addEventListener("click", () => {
-      mobileMenu.classList.remove("translate-x-full");
-      document.body.classList.add("overflow-hidden");
-      menuButton.setAttribute("aria-expanded", "true");
-      toggleMenuIcon(true);
-    });
-    
-    // Close menu
-    closeButton.addEventListener("click", closeMenu);
-    
-    // Close when clicking outside
-    document.addEventListener("click", (e) => {
-      if (!mobileMenu.contains(e.target) && 
-          !menuButton.contains(e.target) && 
-          !mobileMenu.classList.contains("translate-x-full")) {
-        closeMenu();
+      
+      const icon = menuButton.querySelector("i");
+      if (icon) {
+        icon.className = "ri-menu-line ri-lg";
       }
-    });
-    
-    // Close menu on escape key
-    document.addEventListener("keydown", (e) => {
-      if (e.key === "Escape" && !mobileMenu.classList.contains("translate-x-full")) {
-        closeMenu();
+    }
+  });
+  
+  // Close menu on escape key
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && !mobileMenu.classList.contains("translate-x-full")) {
+      mobileMenu.classList.add("translate-x-full");
+      document.body.classList.remove("overflow-hidden");
+      menuButton.setAttribute("aria-expanded", "false");
+      
+      const icon = menuButton.querySelector("i");
+      if (icon) {
+        icon.className = "ri-menu-line ri-lg";
       }
-    });
-  } catch (error) {
-    console.error('Error initializing mobile menu:', error);
-  }
+    }
+  });
 };
 
 /**
@@ -109,8 +114,35 @@ const initContactForm = () => {
     // Add focus effect to input fields
     allInputs.forEach(input => {
       setupInputFocusEffects(input);
+      
+      // Add input validation for mobile
+      if (input.type === 'text' || input.type === 'email' || input.type === 'tel') {
+        input.addEventListener('input', () => {
+          // Prevent horizontal scroll on mobile
+          input.style.width = '100%';
+          input.style.maxWidth = '100%';
+          
+          // Adjust font size if content is too long
+          const inputLength = input.value.length;
+          if (window.innerWidth < 768 && inputLength > 30) {
+            input.style.fontSize = '12px';
+          } else {
+            input.style.fontSize = '';
+          }
+        });
+      }
     });
     
+    // Handle textarea responsively
+    const messageTextarea = contactForm.querySelector('textarea');
+    if (messageTextarea) {
+      messageTextarea.addEventListener('input', () => {
+        // Auto resize height based on content
+        messageTextarea.style.height = 'auto';
+        messageTextarea.style.height = messageTextarea.scrollHeight + 'px';
+      });
+    }
+
     // Form submission handling
     contactForm.addEventListener('submit', (e) => {
       e.preventDefault();
@@ -334,15 +366,28 @@ const showSuccessMessage = (form, submitBtn, originalBtnContent) => {
 };
 
 /**
- * Setup map handling with error fallback
+ * Setup map handling with error fallback and responsive behavior
  */
 const setupMapHandling = () => {
+  const mapContainer = document.getElementById('map-container');
   const googleMap = document.getElementById('google-map');
   const mapFallback = document.getElementById('map-fallback');
   
-  if (!googleMap || !mapFallback) return;
+  if (!mapContainer || !googleMap || !mapFallback) return;
   
   try {
+    // Make map responsive
+    const adjustMapHeight = () => {
+      const width = mapContainer.offsetWidth;
+      const isMobile = window.innerWidth < 768;
+      const aspectRatio = isMobile ? 0.75 : 0.5625; // 4:3 for mobile, 16:9 for desktop
+      mapContainer.style.height = `${width * aspectRatio}px`;
+    };
+
+    // Adjust map on load and resize
+    window.addEventListener('load', adjustMapHeight);
+    window.addEventListener('resize', adjustMapHeight);
+
     // Check if online
     const checkOnlineStatus = () => {
       if (!navigator.onLine) {
@@ -353,6 +398,13 @@ const setupMapHandling = () => {
     // Show map fallback
     const showMapFallback = () => {
       mapFallback.classList.remove('hidden');
+      // Adjust fallback text size for mobile
+      if (window.innerWidth < 768) {
+        const fallbackText = mapFallback.querySelector('p');
+        if (fallbackText) {
+          fallbackText.classList.add('text-sm');
+        }
+      }
     };
     
     // Hide map fallback
@@ -360,61 +412,43 @@ const setupMapHandling = () => {
       mapFallback.classList.add('hidden');
     };
     
-    // Check error when loading iframe
-    googleMap.addEventListener('error', showMapFallback);
-    
-    // Setup initial check and listen for offline/online events
+    // Setup initial checks
     checkOnlineStatus();
-    window.addEventListener('offline', showMapFallback);
+    adjustMapHeight();
     
+    // Add event listeners
+    window.addEventListener('offline', showMapFallback);
     window.addEventListener('online', () => {
-      // When internet comes back, try to reload the map
       hideMapFallback();
       googleMap.src = googleMap.src;
     });
     
-    // Add fallback check to periodically check connection with Google Maps
-    let mapLoadCheckTimeout;
+    // Add resize observer for responsive updates
+    const resizeObserver = new ResizeObserver(adjustMapHeight);
+    resizeObserver.observe(mapContainer);
     
-    const checkMapLoaded = () => {
-      // If after 5 seconds the iframe hasn't loaded, show fallback
-      mapLoadCheckTimeout = setTimeout(() => {
-        try {
-          // Check if iframe loaded successfully
-          if (!googleMap.contentWindow || !googleMap.contentDocument) {
-            showMapFallback();
-          }
-        } catch (e) {
-          // If there's an error accessing contentWindow, show fallback
-          showMapFallback();
-        }
-      }, 5000);
-    };
-    
-    googleMap.addEventListener('load', () => {
-      // When loaded successfully, clear timeout and hide fallback
-      clearTimeout(mapLoadCheckTimeout);
-      hideMapFallback();
-    });
-    
-    // Start the check
-    checkMapLoaded();
   } catch (error) {
     console.error('Error setting up map handling:', error);
+    showMapFallback();
   }
 };
 
 /**
- * Initialize FAQ items with interactive effects
+ * Initialize FAQ items with interactive effects and responsive handling
  */
 const initFAQInteractions = () => {
-  const faqItems = document.querySelectorAll('.bg-white.p-4.md\\:p-6.rounded-lg, .bg-white.p-5.md\\:p-6.rounded-lg');
+  const faqItems = document.querySelectorAll('.bg-white.p-3.md\\:p-6.rounded-lg, .bg-white.p-4.md\\:p-6.rounded-lg');
   
   if (!faqItems.length) return;
   
   try {
     faqItems.forEach(item => {
-      // Add hover effect for better user feedback
+      const question = item.querySelector('h3');
+      const answer = item.querySelector('p');
+      
+      if (!question || !answer) return;
+      
+      // Add hover effect
       item.addEventListener('mouseenter', () => {
         item.classList.add('shadow-md', 'transform', 'scale-[1.01]');
       });
@@ -423,26 +457,37 @@ const initFAQInteractions = () => {
         item.classList.remove('shadow-md', 'transform', 'scale-[1.01]');
       });
       
-      // Make entire FAQ item clickable
+      // Make clickable
       item.style.cursor = 'pointer';
       
+      // Handle click with responsive animation
       item.addEventListener('click', () => {
-        const question = item.querySelector('h3');
-        const answer = item.querySelector('p');
+        const isMobile = window.innerWidth < 768;
         
-        if (question && answer) {
-          // Toggle expanded state with subtle animation
-          if (answer.style.maxHeight === '0px' || !answer.style.maxHeight) {
-            answer.style.maxHeight = answer.scrollHeight + 'px';
-            question.classList.add('text-primary');
-          } else {
-            answer.style.maxHeight = answer.scrollHeight + 'px';
-            setTimeout(() => {
-              answer.style.maxHeight = '1000px'; // Set a large value to ensure full visibility
-            }, 10);
+        // Toggle expanded state
+        if (answer.style.maxHeight === '0px' || !answer.style.maxHeight) {
+          answer.style.maxHeight = answer.scrollHeight + 'px';
+          question.classList.add('text-primary');
+          
+          // Adjust text size on mobile when expanded
+          if (isMobile) {
+            answer.style.fontSize = '12px';
+            answer.style.lineHeight = '1.4';
           }
+        } else {
+          answer.style.maxHeight = '0px';
+          question.classList.remove('text-primary');
+          
+          // Reset text size
+          answer.style.fontSize = '';
+          answer.style.lineHeight = '';
         }
       });
+      
+      // Initial state
+      answer.style.maxHeight = '0px';
+      answer.style.overflow = 'hidden';
+      answer.style.transition = 'all 0.3s ease-in-out';
     });
   } catch (error) {
     console.error('Error initializing FAQ interactions:', error);

@@ -22,7 +22,7 @@ document.addEventListener("DOMContentLoaded", () => {
  * Handles mobile menu opening/closing and related transitions
  */
 const initMobileMenu = () => {
-  const menuButton = document.querySelector("button[aria-label='Mở menu']");
+  const menuButton = document.querySelector("#mobile-menu-button");
   const mobileMenu = document.getElementById("mobile-menu");
   const closeButton = document.getElementById("mobile-menu-close");
   
