@@ -13,6 +13,8 @@
     <link href="../../public/css/custom.css" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com/3.4.16"></script>
     <script src="../../public/js/tailwind.config.js"></script>
+    <!-- QR Code library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 </head>
 
 <body class="bg-gray-50 min-h-screen">
@@ -211,59 +213,59 @@
                                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                                         <div>
                                             <label class="block text-sm font-medium text-gray-700">Tên sự kiện</label>
-                                            <p id="ten_su_kien" class="mt-1 text-gray-900"></p>
+                                            <p id="ten_su_kien" class="mt-1 text-gray-900">Hội thảo Công nghệ trong Giáo dục Đại học</p>
                                         </div>
                                         <div>
                                             <label class="block text-sm font-medium text-gray-700">Đơn vị tổ chức</label>
-                                            <p id="don_vi_to_chuc" class="mt-1 text-gray-900"></p>
+                                            <p id="don_vi_to_chuc" class="mt-1 text-gray-900">Phòng Công tác Sinh viên</p>
                                         </div>
                                         <div>
                                             <label class="block text-sm font-medium text-gray-700">Đơn vị phối hợp</label>
-                                            <p id="don_vi_phoi_hop" class="mt-1 text-gray-900"></p>
+                                            <p id="don_vi_phoi_hop" class="mt-1 text-gray-900">Đoàn Thanh niên, Hội Sinh viên</p>
                                         </div>
                                         <div>
                                             <label class="block text-sm font-medium text-gray-700">Loại sự kiện</label>
-                                            <p id="loai_su_kien" class="mt-1 text-gray-900"></p>
+                                            <p id="loai_su_kien" class="mt-1 text-gray-900">Hội thảo</p>
                                         </div>
                                         <div>
                                             <label class="block text-sm font-medium text-gray-700">Hình thức</label>
-                                            <p id="hinh_thuc" class="mt-1 text-gray-900"></p>
+                                            <p id="hinh_thuc" class="mt-1 text-gray-900">Hybrid</p>
                                         </div>
                                         <div>
                                             <label class="block text-sm font-medium text-gray-700">Đối tượng tham gia</label>
-                                            <p id="doi_tuong_tham_gia" class="mt-1 text-gray-900"></p>
+                                            <p id="doi_tuong_tham_gia" class="mt-1 text-gray-900">Sinh viên, Giảng viên</p>
                                         </div>
                                         <div>
                                             <label class="block text-sm font-medium text-gray-700">Thời gian sự kiện</label>
-                                            <p id="thoi_gian" class="mt-1 text-gray-900"></p>
+                                            <p id="thoi_gian" class="mt-1 text-gray-900">15/05/2025, 08:00 - 17:00</p>
                                         </div>
                                         <div>
                                             <label class="block text-sm font-medium text-gray-700">Thời gian đăng ký</label>
-                                            <p id="thoi_gian_dang_ky" class="mt-1 text-gray-900"></p>
+                                            <p id="thoi_gian_dang_ky" class="mt-1 text-gray-900">15/04/2025 08:00 - 10/05/2025 23:59</p>
                                         </div>
                                         <div>
                                             <label class="block text-sm font-medium text-gray-700">Thời gian check-in</label>
-                                            <p id="thoi_gian_checkin" class="mt-1 text-gray-900"></p>
+                                            <p id="thoi_gian_checkin" class="mt-1 text-gray-900">07:30 - 09:00, 15/05/2025</p>
                                         </div>
                                         <div>
                                             <label class="block text-sm font-medium text-gray-700">Thời gian check-out</label>
-                                            <p id="thoi_gian_checkout" class="mt-1 text-gray-900"></p>
+                                            <p id="thoi_gian_checkout" class="mt-1 text-gray-900">16:30 - 17:30, 15/05/2025</p>
                                         </div>
                                         <div class="md:col-span-2">
                                             <label class="block text-sm font-medium text-gray-700">Địa điểm</label>
-                                            <p id="dia_diem" class="mt-1 text-gray-900"></p>
+                                            <p id="dia_diem" class="mt-1 text-gray-900">Hội trường A, Trường Đại học Ngân hàng TP.HCM</p>
                                         </div>
                                         <div class="md:col-span-2">
                                             <label class="block text-sm font-medium text-gray-700">Địa chỉ cụ thể</label>
-                                            <p id="dia_chi_cu_the" class="mt-1 text-gray-900"></p>
+                                            <p id="dia_chi_cu_the" class="mt-1 text-gray-900">Số 36 Tôn Thất Đạm, Phường Nguyễn Thái Bình, Quận 1, TP.HCM</p>
                                         </div>
                                         <div>
                                             <label class="block text-sm font-medium text-gray-700">Tọa độ GPS</label>
-                                            <p id="toa_do_gps" class="mt-1 text-gray-900"></p>
+                                            <p id="toa_do_gps" class="mt-1 text-gray-900">10.771142, 106.702301</p>
                                         </div>
                                         <div>
                                             <label class="block text-sm font-medium text-gray-700">Link online</label>
-                                            <p id="link_online" class="mt-1 text-gray-900"></p>
+                                            <p id="link_online" class="mt-1 text-gray-900">https://meet.google.com/abc-defg-hij</p>
                                         </div>
                                     </div>
                                 </div>
@@ -282,7 +284,7 @@
                                             </div>
                                             <div class="ml-4">
                                                 <p class="text-sm font-medium text-gray-600">Tổng đăng ký</p>
-                                                <p id="tong_dang_ky" class="text-2xl font-semibold text-blue-600">0</p>
+                                                <p id="tong_dang_ky_stat" class="text-2xl font-semibold text-blue-600">180</p>
                                             </div>
                                         </div>
                                     </div>
@@ -293,7 +295,7 @@
                                             </div>
                                             <div class="ml-4">
                                                 <p class="text-sm font-medium text-gray-600">Đã check-in</p>
-                                                <p id="tong_check_in" class="text-2xl font-semibold text-green-600">0</p>
+                                                <p id="tong_check_in_stat" class="text-2xl font-semibold text-green-600">120</p>
                                             </div>
                                         </div>
                                     </div>
@@ -304,7 +306,18 @@
                                             </div>
                                             <div class="ml-4">
                                                 <p class="text-sm font-medium text-gray-600">Đã check-out</p>
-                                                <p id="tong_check_out" class="text-2xl font-semibold text-purple-600">0</p>
+                                                <p id="tong_check_out_stat" class="text-2xl font-semibold text-purple-600">110</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="bg-yellow-50 p-4 rounded-lg stats-card">
+                                        <div class="flex items-center">
+                                            <div class="flex-shrink-0">
+                                                <i class="ri-bar-chart-fill text-2xl text-yellow-600"></i>
+                                            </div>
+                                            <div class="ml-4">
+                                                <p class="text-sm font-medium text-gray-600">Tỷ lệ tham gia</p>
+                                                <p id="ty_le_tham_gia" class="text-2xl font-semibold text-yellow-600">67%</p>
                                             </div>
                                         </div>
                                     </div>
@@ -324,15 +337,43 @@
                                 <div class="space-y-4">
                                     <div>
                                         <label class="block text-sm font-medium text-gray-700">Mô tả ngắn</label>
-                                        <p id="mo_ta" class="mt-1 text-gray-900"></p>
+                                        <p id="mo_ta" class="mt-1 text-gray-900">Hội thảo này tập trung vào các công nghệ mới nổi và ứng dụng của chúng trong giáo dục đại học, bao gồm AI, blockchain, và các nền tảng học tập số. Sự kiện sẽ mang đến những góc nhìn từ các chuyên gia hàng đầu trong lĩnh vực công nghệ giáo dục.</p>
                                     </div>
                                     <div>
                                         <label class="block text-sm font-medium text-gray-700">Mô tả sự kiện</label>
-                                        <div id="mo_ta_su_kien" class="mt-1 prose max-w-none"></div>
+                                        <div id="mo_ta_su_kien" class="mt-1 prose max-w-none">
+                                            <h3>Mô tả chi tiết sự kiện</h3>
+                                            <p>Hội thảo Công nghệ trong Giáo dục Đại học là sự kiện được tổ chức bởi Trường Đại học Ngân hàng TP.HCM với mục tiêu kết nối các chuyên gia, nhà nghiên cứu, giảng viên và sinh viên quan tâm đến ứng dụng công nghệ trong giáo dục đại học.</p>
+                                            <p>Hội thảo sẽ đem đến những góc nhìn đa chiều về:</p>
+                                            <ul>
+                                                <li>Các xu hướng công nghệ mới trong giáo dục đại học</li>
+                                                <li>Ứng dụng blockchain trong quản lý học tập và văn bằng số</li>
+                                                <li>AI và máy học trong cá nhân hóa trải nghiệm học tập</li>
+                                                <li>Fintech và các giải pháp thanh toán trong môi trường giáo dục</li>
+                                                <li>An ninh mạng và bảo vệ dữ liệu trong hệ thống giáo dục</li>
+                                            </ul>
+                                        </div>
                                     </div>
                                     <div>
                                         <label class="block text-sm font-medium text-gray-700">Chi tiết sự kiện</label>
-                                        <div id="chi_tiet_su_kien" class="mt-1 prose max-w-none"></div>
+                                        <div id="chi_tiet_su_kien" class="mt-1 prose max-w-none">
+                                            <h3>Thông tin chi tiết chương trình</h3>
+                                            <p>Hội thảo diễn ra vào ngày 15/05/2025 tại Hội trường A, Trường Đại học Ngân hàng TP.HCM với sự tham gia của các chuyên gia hàng đầu trong lĩnh vực công nghệ và giáo dục.</p>
+                                            <h4>Đối tượng tham dự:</h4>
+                                            <ul>
+                                                <li>Giảng viên, nghiên cứu viên các trường đại học</li>
+                                                <li>Sinh viên ngành Công nghệ thông tin, Tài chính-Ngân hàng</li>
+                                                <li>Chuyên gia công nghệ từ các doanh nghiệp</li>
+                                                <li>Quản lý giáo dục và các nhà hoạch định chính sách</li>
+                                            </ul>
+                                            <h4>Lợi ích khi tham gia:</h4>
+                                            <ul>
+                                                <li>Cập nhật xu hướng công nghệ mới nhất trong lĩnh vực giáo dục</li>
+                                                <li>Kết nối với các chuyên gia và đồng nghiệp</li>
+                                                <li>Tiếp cận các giải pháp công nghệ tiên tiến</li>
+                                                <li>Nhận chứng chỉ tham dự hội thảo</li>
+                                            </ul>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -344,13 +385,13 @@
                                     <div>
                                         <label class="block text-sm font-medium text-gray-700">Ảnh bìa</label>
                                         <div class="mt-2">
-                                            <img id="hinh_anh" src="" alt="Ảnh bìa sự kiện" class="w-full h-auto rounded-lg image-hover-effect">
+                                            <img id="hinh_anh" src="https://images.unsplash.com/photo-1540575467063-178a50c2df87?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1000&h=600&q=80" alt="Ảnh bìa sự kiện" class="w-full h-auto rounded-lg image-hover-effect">
                                         </div>
                                     </div>
                                     <div>
                                         <label class="block text-sm font-medium text-gray-700">Ảnh background</label>
                                         <div class="mt-2">
-                                            <img id="hinh_anh_bg" src="" alt="Ảnh background" class="w-full h-auto rounded-lg image-hover-effect">
+                                            <img id="hinh_anh_bg" src="https://images.unsplash.com/photo-1517048676732-d65bc937f952?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1000&h=600&q=80" alt="Ảnh background" class="w-full h-auto rounded-lg image-hover-effect">
                                         </div>
                                     </div>
                                 </div>
@@ -364,23 +405,23 @@
                                 <div class="space-y-4">
                                     <div>
                                         <label class="block text-sm font-medium text-gray-700">Từ khóa tìm kiếm</label>
-                                        <p id="tu_khoa_su_kien" class="mt-1 text-gray-900"></p>
+                                        <p id="tu_khoa_su_kien" class="mt-1 text-gray-900">công nghệ, giáo dục, đại học, blockchain, AI</p>
                                     </div>
                                     <div>
                                         <label class="block text-sm font-medium text-gray-700">Hashtag</label>
-                                        <p id="hashtag" class="mt-1 text-gray-900"></p>
+                                        <p id="hashtag" class="mt-1 text-gray-900">#BUHTechEdu2025 #BUHInnovation</p>
                                     </div>
                                     <div>
                                         <label class="block text-sm font-medium text-gray-700">Số lượt xem</label>
-                                        <p id="so_luot_xem" class="mt-1 text-gray-900"></p>
+                                        <p id="so_luot_xem" class="mt-1 text-gray-900">1,245</p>
                                     </div>
                                     <div>
                                         <label class="block text-sm font-medium text-gray-700">Slug</label>
-                                        <p id="slug" class="mt-1 text-gray-900"></p>
+                                        <p id="slug" class="mt-1 text-gray-900">hoi-thao-cong-nghe-giao-duc-2025</p>
                                     </div>
                                     <div>
                                         <label class="block text-sm font-medium text-gray-700">Version</label>
-                                        <p id="version" class="mt-1 text-gray-900"></p>
+                                        <p id="version" class="mt-1 text-gray-900">1.0.2</p>
                                     </div>
                                 </div>
                             </div>
@@ -393,7 +434,86 @@
                     <div class="bg-white rounded-lg shadow-sm p-6 mb-6">
                         <h2 class="text-lg font-semibold mb-4">Lịch trình sự kiện</h2>
                         <div id="lich_trinh_container" class="space-y-4">
-                            <!-- Danh sách lịch trình sẽ được render bởi JS -->
+                            <table class="min-w-full divide-y divide-gray-200">
+                                <thead class="bg-gray-50">
+                                    <tr>
+                                        <th scope="col" class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                            Thời gian
+                                        </th>
+                                        <th scope="col" class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                            Hoạt động
+                                        </th>
+                                        <th scope="col" class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                            Người phụ trách
+                                        </th>
+                                        <th scope="col" class="px-4 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                            Tùy chọn
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody id="schedule-table-body">
+                                    <tr class="bg-white">
+                                        <td class="px-4 py-3 text-sm font-medium">08:00 - 08:30</td>
+                                        <td class="px-4 py-3 text-sm">Đón tiếp đại biểu và đăng ký</td>
+                                        <td class="px-4 py-3 text-sm">Ban tổ chức</td>
+                                        <td class="px-4 py-3 text-right">
+                                            <button type="button" class="text-gray-500 hover:text-gray-700">
+                                                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                                    <path d="M10 6a2 2 0 110-4 2 2 0 010 4zM10 12a2 2 0 110-4 2 2 0 010 4zM10 18a2 2 0 110-4 2 2 0 010 4z"></path>
+                                                </svg>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                    <tr class="bg-gray-50">
+                                        <td class="px-4 py-3 text-sm font-medium">08:30 - 09:00</td>
+                                        <td class="px-4 py-3 text-sm">Phát biểu khai mạc</td>
+                                        <td class="px-4 py-3 text-sm">PGS.TS. Nguyễn Đức Trung, Hiệu trưởng</td>
+                                        <td class="px-4 py-3 text-right">
+                                            <button type="button" class="text-gray-500 hover:text-gray-700">
+                                                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                                    <path d="M10 6a2 2 0 110-4 2 2 0 010 4zM10 12a2 2 0 110-4 2 2 0 010 4zM10 18a2 2 0 110-4 2 2 0 010 4z"></path>
+                                                </svg>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                    <tr class="bg-white">
+                                        <td class="px-4 py-3 text-sm font-medium">09:00 - 10:30</td>
+                                        <td class="px-4 py-3 text-sm">Blockchain và ứng dụng trong giáo dục</td>
+                                        <td class="px-4 py-3 text-sm">GS.TS. Lê Minh Quân</td>
+                                        <td class="px-4 py-3 text-right">
+                                            <button type="button" class="text-gray-500 hover:text-gray-700">
+                                                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                                    <path d="M10 6a2 2 0 110-4 2 2 0 010 4zM10 12a2 2 0 110-4 2 2 0 010 4zM10 18a2 2 0 110-4 2 2 0 010 4z"></path>
+                                                </svg>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                    <tr class="bg-gray-50">
+                                        <td class="px-4 py-3 text-sm font-medium">10:30 - 10:45</td>
+                                        <td class="px-4 py-3 text-sm">Giải lao</td>
+                                        <td class="px-4 py-3 text-sm">Ban tổ chức</td>
+                                        <td class="px-4 py-3 text-right">
+                                            <button type="button" class="text-gray-500 hover:text-gray-700">
+                                                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                                    <path d="M10 6a2 2 0 110-4 2 2 0 010 4zM10 12a2 2 0 110-4 2 2 0 010 4zM10 18a2 2 0 110-4 2 2 0 010 4z"></path>
+                                                </svg>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                    <tr class="bg-white">
+                                        <td class="px-4 py-3 text-sm font-medium">10:45 - 12:00</td>
+                                        <td class="px-4 py-3 text-sm">AI trong giáo dục đại học: Thách thức và cơ hội</td>
+                                        <td class="px-4 py-3 text-sm">TS. Phạm Thị Hồng</td>
+                                        <td class="px-4 py-3 text-right">
+                                            <button type="button" class="text-gray-500 hover:text-gray-700">
+                                                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                                    <path d="M10 6a2 2 0 110-4 2 2 0 010 4zM10 12a2 2 0 110-4 2 2 0 010 4zM10 18a2 2 0 110-4 2 2 0 010 4z"></path>
+                                                </svg>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                 </div>
@@ -409,12 +529,60 @@
                                         <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Họ tên</th>
                                         <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Email</th>
                                         <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Số điện thoại</th>
-                                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Thời gian đăng ký</th>
                                         <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Trạng thái</th>
                                     </tr>
                                 </thead>
                                 <tbody id="participants_list" class="bg-white divide-y divide-gray-200">
-                                    <!-- Danh sách người tham gia sẽ được render bởi JS -->
+                                    <tr class="bg-white">
+                                        <td class="px-6 py-3 text-sm font-medium">Nguyễn Văn A</td>
+                                        <td class="px-6 py-3 text-sm">nguyen.van.a@st.buh.edu.vn</td>
+                                        <td class="px-6 py-3 text-sm">0901234567</td>
+                                        <td class="px-6 py-3 text-sm">
+                                            <span class="px-2 py-1 text-xs font-medium rounded-full bg-green-100 text-green-800">
+                                                Đã tham gia đầy đủ
+                                            </span>
+                                        </td>
+                                    </tr>
+                                    <tr class="bg-gray-50">
+                                        <td class="px-6 py-3 text-sm font-medium">Trần Thị B</td>
+                                        <td class="px-6 py-3 text-sm">tran.thi.b@st.buh.edu.vn</td>
+                                        <td class="px-6 py-3 text-sm">0907654321</td>
+                                        <td class="px-6 py-3 text-sm">
+                                            <span class="px-2 py-1 text-xs font-medium rounded-full bg-blue-100 text-blue-800">
+                                                Đã check-in
+                                            </span>
+                                        </td>
+                                    </tr>
+                                    <tr class="bg-white">
+                                        <td class="px-6 py-3 text-sm font-medium">Lê Minh C</td>
+                                        <td class="px-6 py-3 text-sm">le.minh.c@st.buh.edu.vn</td>
+                                        <td class="px-6 py-3 text-sm">0903456789</td>
+                                        <td class="px-6 py-3 text-sm">
+                                            <span class="px-2 py-1 text-xs font-medium rounded-full bg-yellow-100 text-yellow-800">
+                                                Chờ xác nhận
+                                            </span>
+                                        </td>
+                                    </tr>
+                                    <tr class="bg-gray-50">
+                                        <td class="px-6 py-3 text-sm font-medium">Phạm Thu D</td>
+                                        <td class="px-6 py-3 text-sm">pham.thu.d@gv.buh.edu.vn</td>
+                                        <td class="px-6 py-3 text-sm">0908765432</td>
+                                        <td class="px-6 py-3 text-sm">
+                                            <span class="px-2 py-1 text-xs font-medium rounded-full bg-green-100 text-green-800">
+                                                Đã tham gia đầy đủ
+                                            </span>
+                                        </td>
+                                    </tr>
+                                    <tr class="bg-white">
+                                        <td class="px-6 py-3 text-sm font-medium">Hoàng Minh E</td>
+                                        <td class="px-6 py-3 text-sm">hoang.minh.e@st.buh.edu.vn</td>
+                                        <td class="px-6 py-3 text-sm">0902345678</td>
+                                        <td class="px-6 py-3 text-sm">
+                                            <span class="px-2 py-1 text-xs font-medium rounded-full bg-red-100 text-red-800">
+                                                Đã hủy
+                                            </span>
+                                        </td>
+                                    </tr>
                                 </tbody>
                             </table>
                         </div>
@@ -425,8 +593,96 @@
                 <div class="tab-content hidden" id="tab-speakers">
                     <div class="bg-white rounded-lg shadow-sm p-6 mb-6">
                         <h2 class="text-lg font-semibold mb-4">Danh sách diễn giả</h2>
-                        <div id="speakers_list" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                            <!-- Danh sách diễn giả sẽ được render bởi JS -->
+                        <div id="speakers_list" class="grid grid-cols-1 gap-6">
+                            <div class="bg-white rounded-lg shadow-md overflow-hidden mb-4">
+                                <div class="flex md:flex-row flex-col">
+                                    <div class="md:w-1/4 w-full">
+                                        <img class="h-48 w-full object-cover" src="https://images.unsplash.com/photo-1548449112-96a38a643324" alt="TS. Nguyễn Văn Giáo" 
+                                            onerror="this.src='https://dummyimage.com/200x200/e0e0e0/ffffff&text=Không+có+ảnh'">
+                                    </div>
+                                    <div class="md:w-3/4 w-full p-4">
+                                        <div class="mb-2 text-xs font-medium text-primary">
+                                            08:30 - 10:00 · Xu hướng công nghệ trong ngành Tài chính - Ngân hàng 2025
+                                        </div>
+                                        <h3 class="text-lg font-semibold mb-1">TS. Nguyễn Văn Giáo</h3>
+                                        <p class="text-sm text-gray-600 mb-2">Giảng viên khoa Công nghệ thông tin</p>
+                                        <p class="text-sm text-gray-700">Chuyên gia trong lĩnh vực phát triển phần mềm với hơn 15 năm kinh nghiệm.</p>
+                                        <div class="mt-3 flex items-center text-sm text-gray-600">
+                                            <svg class="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                                <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"></path>
+                                                <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"></path>
+                                            </svg>
+                                            <span>nguyen.van.giao@buh.edu.vn</span>
+                                        </div>
+                                        <div class="mt-2 flex items-center text-sm text-gray-600">
+                                            <svg class="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                                <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z"></path>
+                                            </svg>
+                                            <span>0901122334</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="bg-white rounded-lg shadow-md overflow-hidden mb-4">
+                                <div class="flex md:flex-row flex-col">
+                                    <div class="md:w-1/4 w-full">
+                                        <img class="h-48 w-full object-cover" src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2" alt="ThS. Trần Thị Chuyên" 
+                                            onerror="this.src='https://dummyimage.com/200x200/e0e0e0/ffffff&text=Không+có+ảnh'">
+                                    </div>
+                                    <div class="md:w-3/4 w-full p-4">
+                                        <div class="mb-2 text-xs font-medium text-primary">
+                                            10:15 - 11:45 · Ứng dụng AI trong phân tích hành vi khách hàng ngân hàng
+                                        </div>
+                                        <h3 class="text-lg font-semibold mb-1">ThS. Trần Thị Chuyên</h3>
+                                        <p class="text-sm text-gray-600 mb-2">Trưởng bộ môn Phân tích dữ liệu</p>
+                                        <p class="text-sm text-gray-700">Chuyên gia phân tích dữ liệu với kinh nghiệm tư vấn cho nhiều ngân hàng lớn tại Việt Nam.</p>
+                                        <div class="mt-3 flex items-center text-sm text-gray-600">
+                                            <svg class="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                                <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"></path>
+                                                <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"></path>
+                                            </svg>
+                                            <span>tran.thi.chuyen@buh.edu.vn</span>
+                                        </div>
+                                        <div class="mt-2 flex items-center text-sm text-gray-600">
+                                            <svg class="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                                <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z"></path>
+                                            </svg>
+                                            <span>0902233445</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="bg-white rounded-lg shadow-md overflow-hidden">
+                                <div class="flex md:flex-row flex-col">
+                                    <div class="md:w-1/4 w-full">
+                                        <img class="h-48 w-full object-cover" src="https://images.unsplash.com/photo-1560250097-0b93528c311a" alt="PGS.TS. Phạm Văn Nghiên" 
+                                            onerror="this.src='https://dummyimage.com/200x200/e0e0e0/ffffff&text=Không+có+ảnh'">
+                                    </div>
+                                    <div class="md:w-3/4 w-full p-4">
+                                        <div class="mb-2 text-xs font-medium text-primary">
+                                            13:30 - 15:00 · Chiến lược chuyển đổi số trong lĩnh vực ngân hàng
+                                        </div>
+                                        <h3 class="text-lg font-semibold mb-1">PGS.TS. Phạm Văn Nghiên</h3>
+                                        <p class="text-sm text-gray-600 mb-2">Trưởng khoa Tài chính ngân hàng</p>
+                                        <p class="text-sm text-gray-700">Tác giả của nhiều công trình nghiên cứu về tài chính hiện đại và ngân hàng số.</p>
+                                        <div class="mt-3 flex items-center text-sm text-gray-600">
+                                            <svg class="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                                <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"></path>
+                                                <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"></path>
+                                            </svg>
+                                            <span>pham.van.nghien@buh.edu.vn</span>
+                                        </div>
+                                        <div class="mt-2 flex items-center text-sm text-gray-600">
+                                            <svg class="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                                <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z"></path>
+                                            </svg>
+                                            <span>0903344556</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -434,37 +690,144 @@
                 <!-- Tab Cấu hình điểm danh -->
                 <div class="tab-content hidden" id="tab-check-config">
                     <div class="bg-white rounded-lg shadow-sm p-6 mb-6">
-                        <h2 class="text-lg font-semibold mb-4">Cấu hình điểm danh</h2>
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <h2 class="text-lg font-semibold mb-4">Cấu hình check-in</h2>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                             <div>
-                                <label class="block text-sm font-medium text-gray-700">Cho phép check-in</label>
-                                <p id="cho_phep_check_in" class="mt-1 text-gray-900"></p>
+                                <div class="flex items-center mb-4">
+                                    <input checked id="checkin-enabled" type="checkbox" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500">
+                                    <label for="checkin-enabled" class="ms-2 text-sm font-medium text-gray-900">Cho phép check-in</label>
+                                </div>
+                                <div class="flex items-center mb-4">
+                                    <input checked id="face-id-required" type="checkbox" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500">
+                                    <label for="face-id-required" class="ms-2 text-sm font-medium text-gray-900">Yêu cầu xác thực khuôn mặt</label>
+                                </div>
+                                
+                                <div class="mb-6">
+                                    <label for="checkin-time" class="block mb-2 text-sm font-medium text-gray-900">Thời gian check-in</label>
+                                    <input type="text" id="checkin-time" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" value="07:30 - 09:00, 15/05/2025" readonly>
+                                </div>
+                                
+                                <div class="mb-6">
+                                    <label for="checkout-time" class="block mb-2 text-sm font-medium text-gray-900">Thời gian check-out</label>
+                                    <input type="text" id="checkout-time" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" value="16:30 - 17:30, 15/05/2025" readonly>
+                                </div>
                             </div>
-                            <div>
-                                <label class="block text-sm font-medium text-gray-700">Cho phép check-out</label>
-                                <p id="cho_phep_check_out" class="mt-1 text-gray-900"></p>
-                            </div>
-                            <div>
-                                <label class="block text-sm font-medium text-gray-700">Yêu cầu Face ID</label>
-                                <p id="yeu_cau_face_id" class="mt-1 text-gray-900"></p>
-                            </div>
-                            <div>
-                                <label class="block text-sm font-medium text-gray-700">Cho phép check-in thủ công</label>
-                                <p id="cho_phep_checkin_thu_cong" class="mt-1 text-gray-900"></p>
-                            </div>
-                            <div>
-                                <label class="block text-sm font-medium text-gray-700">Thời gian check-in</label>
-                                <p id="thoi_gian_checkin_config" class="mt-1 text-gray-900"></p>
-                            </div>
-                            <div>
-                                <label class="block text-sm font-medium text-gray-700">Thời gian check-out</label>
-                                <p id="thoi_gian_checkout_config" class="mt-1 text-gray-900"></p>
+                            
+                            <div class="flex flex-col items-center justify-center bg-gray-100 p-6 rounded-lg">
+                                <div class="mb-3 text-sm font-medium text-gray-900">Mã QR Check-in</div>
+                                <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=EVENT_ID_1_BUH" alt="QR Code Check-in" class="max-w-full h-auto mb-3">
+                                <div class="text-xs text-gray-500">Người tham gia quét mã QR để check-in</div>
+                                <button type="button" class="mt-4 text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 focus:outline-none">
+                                    Tải xuống mã QR
+                                </button>
                             </div>
                         </div>
-                        <div class="mt-6">
-                            <h3 class="text-md font-medium mb-2">Mã QR Code</h3>
-                            <div id="qr_code_container" class="bg-gray-100 p-4 rounded-lg flex items-center justify-center">
-                                <img id="qr_code_image" src="" alt="QR Code" class="max-w-[200px] max-h-[200px]">
+                    </div>
+                    
+                    <div class="bg-white rounded-lg shadow-sm p-6">
+                        <h2 class="text-lg font-semibold mb-4">Thống kê tham gia</h2>
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
+                            <div class="bg-gradient-to-r from-green-50 to-green-100 p-4 rounded-lg shadow-sm">
+                                <div class="flex items-center justify-between">
+                                    <div>
+                                        <p class="text-sm text-gray-600">Tổng số đăng ký</p>
+                                        <h3 class="text-2xl font-bold text-green-800">180</h3>
+                                    </div>
+                                    <div class="text-green-500 bg-green-100 rounded-full p-2">
+                                        <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                            <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd"></path>
+                                        </svg>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="bg-gradient-to-r from-blue-50 to-blue-100 p-4 rounded-lg shadow-sm">
+                                <div class="flex items-center justify-between">
+                                    <div>
+                                        <p class="text-sm text-gray-600">Số lượng check-in</p>
+                                        <h3 class="text-2xl font-bold text-blue-800">120</h3>
+                                    </div>
+                                    <div class="text-blue-500 bg-blue-100 rounded-full p-2">
+                                        <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                            <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                                        </svg>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="bg-gradient-to-r from-purple-50 to-purple-100 p-4 rounded-lg shadow-sm">
+                                <div class="flex items-center justify-between">
+                                    <div>
+                                        <p class="text-sm text-gray-600">Số lượng check-out</p>
+                                        <h3 class="text-2xl font-bold text-purple-800">110</h3>
+                                    </div>
+                                    <div class="text-purple-500 bg-purple-100 rounded-full p-2">
+                                        <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                            <path fill-rule="evenodd" d="M17.707 9.293a1 1 0 010 1.414l-7 7a1 1 0 01-1.414 0l-7-7A.997.997 0 012 10V5a1 1 0 011-1h5.586l.707-.707A1 1 0 0110 3h4a1 1 0 011 1v6z" clip-rule="evenodd"></path>
+                                        </svg>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div class="p-4 border rounded-lg">
+                                <h4 class="text-base font-semibold mb-2">Tỷ lệ tham gia</h4>
+                                <div class="relative pt-1">
+                                    <div class="flex mb-2 items-center justify-between">
+                                        <div>
+                                            <span class="text-xs font-semibold inline-block py-1 px-2 uppercase rounded-full text-blue-600 bg-blue-200">
+                                                Check-in
+                                            </span>
+                                        </div>
+                                        <div class="text-right">
+                                            <span class="text-xs font-semibold inline-block text-blue-600">
+                                                66.7%
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="overflow-hidden h-2 mb-4 text-xs flex rounded bg-blue-200">
+                                        <div style="width: 66.7%" class="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center bg-blue-500"></div>
+                                    </div>
+                                    
+                                    <div class="flex mb-2 items-center justify-between">
+                                        <div>
+                                            <span class="text-xs font-semibold inline-block py-1 px-2 uppercase rounded-full text-purple-600 bg-purple-200">
+                                                Check-out
+                                            </span>
+                                        </div>
+                                        <div class="text-right">
+                                            <span class="text-xs font-semibold inline-block text-purple-600">
+                                                61.1%
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="overflow-hidden h-2 mb-4 text-xs flex rounded bg-purple-200">
+                                        <div style="width: 61.1%" class="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center bg-purple-500"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="p-4 border rounded-lg">
+                                <h4 class="text-base font-semibold mb-2">Thống kê nhanh</h4>
+                                <ul class="space-y-2">
+                                    <li class="flex items-center justify-between">
+                                        <span class="text-sm text-gray-600">Số lượng diễn giả:</span>
+                                        <span class="text-sm font-medium">3 người</span>
+                                    </li>
+                                    <li class="flex items-center justify-between">
+                                        <span class="text-sm text-gray-600">Giảng viên tham gia:</span>
+                                        <span class="text-sm font-medium">15 người</span>
+                                    </li>
+                                    <li class="flex items-center justify-between">
+                                        <span class="text-sm text-gray-600">Sinh viên tham gia:</span>
+                                        <span class="text-sm font-medium">165 người</span>
+                                    </li>
+                                    <li class="flex items-center justify-between">
+                                        <span class="text-sm text-gray-600">Thời gian diễn ra:</span>
+                                        <span class="text-sm font-medium">9 giờ</span>
+                                    </li>
+                                </ul>
                             </div>
                         </div>
                     </div>
@@ -485,7 +848,7 @@
                                             </div>
                                             <div class="ml-4">
                                                 <p class="text-sm font-medium text-gray-600">Tổng đăng ký</p>
-                                                <p id="tong_dang_ky_stat" class="text-2xl font-semibold text-blue-600">0</p>
+                                                <p id="tong_dang_ky_stat" class="text-2xl font-semibold text-blue-600">180</p>
                                             </div>
                                         </div>
                                     </div>
@@ -496,7 +859,7 @@
                                             </div>
                                             <div class="ml-4">
                                                 <p class="text-sm font-medium text-gray-600">Đã check-in</p>
-                                                <p id="tong_check_in_stat" class="text-2xl font-semibold text-green-600">0</p>
+                                                <p id="tong_check_in_stat" class="text-2xl font-semibold text-green-600">120</p>
                                             </div>
                                         </div>
                                     </div>
@@ -507,7 +870,7 @@
                                             </div>
                                             <div class="ml-4">
                                                 <p class="text-sm font-medium text-gray-600">Đã check-out</p>
-                                                <p id="tong_check_out_stat" class="text-2xl font-semibold text-purple-600">0</p>
+                                                <p id="tong_check_out_stat" class="text-2xl font-semibold text-purple-600">110</p>
                                             </div>
                                         </div>
                                     </div>
@@ -518,7 +881,7 @@
                                             </div>
                                             <div class="ml-4">
                                                 <p class="text-sm font-medium text-gray-600">Tỷ lệ tham gia</p>
-                                                <p id="ty_le_tham_gia" class="text-2xl font-semibold text-yellow-600">0%</p>
+                                                <p id="ty_le_tham_gia" class="text-2xl font-semibold text-yellow-600">67%</p>
                                             </div>
                                         </div>
                                     </div>
@@ -546,15 +909,15 @@
                                 <div class="space-y-4">
                                     <div>
                                         <label class="block text-sm font-medium text-gray-700">Số lượng tham gia tối đa</label>
-                                        <p id="so_luong_tham_gia" class="mt-1 text-gray-900"></p>
+                                        <p id="so_luong_tham_gia" class="mt-1 text-gray-900">200</p>
                                     </div>
                                     <div>
                                         <label class="block text-sm font-medium text-gray-700">Số lượng diễn giả</label>
-                                        <p id="so_luong_dien_gia" class="mt-1 text-gray-900"></p>
+                                        <p id="so_luong_dien_gia" class="mt-1 text-gray-900">3</p>
                                     </div>
                                     <div>
                                         <label class="block text-sm font-medium text-gray-700">Hạn hủy đăng ký</label>
-                                        <p id="han_huy_dang_ky" class="mt-1 text-gray-900"></p>
+                                        <p id="han_huy_dang_ky" class="mt-1 text-gray-900">12/05/2025 23:59:00</p>
                                     </div>
                                 </div>
                             </div>
