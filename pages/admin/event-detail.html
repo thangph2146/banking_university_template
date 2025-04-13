@@ -90,31 +90,37 @@
                                     class="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full w-4 h-4 flex items-center justify-center">3</span>
                             </button>
                         </div>
-
-                        <div class="relative">
-                            <button id="user-menu-button"
-                                class="flex items-center space-x-2 text-white hover:text-gray-200 focus:outline-none">
-                                <img src="https://ui-avatars.com/api/?name=Admin&background=random" alt="Admin"
-                                    class="w-8 h-8 rounded-full">
-                                <span class="hidden md:inline-block">Admin</span>
-                                <i class="ri-arrow-down-s-line"></i>
-                            </button>
-
-                            <!-- User Dropdown Menu -->
-                            <div id="user-menu"
-                                class="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 hidden">
-                                <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
-                                    <i class="ri-user-line mr-2"></i>Hồ sơ
-                                </a>
-                                <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
-                                    <i class="ri-settings-3-line mr-2"></i>Cài đặt
-                                </a>
-                                <hr class="my-1">
-                                <a href="#" class="block px-4 py-2 text-sm text-red-600 hover:bg-gray-100">
-                                    <i class="ri-logout-box-line mr-2"></i>Đăng xuất
-                                </a>
+                        <div class="flex items-center space-x-4">
+                            <!-- User profile dropdown menu -->
+                            <div class="relative group">
+                              <button class="flex items-center space-x-2 text-white">
+                                <img src="https://readdy.ai/api/search-image?query=professional%20headshot%20young%20vietnamese%20student%20minimal%20background&width=100&height=100&seq=avatar" alt="Ảnh đại diện" class="w-8 h-8 rounded-full border-2 border-white">
+                                <span class="hidden sm:block">Nguyễn Văn A</span>
+                                <i class="ri-arrow-down-s-line group-hover:rotate-180 transition-transform duration-300"></i>
+                              </button>
+                              <div class="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg overflow-hidden z-20 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform origin-top-right scale-95 group-hover:scale-100">
+                                <div class="py-2">
+                                  <a href="profile.html" class="flex items-center px-4 py-2 text-sm text-gray-800 hover:bg-primary/10 hover:text-primary border-l-4 border-primary">
+                                    <i class="ri-user-line mr-2"></i>
+                                    Trang cá nhân
+                                  </a>
+                                  <a href="registered-events.html" class="flex items-center px-4 py-2 text-sm text-gray-800 hover:bg-primary/10 hover:text-primary">
+                                    <i class="ri-calendar-event-line mr-2"></i>
+                                    Sự kiện của tôi
+                                  </a>
+                                  <a href="#" class="flex items-center px-4 py-2 text-sm text-gray-800 hover:bg-primary/10 hover:text-primary">
+                                    <i class="ri-settings-4-line mr-2"></i>
+                                    Cài đặt
+                                  </a>
+                                  <hr class="my-1 border-gray-200">
+                                  <a href="login.html" class="flex items-center px-4 py-2 text-sm text-gray-800 hover:bg-primary/10 hover:text-primary">
+                                    <i class="ri-logout-box-r-line mr-2"></i>
+                                    Đăng xuất
+                                  </a>
+                                </div>
+                              </div>
                             </div>
-                        </div>
+                          </div>
                     </div>
                 </div>
             </header>
