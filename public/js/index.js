@@ -34,7 +34,6 @@ const initMobileMenu = () => {
     document.body.classList.add("overflow-hidden");
     menuButton.setAttribute("aria-expanded", "true");
     
-    // Toggle icon
     const icon = menuButton.querySelector("i");
     if (icon) {
       icon.className = "ri-close-line ri-lg";

@@ -18,79 +18,41 @@ document.addEventListener("DOMContentLoaded", () => {
  * Handles mobile menu opening/closing with smooth animations
  */
 const initMobileMenu = () => {
-  const menuButton = document.getElementById("mobile-menu-button");
-  const mobileMenu = document.createElement("div");
+  const menuButton = document.querySelector("#mobile-menu-button");
+  const mobileMenu = document.querySelector("#mobile-menu");
+  const closeButton = document.querySelector("#mobile-menu-close");
   
-  if (!menuButton) return;
+  if (!menuButton || !mobileMenu || !closeButton) return;
   
-  // Create mobile menu element with proper styling
-  mobileMenu.id = "mobile-menu-container";
-  mobileMenu.className = "fixed inset-0 bg-primary/95 z-50 transform translate-x-full transition-transform duration-300 ease-in-out backdrop-blur-sm";
-  
-  // Set mobile menu content
-  mobileMenu.innerHTML = `
-    <div class="p-4 flex justify-between items-center border-b border-red-900/30">
-      <a href="index.html" class="text-2xl font-pacifico text-white flex items-center">
-        <img src="../images/logo/logo-white-vertical.png" alt="Đại học Ngân hàng TP.HCM logo" class="w-12 h-12">
-      </a>
-      <button id="mobile-menu-close" class="w-10 h-10 flex items-center justify-center text-white" aria-label="Đóng menu">
-        <i class="ri-close-line ri-lg"></i>
-      </button>
-    </div>
-    <nav class="p-4" aria-label="Mobile navigation">
-      <ul class="space-y-4">
-        <li class="mobile-menu-item" style="--index: 0"><a href="index.html" class="font-medium text-white/80 hover:text-white py-2 block transition-all duration-300 hover:translate-x-1">Trang chủ</a></li>
-        <li class="mobile-menu-item" style="--index: 1"><a href="events.html" class="font-medium text-white border-l-4 border-white pl-2 py-2 block transition-all duration-300 hover:translate-x-1" aria-current="page">Sự kiện</a></li>
-        <li class="mobile-menu-item" style="--index: 2"><a href="blog.html" class="font-medium text-white/80 hover:text-white py-2 block transition-all duration-300 hover:translate-x-1">Blog</a></li>
-        <li class="mobile-menu-item" style="--index: 3"><a href="news.html" class="font-medium text-white/80 hover:text-white py-2 block transition-all duration-300 hover:translate-x-1">Giới thiệu</a></li>
-        <li class="mobile-menu-item" style="--index: 4"><a href="contact.html" class="font-medium text-white/80 hover:text-white py-2 block transition-all duration-300 hover:translate-x-1">Liên hệ</a></li>
-        <li class="mobile-menu-item pt-4 border-t border-red-900/30" style="--index: 5">
-          <a href="login.html" class="bg-white text-primary px-4 py-2 !rounded-button whitespace-nowrap block text-center hover:bg-gray-100 transition-colors shadow-sm mt-4">Đăng nhập</a>
-        </li>
-        <li class="mobile-menu-item pt-2" style="--index: 6">
-          <a href="register.html" class="bg-white text-primary px-4 py-2 !rounded-button whitespace-nowrap block text-center hover:bg-gray-100 transition-colors shadow-sm mt-2">Đăng ký</a>
-        </li>
-      </ul>
-    </nav>
-  `;
-  
-  // Add mobile menu to DOM
-  document.body.appendChild(mobileMenu);
-  
-  // Handle menu button click to open menu
+  // Open menu
   menuButton.addEventListener("click", () => {
     mobileMenu.classList.remove("translate-x-full");
     document.body.classList.add("overflow-hidden");
     menuButton.setAttribute("aria-expanded", "true");
     
-    // Toggle icon
     const icon = menuButton.querySelector("i");
     if (icon) {
       icon.className = "ri-close-line ri-lg";
     }
   });
   
-  // Handle close button click to close menu
-  const closeButton = mobileMenu.querySelector("#mobile-menu-close");
-  if (closeButton) {
-    closeButton.addEventListener("click", () => {
-      mobileMenu.classList.add("translate-x-full");
-      document.body.classList.remove("overflow-hidden");
-      menuButton.setAttribute("aria-expanded", "false");
-      
-      // Toggle icon back
-      const icon = menuButton.querySelector("i");
-      if (icon) {
-        icon.className = "ri-menu-line ri-lg";
-      }
-    });
-  }
-  
-  // Close when clicking outside or pressing escape
-  document.addEventListener("click", (e) => {
-    if (mobileMenu.classList.contains("translate-x-full")) return;
+  // Close menu
+  closeButton.addEventListener("click", () => {
+    mobileMenu.classList.add("translate-x-full");
+    document.body.classList.remove("overflow-hidden");
+    menuButton.setAttribute("aria-expanded", "false");
     
-    if (!mobileMenu.contains(e.target) && !menuButton.contains(e.target)) {
+    const icon = menuButton.querySelector("i");
+    if (icon) {
+      icon.className = "ri-menu-line ri-lg";
+    }
+  });
+  
+  // Close when clicking outside
+  document.addEventListener("click", (e) => {
+    if (!mobileMenu.contains(e.target) && 
+        !menuButton.contains(e.target) && 
+        !mobileMenu.classList.contains("translate-x-full")) {
       mobileMenu.classList.add("translate-x-full");
       document.body.classList.remove("overflow-hidden");
       menuButton.setAttribute("aria-expanded", "false");
@@ -102,6 +64,7 @@ const initMobileMenu = () => {
     }
   });
   
+  // Close menu on escape key
   document.addEventListener("keydown", (e) => {
     if (e.key === "Escape" && !mobileMenu.classList.contains("translate-x-full")) {
       mobileMenu.classList.add("translate-x-full");
@@ -116,17 +79,11 @@ const initMobileMenu = () => {
   });
   
   // Animate menu items with staggered entrance
-  const menuItems = mobileMenu.querySelectorAll('.mobile-menu-item');
+  const menuItems = mobileMenu.querySelectorAll('nav ul li a');
   menuItems.forEach((item, index) => {
     item.style.setProperty('--index', index);
     item.classList.add('animate-fade-in-up-delayed');
   });
-  
-  // Remove any existing mobile menu from HTML
-  const oldMobileMenu = document.getElementById("mobile-menu");
-  if (oldMobileMenu) {
-    oldMobileMenu.remove();
-  }
 };
 
 /**

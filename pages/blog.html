@@ -18,8 +18,8 @@
     <link href="../public/css/custom.css" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com/3.4.16"></script>
     <script src="../public/js/tailwind.config.js"></script>
-    <!-- Defer non-critical CSS -->
-    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" media="print" onload="this.media='all'">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
   </head>
   <body class="bg-gray-50">
     <!-- Header -->
@@ -72,6 +72,33 @@
       <!-- Mobile Navigation - Will be loaded dynamically via JS -->
     </header>
 
+    <!-- Mobile Menu -->
+    <div id="mobile-menu" class="fixed inset-0 bg-primary/95 transform translate-x-full transition-transform duration-300 z-50 md:hidden">
+      <div class="p-4 flex justify-between items-center border-b border-red-900/30">
+        <a href="index.html" class="text-2xl font-['Pacifico'] text-white flex items-center">
+          <img src="../images/logo/logo-white-vertical.png" alt="Đại học Ngân hàng TP.HCM logo" class="w-12 h-12">
+        </a>
+        <button id="mobile-menu-close" class="w-10 h-10 flex items-center justify-center text-white" aria-label="Đóng menu">
+          <i class="ri-close-line ri-lg"></i>
+        </button>
+      </div>
+      <nav class="p-4" aria-label="Mobile navigation">
+        <ul class="space-y-4">
+          <li><a href="index.html" class="font-medium text-white/80 hover:text-white py-2 block transition-all duration-300 hover:translate-x-1">Trang chủ</a></li>
+          <li><a href="events.html" class="font-medium text-white/80 hover:text-white py-2 block transition-all duration-300 hover:translate-x-1">Sự kiện</a></li>
+          <li><a href="blog.html" class="font-medium text-white border-l-4 border-white pl-2 py-2 block transition-all duration-300 hover:translate-x-1" aria-current="page">Blog</a></li>
+          <li><a href="news.html" class="font-medium text-white/80 hover:text-white py-2 block transition-all duration-300 hover:translate-x-1">Giới thiệu</a></li>
+          <li><a href="contact.html" class="font-medium text-white/80 hover:text-white py-2 block transition-all duration-300 hover:translate-x-1">Liên hệ</a></li>
+          <li class="pt-4">
+            <a href="login.html" class="bg-white text-primary px-4 py-2 !rounded-button whitespace-nowrap block text-center hover:bg-gray-100 transition-colors shadow-sm">Đăng nhập</a>
+          </li>
+          <li class="pt-2">
+            <a href="register.html" class="bg-white text-primary px-4 py-2 !rounded-button whitespace-nowrap block text-center hover:bg-gray-100 transition-colors shadow-sm">Đăng ký</a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+
     <!-- Page Title / Hero Section -->
     <section class="bg-primary text-white py-12 md:py-16">
       <div class="container mx-auto px-4 text-center" data-aos="fade-up" data-aos-duration="800">
@@ -103,7 +130,7 @@
           <div class="bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow duration-300 overflow-hidden scale-hover" data-aos="fade-up" data-aos-delay="100">
             <div class="relative h-48 overflow-hidden">
               <img 
-                src="https://readdy.ai/api/search-image?query=University%20students%20studying%20in%20modern%20library,%20academic%20setting,%20bright%20natural%20lighting&width=800&height=500" 
+                src="../images/blog/academic.jpg" 
                 alt="Nghiên cứu học thuật" 
                 class="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
               >
@@ -142,7 +169,7 @@
           <div class="bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow duration-300 overflow-hidden scale-hover" data-aos="fade-up" data-aos-delay="200">
             <div class="relative h-48 overflow-hidden">
               <img 
-                src="https://readdy.ai/api/search-image?query=Finance%20students%20working%20on%20stock%20market%20analysis,%20professional%20setting,%20finance%20charts%20visible&width=800&height=500" 
+                src="../images/blog/finance.jpg" 
                 alt="Tài chính ngân hàng" 
                 class="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
               >
@@ -181,7 +208,7 @@
           <div class="bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow duration-300 overflow-hidden scale-hover" data-aos="fade-up" data-aos-delay="300">
             <div class="relative h-48 overflow-hidden">
               <img 
-                src="https://readdy.ai/api/search-image?query=University%20students%20networking%20at%20a%20career%20fair,%20professional%20attire,%20booths%20visible&width=800&height=500" 
+                src="../images/blog/career.jpg" 
                 alt="Sự kiện việc làm" 
                 class="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
               >
@@ -702,7 +729,8 @@
       </div>
     </div>
     
-    <!-- Scripts - Load AOS async for better performance -->
+    <!-- Scripts -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
       // Remove page loader after content loads
       window.addEventListener('load', function() {
@@ -715,7 +743,6 @@
         }
       });
     </script>
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js" async defer></script>
-    <script src="../public/js/blog.js" defer></script>
+    <script src="../public/js/blog.js"></script>
   </body>
 </html> 
