@@ -21,104 +21,65 @@ document.addEventListener("DOMContentLoaded", () => {
  * Handles mobile menu opening/closing and related transitions
  */
 const initMobileMenu = () => {
-  try {
-    const menuButton = document.querySelector("button.md\\:hidden");
-    const mobileMenu = document.createElement("div");
-    mobileMenu.id = "mobile-menu";
-    mobileMenu.className =
-      "fixed inset-0 bg-primary z-50 transform translate-x-full transition-transform duration-300 ease-in-out";
-    mobileMenu.innerHTML = `
-      <div class="p-4 flex justify-between items-center border-b border-red-900/30">
-        <a href="index.html" class="text-2xl font-['Pacifico'] text-white">
-          <img src="../images/logo/logo-white.png" alt="logo" class="w-16 h-16">
-        </a>
-        <button id="mobile-menu-close" class="w-10 h-10 flex items-center justify-center text-white">
-          <i class="ri-close-line ri-lg"></i>
-        </button>
-      </div>
-      <nav class="p-4">
-        <ul class="space-y-4">
-          <li><a href="index.html" class="text-red-100 block py-2 mobile-menu-item">Trang chủ</a></li>
-          <li><a href="events.html" class="text-red-100 block py-2 mobile-menu-item">Sự kiện</a></li>
-          <li><a href="blog.html" class="text-red-100 block py-2 mobile-menu-item">Blog</a></li>
-          <li><a href="news.html" class="text-red-100 block py-2 mobile-menu-item">Giới thiệu</a></li>
-          <li><a href="contact.html" class="text-red-100 block py-2 mobile-menu-item">Liên hệ</a></li>
-          <li class="pt-4 border-t border-red-900/30 mobile-menu-item">
-            <a href="login.html" class="text-white font-medium block py-2">Đăng nhập</a>
-          </li>
-          <li class="mobile-menu-item">
-            <a href="register.html" class="bg-white text-primary px-4 py-2 !rounded-button whitespace-nowrap block text-center mt-2">Đăng ký</a>
-          </li>
-        </ul>
-      </nav>
-    `;
-    document.body.appendChild(mobileMenu);
+  const menuButton = document.querySelector("#mobile-menu-button");
+  const mobileMenu = document.querySelector("#mobile-menu");
+  const closeButton = document.querySelector("#mobile-menu-close");
+  
+  if (!menuButton || !mobileMenu || !closeButton) return;
+  
+  // Open menu
+  menuButton.addEventListener("click", () => {
+    mobileMenu.classList.remove("translate-x-full");
+    document.body.classList.add("overflow-hidden");
+    menuButton.setAttribute("aria-expanded", "true");
     
-    menuButton.addEventListener("click", () => {
-      mobileMenu.classList.remove("translate-x-full");
-      document.body.classList.add("overflow-hidden");
-      menuButton.setAttribute("aria-expanded", "true");
+    const icon = menuButton.querySelector("i");
+    if (icon) {
+      icon.className = "ri-close-line ri-lg";
+    }
+  });
+  
+  // Close menu
+  closeButton.addEventListener("click", () => {
+    mobileMenu.classList.add("translate-x-full");
+    document.body.classList.remove("overflow-hidden");
+    menuButton.setAttribute("aria-expanded", "false");
+    
+    const icon = menuButton.querySelector("i");
+    if (icon) {
+      icon.className = "ri-menu-line ri-lg";
+    }
+  });
+  
+  // Close when clicking outside
+  document.addEventListener("click", (e) => {
+    if (!mobileMenu.contains(e.target) && 
+        !menuButton.contains(e.target) && 
+        !mobileMenu.classList.contains("translate-x-full")) {
+      mobileMenu.classList.add("translate-x-full");
+      document.body.classList.remove("overflow-hidden");
+      menuButton.setAttribute("aria-expanded", "false");
       
-      // Toggle icon
       const icon = menuButton.querySelector("i");
       if (icon) {
-        icon.className = "ri-close-line ri-lg";
+        icon.className = "ri-menu-line ri-lg";
       }
-    });
-    
-    const closeButton = document.getElementById("mobile-menu-close");
-    if (closeButton) {
-      closeButton.addEventListener("click", () => {
-        mobileMenu.classList.add("translate-x-full");
-        document.body.classList.remove("overflow-hidden");
-        menuButton.setAttribute("aria-expanded", "false");
-        
-        const icon = menuButton.querySelector("i");
-        if (icon) {
-          icon.className = "ri-menu-line ri-lg";
-        }
-      });
     }
-    
-    // Close when clicking outside
-    document.addEventListener("click", (e) => {
-      if (!mobileMenu.contains(e.target) && 
-          !menuButton.contains(e.target) && 
-          !mobileMenu.classList.contains("translate-x-full")) {
-        mobileMenu.classList.add("translate-x-full");
-        document.body.classList.remove("overflow-hidden");
-        menuButton.setAttribute("aria-expanded", "false");
-        
-        const icon = menuButton.querySelector("i");
-        if (icon) {
-          icon.className = "ri-menu-line ri-lg";
-        }
+  });
+  
+  // Close menu on escape key
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && !mobileMenu.classList.contains("translate-x-full")) {
+      mobileMenu.classList.add("translate-x-full");
+      document.body.classList.remove("overflow-hidden");
+      menuButton.setAttribute("aria-expanded", "false");
+      
+      const icon = menuButton.querySelector("i");
+      if (icon) {
+        icon.className = "ri-menu-line ri-lg";
       }
-    });
-    
-    // Close menu on escape key
-    document.addEventListener("keydown", (e) => {
-      if (e.key === "Escape" && !mobileMenu.classList.contains("translate-x-full")) {
-        mobileMenu.classList.add("translate-x-full");
-        document.body.classList.remove("overflow-hidden");
-        menuButton.setAttribute("aria-expanded", "false");
-        
-        const icon = menuButton.querySelector("i");
-        if (icon) {
-          icon.className = "ri-menu-line ri-lg";
-        }
-      }
-    });
-    
-    // Animate menu items with staggered entrance
-    const menuItems = mobileMenu.querySelectorAll('.mobile-menu-item');
-    menuItems.forEach((item, index) => {
-      item.style.setProperty('--index', index);
-      item.classList.add('animate-fade-in-up-delayed');
-    });
-  } catch (error) {
-    console.error("Error initializing mobile menu:", error);
-  }
+    }
+  });
 };
 
 /**
@@ -259,7 +220,27 @@ const showModal = (modalId, message = null) => {
       errorMessage.textContent = message;
     }
   }
-  modal.classList.add('show');
+  
+  // Show modal with flex display and animate
+  modal.classList.remove('hidden');
+  modal.classList.add('flex');
+  
+  // Prevent body scroll
+  document.body.style.overflow = 'hidden';
+  
+  // Add click outside to close
+  modal.addEventListener('click', (e) => {
+    if (e.target === modal) {
+      closeModal(modalId);
+    }
+  });
+  
+  // Add escape key to close
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+      closeModal(modalId);
+    }
+  });
 };
 
 /**
@@ -270,7 +251,12 @@ const closeModal = (modalId) => {
   const modal = document.getElementById(modalId);
   if (!modal) return;
   
-  modal.classList.remove('show');
+  // Hide modal
+  modal.classList.add('hidden');
+  modal.classList.remove('flex');
+  
+  // Restore body scroll
+  document.body.style.overflow = '';
 };
 
 /**

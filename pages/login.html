@@ -57,12 +57,47 @@
           >
         </div>
         <button
-          class="md:hidden w-10 h-10 flex items-center justify-center text-white"
+          id="mobile-menu-button"
+          class="md:hidden w-12 h-12 flex items-center justify-center text-white hover:text-red-200 transition-colors"
+          aria-label="Mở menu trên điện thoại"
+          aria-expanded="false"
+          aria-controls="mobile-menu"
         >
-          <i class="ri-menu-line ri-lg"></i>
+          <i class="ri-menu-line text-2xl"></i>
         </button>
       </div>
     </header>
+
+    <!-- Mobile Menu -->
+    <div id="mobile-menu" class="fixed inset-0 bg-primary/95 transform translate-x-full transition-transform duration-300 z-50 md:hidden overflow-y-auto">
+      <div class="p-6 flex justify-between items-center border-b border-red-900/30">
+        <a href="index.html" class="text-2xl font-['Pacifico'] text-white flex items-center">
+          <img src="../images/logo/logo-white.png" alt="Đại học Ngân hàng TP.HCM logo" class="w-16 h-16">
+        </a>
+        <button id="mobile-menu-close" class="w-12 h-12 flex items-center justify-center text-white hover:text-red-200 transition-colors" aria-label="Đóng menu">
+          <i class="ri-close-line text-2xl"></i>
+        </button>
+      </div>
+      <nav class="p-6" aria-label="Mobile navigation">
+        <ul class="space-y-5">
+          <li><a href="index.html" class="font-medium text-white/80 hover:text-white py-2.5 block transition-all duration-300 hover:translate-x-2">Trang chủ</a></li>
+          <li><a href="events.html" class="font-medium text-white/80 hover:text-white py-2.5 block transition-all duration-300 hover:translate-x-2">Sự kiện</a></li>
+          <li><a href="blog.html" class="font-medium text-white/80 hover:text-white py-2.5 block transition-all duration-300 hover:translate-x-2">Blog</a></li>
+          <li><a href="news.html" class="font-medium text-white/80 hover:text-white py-2.5 block transition-all duration-300 hover:translate-x-2">Giới thiệu</a></li>
+          <li><a href="contact.html" class="font-medium text-white/80 hover:text-white py-2.5 block transition-all duration-300 hover:translate-x-2">Liên hệ</a></li>
+          <li class="pt-6 border-t border-red-900/30">
+            <a href="login.html" class="bg-white text-primary px-6 py-3 rounded-xl whitespace-nowrap block text-center hover:bg-gray-100 transition-colors shadow-sm">
+              <p class="text-primary font-bold">Đăng nhập</p>
+            </a>
+          </li>
+          <li class="pt-3">
+            <a href="register.html" class="bg-white text-primary px-6 py-3 rounded-xl whitespace-nowrap block text-center hover:bg-gray-100 transition-colors shadow-sm">
+              <p class="text-primary font-bold">Đăng ký</p>
+            </a>
+          </li>
+        </ul>
+      </nav>
+    </div>
 
     <!-- Login Form Section -->
     <section class="py-16">
@@ -328,46 +363,46 @@
 
     <!-- Modal Components -->
     <!-- Success Modal -->
-    <div id="successModal" class="modal">
-      <div class="modal-content">
-        <div class="modal-icon success">
-          <i class="ri-check-line text-2xl"></i>
+    <div id="successModal" class="fixed inset-0 bg-black/50 z-50 items-center justify-center hidden">
+      <div class="modal-content bg-white w-[90%] max-w-md mx-auto mt-20 rounded-2xl p-6 relative">
+        <div class="modal-icon success w-16 h-16 mx-auto mb-4 rounded-full bg-green-100 text-green-500 flex items-center justify-center">
+          <i class="ri-check-line text-3xl"></i>
         </div>
         <h3 class="text-xl font-semibold text-center mb-2">Đăng nhập thành công!</h3>
         <p class="text-gray-600 text-center mb-6">Chào mừng bạn quay trở lại.</p>
-        <button onclick="closeModal('successModal')" class="w-full bg-primary text-white py-2 px-4 rounded-button hover:bg-primary/90 transition-colors">
+        <button onclick="closeModal('successModal')" class="w-full bg-primary text-white py-3 px-4 rounded-xl hover:bg-primary/90 transition-colors font-medium">
           Đóng
         </button>
       </div>
     </div>
 
     <!-- Error Modal -->
-    <div id="errorModal" class="modal">
-      <div class="modal-content">
-        <div class="modal-icon error">
-          <i class="ri-error-warning-line text-2xl"></i>
+    <div id="errorModal" class="fixed inset-0 bg-black/50 z-50 items-center justify-center hidden">
+      <div class="modal-content bg-white w-[90%] max-w-md mx-auto mt-20 rounded-2xl p-6 relative">
+        <div class="modal-icon error w-16 h-16 mx-auto mb-4 rounded-full bg-red-100 text-red-500 flex items-center justify-center">
+          <i class="ri-error-warning-line text-3xl"></i>
         </div>
         <h3 class="text-xl font-semibold text-center mb-2">Đăng nhập thất bại!</h3>
         <p class="text-gray-600 text-center mb-6" id="errorMessage">Email hoặc mật khẩu không chính xác.</p>
-        <button onclick="closeModal('errorModal')" class="w-full bg-primary text-white py-2 px-4 rounded-button hover:bg-primary/90 transition-colors">
+        <button onclick="closeModal('errorModal')" class="w-full bg-primary text-white py-3 px-4 rounded-xl hover:bg-primary/90 transition-colors font-medium">
           Thử lại
         </button>
       </div>
     </div>
 
     <!-- Account Not Found Modal -->
-    <div id="accountNotFoundModal" class="modal">
-      <div class="modal-content">
-        <div class="modal-icon warning">
-          <i class="ri-user-unfollow-line text-2xl"></i>
+    <div id="accountNotFoundModal" class="fixed inset-0 bg-black/50 z-50 items-center justify-center hidden">
+      <div class="modal-content bg-white w-[90%] max-w-md mx-auto mt-20 rounded-2xl p-6 relative">
+        <div class="modal-icon warning w-16 h-16 mx-auto mb-4 rounded-full bg-yellow-100 text-yellow-500 flex items-center justify-center">
+          <i class="ri-user-unfollow-line text-3xl"></i>
         </div>
         <h3 class="text-xl font-semibold text-center mb-2">Tài khoản không tồn tại</h3>
         <p class="text-gray-600 text-center mb-6">Email này chưa được đăng ký trong hệ thống.</p>
         <div class="space-y-3">
-          <button onclick="window.location.href='register.html'" class="w-full bg-primary text-white py-2 px-4 rounded-button hover:bg-primary/90 transition-colors">
+          <button onclick="window.location.href='register.html'" class="w-full bg-primary text-white py-3 px-4 rounded-xl hover:bg-primary/90 transition-colors font-medium">
             Đăng ký ngay
           </button>
-          <button onclick="closeModal('accountNotFoundModal')" class="w-full bg-gray-100 text-gray-700 py-2 px-4 rounded-button hover:bg-gray-200 transition-colors">
+          <button onclick="closeModal('accountNotFoundModal')" class="w-full bg-gray-100 text-gray-700 py-3 px-4 rounded-xl hover:bg-gray-200 transition-colors font-medium">
             Thử lại
           </button>
         </div>
