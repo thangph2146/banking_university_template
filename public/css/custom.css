@@ -234,21 +234,37 @@ body {
 
 /* Tab animations */
 .tab-content {
-  transition: opacity 0.3s ease-in-out;
+  transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
 }
 
 .tab-content.hidden {
   display: none;
 }
 
-.tab-content.block:not(.opacity-0) {
-  opacity: 1;
+.tab-content.opacity-0 {
+  opacity: 0;
+  transform: translateY(5px) scale(0.98);
+}
+
+.tab-button {
+  position: relative;
+  transition: color 0.3s ease, border-color 0.3s ease;
+}
+
+/* Tab highlight animation */
+@keyframes tabHighlight {
+  0% { opacity: 0.8; background-color: rgba(var(--color-primary-rgb), 0.2); }
+  50% { opacity: 0.4; background-color: rgba(var(--color-primary-rgb), 0.1); }
+  100% { opacity: 0.8; background-color: rgba(var(--color-primary-rgb), 0.2); }
+}
+
+.tab-highlight {
+  animation: tabHighlight 1.5s ease-in-out infinite;
 }
 
 /* User Dropdown Menu */
 #user-menu {
   transition: all 0.2s ease-in-out;
-  transform-origin: top right;
 }
 
 #user-menu.visible {
@@ -257,4 +273,75 @@ body {
 
 #user-menu.invisible {
   display: none;
+}
+
+/* Modal animation */
+@keyframes modalFadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes modalScaleIn {
+  from { transform: scale(0.95); }
+  to { transform: scale(1); }
+}
+
+.modal-fade-in {
+  animation: modalFadeIn 0.3s ease forwards;
+}
+
+.modal-scale-in {
+  animation: modalScaleIn 0.3s ease forwards;
+}
+
+/* Keyboard styles */
+kbd {
+  background-color: #f3f4f6;
+  border: 1px solid #d1d5db;
+  border-bottom: 3px solid #9ca3af;
+  border-radius: 4px;
+  box-shadow: 0 2px 0 rgba(0,0,0,0.1);
+  color: #111827;
+  display: inline-block;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  font-size: 0.85em;
+  font-weight: 600;
+  line-height: 1.2;
+  margin: 0 0.2em;
+  min-width: 1.6em;
+  padding: 3px 5px;
+  text-align: center;
+  text-shadow: 0 1px 0 #fff;
+  vertical-align: middle;
+  white-space: nowrap;
+}
+
+kbd + kbd {
+  margin-left: 0.3em;
+}
+
+.mac-kbd kbd {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+
+/* Ẩn scrollbar nhưng vẫn cho phép scroll */
+.scrollbar-hide {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;     /* Firefox */
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;  /* Chrome, Safari, Opera */
+}
+
+/* Tối ưu tabs trên mobile */
+@media (max-width: 767px) {
+  .tab-button {
+    padding-left: 1rem !important;
+    padding-right: 1rem !important;
+  }
+  
+  .tab-button i {
+    margin-right: 0.25rem !important;
+  }
 } 
