@@ -7,10 +7,9 @@
 document.addEventListener("DOMContentLoaded", () => {
   // Initialize all components and functionality
   initMobileMenu();
-  initializeEventFilters();
-  initializeSearchFunctionality();
-  initializeEventCardEffects();
-  initializePagination();
+  initFilters();
+  initSearch();
+  initPagination();
 });
 
 /**
@@ -87,7 +86,7 @@ const createNoResultsElement = () => {
 /**
  * Initialize event filtering functionality
  */
-const initializeEventFilters = () => {
+const initFilters = () => {
   const elements = getEventFilterElements();
   if (!elements.categoryFilter || !elements.timeFilter || !elements.locationFilter) return;
 
@@ -329,7 +328,7 @@ const sortEventCards = (elements) => {
 /**
  * Initialize search functionality
  */
-const initializeSearchFunctionality = () => {
+const initSearch = () => {
   const searchInput = document.getElementById('search-input');
   const searchButton = document.getElementById('search-button');
   
@@ -374,28 +373,9 @@ const initializeSearchFunctionality = () => {
 };
 
 /**
- * Initialize event card effects
- */
-const initializeEventCardEffects = () => {
-  document.querySelectorAll('.event-card').forEach(card => {
-    card.addEventListener('mouseenter', () => {
-      card.classList.add('shadow-md');
-      card.querySelectorAll('.ri-calendar-line, .ri-map-pin-line, .ri-user-line')
-        .forEach(icon => icon.classList.add('animate-pulse-subtle'));
-    });
-    
-    card.addEventListener('mouseleave', () => {
-      card.classList.remove('shadow-md');
-      card.querySelectorAll('.ri-calendar-line, .ri-map-pin-line, .ri-user-line')
-        .forEach(icon => icon.classList.remove('animate-pulse-subtle'));
-    });
-  });
-};
-
-/**
  * Initialize pagination
  */
-const initializePagination = () => {
+const initPagination = () => {
   const EVENTS_PER_PAGE = 9;
   let currentPage = 1;
   

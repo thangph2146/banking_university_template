@@ -20,72 +20,43 @@ document.addEventListener("DOMContentLoaded", () => {
 
 /**
  * Mobile menu functionality
- * Handles mobile menu opening/closing and related transitions
  */
 const initMobileMenu = () => {
-  try {
-    const menuButton = document.querySelector("#mobile-menu-button");
-    const mobileMenu = document.querySelector("#mobile-menu");
-    const closeButton = document.querySelector("#mobile-menu-close");
-    
-    if (!menuButton || !mobileMenu || !closeButton) return;
-    
-    // Open menu
-    menuButton.addEventListener("click", () => {
-      mobileMenu.classList.remove("translate-x-full");
-      document.body.classList.add("overflow-hidden");
-      menuButton.setAttribute("aria-expanded", "true");
-      
-      const icon = menuButton.querySelector("i");
-      if (icon) {
-        icon.className = "ri-close-line text-2xl";
-      }
-    });
-    
-    // Close menu
-    closeButton.addEventListener("click", () => {
-      mobileMenu.classList.add("translate-x-full");
-      document.body.classList.remove("overflow-hidden");
-      menuButton.setAttribute("aria-expanded", "false");
-      
-      const icon = menuButton.querySelector("i");
-      if (icon) {
-        icon.className = "ri-menu-line text-2xl";
-      }
-    });
-    
-    // Close when clicking outside
-    document.addEventListener("click", (e) => {
-      if (!mobileMenu.contains(e.target) && 
-          !menuButton.contains(e.target) && 
-          !mobileMenu.classList.contains("translate-x-full")) {
-        mobileMenu.classList.add("translate-x-full");
-        document.body.classList.remove("overflow-hidden");
-        menuButton.setAttribute("aria-expanded", "false");
-        
-        const icon = menuButton.querySelector("i");
-        if (icon) {
-          icon.className = "ri-menu-line text-2xl";
-        }
-      }
-    });
-    
-    // Close menu on escape key
-    document.addEventListener("keydown", (e) => {
-      if (e.key === "Escape" && !mobileMenu.classList.contains("translate-x-full")) {
-        mobileMenu.classList.add("translate-x-full");
-        document.body.classList.remove("overflow-hidden");
-        menuButton.setAttribute("aria-expanded", "false");
-        
-        const icon = menuButton.querySelector("i");
-        if (icon) {
-          icon.className = "ri-menu-line text-2xl";
-        }
-      }
-    });
-  } catch (error) {
-    console.error("Error initializing mobile menu:", error);
+  const menuButton = document.getElementById("mobile-menu-button");
+  const mobileMenu = document.getElementById("mobile-menu");
+  const closeButton = document.getElementById("mobile-menu-close");
+
+  if (!menuButton || !mobileMenu || !closeButton) {
+    console.error("Mobile menu elements not found");
+    return;
   }
+
+  const toggleMenu = (show) => {
+    mobileMenu.classList.toggle("translate-x-full", !show);
+    document.body.classList.toggle("overflow-hidden", show);
+    menuButton.setAttribute("aria-expanded", show);
+  };
+
+  // Open menu
+  menuButton.addEventListener("click", () => toggleMenu(true));
+
+  // Close menu
+  closeButton.addEventListener("click", () => toggleMenu(false));
+
+  // Close when clicking outside
+  document.addEventListener("click", (e) => {
+    const isMenuOpen = !mobileMenu.classList.contains("translate-x-full");
+    if (isMenuOpen && !mobileMenu.contains(e.target) && !menuButton.contains(e.target)) {
+      toggleMenu(false);
+    }
+  });
+
+  // Close menu on escape key
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && !mobileMenu.classList.contains("translate-x-full")) {
+      toggleMenu(false);
+    }
+  });
 };
 
 /**
