@@ -31,57 +31,31 @@ const initMobileMenu = () => {
   
   if (!menuButton || !mobileMenu || !closeButton) return;
   
-  // Open menu
-  menuButton.addEventListener("click", () => {
-    mobileMenu.classList.remove("translate-x-full");
-    document.body.classList.add("overflow-hidden");
-    menuButton.setAttribute("aria-expanded", "true");
+  const toggleMenu = (show) => {
+    mobileMenu.classList.toggle("translate-x-full", !show);
+    document.body.classList.toggle("overflow-hidden", show);
+    menuButton.setAttribute("aria-expanded", show);
     
     const icon = menuButton.querySelector("i");
     if (icon) {
-      icon.className = "ri-close-line ri-lg";
+      icon.className = show ? "ri-close-line ri-lg" : "ri-menu-line ri-lg";
     }
-  });
+  };
+
+  menuButton.addEventListener("click", () => toggleMenu(true));
+  closeButton.addEventListener("click", () => toggleMenu(false));
   
-  // Close menu
-  closeButton.addEventListener("click", () => {
-    mobileMenu.classList.add("translate-x-full");
-    document.body.classList.remove("overflow-hidden");
-    menuButton.setAttribute("aria-expanded", "false");
-    
-    const icon = menuButton.querySelector("i");
-    if (icon) {
-      icon.className = "ri-menu-line ri-lg";
-    }
-  });
-  
-  // Close when clicking outside
   document.addEventListener("click", (e) => {
     if (!mobileMenu.contains(e.target) && 
         !menuButton.contains(e.target) && 
         !mobileMenu.classList.contains("translate-x-full")) {
-      mobileMenu.classList.add("translate-x-full");
-      document.body.classList.remove("overflow-hidden");
-      menuButton.setAttribute("aria-expanded", "false");
-      
-      const icon = menuButton.querySelector("i");
-      if (icon) {
-        icon.className = "ri-menu-line ri-lg";
-      }
+      toggleMenu(false);
     }
   });
   
-  // Close menu on escape key
   document.addEventListener("keydown", (e) => {
     if (e.key === "Escape" && !mobileMenu.classList.contains("translate-x-full")) {
-      mobileMenu.classList.add("translate-x-full");
-      document.body.classList.remove("overflow-hidden");
-      menuButton.setAttribute("aria-expanded", "false");
-      
-      const icon = menuButton.querySelector("i");
-      if (icon) {
-        icon.className = "ri-menu-line ri-lg";
-      }
+      toggleMenu(false);
     }
   });
 };
@@ -90,12 +64,8 @@ const initMobileMenu = () => {
 const debounce = (func, wait) => {
   let timeout;
   return function executedFunction(...args) {
-    const later = () => {
-      clearTimeout(timeout);
-      func(...args);
-    };
     clearTimeout(timeout);
-    timeout = setTimeout(later, wait);
+    timeout = setTimeout(() => func(...args), wait);
   };
 };
 
@@ -116,12 +86,13 @@ const initSearch = () => {
       const content = card.querySelector('p')?.textContent.toLowerCase() || '';
       const category = card.querySelector('.absolute.top-3.left-3')?.textContent.toLowerCase() || '';
       
-      if (title.includes(searchValue) || content.includes(searchValue) || category.includes(searchValue) || !searchValue) {
-        card.style.display = 'block';
-        hasResults = true;
-      } else {
-        card.style.display = 'none';
-      }
+      const isVisible = title.includes(searchValue) || 
+                       content.includes(searchValue) || 
+                       category.includes(searchValue) || 
+                       !searchValue;
+                       
+      card.style.display = isVisible ? 'block' : 'none';
+      if (isVisible) hasResults = true;
     });
 
     if (noResultsMsg) {
@@ -134,7 +105,7 @@ const initSearch = () => {
 
 // Category filter functionality
 const initCategoryFilters = () => {
-  const categoryLinks = document.querySelectorAll('.bg-white .space-y-2 a');
+  const categoryLinks = document.querySelectorAll('.bg-white ul a');
   const blogCards = document.querySelectorAll('.scale-hover');
   const noResultsMsg = document.getElementById('no-results-message');
   
@@ -177,35 +148,41 @@ const initPagination = () => {
   const paginationLinks = document.querySelectorAll('.pagination a[data-page]');
   const prevButton = document.querySelector('.pagination a[aria-label="Previous page"]');
   const nextButton = document.querySelector('.pagination a[aria-label="Next page"]');
+  const blogCards = document.querySelectorAll('.scale-hover');
   
-  if (!paginationLinks.length) return;
+  if (!paginationLinks.length || !blogCards.length) return;
   
+  const ITEMS_PER_PAGE = 4; // Số bài viết mỗi trang
   let currentPage = 1;
-  const totalPages = paginationLinks.length;
+  const totalPages = Math.ceil(blogCards.length / ITEMS_PER_PAGE);
+  
+  const showPage = (pageNum) => {
+    const start = (pageNum - 1) * ITEMS_PER_PAGE;
+    const end = start + ITEMS_PER_PAGE;
+    
+    blogCards.forEach((card, index) => {
+      card.style.display = (index >= start && index < end) ? 'block' : 'none';
+    });
+  };
   
   const updatePaginationUI = (newPage) => {
-    // Update page links
     paginationLinks.forEach(link => {
       const pageNum = parseInt(link.getAttribute('data-page'));
-      if (pageNum === newPage) {
-        link.classList.remove('text-gray-700');
-        link.classList.add('bg-primary', 'text-white');
-      } else {
-        link.classList.remove('bg-primary', 'text-white');
-        link.classList.add('text-gray-700');
-      }
+      link.classList.toggle('bg-primary', pageNum === newPage);
+      link.classList.toggle('text-white', pageNum === newPage);
+      link.classList.toggle('text-gray-700', pageNum !== newPage);
     });
     
-    // Update prev/next buttons
     if (prevButton) {
       prevButton.classList.toggle('opacity-50', newPage === 1);
     }
     if (nextButton) {
       nextButton.classList.toggle('opacity-50', newPage === totalPages);
     }
+    
+    showPage(newPage);
   };
   
-  // Handle number page clicks
   paginationLinks.forEach(link => {
     link.addEventListener('click', (e) => {
       e.preventDefault();
@@ -213,19 +190,16 @@ const initPagination = () => {
       if (pageNum !== currentPage) {
         currentPage = pageNum;
         updatePaginationUI(currentPage);
-        // Thêm logic load dữ liệu trang mới ở đây nếu cần
       }
     });
   });
   
-  // Handle prev/next clicks
   if (prevButton) {
     prevButton.addEventListener('click', (e) => {
       e.preventDefault();
       if (currentPage > 1) {
         currentPage--;
         updatePaginationUI(currentPage);
-        // Thêm logic load dữ liệu trang mới ở đây nếu cần
       }
     });
   }
@@ -236,7 +210,6 @@ const initPagination = () => {
       if (currentPage < totalPages) {
         currentPage++;
         updatePaginationUI(currentPage);
-        // Thêm logic load dữ liệu trang mới ở đây nếu cần
       }
     });
   }
@@ -254,11 +227,8 @@ const initBackToTopButton = () => {
   document.body.appendChild(button);
   
   window.addEventListener('scroll', () => {
-    if (window.pageYOffset > 300) {
-      button.classList.add('opacity-100', 'visible');
-    } else {
-      button.classList.remove('opacity-100', 'visible');
-    }
+    button.classList.toggle('opacity-100', window.pageYOffset > 300);
+    button.classList.toggle('visible', window.pageYOffset > 300);
   });
   
   button.addEventListener('click', () => {

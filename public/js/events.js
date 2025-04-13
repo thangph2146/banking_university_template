@@ -376,105 +376,93 @@ const initSearch = () => {
  * Initialize pagination
  */
 const initPagination = () => {
-  const EVENTS_PER_PAGE = 9;
+  const paginationLinks = document.querySelectorAll('.pagination a[data-page]');
+  const prevButton = document.querySelector('.pagination a[aria-label="Previous page"]');
+  const nextButton = document.querySelector('.pagination a[aria-label="Next page"]');
+  const eventCards = document.querySelectorAll('.event-card');
+  
+  if (!paginationLinks.length || !eventCards.length) return;
+  
+  const ITEMS_PER_PAGE = 9; // Số sự kiện mỗi trang
   let currentPage = 1;
+  const totalPages = Math.ceil(eventCards.length / ITEMS_PER_PAGE);
   
-  const elements = getEventFilterElements();
-  const totalEvents = elements.allEventCards.length;
-  const totalPages = Math.ceil(totalEvents / EVENTS_PER_PAGE);
-  
-  const prevButton = document.getElementById('prev-page');
-  const nextButton = document.getElementById('next-page');
-  const paginationButtons = document.querySelectorAll('.pagination-button');
-  
-  if (!prevButton || !nextButton || !paginationButtons.length) return;
-
-  const showEventsForPage = (page) => {
-    elements.allEventCards.forEach((card, index) => {
-      // Skip if card is hidden by filter
-      if (card.classList.contains('hidden') && !card.classList.contains('hidden-by-pagination')) {
-        return;
-      }
-      
-      const startIndex = (page - 1) * EVENTS_PER_PAGE;
-      const endIndex = startIndex + EVENTS_PER_PAGE;
-      
-      const shouldHide = index < startIndex || index >= endIndex;
-      card.classList.toggle('hidden-by-pagination', shouldHide);
-      card.classList.toggle('hidden', shouldHide);
+  const showPage = (pageNum) => {
+    const start = (pageNum - 1) * ITEMS_PER_PAGE;
+    const end = start + ITEMS_PER_PAGE;
+    
+    // Chỉ ẩn/hiện các card không bị ẩn bởi bộ lọc
+    const visibleCards = Array.from(eventCards).filter(card => 
+      !card.classList.contains('hidden') || card.classList.contains('hidden-by-pagination')
+    );
+    
+    visibleCards.forEach((card, index) => {
+      const shouldShow = index >= start && index < end;
+      card.classList.toggle('hidden-by-pagination', !shouldShow);
+      card.classList.toggle('hidden', !shouldShow);
     });
 
-    updateEventCounter(elements);
+    // Cập nhật số lượng sự kiện hiển thị
+    updateEventCounter({
+      allEventCards: eventCards
+    });
     
+    // Cuộn lên đầu danh sách sự kiện
     const eventsSection = document.querySelector('.lg\\:w-3\\/4');
     if (eventsSection) {
       eventsSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
   };
-
-  const updatePaginationUI = (page) => {
-    // Remove active state from all buttons first
-    paginationButtons.forEach(button => {
-      button.classList.remove('bg-primary', 'text-white', 'border-primary');
-      button.classList.add('bg-white', 'text-gray-700', 'border-gray-300');
-      button.removeAttribute('aria-current');
+  
+  const updatePaginationUI = (newPage) => {
+    paginationLinks.forEach(link => {
+      const pageNum = parseInt(link.getAttribute('data-page'));
+      link.classList.toggle('bg-primary', pageNum === newPage);
+      link.classList.toggle('text-white', pageNum === newPage);
+      link.classList.toggle('text-gray-700', pageNum !== newPage);
     });
-
-    // Add active state to current page button
-    const currentButton = Array.from(paginationButtons).find(
-      button => parseInt(button.getAttribute('data-page')) === page
-    );
     
-    if (currentButton) {
-      currentButton.classList.remove('bg-white', 'text-gray-700', 'border-gray-300');
-      currentButton.classList.add('bg-primary', 'text-white', 'border-primary');
-      currentButton.setAttribute('aria-current', 'page');
+    if (prevButton) {
+      prevButton.classList.toggle('opacity-50', newPage === 1);
     }
-
-    // Update prev/next buttons
-    prevButton.disabled = page === 1;
-    nextButton.disabled = page === totalPages;
-
-    [prevButton, nextButton].forEach(button => {
-      button.classList.toggle('opacity-50', button.disabled);
-      button.classList.toggle('cursor-not-allowed', button.disabled);
-    });
-  };
-
-  const goToPage = (page) => {
-    if (page < 1 || page > totalPages || page === currentPage) return;
+    if (nextButton) {
+      nextButton.classList.toggle('opacity-50', newPage === totalPages);
+    }
     
-    currentPage = page;
-    showEventsForPage(currentPage);
-    updatePaginationUI(currentPage);
+    showPage(newPage);
   };
-
-  // Set up event listeners
-  paginationButtons.forEach(button => {
-    button.addEventListener('click', (e) => {
+  
+  paginationLinks.forEach(link => {
+    link.addEventListener('click', (e) => {
       e.preventDefault();
-      const pageNum = parseInt(button.getAttribute('data-page'));
-      if (!isNaN(pageNum)) {
-        goToPage(pageNum);
+      const pageNum = parseInt(link.getAttribute('data-page'));
+      if (pageNum !== currentPage) {
+        currentPage = pageNum;
+        updatePaginationUI(currentPage);
       }
     });
   });
-
-  prevButton.addEventListener('click', (e) => {
-    e.preventDefault();
-    if (!prevButton.disabled) {
-      goToPage(currentPage - 1);
-    }
-  });
-
-  nextButton.addEventListener('click', (e) => {
-    e.preventDefault();
-    if (!nextButton.disabled) {
-      goToPage(currentPage + 1); 
-    }
-  });
-
+  
+  if (prevButton) {
+    prevButton.addEventListener('click', (e) => {
+      e.preventDefault();
+      if (currentPage > 1) {
+        currentPage--;
+        updatePaginationUI(currentPage);
+      }
+    });
+  }
+  
+  if (nextButton) {
+    nextButton.addEventListener('click', (e) => {
+      e.preventDefault();
+      if (currentPage < totalPages) {
+        currentPage++;
+        updatePaginationUI(currentPage);
+      }
+    });
+  }
+  
   // Initialize first page
-  showEventsForPage(1);
-  updatePaginationUI(1);
+  updatePaginationUI(currentPage);
 }; 

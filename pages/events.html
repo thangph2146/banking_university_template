@@ -752,47 +752,18 @@
             </div>
           </div>
           <!-- Pagination -->
-          <div class="mt-8 flex justify-center animate-fade-in" style="animation-delay: 0.5s;">
-            <nav class="inline-flex rounded-md shadow-sm -space-x-px" aria-label="Pagination">
-              <button
-                id="prev-page"
-                class="relative inline-flex items-center px-3 py-2 rounded-l-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50 transition-all duration-300 hover:text-primary disabled:opacity-50 disabled:cursor-not-allowed"
-                disabled
-              >
-                <span class="sr-only">Trang trước</span>
+          <div class="mt-8 flex justify-center" data-aos="fade-up">
+            <nav class="flex items-center space-x-1 pagination">
+              <a href="#" class="px-3 py-2 rounded-md text-gray-500 hover:bg-primary hover:text-white transition-colors" aria-label="Previous page">
                 <i class="ri-arrow-left-s-line"></i>
-              </button>
-              <div id="pagination-container" class="flex">
-                <button
-                  data-page="1"
-                  class="relative inline-flex items-center px-4 py-2 border border-primary bg-primary text-sm font-medium text-white transform transition-all duration-300 hover:scale-105 pagination-button"
-                  aria-current="page"
-                  >1</button
-                >
-                <button
-                  data-page="2"
-                  class="relative inline-flex items-center px-4 py-2 border border-gray-300 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 transition-all duration-300 hover:text-primary pagination-button"
-                  >2</button
-                >
-                <button
-                  data-page="3"
-                  class="relative inline-flex items-center px-4 py-2 border border-gray-300 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 transition-all duration-300 hover:text-primary pagination-button"
-                  >3</button
-                >
-                <span class="relative inline-flex items-center px-4 py-2 border border-gray-300 bg-white text-sm font-medium text-gray-500">...</span>
-                <button
-                  data-page="8"
-                  class="relative inline-flex items-center px-4 py-2 border border-gray-300 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 transition-all duration-300 hover:text-primary pagination-button"
-                  >8</button
-                >
-              </div>
-              <button
-                id="next-page"
-                class="relative inline-flex items-center px-3 py-2 rounded-r-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50 transition-all duration-300 hover:text-primary"
-              >
-                <span class="sr-only">Trang sau</span>
+              </a>
+              <a href="#" class="px-3 py-2 rounded-md bg-primary text-white" data-page="1">1</a>
+              <a href="#" class="px-3 py-2 rounded-md text-gray-700 hover:bg-primary hover:text-white transition-colors" data-page="2">2</a>
+              <a href="#" class="px-3 py-2 rounded-md text-gray-700 hover:bg-primary hover:text-white transition-colors" data-page="3">3</a>
+              <a href="#" class="px-3 py-2 rounded-md text-gray-700 hover:bg-primary hover:text-white transition-colors" data-page="4">4</a>
+              <a href="#" class="px-3 py-2 rounded-md text-gray-500 hover:bg-primary hover:text-white transition-colors" aria-label="Next page">
                 <i class="ri-arrow-right-s-line"></i>
-              </button>
+              </a>
             </nav>
           </div>
         </div>
