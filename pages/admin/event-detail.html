@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chi tiết sự kiện - HUB Admin</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet" />
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link href="../../public/css/custom.css" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com/3.4.16"></script>
+    <script src="../../public/js/tailwind.config.js"></script>
+</head>
+
+<body class="bg-gray-50 min-h-screen">
+
+
+    <div class="flex">
+        <!-- Sidebar -->
+        <aside id="sidebar"
+            class="bg-white w-64 min-h-screen shadow-lg transform -translate-x-full md:translate-x-0 transition-transform duration-300">
+            <nav class="p-4">
+                <div class="space-y-4">
+                    <div class="border-b pb-4">
+                        <h2 class="text-xs uppercase text-gray-400 font-semibold">Quản lý chung</h2>
+                        <div class="mt-3 space-y-3">
+                            <a href="dashboard.html" class="flex items-center text-gray-600 hover:text-primary">
+                                <i class="ri-dashboard-line mr-2"></i>
+                                Tổng quan
+                            </a>
+                            <a href="events.html" class="flex items-center text-primary">
+                                <i class="ri-calendar-event-line mr-2"></i>
+                                Sự kiện
+                            </a>
+                            <a href="users.html" class="flex items-center text-gray-600 hover:text-primary">
+                                <i class="ri-user-line mr-2"></i>
+                                Người dùng
+                            </a>
+                            <a href="speakers.html" class="flex items-center text-gray-600 hover:text-primary">
+                                <i class="ri-mic-line mr-2"></i>
+                                Diễn giả
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="border-b pb-4">
+                        <h2 class="text-xs uppercase text-gray-400 font-semibold">Quản lý sự kiện</h2>
+                        <div class="mt-3 space-y-3">
+                            <a href="registrations.html" class="flex items-center text-gray-600 hover:text-primary">
+                                <i class="ri-file-list-line mr-2"></i>
+                                Đăng ký sự kiện
+                            </a>
+                            <a href="checkins.html" class="flex items-center text-gray-600 hover:text-primary">
+                                <i class="ri-login-box-line mr-2"></i>
+                                Check-in
+                            </a>
+                            <a href="checkouts.html" class="flex items-center text-gray-600 hover:text-primary">
+                                <i class="ri-logout-box-line mr-2"></i>
+                                Check-out
+                            </a>
+                            <a href="reports.html" class="flex items-center text-gray-600 hover:text-primary">
+                                <i class="ri-bar-chart-line mr-2"></i>
+                                Báo cáo
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="flex-1 p-6">
+            <!-- Header -->
+            <header class="bg-primary shadow-md sticky top-0 z-50 rounded-lg mb-6">
+                <div class="container mx-auto px-4 py-2 flex items-center justify-between">
+                    <div class="flex items-center">
+                        <a href="index.html" class="text-2xl font-['Pacifico'] text-white">
+                            <img src="../../images/logo/logo-white.png" alt="logo" class="w-12 h-12">
+                        </a>
+                    </div>
+
+                    <div class="flex items-center space-x-4">
+                        <div class="relative">
+                            <button class="text-white hover:text-gray-200 focus:outline-none">
+                                <i class="ri-notification-3-line text-xl"></i>
+                                <span
+                                    class="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full w-4 h-4 flex items-center justify-center">3</span>
+                            </button>
+                        </div>
+
+                        <div class="relative">
+                            <button id="user-menu-button"
+                                class="flex items-center space-x-2 text-white hover:text-gray-200 focus:outline-none">
+                                <img src="https://ui-avatars.com/api/?name=Admin&background=random" alt="Admin"
+                                    class="w-8 h-8 rounded-full">
+                                <span class="hidden md:inline-block">Admin</span>
+                                <i class="ri-arrow-down-s-line"></i>
+                            </button>
+
+                            <!-- User Dropdown Menu -->
+                            <div id="user-menu"
+                                class="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 hidden">
+                                <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                                    <i class="ri-user-line mr-2"></i>Hồ sơ
+                                </a>
+                                <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                                    <i class="ri-settings-3-line mr-2"></i>Cài đặt
+                                </a>
+                                <hr class="my-1">
+                                <a href="#" class="block px-4 py-2 text-sm text-red-600 hover:bg-gray-100">
+                                    <i class="ri-logout-box-line mr-2"></i>Đăng xuất
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </header>
+            <div class="container mx-auto">
+                <!-- Breadcrumb -->
+                <nav class="flex mb-6" aria-label="Breadcrumb">
+                    <ol class="inline-flex items-center space-x-1 md:space-x-3">
+                        <li class="inline-flex items-center">
+                            <a href="dashboard.html" class="text-gray-700 hover:text-primary">
+                                <i class="ri-dashboard-line mr-2"></i>
+                                Dashboard
+                            </a>
+                        </li>
+                        <li>
+                            <div class="flex items-center">
+                                <i class="ri-arrow-right-s-line text-gray-400"></i>
+                                <a href="events.html" class="ml-1 text-gray-700 hover:text-primary">
+                                    Quản lý sự kiện
+                                </a>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="flex items-center">
+                                <i class="ri-arrow-right-s-line text-gray-400"></i>
+                                <span class="ml-1 text-primary font-medium">Chi tiết sự kiện</span>
+                            </div>
+                        </li>
+                    </ol>
+                </nav>
+
+                <!-- Page Header -->
+                <div class="flex flex-col md:flex-row md:items-center md:justify-between mb-6">
+                    <h1 class="text-2xl font-semibold text-gray-900">Chi tiết sự kiện</h1>
+                    <div class="mt-4 md:mt-0 flex space-x-2">
+                        <button onclick="window.location.href='event-detail-update.html?id=' + eventId"
+                            class="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500/50">
+                            <i class="ri-edit-line mr-1"></i>
+                            Chỉnh sửa
+                        </button>
+                        <button onclick="deleteEvent()"
+                            class="bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-500/50">
+                            <i class="ri-delete-bin-line mr-1"></i>
+                            Xóa
+                        </button>
+                        <button onclick="window.location.href='events.html'"
+                            class="bg-gray-500 text-white px-4 py-2 rounded-md hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-gray-500/50">
+                            <i class="ri-arrow-left-line mr-1"></i>
+                            Quay lại
+                        </button>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                    <!-- Thông tin cơ bản -->
+                    <div class="lg:col-span-2">
+                        <div class="bg-white rounded-lg shadow-sm p-6 mb-6">
+                            <h2 class="text-lg font-semibold mb-4">Thông tin cơ bản</h2>
+                            <div class="space-y-4">
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                    <div>
+                                        <label class="block text-sm font-medium text-gray-700">Tên sự kiện</label>
+                                        <p id="ten_su_kien" class="mt-1 text-gray-900"></p>
+                                    </div>
+                                    <div>
+                                        <label class="block text-sm font-medium text-gray-700">Đơn vị tổ chức</label>
+                                        <p id="don_vi_to_chuc" class="mt-1 text-gray-900"></p>
+                                    </div>
+                                    <div>
+                                        <label class="block text-sm font-medium text-gray-700">Đơn vị phối hợp</label>
+                                        <p id="don_vi_phoi_hop" class="mt-1 text-gray-900"></p>
+                                    </div>
+                                    <div>
+                                        <label class="block text-sm font-medium text-gray-700">Loại sự kiện</label>
+                                        <p id="loai_su_kien" class="mt-1 text-gray-900"></p>
+                                    </div>
+                                    <div>
+                                        <label class="block text-sm font-medium text-gray-700">Hình thức</label>
+                                        <p id="hinh_thuc" class="mt-1 text-gray-900"></p>
+                                    </div>
+                                    <div>
+                                        <label class="block text-sm font-medium text-gray-700">Đối tượng tham
+                                            gia</label>
+                                        <p id="doi_tuong_tham_gia" class="mt-1 text-gray-900"></p>
+                                    </div>
+                                    <div>
+                                        <label class="block text-sm font-medium text-gray-700">Thời gian sự kiện</label>
+                                        <p id="thoi_gian" class="mt-1 text-gray-900"></p>
+                                    </div>
+                                    <div>
+                                        <label class="block text-sm font-medium text-gray-700">Thời gian đăng ký</label>
+                                        <p id="thoi_gian_dang_ky" class="mt-1 text-gray-900"></p>
+                                    </div>
+                                    <div>
+                                        <label class="block text-sm font-medium text-gray-700">Thời gian
+                                            check-in</label>
+                                        <p id="thoi_gian_checkin" class="mt-1 text-gray-900"></p>
+                                    </div>
+                                    <div>
+                                        <label class="block text-sm font-medium text-gray-700">Thời gian
+                                            check-out</label>
+                                        <p id="thoi_gian_checkout" class="mt-1 text-gray-900"></p>
+                                    </div>
+                                    <div class="md:col-span-2">
+                                        <label class="block text-sm font-medium text-gray-700">Địa điểm</label>
+                                        <p id="dia_diem" class="mt-1 text-gray-900"></p>
+                                    </div>
+                                    <div class="md:col-span-2">
+                                        <label class="block text-sm font-medium text-gray-700">Địa chỉ cụ thể</label>
+                                        <p id="dia_chi_cu_the" class="mt-1 text-gray-900"></p>
+                                    </div>
+                                    <div>
+                                        <label class="block text-sm font-medium text-gray-700">Tọa độ GPS</label>
+                                        <p id="toa_do_gps" class="mt-1 text-gray-900"></p>
+                                    </div>
+                                    <div>
+                                        <label class="block text-sm font-medium text-gray-700">Link online</label>
+                                        <p id="link_online" class="mt-1 text-gray-900"></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Mô tả và chi tiết -->
+                        <div class="bg-white rounded-lg shadow-sm p-6 mb-6">
+                            <h2 class="text-lg font-semibold mb-4">Mô tả và chi tiết</h2>
+                            <div class="space-y-4">
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700">Mô tả ngắn</label>
+                                    <p id="mo_ta" class="mt-1 text-gray-900"></p>
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700">Mô tả sự kiện</label>
+                                    <div id="mo_ta_su_kien" class="mt-1 prose max-w-none"></div>
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700">Chi tiết sự kiện</label>
+                                    <div id="chi_tiet_su_kien" class="mt-1 prose max-w-none"></div>
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700">Lịch trình</label>
+                                    <div id="lich_trinh" class="mt-1 prose max-w-none"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Cấu hình điểm danh -->
+                        <div class="bg-white rounded-lg shadow-sm p-6">
+                            <h2 class="text-lg font-semibold mb-4">Cấu hình điểm danh</h2>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700">Cho phép check-in</label>
+                                    <p id="cho_phep_check_in" class="mt-1 text-gray-900"></p>
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700">Cho phép check-out</label>
+                                    <p id="cho_phep_check_out" class="mt-1 text-gray-900"></p>
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700">Yêu cầu Face ID</label>
+                                    <p id="yeu_cau_face_id" class="mt-1 text-gray-900"></p>
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700">Cho phép check-in thủ
+                                        công</label>
+                                    <p id="cho_phep_checkin_thu_cong" class="mt-1 text-gray-900"></p>
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700">Mã QR Code</label>
+                                    <p id="ma_qr_code" class="mt-1 text-gray-900"></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Thống kê -->
+                    <div>
+                        <div class="bg-white rounded-lg shadow-sm p-6 mb-6">
+                            <h2 class="text-lg font-semibold mb-4">Thống kê tham gia</h2>
+                            <div class="space-y-6">
+                                <div class="bg-blue-50 p-4 rounded-lg">
+                                    <div class="flex items-center">
+                                        <div class="flex-shrink-0">
+                                            <i class="ri-user-add-line text-2xl text-blue-600"></i>
+                                        </div>
+                                        <div class="ml-4">
+                                            <p class="text-sm font-medium text-gray-600">Tổng đăng ký</p>
+                                            <p id="tong_dang_ky" class="text-2xl font-semibold text-blue-600">0</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="bg-green-50 p-4 rounded-lg">
+                                    <div class="flex items-center">
+                                        <div class="flex-shrink-0">
+                                            <i class="ri-login-circle-line text-2xl text-green-600"></i>
+                                        </div>
+                                        <div class="ml-4">
+                                            <p class="text-sm font-medium text-gray-600">Đã check-in</p>
+                                            <p id="tong_check_in" class="text-2xl font-semibold text-green-600">0</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="bg-purple-50 p-4 rounded-lg">
+                                    <div class="flex items-center">
+                                        <div class="flex-shrink-0">
+                                            <i class="ri-logout-circle-line text-2xl text-purple-600"></i>
+                                        </div>
+                                        <div class="ml-4">
+                                            <p class="text-sm font-medium text-gray-600">Đã check-out</p>
+                                            <p id="tong_check_out" class="text-2xl font-semibold text-purple-600">0</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Thông tin bổ sung -->
+                        <div class="bg-white rounded-lg shadow-sm p-6">
+                            <h2 class="text-lg font-semibold mb-4">Thông tin bổ sung</h2>
+                            <div class="space-y-4">
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700">Số lượng tham gia tối
+                                        đa</label>
+                                    <p id="so_luong_tham_gia" class="mt-1 text-gray-900"></p>
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700">Số lượng diễn giả</label>
+                                    <p id="so_luong_dien_gia" class="mt-1 text-gray-900"></p>
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700">Hạn hủy đăng ký</label>
+                                    <p id="han_huy_dang_ky" class="mt-1 text-gray-900"></p>
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700">Từ khóa tìm kiếm</label>
+                                    <p id="tu_khoa_su_kien" class="mt-1 text-gray-900"></p>
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700">Hashtag</label>
+                                    <p id="hashtag" class="mt-1 text-gray-900"></p>
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700">Số lượt xem</label>
+                                    <p id="so_luot_xem" class="mt-1 text-gray-900"></p>
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700">Slug</label>
+                                    <p id="slug" class="mt-1 text-gray-900"></p>
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700">Version</label>
+                                    <p id="version" class="mt-1 text-gray-900"></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="../../public/js/admin/event-detail.js"></script>
+</body>
+
+</html>

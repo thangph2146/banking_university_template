@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cập nhật sự kiện - Quản trị</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+    <!-- Add TinyMCE -->
+    <script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
+</head>
+<body class="bg-gray-100">
+    <!-- Sidebar -->
+    <aside id="sidebar" class="fixed top-0 left-0 z-40 w-64 h-screen transition-transform -translate-x-full sm:translate-x-0">
+        <div class="h-full px-3 py-4 overflow-y-auto bg-gray-800">
+            <a href="/admin" class="flex items-center pl-2.5 mb-5">
+                <img src="/images/logo.png" class="h-6 mr-3 sm:h-7" alt="Logo">
+                <span class="self-center text-xl font-semibold whitespace-nowrap text-white">Admin Portal</span>
+            </a>
+            <ul class="space-y-2 font-medium">
+                <li>
+                    <a href="/admin/dashboard" class="flex items-center p-2 text-gray-900 rounded-lg text-white hover:bg-gray-700 group">
+                        <i class="ri-dashboard-2-line text-lg"></i>
+                        <span class="ml-3">Dashboard</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="/admin/events" class="flex items-center p-2 text-gray-900 rounded-lg text-white hover:bg-gray-700 group">
+                        <i class="ri-calendar-event-line text-lg"></i>
+                        <span class="ml-3">Quản lý sự kiện</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="/admin/users" class="flex items-center p-2 text-gray-900 rounded-lg text-white hover:bg-gray-700 group">
+                        <i class="ri-user-line text-lg"></i>
+                        <span class="ml-3">Quản lý người dùng</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </aside>
+
+    <!-- Main content -->
+    <div class="p-4 sm:ml-64">
+        <div class="p-4 border-2 border-gray-200 rounded-lg">
+            <div class="flex justify-between items-center mb-4">
+                <h2 class="text-2xl font-semibold">Cập nhật sự kiện</h2>
+                <button onclick="saveEvent()" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                    <i class="ri-save-line mr-1"></i> Lưu thay đổi
+                </button>
+            </div>
+
+            <form id="eventForm" class="bg-white shadow rounded-lg p-6">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <!-- Thông tin cơ bản -->
+                    <div>
+                        <h3 class="text-lg font-semibold mb-4">Thông tin cơ bản</h3>
+                        <div class="space-y-4">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700">Tên sự kiện *</label>
+                                <input type="text" id="ten_su_kien" name="ten_su_kien" required
+                                    class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700">Đơn vị tổ chức *</label>
+                                <input type="text" id="don_vi_to_chuc" name="don_vi_to_chuc" required
+                                    class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700">Đơn vị phối hợp</label>
+                                <textarea id="don_vi_phoi_hop" name="don_vi_phoi_hop" rows="2"
+                                    class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"></textarea>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700">Loại sự kiện *</label>
+                                <select id="loai_su_kien_id" name="loai_su_kien_id" required
+                                    class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                                    <option value="">Chọn loại sự kiện</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700">Hình thức tổ chức *</label>
+                                <select id="hinh_thuc" name="hinh_thuc" required
+                                    class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                                    <option value="offline">Offline</option>
+                                    <option value="online">Online</option>
+                                    <option value="hybrid">Hybrid</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700">Poster sự kiện</label>
+                                <input type="file" id="su_kien_poster" name="su_kien_poster" accept="image/*"
+                                    class="mt-1 block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100">
+                                <div id="poster_preview" class="mt-2 hidden">
+                                    <img src="" alt="Poster preview" class="max-h-40 rounded">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Thời gian -->
+                    <div>
+                        <h3 class="text-lg font-semibold mb-4">Thời gian</h3>
+                        <div class="space-y-4">
+                            <div class="grid grid-cols-2 gap-4">
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700">Thời gian bắt đầu *</label>
+                                    <input type="datetime-local" id="thoi_gian_bat_dau_su_kien" name="thoi_gian_bat_dau_su_kien" required
+                                        class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700">Thời gian kết thúc *</label>
+                                    <input type="datetime-local" id="thoi_gian_ket_thuc_su_kien" name="thoi_gian_ket_thuc_su_kien" required
+                                        class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                                </div>
+                            </div>
+                            <div class="grid grid-cols-2 gap-4">
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700">Bắt đầu đăng ký *</label>
+                                    <input type="datetime-local" id="thoi_gian_bat_dau_dang_ky" name="thoi_gian_bat_dau_dang_ky" required
+                                        class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700">Kết thúc đăng ký *</label>
+                                    <input type="datetime-local" id="thoi_gian_ket_thuc_dang_ky" name="thoi_gian_ket_thuc_dang_ky" required
+                                        class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                                </div>
+                            </div>
+                            <div class="grid grid-cols-2 gap-4">
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700">Bắt đầu check-in</label>
+                                    <input type="datetime-local" id="thoi_gian_checkin_bat_dau" name="thoi_gian_checkin_bat_dau"
+                                        class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700">Kết thúc check-in</label>
+                                    <input type="datetime-local" id="thoi_gian_checkin_ket_thuc" name="thoi_gian_checkin_ket_thuc"
+                                        class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                                </div>
+                            </div>
+                            <div class="grid grid-cols-2 gap-4">
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700">Bắt đầu check-out</label>
+                                    <input type="datetime-local" id="thoi_gian_checkout_bat_dau" name="thoi_gian_checkout_bat_dau"
+                                        class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700">Kết thúc check-out</label>
+                                    <input type="datetime-local" id="thoi_gian_checkout_ket_thuc" name="thoi_gian_checkout_ket_thuc"
+                                        class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Địa điểm -->
+                    <div>
+                        <h3 class="text-lg font-semibold mb-4">Địa điểm</h3>
+                        <div class="space-y-4">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700">Địa điểm *</label>
+                                <input type="text" id="dia_diem" name="dia_diem" required
+                                    class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700">Địa chỉ cụ thể</label>
+                                <input type="text" id="dia_chi_cu_the" name="dia_chi_cu_the"
+                                    class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700">Tọa độ GPS</label>
+                                <input type="text" id="toa_do_gps" name="toa_do_gps" placeholder="Vd: 10.762622, 106.660172"
+                                    class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                            </div>
+                            <div id="online_section" class="hidden">
+                                <label class="block text-sm font-medium text-gray-700">Link tham gia online</label>
+                                <input type="url" id="link_online" name="link_online"
+                                    class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                                <div class="mt-2">
+                                    <label class="block text-sm font-medium text-gray-700">Mật khẩu phòng họp (nếu có)</label>
+                                    <input type="text" id="mat_khau_online" name="mat_khau_online"
+                                        class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Mô tả -->
+                    <div>
+                        <h3 class="text-lg font-semibold mb-4">Mô tả</h3>
+                        <div class="space-y-4">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700">Mô tả ngắn *</label>
+                                <textarea id="mo_ta" name="mo_ta" rows="3" required
+                                    class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"></textarea>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700">Mô tả chi tiết</label>
+                                <textarea id="mo_ta_su_kien" name="mo_ta_su_kien" rows="4"
+                                    class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"></textarea>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700">Chi tiết sự kiện</label>
+                                <textarea id="chi_tiet_su_kien" name="chi_tiet_su_kien"
+                                    class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"></textarea>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700">Đối tượng tham gia</label>
+                                <textarea id="doi_tuong_tham_gia" name="doi_tuong_tham_gia" rows="2"
+                                    class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"></textarea>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Cấu hình điểm danh -->
+                    <div>
+                        <h3 class="text-lg font-semibold mb-4">Cấu hình điểm danh</h3>
+                        <div class="space-y-4">
+                            <div class="flex items-center">
+                                <input type="checkbox" id="cho_phep_check_in" name="cho_phep_check_in"
+                                    class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded">
+                                <label class="ml-2 block text-sm text-gray-900">Cho phép check-in</label>
+                            </div>
+                            <div class="flex items-center">
+                                <input type="checkbox" id="cho_phep_check_out" name="cho_phep_check_out"
+                                    class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded">
+                                <label class="ml-2 block text-sm text-gray-900">Cho phép check-out</label>
+                            </div>
+                            <div class="flex items-center">
+                                <input type="checkbox" id="yeu_cau_face_id" name="yeu_cau_face_id"
+                                    class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded">
+                                <label class="ml-2 block text-sm text-gray-900">Yêu cầu xác thực khuôn mặt</label>
+                            </div>
+                            <div class="flex items-center">
+                                <input type="checkbox" id="cho_phep_checkin_thu_cong" name="cho_phep_checkin_thu_cong"
+                                    class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded">
+                                <label class="ml-2 block text-sm text-gray-900">Cho phép check-in thủ công</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Cấu hình khác -->
+                    <div class="md:col-span-2">
+                        <h3 class="text-lg font-semibold mb-4">Cấu hình khác</h3>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700">Số lượng tham gia tối đa</label>
+                                <input type="number" id="so_luong_tham_gia" name="so_luong_tham_gia" min="0"
+                                    class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700">Số lượng diễn giả</label>
+                                <input type="number" id="so_luong_dien_gia" name="so_luong_dien_gia" min="0"
+                                    class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700">Hạn hủy đăng ký</label>
+                                <input type="datetime-local" id="han_huy_dang_ky" name="han_huy_dang_ky"
+                                    class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700">Giới hạn loại người dùng</label>
+                                <input type="text" id="gioi_han_loai_nguoi_dung" name="gioi_han_loai_nguoi_dung"
+                                    class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700">Từ khóa tìm kiếm</label>
+                                <input type="text" id="tu_khoa_su_kien" name="tu_khoa_su_kien"
+                                    class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700">Hashtag</label>
+                                <input type="text" id="hashtag" name="hashtag"
+                                    class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+    <script src="/js/admin/event-detail-update.js"></script>
+</body>
+</html> 

@@ -243,4 +243,18 @@ body {
 
 .tab-content.block:not(.opacity-0) {
   opacity: 1;
+}
+
+/* User Dropdown Menu */
+#user-menu {
+  transition: all 0.2s ease-in-out;
+  transform-origin: top right;
+}
+
+#user-menu.visible {
+  display: block;
+}
+
+#user-menu.invisible {
+  display: none;
 } 
