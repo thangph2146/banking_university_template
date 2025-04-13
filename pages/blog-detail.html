@@ -117,31 +117,7 @@
       </div>
       
       <!-- Mobile Navigation (hidden by default) -->
-      <div id="mobile-menu" class="md:hidden bg-primary/95 fixed inset-0 z-50 transform translate-x-full transition-transform duration-300 ease-in-out backdrop-blur-sm">
-        <div class="p-4 flex justify-between items-center border-b border-red-900/30">
-          <a href="index.html" class="text-2xl font-pacifico text-white flex items-center">
-            <img src="../images/logo/logo-white-vertical.png" alt="Đại học Ngân hàng TP.HCM logo" class="w-12 h-12">
-          </a>
-          <button class="w-10 h-10 flex items-center justify-center text-white" id="mobile-menu-close" aria-label="Đóng menu">
-            <i class="ri-close-line ri-lg"></i>
-          </button>
-        </div>
-        <nav class="p-4" aria-label="Mobile navigation">
-          <ul class="space-y-4">
-            <li><a href="index.html" class="font-medium text-white/80 hover:text-white py-2 block transition-all duration-300 hover:translate-x-1">Trang chủ</a></li>
-            <li><a href="events.html" class="font-medium text-white/80 hover:text-white py-2 block transition-all duration-300 hover:translate-x-1">Sự kiện</a></li>
-            <li><a href="blog.html" class="font-medium text-white border-l-4 border-white pl-2 py-2 block transition-all duration-300 hover:translate-x-1" aria-current="page">Blog</a></li>
-            <li><a href="news.html" class="font-medium text-white/80 hover:text-white py-2 block transition-all duration-300 hover:translate-x-1">Giới thiệu</a></li>
-            <li><a href="contact.html" class="font-medium text-white/80 hover:text-white py-2 block transition-all duration-300 hover:translate-x-1">Liên hệ</a></li>
-            <li class="pt-4">
-              <a href="login.html" class="bg-white text-primary px-4 py-2 !rounded-button whitespace-nowrap block text-center hover:bg-gray-100 transition-colors shadow-sm">Đăng nhập</a>
-            </li>
-            <li class="pt-2">
-              <a href="register.html" class="bg-white text-primary px-4 py-2 !rounded-button whitespace-nowrap block text-center hover:bg-gray-100 transition-colors shadow-sm">Đăng ký</a>
-            </li>
-          </ul>
-        </nav>
-      </div>
+      <div id="mobile-menu" class="md:hidden bg-primary/95 fixed inset-0 z-50 transform translate-x-full transition-transform duration-300 ease-in-out backdrop-blur-sm opacity-0 pointer-events-none" aria-hidden="true"></div>
     </header>
     
     <!-- Main Content -->
@@ -172,7 +148,7 @@
               </div>
               <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-70 group-hover:opacity-80 transition-opacity duration-500"></div>
               <div class="absolute bottom-6 left-6 transform translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300">
-                <button id="share-article-btn" class="bg-white/90 hover:bg-white text-primary px-4 py-2 rounded-full flex items-center gap-2 shadow-lg">
+                <button id="share-article-btn" class="bg-white/90 hover:bg-white text-primary px-4 py-2 rounded-full flex items-center gap-2 shadow-lg transform hover:-translate-y-1 transition-all duration-300">
                   <i class="ri-share-line"></i>
                   <span class="font-medium">Chia sẻ</span>
                 </button>
@@ -220,7 +196,7 @@
                 </div>
                 <button 
                   id="save-article-btn" 
-                  class="bg-primary/10 text-primary hover:bg-primary/15 px-8 py-2.5 font-medium rounded-button transition-colors shadow-sm hover:shadow-md flex items-center justify-center gap-2"
+                  class="bg-primary/10 text-primary hover:bg-primary/15 px-8 py-2.5 font-medium rounded-button transition-colors shadow-sm hover:shadow-md flex items-center justify-center gap-2 transform hover:-translate-y-0.5 duration-300"
                 >
                   <i class="ri-bookmark-line"></i>
                   <span>Lưu bài viết</span>
@@ -368,11 +344,17 @@
               role="tabpanel"
               aria-labelledby="comments-tab-button"
             >
-              <h2 class="text-xl font-bold text-gray-900 mb-6">Bình luận (5)</h2>
+              <h2 class="text-xl font-bold text-gray-900 mb-6 flex items-center">
+                <i class="ri-chat-3-line mr-2 text-primary"></i>
+                Bình luận (5)
+              </h2>
               
               <!-- Comments Form -->
-              <div class="bg-gray-50 p-5 rounded-lg mb-8">
-                <h3 class="text-lg font-semibold text-gray-900 mb-4">Để lại bình luận</h3>
+              <div class="bg-gray-50 p-5 rounded-lg mb-8 border border-gray-100 hover:border-gray-200 transition-colors shadow-sm">
+                <h3 class="text-lg font-semibold text-gray-900 mb-4 flex items-center">
+                  <i class="ri-edit-line mr-2 text-primary text-sm"></i>
+                  Để lại bình luận
+                </h3>
                 <form id="comment-form" class="space-y-4">
                   <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div class="relative">
@@ -381,7 +363,7 @@
                         name="commenter-name" 
                         placeholder="Họ tên"
                         required
-                        class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary"
+                        class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary transition-all"
                       />
                     </div>
                     <div class="relative">
@@ -390,7 +372,7 @@
                         name="commenter-email" 
                         placeholder="Email"
                         required
-                        class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary"
+                        class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary transition-all"
                       />
                     </div>
                   </div>
@@ -400,14 +382,16 @@
                       placeholder="Nội dung bình luận" 
                       rows="4"
                       required
-                      class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary"
+                      class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary transition-all"
                     ></textarea>
                   </div>
                   <div class="flex justify-between items-center">
-                    <div class="text-xs text-gray-500">
-                      * Bình luận sẽ được kiểm duyệt trước khi hiển thị
+                    <div class="text-xs text-gray-500 flex items-center">
+                      <i class="ri-information-line mr-1"></i>
+                      Bình luận sẽ được kiểm duyệt trước khi hiển thị
                     </div>
-                    <button type="submit" class="bg-primary text-white px-6 py-2 rounded-md hover:bg-primary/90 transition-colors">
+                    <button type="submit" class="bg-primary text-white px-6 py-2 rounded-md hover:bg-primary/90 transition-colors transform hover:-translate-y-0.5 hover:shadow-md">
+                      <i class="ri-send-plane-fill mr-1"></i>
                       Gửi bình luận
                     </button>
                   </div>
@@ -417,7 +401,7 @@
               <!-- Comments List -->
               <div class="space-y-6 comments-list animate-fade-in">
                 <!-- Comment 1 -->
-                <div class="bg-white border border-gray-200 rounded-lg p-4 transform opacity-0 translate-y-4 animate-comment" style="animation-delay: 100ms;">
+                <div class="bg-white border border-gray-200 rounded-lg p-4 transform opacity-0 translate-y-4 animate-comment shadow-sm hover:shadow-md transition-shadow" style="animation-delay: 100ms;">
                   <div class="flex items-start">
                     <div class="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center text-primary mr-3">
                       T
@@ -431,11 +415,11 @@
                         Bài viết rất bổ ích cho sinh viên ngành tài chính như tôi. Tôi đang quan tâm đến lĩnh vực Fintech và bài viết đã cung cấp nhiều thông tin hữu ích về xu hướng phát triển và cơ hội nghề nghiệp.
                       </p>
                       <div class="mt-2 flex items-center gap-4">
-                        <button class="text-xs text-gray-500 hover:text-primary flex items-center gap-1">
+                        <button class="text-xs text-gray-500 hover:text-primary flex items-center gap-1 transition-colors">
                           <i class="ri-thumb-up-line"></i>
                           <span>Thích (3)</span>
                         </button>
-                        <button class="text-xs text-gray-500 hover:text-primary flex items-center gap-1">
+                        <button class="text-xs text-gray-500 hover:text-primary flex items-center gap-1 transition-colors">
                           <i class="ri-reply-line"></i>
                           <span>Trả lời</span>
                         </button>
@@ -445,7 +429,7 @@
                 </div>
                 
                 <!-- Comment 2 -->
-                <div class="bg-white border border-gray-200 rounded-lg p-4 transform opacity-0 translate-y-4 animate-comment" style="animation-delay: 200ms;">
+                <div class="bg-white border border-gray-200 rounded-lg p-4 transform opacity-0 translate-y-4 animate-comment shadow-sm hover:shadow-md transition-shadow" style="animation-delay: 200ms;">
                   <div class="flex items-start">
                     <div class="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center text-primary mr-3">
                       P
@@ -459,18 +443,44 @@
                         Mình đang tìm hiểu về mảng tài chính bền vững (Sustainable Finance) và phân tích dữ liệu lớn. Bài viết đã cung cấp cái nhìn tổng quan rất hữu ích. Mong tác giả có thêm các bài viết chuyên sâu về các lĩnh vực này.
                       </p>
                       <div class="mt-2 flex items-center gap-4">
-                        <button class="text-xs text-gray-500 hover:text-primary flex items-center gap-1">
+                        <button class="text-xs text-gray-500 hover:text-primary flex items-center gap-1 transition-colors">
                           <i class="ri-thumb-up-line"></i>
                           <span>Thích (5)</span>
                         </button>
-                        <button class="text-xs text-gray-500 hover:text-primary flex items-center gap-1">
+                        <button class="text-xs text-gray-500 hover:text-primary flex items-center gap-1 transition-colors">
                           <i class="ri-reply-line"></i>
                           <span>Trả lời</span>
                         </button>
                       </div>
+                      
+                      <!-- Nested Reply -->
+                      <div class="ml-8 mt-3 pt-3 border-t border-gray-100">
+                        <div class="flex items-start">
+                          <div class="w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center text-blue-600 mr-3 text-sm">
+                            N
+                          </div>
+                          <div class="flex-1">
+                            <div class="flex items-baseline justify-between">
+                              <h4 class="font-medium text-gray-900 text-sm">Nguyễn Minh Đức (Tác giả)</h4>
+                              <span class="text-xs text-gray-500">09/05/2025, 14:20</span>
+                            </div>
+                            <p class="text-gray-700 mt-1 text-sm">
+                              Cảm ơn bạn đã quan tâm! Tôi đang có kế hoạch viết một loạt bài chuyên sâu về tài chính bền vững trong thời gian tới. Mời bạn theo dõi!
+                            </p>
+                          </div>
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>
+              </div>
+              
+              <!-- Load More Comments -->
+              <div class="text-center mt-8">
+                <button class="bg-gray-100 hover:bg-gray-200 text-gray-700 font-medium px-6 py-2 rounded-md transition-colors">
+                  <i class="ri-more-line mr-1"></i>
+                  Xem thêm bình luận
+                </button>
               </div>
             </div>
             
@@ -541,10 +551,13 @@
               role="tabpanel"
               aria-labelledby="references-tab-button"
             >
-              <h2 class="text-xl font-bold text-gray-900 mb-6">Tài liệu tham khảo</h2>
+              <h2 class="text-xl font-bold text-gray-900 mb-6 flex items-center">
+                <i class="ri-book-2-line mr-2 text-primary"></i>
+                Tài liệu tham khảo
+              </h2>
               
               <ul class="space-y-6 references-list">
-                <li class="pb-4 border-b border-gray-200 transform opacity-0 translate-y-4 animate-reference" style="animation-delay: 100ms;">
+                <li class="pb-4 border-b border-gray-200 transform opacity-0 translate-y-4 animate-reference shadow-sm hover:shadow-md transition-shadow p-4 rounded-lg" style="animation-delay: 100ms;">
                   <div class="flex gap-4">
                     <div class="w-12 h-12 flex items-center justify-center rounded-md bg-primary/10 text-primary flex-shrink-0">
                       <i class="ri-file-paper-2-line text-xl"></i>
@@ -552,17 +565,21 @@
                     <div>
                       <h3 class="font-medium text-gray-900">PwC Vietnam. (2025). <span class="italic">Báo cáo xu hướng Fintech Việt Nam 2025.</span></h3>
                       <p class="text-sm text-gray-600 mt-1">Báo cáo nghiên cứu thị trường về tình hình phát triển công nghệ tài chính tại Việt Nam, trang 45-67.</p>
-                      <div class="mt-2">
+                      <div class="mt-2 flex gap-3">
                         <a href="#" class="text-primary text-sm font-medium flex items-center hover:underline">
                           <i class="ri-external-link-line mr-1"></i>
                           Xem online
+                        </a>
+                        <a href="#" class="text-gray-600 text-sm flex items-center hover:text-primary transition-colors">
+                          <i class="ri-file-copy-line mr-1"></i>
+                          Trích dẫn
                         </a>
                       </div>
                     </div>
                   </div>
                 </li>
                 
-                <li class="pb-4 border-b border-gray-200 transform opacity-0 translate-y-4 animate-reference" style="animation-delay: 200ms;">
+                <li class="pb-4 border-b border-gray-200 transform opacity-0 translate-y-4 animate-reference shadow-sm hover:shadow-md transition-shadow p-4 rounded-lg" style="animation-delay: 200ms;">
                   <div class="flex gap-4">
                     <div class="w-12 h-12 flex items-center justify-center rounded-md bg-primary/10 text-primary flex-shrink-0">
                       <i class="ri-book-2-line text-xl"></i>
@@ -570,17 +587,21 @@
                     <div>
                       <h3 class="font-medium text-gray-900">Nguyễn, V. H., & Trần, T. M. (2024). <span class="italic">Chuyển đổi số trong ngành tài chính - ngân hàng: Cơ hội và thách thức.</span> Tạp chí Kinh tế & Phát triển, 295(3), 78-92.</h3>
                       <p class="text-sm text-gray-600 mt-1">Nghiên cứu về quá trình chuyển đổi số và tác động của nó đến ngành tài chính - ngân hàng tại Việt Nam.</p>
-                      <div class="mt-2">
+                      <div class="mt-2 flex gap-3">
                         <a href="#" class="text-primary text-sm font-medium flex items-center hover:underline">
                           <i class="ri-download-line mr-1"></i>
                           Tải xuống PDF
+                        </a>
+                        <a href="#" class="text-gray-600 text-sm flex items-center hover:text-primary transition-colors">
+                          <i class="ri-file-copy-line mr-1"></i>
+                          Trích dẫn
                         </a>
                       </div>
                     </div>
                   </div>
                 </li>
                 
-                <li class="pb-4 border-b border-gray-200 transform opacity-0 translate-y-4 animate-reference" style="animation-delay: 300ms;">
+                <li class="pb-4 border-b border-gray-200 transform opacity-0 translate-y-4 animate-reference shadow-sm hover:shadow-md transition-shadow p-4 rounded-lg" style="animation-delay: 300ms;">
                   <div class="flex gap-4">
                     <div class="w-12 h-12 flex items-center justify-center rounded-md bg-primary/10 text-primary flex-shrink-0">
                       <i class="ri-global-line text-xl"></i>
@@ -588,17 +609,21 @@
                     <div>
                       <h3 class="font-medium text-gray-900">World Economic Forum. (2024). <span class="italic">Future of Jobs Report 2024.</span></h3>
                       <p class="text-sm text-gray-600 mt-1">Báo cáo toàn cầu về xu hướng việc làm và kỹ năng cần thiết trong tương lai, tập trung vào lĩnh vực tài chính và công nghệ.</p>
-                      <div class="mt-2">
+                      <div class="mt-2 flex gap-3">
                         <a href="#" class="text-primary text-sm font-medium flex items-center hover:underline">
                           <i class="ri-external-link-line mr-1"></i>
                           Xem online
+                        </a>
+                        <a href="#" class="text-gray-600 text-sm flex items-center hover:text-primary transition-colors">
+                          <i class="ri-file-copy-line mr-1"></i>
+                          Trích dẫn
                         </a>
                       </div>
                     </div>
                   </div>
                 </li>
                 
-                <li class="pb-4 transform opacity-0 translate-y-4 animate-reference" style="animation-delay: 400ms;">
+                <li class="transform opacity-0 translate-y-4 animate-reference shadow-sm hover:shadow-md transition-shadow p-4 rounded-lg" style="animation-delay: 400ms;">
                   <div class="flex gap-4">
                     <div class="w-12 h-12 flex items-center justify-center rounded-md bg-primary/10 text-primary flex-shrink-0">
                       <i class="ri-file-chart-line text-xl"></i>
@@ -606,16 +631,35 @@
                     <div>
                       <h3 class="font-medium text-gray-900">Deloitte. (2025). <span class="italic">ESG and Sustainable Finance: Reshaping Financial Markets in ASEAN.</span></h3>
                       <p class="text-sm text-gray-600 mt-1">Báo cáo phân tích về tác động của các yếu tố môi trường, xã hội và quản trị (ESG) đối với thị trường tài chính trong khu vực ASEAN.</p>
-                      <div class="mt-2">
+                      <div class="mt-2 flex gap-3">
                         <a href="#" class="text-primary text-sm font-medium flex items-center hover:underline">
                           <i class="ri-download-line mr-1"></i>
                           Tải xuống PDF
+                        </a>
+                        <a href="#" class="text-gray-600 text-sm flex items-center hover:text-primary transition-colors">
+                          <i class="ri-file-copy-line mr-1"></i>
+                          Trích dẫn
                         </a>
                       </div>
                     </div>
                   </div>
                 </li>
               </ul>
+              
+              <div class="mt-6 bg-gray-50 p-4 rounded-lg border border-gray-200">
+                <h3 class="font-medium text-gray-900 mb-2 flex items-center">
+                  <i class="ri-information-line mr-1 text-primary"></i>
+                  Trích dẫn bài viết này
+                </h3>
+                <p class="text-sm text-gray-600 mb-3">Nếu bạn sử dụng thông tin từ bài viết này, vui lòng trích dẫn theo cách thức sau:</p>
+                <div class="bg-white p-3 rounded border border-gray-200 text-sm text-gray-700">
+                  <p>Nguyễn, M. Đ. (2025). Xu hướng phát triển của ngành Tài chính - Ngân hàng 2025: Cơ hội nghề nghiệp mới cho sinh viên. <i>Blog Đại học Ngân hàng TP.HCM</i>. https://hub.edu.vn/blog/xu-huong-phat-trien-nganh-tai-chinh-ngan-hang-2025</p>
+                </div>
+                <button class="mt-2 text-primary text-sm font-medium flex items-center hover:underline">
+                  <i class="ri-file-copy-line mr-1"></i>
+                  Sao chép trích dẫn
+                </button>
+              </div>
             </div>
             
             <!-- Related Articles Tab -->
@@ -693,18 +737,23 @@
           <div class="bg-white rounded-lg shadow-sm p-6 mb-6">
             <div class="flex flex-wrap justify-between items-center gap-4">
               <div class="flex gap-4">
-                <button class="flex items-center gap-2 text-gray-700 hover:text-primary transition-colors">
-                  <i class="ri-thumb-up-line text-xl"></i>
+                <button class="flex items-center gap-2 text-gray-700 hover:text-primary transition-colors group relative">
+                  <i class="ri-thumb-up-line text-xl group-hover:scale-110 transition-transform"></i>
                   <span>Hữu ích (24)</span>
+                  <span class="absolute -top-10 left-0 bg-gray-800 text-white text-xs px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity duration-300 whitespace-nowrap">Cảm ơn bạn đã đánh giá</span>
                 </button>
-                <button id="share-article-btn-bottom" class="flex items-center gap-2 text-gray-700 hover:text-primary transition-colors">
-                  <i class="ri-share-line text-xl"></i>
+                <button id="share-article-btn-bottom" class="flex items-center gap-2 text-gray-700 hover:text-primary transition-colors relative">
+                  <i class="ri-share-line text-xl hover:rotate-12 transition-transform"></i>
                   <span>Chia sẻ</span>
+                </button>
+                <button id="save-article-btn-bottom" class="flex items-center gap-2 text-gray-700 hover:text-primary transition-colors">
+                  <i class="ri-bookmark-line text-xl"></i>
+                  <span>Lưu bài viết</span>
                 </button>
               </div>
               <div>
-                <button id="print-article" class="flex items-center gap-2 text-gray-700 hover:text-primary transition-colors">
-                  <i class="ri-printer-line text-xl"></i>
+                <button id="print-article-bottom" class="flex items-center gap-2 text-gray-700 hover:text-primary transition-colors">
+                  <i class="ri-printer-line text-xl hover:rotate-12 transition-transform"></i>
                   <span>In bài viết</span>
                 </button>
               </div>
@@ -717,7 +766,7 @@
           <!-- Table of Contents -->
           <div class="bg-white rounded-lg shadow-sm p-5 mb-6 blog-sidebar sticky top-24 hidden lg:block" data-aos="fade-left">
             <h3 class="text-lg font-bold text-gray-900 mb-4">Mục lục</h3>
-            <div id="table-of-contents" class="space-y-2">
+            <div id="table-of-contents" class="space-y-2 max-h-[60vh] overflow-y-auto scrollbar-thin pr-2">
               <!-- Generated dynamically by JS -->
             </div>
             
@@ -725,26 +774,26 @@
             <div class="mt-6 pt-4 border-t border-gray-200">
               <h4 class="text-sm font-semibold text-gray-700 mb-2">Tùy chỉnh cỡ chữ</h4>
               <div class="flex justify-between items-center">
-                <button id="font-size-decrease" class="w-8 h-8 flex items-center justify-center rounded-full text-gray-600 hover:bg-gray-200 transition-colors" title="Giảm cỡ chữ">
+                <button id="font-size-decrease" class="w-8 h-8 flex items-center justify-center rounded-full text-gray-600 hover:bg-gray-200 transition-colors focus:outline-none focus:ring-2 focus:ring-primary/30" title="Giảm cỡ chữ">
                   <i class="ri-subtract-line"></i>
                 </button>
-                <button id="font-size-reset" class="w-8 h-8 flex items-center justify-center rounded-full text-gray-600 hover:bg-gray-200 transition-colors" title="Khôi phục cỡ chữ mặc định">
+                <button id="font-size-reset" class="w-8 h-8 flex items-center justify-center rounded-full text-gray-600 hover:bg-gray-200 transition-colors focus:outline-none focus:ring-2 focus:ring-primary/30" title="Khôi phục cỡ chữ mặc định">
                   <i class="ri-refresh-line"></i>
                 </button>
-                <button id="font-size-increase" class="w-8 h-8 flex items-center justify-center rounded-full text-gray-600 hover:bg-gray-200 transition-colors" title="Tăng cỡ chữ">
+                <button id="font-size-increase" class="w-8 h-8 flex items-center justify-center rounded-full text-gray-600 hover:bg-gray-200 transition-colors focus:outline-none focus:ring-2 focus:ring-primary/30" title="Tăng cỡ chữ">
                   <i class="ri-add-line"></i>
                 </button>
-                <button id="toggle-dark-mode" class="w-8 h-8 flex items-center justify-center rounded-full text-gray-600 hover:bg-gray-200 transition-colors" title="Chế độ tối">
+                <button id="toggle-dark-mode" class="w-8 h-8 flex items-center justify-center rounded-full text-gray-600 hover:bg-gray-200 transition-colors focus:outline-none focus:ring-2 focus:ring-primary/30" title="Chế độ tối">
                   <i class="ri-moon-line"></i>
                 </button>
               </div>
             </div>
           </div>
           
-          <!-- Author Card (Mobile & Tablet) -->
-          <div class="bg-white rounded-lg shadow-sm p-5 mb-6 lg:hidden" data-aos="fade-up">
-            <div class="flex items-center gap-4">
-              <div class="w-16 h-16 rounded-full overflow-hidden">
+          <!-- Author Widget -->
+          <div class="bg-white rounded-lg shadow-sm p-5 mb-6" data-aos="fade-left">
+            <div class="flex items-center gap-4 mb-4">
+              <div class="w-16 h-16 rounded-full overflow-hidden flex-shrink-0">
                 <img 
                   src="https://readdy.ai/api/search-image?query=Professional%20headshot%20of%20a%20Vietnamese%20academic%20professor,%20business%20attire,%20simple%20background&width=128&height=128" 
                   alt="ThS. Nguyễn Minh Đức" 
@@ -754,120 +803,45 @@
               <div>
                 <h3 class="font-bold text-gray-900">ThS. Nguyễn Minh Đức</h3>
                 <p class="text-sm text-primary">Giảng viên Khoa Tài chính - Ngân hàng</p>
-                <div class="flex gap-2 mt-1">
-                  <a href="#" class="text-gray-500 hover:text-primary transition-colors">
-                    <i class="ri-linkedin-fill"></i>
-                  </a>
-                  <a href="#" class="text-gray-500 hover:text-primary transition-colors">
-                    <i class="ri-mail-fill"></i>
-                  </a>
-                </div>
               </div>
             </div>
+            <p class="text-sm text-gray-700 mb-4 line-clamp-3">
+              Giảng viên với hơn 8 năm kinh nghiệm trong lĩnh vực tài chính, chuyên gia về Fintech và công nghệ tài chính số.
+            </p>
+            <a href="#author-tab" 
+              class="text-primary text-sm font-medium flex items-center hover:underline author-profile-link">
+              Xem thông tin tác giả
+              <i class="ri-arrow-right-line ml-1"></i>
+            </a>
           </div>
           
-          <!-- Categories Card -->
-          <div class="bg-white rounded-lg shadow-sm p-5 mb-6" data-aos="fade-left" data-aos-delay="100">
-            <h3 class="text-lg font-bold text-gray-900 mb-4">Danh mục</h3>
-            <ul class="space-y-2">
-              <li>
-                <a href="#" class="flex items-center justify-between text-gray-600 hover:text-primary transition-colors">
-                  <span class="flex items-center">
-                    <i class="ri-arrow-right-s-line mr-2 text-primary"></i>
-                    Học thuật
-                  </span>
-                  <span class="bg-gray-100 text-gray-600 text-xs rounded-full px-2 py-1">24</span>
-                </a>
-              </li>
-              <li>
-                <a href="#" class="flex items-center justify-between text-gray-600 hover:text-primary transition-colors">
-                  <span class="flex items-center">
-                    <i class="ri-arrow-right-s-line mr-2 text-primary"></i>
-                    Tài chính - Ngân hàng
-                  </span>
-                  <span class="bg-gray-100 text-gray-600 text-xs rounded-full px-2 py-1">18</span>
-                </a>
-              </li>
-              <li>
-                <a href="#" class="flex items-center justify-between text-gray-600 hover:text-primary transition-colors">
-                  <span class="flex items-center">
-                    <i class="ri-arrow-right-s-line mr-2 text-primary"></i>
-                    Sự kiện
-                  </span>
-                  <span class="bg-gray-100 text-gray-600 text-xs rounded-full px-2 py-1">15</span>
-                </a>
-              </li>
-              <li>
-                <a href="#" class="flex items-center justify-between text-gray-600 hover:text-primary transition-colors">
-                  <span class="flex items-center">
-                    <i class="ri-arrow-right-s-line mr-2 text-primary"></i>
-                    Đời sống sinh viên
-                  </span>
-                  <span class="bg-gray-100 text-gray-600 text-xs rounded-full px-2 py-1">21</span>
-                </a>
-              </li>
-              <li>
-                <a href="#" class="flex items-center justify-between text-gray-600 hover:text-primary transition-colors">
-                  <span class="flex items-center">
-                    <i class="ri-arrow-right-s-line mr-2 text-primary"></i>
-                    Hướng nghiệp
-                  </span>
-                  <span class="bg-gray-100 text-gray-600 text-xs rounded-full px-2 py-1">12</span>
-                </a>
-              </li>
-            </ul>
-          </div>
-          
-          <!-- Recent Posts Card -->
-          <div class="bg-white rounded-lg shadow-sm p-5 mb-6" data-aos="fade-left" data-aos-delay="200">
-            <h3 class="text-lg font-bold text-gray-900 mb-4">Bài viết gần đây</h3>
-            <div class="space-y-4">
-              <a href="#" class="flex gap-3 group">
-                <div class="w-20 h-20 rounded-md overflow-hidden flex-shrink-0">
-                  <img src="https://readdy.ai/api/search-image?query=University%20students%20in%20library&width=160&height=160" alt="Bài viết gần đây" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300">
-                </div>
-                <div>
-                  <h4 class="text-sm font-medium text-gray-900 group-hover:text-primary transition-colors line-clamp-2">Kỹ năng mềm cần thiết cho sinh viên ngành Tài chính</h4>
-                  <p class="text-xs text-gray-500 mt-1">05/05/2025</p>
-                </div>
-              </a>
-              <a href="#" class="flex gap-3 group">
-                <div class="w-20 h-20 rounded-md overflow-hidden flex-shrink-0">
-                  <img src="https://readdy.ai/api/search-image?query=Student%20club%20meeting&width=160&height=160" alt="Bài viết gần đây" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300">
-                </div>
-                <div>
-                  <h4 class="text-sm font-medium text-gray-900 group-hover:text-primary transition-colors line-clamp-2">Top 5 câu lạc bộ nên tham gia khi học tại HUB</h4>
-                  <p class="text-xs text-gray-500 mt-1">01/05/2025</p>
-                </div>
-              </a>
-              <a href="#" class="flex gap-3 group">
-                <div class="w-20 h-20 rounded-md overflow-hidden flex-shrink-0">
-                  <img src="https://readdy.ai/api/search-image?query=Financial%20charts%20analysis&width=160&height=160" alt="Bài viết gần đây" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300">
-                </div>
-                <div>
-                  <h4 class="text-sm font-medium text-gray-900 group-hover:text-primary transition-colors line-clamp-2">Phân tích xu hướng thị trường tài chính 2025</h4>
-                  <p class="text-xs text-gray-500 mt-1">28/04/2025</p>
-                </div>
-              </a>
-            </div>
-          </div>
-          
-          <!-- Newsletter Card -->
-          <div class="bg-primary text-white rounded-lg shadow-sm p-5" data-aos="fade-left" data-aos-delay="300">
-            <h3 class="text-lg font-bold mb-4">Đăng ký nhận tin</h3>
-            <p class="text-sm text-red-100 mb-4">Nhận thông báo khi có bài viết mới về chủ đề bạn quan tâm</p>
-            <form>
-              <div class="mb-3">
-                <input 
-                  type="email" 
-                  placeholder="Email của bạn" 
-                  class="w-full px-3 py-2 text-gray-700 rounded-md focus:ring-2 focus:ring-red-400 focus:outline-none"
-                >
-              </div>
-              <button type="submit" class="w-full bg-white text-primary font-medium py-2 rounded-md hover:bg-red-50 transition-colors">
-                Đăng ký
+          <!-- Share & Print Widget -->
+          <div class="bg-white rounded-lg shadow-sm p-5 mb-6" data-aos="fade-left" data-aos-delay="50">
+            <h3 class="text-lg font-bold text-gray-900 mb-4">Chia sẻ bài viết</h3>
+            <div class="flex space-x-2 mb-4">
+              <button class="social-share-btn bg-[#1877F2] text-white w-9 h-9 rounded-full flex items-center justify-center shadow-sm hover:shadow-md transform hover:-translate-y-1 transition-all duration-300" data-platform="facebook" title="Chia sẻ qua Facebook">
+                <i class="ri-facebook-fill"></i>
               </button>
-            </form>
+              <button class="social-share-btn bg-[#1DA1F2] text-white w-9 h-9 rounded-full flex items-center justify-center shadow-sm hover:shadow-md transform hover:-translate-y-1 transition-all duration-300" data-platform="twitter" title="Chia sẻ qua Twitter">
+                <i class="ri-twitter-fill"></i>
+              </button>
+              <button class="social-share-btn bg-[#0077B5] text-white w-9 h-9 rounded-full flex items-center justify-center shadow-sm hover:shadow-md transform hover:-translate-y-1 transition-all duration-300" data-platform="linkedin" title="Chia sẻ qua LinkedIn">
+                <i class="ri-linkedin-fill"></i>
+              </button>
+              <button class="social-share-btn bg-green-600 text-white w-9 h-9 rounded-full flex items-center justify-center shadow-sm hover:shadow-md transform hover:-translate-y-1 transition-all duration-300" data-platform="email" title="Chia sẻ qua Email">
+                <i class="ri-mail-fill"></i>
+              </button>
+            </div>
+            <div class="space-y-2">
+              <button id="print-article" class="w-full flex items-center justify-center gap-2 bg-gray-100 hover:bg-gray-200 text-gray-700 px-4 py-2 rounded-md transition-colors">
+                <i class="ri-printer-line"></i>
+                <span>In bài viết</span>
+              </button>
+              <button id="copy-article-link" class="w-full flex items-center justify-center gap-2 bg-gray-100 hover:bg-gray-200 text-gray-700 px-4 py-2 rounded-md transition-colors">
+                <i class="ri-file-copy-line"></i>
+                <span>Sao chép liên kết</span>
+              </button>
+            </div>
           </div>
         </div>
       </div>

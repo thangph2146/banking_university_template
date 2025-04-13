@@ -5,22 +5,26 @@
 
 // Wait for DOM to fully load before initializing
 document.addEventListener("DOMContentLoaded", () => {
-  // Initialize all functionality
+  // Initialize core functionality first for better perceived performance
   initAOS();
   setupReadingProgress();
   setupTableOfContents();
   setupTabs();
   setupFontSizeAdjustment();
-  initMobileMenu();
-  setupSharing();
-  setupPrinting();
-  setupDarkMode();
-  setupToastNotification();
-  setupSaveArticle();
-  setupCommentForm();
-  setupImageEffects();
   setupStickyElements();
-  setupBottomButtons();
+  
+  // Initialize non-critical features with a slight delay to prioritize content
+  setTimeout(() => {
+    setupLazyMobileMenu();
+    setupSharing();
+    setupPrinting();
+    setupDarkMode();
+    setupToastNotification();
+    setupSaveArticle();
+    setupCommentForm();
+    setupImageEffects();
+    setupBottomButtons();
+  }, 100);
 });
 
 /**
@@ -88,12 +92,78 @@ const setupReadingProgress = () => {
 
 /**
  * Setup table of contents with smooth scrolling and highlight
+ * Enhanced to dynamically generate TOC if not already present
  */
 const setupTableOfContents = () => {
-  const tocLinks = document.querySelectorAll('#table-of-contents a');
-  if (tocLinks.length === 0) return;
-
+  const tocContainer = document.getElementById('table-of-contents');
+  if (!tocContainer) return;
+  
   try {
+    // Get all headings in the article
+    const articleContent = document.getElementById('article-content');
+    if (!articleContent) return;
+    
+    // Find all headings with ID attributes, or add IDs if missing
+    const headings = Array.from(articleContent.querySelectorAll('h2, h3')).filter(heading => {
+      // Skip headings that should be excluded
+      if (heading.classList.contains('no-toc')) return false;
+      
+      // Add IDs to headings that don't have them
+      if (!heading.id) {
+        // Create slug from text content
+        const slug = heading.textContent
+          .toLowerCase()
+          .replace(/[^\w\s-]/g, '')
+          .replace(/\s+/g, '-');
+        heading.id = `heading-${slug}`;
+      }
+      
+      return true;
+    });
+    
+    if (headings.length === 0) {
+      tocContainer.innerHTML = '<p class="text-gray-500 text-sm italic">Không có mục lục</p>';
+      return;
+    }
+    
+    // Generate TOC if empty
+    if (tocContainer.children.length === 0) {
+      const fragment = document.createDocumentFragment();
+      
+      headings.forEach(heading => {
+        const isSubHeading = heading.tagName === 'H3';
+        const listItem = document.createElement('div');
+        listItem.className = isSubHeading ? 'ml-4' : '';
+        
+        const link = document.createElement('a');
+        link.href = `#${heading.id}`;
+        link.className = 'block py-1 px-3 rounded-md text-gray-700 hover:bg-primary/5 hover:text-primary transition-colors text-sm';
+        
+        // Add indent and marker for subheadings
+        if (isSubHeading) {
+          const linkContent = document.createElement('div');
+          linkContent.className = 'flex items-center';
+          
+          const marker = document.createElement('span');
+          marker.className = 'w-1.5 h-1.5 rounded-full bg-gray-400 mr-2 flex-shrink-0';
+          
+          linkContent.appendChild(marker);
+          linkContent.appendChild(document.createTextNode(heading.textContent));
+          link.appendChild(linkContent);
+        } else {
+          link.textContent = heading.textContent;
+        }
+        
+        listItem.appendChild(link);
+        fragment.appendChild(listItem);
+      });
+      
+      tocContainer.appendChild(fragment);
+    }
+    
+    // Get TOC links after potential generation
+    const tocLinks = tocContainer.querySelectorAll('a');
+    
     // Setup scroll behavior for each TOC link
     tocLinks.forEach(link => {
       link.addEventListener('click', (e) => {
@@ -104,54 +174,84 @@ const setupTableOfContents = () => {
         const targetElement = document.querySelector(targetId);
         
         if (targetElement) {
-          // Smooth scroll to target with offset for header
+          // Save scroll position for history
+          const currentPosition = window.scrollY;
+          
+          // Get the header height plus a small buffer
+          const headerHeight = document.querySelector('header') ? 
+                               document.querySelector('header').offsetHeight : 100;
+          
+          // Calculate offset with header height
+          const offsetPosition = targetElement.getBoundingClientRect().top + 
+                               window.pageYOffset - headerHeight - 20;
+          
+          // Smooth scroll to target with offset
           window.scrollTo({
-            top: targetElement.offsetTop - 100,
+            top: offsetPosition,
             behavior: 'smooth'
           });
           
-          // Update URL without page reload
-          history.pushState(null, null, targetId);
+          // Update URL without page reload after scrolling completes
+          setTimeout(() => {
+            history.pushState(
+              { scrollPosition: currentPosition }, 
+              document.title, 
+              targetId
+            );
+          }, 500);
+          
+          // Flash effect on the target heading for better visibility
+          targetElement.classList.add('bg-primary/10');
+          setTimeout(() => {
+            targetElement.classList.remove('bg-primary/10');
+          }, 1500);
         }
       });
     });
-
-    // Collect all headings for tracking
-    const headings = Array.from(document.querySelectorAll('h2[id], h3[id]'));
-    if (headings.length === 0) return;
     
+    // Active TOC highlighting with Intersection Observer for better performance
     const highlightActiveTocItem = () => {
-      // Get current scroll position with a buffer
-      const scrollPosition = window.scrollY + 150;
+      // Create Intersection Observer
+      const observerOptions = {
+        rootMargin: '-100px 0px -80% 0px',
+        threshold: 0
+      };
       
-      // Find the current heading
-      let currentHeading = headings[0];
+      const headingObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          const id = entry.target.getAttribute('id');
+          const tocLink = document.querySelector(`#table-of-contents a[href="#${id}"]`);
+          
+          if (tocLink) {
+            if (entry.isIntersecting) {
+              // Remove active state from all links
+              tocLinks.forEach(link => {
+                link.classList.remove('text-primary', 'font-medium', 'bg-primary/5');
+              });
+              
+              // Add active state to current link
+              tocLink.classList.add('text-primary', 'font-medium', 'bg-primary/5');
+            }
+          }
+        });
+      }, observerOptions);
       
+      // Observe all headings
       headings.forEach(heading => {
-        if (heading.offsetTop <= scrollPosition) {
-          currentHeading = heading;
-        }
+        headingObserver.observe(heading);
       });
       
-      // Remove active class from all links
-      tocLinks.forEach(link => {
-        link.classList.remove('text-primary', 'font-medium', 'bg-primary/5');
-      });
-      
-      // Add active class to current link
-      if (currentHeading) {
-        const activeLink = document.querySelector(`#table-of-contents a[href="#${currentHeading.id}"]`);
-        if (activeLink) {
-          activeLink.classList.add('text-primary', 'font-medium', 'bg-primary/5');
-        }
-      }
+      return headingObserver;
     };
     
-    // Highlight initial TOC item
-    highlightActiveTocItem();
+    // Start observing headings
+    const observer = highlightActiveTocItem();
     
-    // Update on scroll with debounce to improve performance
-    window.addEventListener('scroll', debounce(highlightActiveTocItem, 100));
+    // Clean up observer when needed (page unload, etc.)
+    window.addEventListener('beforeunload', () => {
+      if (observer) observer.disconnect();
+    });
+    
   } catch (error) {
     console.error('Error setting up table of contents:', error);
   }
@@ -290,68 +390,160 @@ const animateComments = () => {
 };
 
 /**
- * Setup font size adjustment controls
+ * Setup font size adjustment with smooth transitions and persistent preferences
  */
 const setupFontSizeAdjustment = () => {
   const articleContent = document.getElementById('article-content');
-  if (!articleContent) return;
+  
+  if (!articleContent) {
+    console.warn('Article content not found for font size adjustment');
+    return;
+  }
   
   try {
-    // Default font size in pixels (computed from browser)
-    const defaultSize = parseFloat(window.getComputedStyle(articleContent).fontSize);
-    let currentSize = defaultSize;
+    // Default base font size (percentage)
+    const defaultSize = 100;
+    // Step size for adjustments (percentage)
+    const sizeStep = 10;
+    // Min and max sizes (percentage)
+    const minSize = 80;
+    const maxSize = 140;
     
-    // Minimum and maximum size limits
-    const minSize = defaultSize * 0.8;
-    const maxSize = defaultSize * 1.5;
+    // Get font size from local storage or use default
+    const storedSize = localStorage.getItem('blog-font-size');
+    let currentSize = storedSize ? parseInt(storedSize) : defaultSize;
     
-    // Steps for increment/decrement
-    const step = 1;
+    // Apply stored or default font size immediately
+    articleContent.style.transition = 'font-size 0.3s ease-out';
+    updateFontSize(currentSize);
     
-    // Get font control buttons
+    /**
+     * Update the font size of the article content
+     * @param {number} size - Font size percentage (100 = normal)
+     */
+    const updateFontSize = (size) => {
+      // Constrain to min and max sizes
+      size = Math.max(minSize, Math.min(maxSize, size));
+      currentSize = size;
+      
+      // Apply size to article content
+      articleContent.style.fontSize = `${size}%`;
+      
+      // Update active state of buttons
+      const decreaseButtons = document.querySelectorAll('#font-size-decrease, #font-size-decrease-mobile');
+      const resetButtons = document.querySelectorAll('#font-size-reset, #font-size-reset-mobile');
+      const increaseButtons = document.querySelectorAll('#font-size-increase, #font-size-increase-mobile');
+      
+      // Update disabled state based on limits
+      decreaseButtons.forEach(btn => {
+        if (size <= minSize) {
+          btn.disabled = true;
+          btn.classList.add('opacity-50', 'cursor-not-allowed');
+        } else {
+          btn.disabled = false;
+          btn.classList.remove('opacity-50', 'cursor-not-allowed');
+        }
+      });
+      
+      resetButtons.forEach(btn => {
+        if (size === defaultSize) {
+          btn.classList.add('opacity-50');
+        } else {
+          btn.classList.remove('opacity-50');
+        }
+      });
+      
+      increaseButtons.forEach(btn => {
+        if (size >= maxSize) {
+          btn.disabled = true;
+          btn.classList.add('opacity-50', 'cursor-not-allowed');
+        } else {
+          btn.disabled = false;
+          btn.classList.remove('opacity-50', 'cursor-not-allowed');
+        }
+      });
+      
+      // Save to local storage
+      localStorage.setItem('blog-font-size', size.toString());
+      
+      // Dispatch a custom event for other components that might need to adjust
+      const event = new CustomEvent('fontSizeChanged', { detail: { size } });
+      document.dispatchEvent(event);
+    };
+    
+    // Setup event listeners for desktop controls
     const decreaseBtn = document.getElementById('font-size-decrease');
     const resetBtn = document.getElementById('font-size-reset');
     const increaseBtn = document.getElementById('font-size-increase');
     
-    if (!decreaseBtn || !resetBtn || !increaseBtn) return;
+    if (decreaseBtn) {
+      decreaseBtn.addEventListener('click', () => {
+        updateFontSize(currentSize - sizeStep);
+      });
+    }
     
-    // Apply font size to article content
-    const updateFontSize = (size) => {
-      articleContent.style.fontSize = `${size}px`;
-      
-      // Disable buttons at limits
-      decreaseBtn.disabled = size <= minSize;
-      increaseBtn.disabled = size >= maxSize;
-      
-      // Add visual indication of disabled state
-      decreaseBtn.classList.toggle('opacity-50', size <= minSize);
-      increaseBtn.classList.toggle('opacity-50', size >= maxSize);
-    };
+    if (resetBtn) {
+      resetBtn.addEventListener('click', () => {
+        updateFontSize(defaultSize);
+      });
+    }
     
-    // Decrease font size
-    decreaseBtn.addEventListener('click', () => {
-      if (currentSize > minSize) {
-        currentSize -= step;
-        updateFontSize(currentSize);
+    if (increaseBtn) {
+      increaseBtn.addEventListener('click', () => {
+        updateFontSize(currentSize + sizeStep);
+      });
+    }
+    
+    // Setup event listeners for mobile controls
+    const decreaseBtnMobile = document.getElementById('font-size-decrease-mobile');
+    const resetBtnMobile = document.getElementById('font-size-reset-mobile');
+    const increaseBtnMobile = document.getElementById('font-size-increase-mobile');
+    
+    if (decreaseBtnMobile) {
+      decreaseBtnMobile.addEventListener('click', () => {
+        updateFontSize(currentSize - sizeStep);
+      });
+    }
+    
+    if (resetBtnMobile) {
+      resetBtnMobile.addEventListener('click', () => {
+        updateFontSize(defaultSize);
+      });
+    }
+    
+    if (increaseBtnMobile) {
+      increaseBtnMobile.addEventListener('click', () => {
+        updateFontSize(currentSize + sizeStep);
+      });
+    }
+    
+    // Keyboard shortcuts for font size adjustment
+    document.addEventListener('keydown', (e) => {
+      // Only if user is not typing in an input field
+      if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+      
+      // Ctrl + Plus: Increase font size
+      if (e.ctrlKey && e.key === '+') {
+        e.preventDefault();
+        updateFontSize(currentSize + sizeStep);
+      }
+      
+      // Ctrl + Minus: Decrease font size
+      if (e.ctrlKey && e.key === '-') {
+        e.preventDefault();
+        updateFontSize(currentSize - sizeStep);
+      }
+      
+      // Ctrl + 0: Reset font size
+      if (e.ctrlKey && e.key === '0') {
+        e.preventDefault();
+        updateFontSize(defaultSize);
       }
     });
     
-    // Reset font size
-    resetBtn.addEventListener('click', () => {
-      currentSize = defaultSize;
-      updateFontSize(currentSize);
-    });
-    
-    // Increase font size
-    increaseBtn.addEventListener('click', () => {
-      if (currentSize < maxSize) {
-        currentSize += step;
-        updateFontSize(currentSize);
-      }
-    });
-    
-    // Initialize buttons state
+    // Apply initial size
     updateFontSize(currentSize);
+    
   } catch (error) {
     console.error('Error setting up font size adjustment:', error);
   }
@@ -435,14 +627,145 @@ const setupStickyElements = () => {
 };
 
 /**
+ * Setup lazy-loaded mobile menu with improved performance
+ * This only initializes the mobile menu when it is first clicked
+ */
+const setupLazyMobileMenu = () => {
+  const menuButton = document.querySelector("#mobile-menu-button");
+  
+  if (!menuButton) return;
+  
+  // Store mobile menu instance for later access
+  let mobileMenuInstance = null;
+  
+  // Add ARIA attributes for accessibility
+  menuButton.setAttribute("aria-expanded", "false");
+  menuButton.setAttribute("aria-controls", "mobile-menu");
+  menuButton.setAttribute("aria-label", "Toggle navigation menu");
+  
+  // Apply cursor style immediately to show button is interactive
+  menuButton.style.cursor = "pointer";
+  
+  // Only initialize full mobile menu when button is clicked
+  menuButton.addEventListener("click", () => {
+    // Initialize the mobile menu if it hasn't been already
+    if (!mobileMenuInstance) {
+      menuButton.disabled = true; // Prevent double-clicks during initialization
+      
+      // Show loading indicator on button (subtle pulse)
+      menuButton.classList.add('animate-pulse');
+      
+      // Initialize mobile menu with a tiny delay for smoother UX
+      setTimeout(() => {
+        mobileMenuInstance = initMobileMenu();
+        
+        menuButton.disabled = false;
+        menuButton.classList.remove('animate-pulse');
+        
+        // Open the menu now that it's initialized
+        if (mobileMenuInstance) {
+          mobileMenuInstance.open();
+        }
+      }, 10);
+    } else {
+      // Menu already initialized, toggle its state
+      const isOpen = menuButton.getAttribute("aria-expanded") === "true";
+      if (isOpen) {
+        mobileMenuInstance.close();
+      } else {
+        mobileMenuInstance.open();
+      }
+    }
+  });
+  
+  // Add subtle hover effect for better UX
+  menuButton.addEventListener('mouseenter', () => {
+    menuButton.classList.add('scale-110');
+  });
+  
+  menuButton.addEventListener('mouseleave', () => {
+    menuButton.classList.remove('scale-110');
+  });
+  
+  // Add pulse animation if not already in stylesheet
+  if (!document.getElementById('button-animations')) {
+    const styleSheet = document.createElement('style');
+    styleSheet.id = 'button-animations';
+    styleSheet.textContent = `
+      @keyframes pulse {
+        0%, 100% { opacity: 1; }
+        50% { opacity: 0.7; }
+      }
+      .animate-pulse {
+        animation: pulse 0.8s ease-in-out infinite;
+      }
+      .scale-110 {
+        transform: scale(1.1);
+        transition: transform 0.2s ease-out;
+      }
+    `;
+    document.head.appendChild(styleSheet);
+  }
+};
+
+/**
  * Initialize mobile menu functionality with enhanced transitions
+ * Dynamically creates the mobile menu content when first activated
  */
 const initMobileMenu = () => {
   const menuButton = document.querySelector("#mobile-menu-button");
   const mobileMenu = document.getElementById("mobile-menu");
-  const closeButton = document.getElementById("mobile-menu-close");
   
-  if (!menuButton || !mobileMenu || !closeButton) return;
+  if (!menuButton || !mobileMenu) {
+    console.warn("Mobile menu elements not found");
+    return;
+  }
+  
+  // Set initial ARIA state for accessibility
+  menuButton.setAttribute("aria-expanded", "false");
+  menuButton.setAttribute("aria-controls", "mobile-menu");
+  menuButton.setAttribute("aria-label", "Toggle navigation menu");
+  
+  // Create mobile menu content if it doesn't exist
+  if (mobileMenu.children.length === 0) {
+    const menuContent = `
+      <div class="p-4 flex justify-between items-center border-b border-red-900/30">
+        <a href="index.html" class="text-2xl font-pacifico text-white flex items-center">
+          <img src="../images/logo/logo-white-vertical.png" alt="Đại học Ngân hàng TP.HCM logo" class="w-12 h-12">
+        </a>
+        <button class="w-10 h-10 flex items-center justify-center text-white" id="mobile-menu-close" aria-label="Đóng menu">
+          <i class="ri-close-line ri-lg"></i>
+        </button>
+      </div>
+      <nav class="p-4" aria-label="Mobile navigation">
+        <ul class="space-y-4">
+          <li><a href="index.html" class="font-medium text-white/80 hover:text-white py-2 block transition-all duration-300 hover:translate-x-1">Trang chủ</a></li>
+          <li><a href="events.html" class="font-medium text-white/80 hover:text-white py-2 block transition-all duration-300 hover:translate-x-1">Sự kiện</a></li>
+          <li><a href="blog.html" class="font-medium text-white border-l-4 border-white pl-2 py-2 block transition-all duration-300 hover:translate-x-1" aria-current="page">Blog</a></li>
+          <li><a href="news.html" class="font-medium text-white/80 hover:text-white py-2 block transition-all duration-300 hover:translate-x-1">Giới thiệu</a></li>
+          <li><a href="contact.html" class="font-medium text-white/80 hover:text-white py-2 block transition-all duration-300 hover:translate-x-1">Liên hệ</a></li>
+          <li class="pt-4">
+            <a href="login.html" class="bg-white text-primary px-4 py-2 !rounded-button whitespace-nowrap block text-center hover:bg-gray-100 transition-colors shadow-sm">Đăng nhập</a>
+          </li>
+          <li class="pt-2">
+            <a href="register.html" class="bg-white text-primary px-4 py-2 !rounded-button whitespace-nowrap block text-center hover:bg-gray-100 transition-colors shadow-sm">Đăng ký</a>
+          </li>
+        </ul>
+      </nav>
+    `;
+    
+    mobileMenu.innerHTML = menuContent;
+  }
+  
+  // Get close button now that it's been added to the DOM
+  const closeButton = document.getElementById("mobile-menu-close");
+  if (!closeButton) {
+    console.warn("Mobile menu close button not found");
+    return;
+  }
+  
+  // Prepare mobile menu for animations without triggering reflows
+  mobileMenu.style.transition = "transform 0.3s ease-out, opacity 0.3s ease-out";
   
   // Add smooth slide-in animation with backdrop blur
   const addBackdrop = () => {
@@ -451,19 +774,17 @@ const initMobileMenu = () => {
     
     const backdrop = document.createElement('div');
     backdrop.id = 'mobile-menu-backdrop';
-    backdrop.className = 'fixed inset-0 bg-black/0 z-40 pointer-events-none transition-all duration-300';
+    backdrop.className = 'fixed inset-0 bg-black/0 z-40 pointer-events-none transition-opacity duration-300';
     document.body.appendChild(backdrop);
     
-    // Trigger animation after element is in DOM
-    setTimeout(() => {
+    // Trigger animation after element is in DOM (using requestAnimationFrame for better performance)
+    requestAnimationFrame(() => {
       backdrop.classList.remove('bg-black/0', 'pointer-events-none');
       backdrop.classList.add('bg-black/30', 'backdrop-blur-sm', 'pointer-events-auto');
-    }, 10);
+    });
     
     // Close menu when clicking backdrop
-    backdrop.addEventListener('click', () => {
-      closeMobileMenu();
-    });
+    backdrop.addEventListener('click', closeMobileMenu);
   };
   
   // Remove backdrop with animation
@@ -474,9 +795,8 @@ const initMobileMenu = () => {
     backdrop.classList.remove('bg-black/30', 'pointer-events-auto');
     backdrop.classList.add('bg-black/0', 'pointer-events-none');
     
-    setTimeout(() => {
-      backdrop.remove();
-    }, 300);
+    // Use transitionend for more reliable cleanup
+    backdrop.addEventListener('transitionend', () => backdrop.remove(), { once: true });
   };
   
   // Open menu with enhanced animation
@@ -485,8 +805,9 @@ const initMobileMenu = () => {
     addBackdrop();
     
     // Animate menu sliding in
-    mobileMenu.classList.remove('translate-x-full');
-    mobileMenu.classList.add('translate-x-0');
+    mobileMenu.classList.remove('translate-x-full', 'opacity-0', 'pointer-events-none');
+    mobileMenu.classList.add('translate-x-0', 'opacity-100', 'pointer-events-auto');
+    mobileMenu.setAttribute('aria-hidden', 'false');
     
     // Prevent body scrolling
     document.body.classList.add('overflow-hidden');
@@ -511,8 +832,9 @@ const initMobileMenu = () => {
     removeBackdrop();
     
     // Animate menu sliding out
-    mobileMenu.classList.remove('translate-x-0');
-    mobileMenu.classList.add('translate-x-full');
+    mobileMenu.classList.remove('translate-x-0', 'opacity-100', 'pointer-events-auto');
+    mobileMenu.classList.add('translate-x-full', 'opacity-0', 'pointer-events-none');
+    mobileMenu.setAttribute('aria-hidden', 'true');
     
     // Re-enable body scrolling
     document.body.classList.remove('overflow-hidden');
@@ -542,9 +864,7 @@ const initMobileMenu = () => {
   });
   
   // Close menu on close button click
-  closeButton.addEventListener("click", () => {
-    closeMobileMenu();
-  });
+  closeButton.addEventListener("click", closeMobileMenu);
   
   // Close menu on escape key
   document.addEventListener("keydown", (e) => {
@@ -568,6 +888,12 @@ const initMobileMenu = () => {
     `;
     document.head.appendChild(styleSheet);
   }
+  
+  // Return public methods to use with the lazy loader
+  return {
+    open: openMobileMenu,
+    close: closeMobileMenu
+  };
 };
 
 /**
@@ -974,99 +1300,134 @@ const setupPrinting = () => {
 };
 
 /**
- * Setup dark mode toggle with enhanced transitions
+ * Setup dark mode with system preference detection and smooth transitions
  */
 const setupDarkMode = () => {
   const darkModeToggle = document.getElementById('toggle-dark-mode');
+  const htmlElement = document.documentElement;
+  
   if (!darkModeToggle) return;
   
-  // Check for saved user preference
-  const savedTheme = localStorage.getItem('theme');
-  const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-  
-  // Add animation classes
-  darkModeToggle.classList.add('transition-transform', 'duration-300', 'hover:rotate-12');
-  
-  // Function to toggle dark mode with enhanced transitions
-  const toggleDarkMode = (isDark) => {
-    // Add transition to document element
-    document.documentElement.classList.add('transition-colors', 'duration-300');
+  try {
+    // Class to apply for dark mode
+    const darkClass = 'dark-mode';
     
-    if (isDark) {
-      // Apply dark mode with animation
-      darkModeToggle.classList.add('animate-spin-once');
+    // Check if dark mode is stored in localStorage
+    const storedDarkMode = localStorage.getItem('blog-dark-mode');
+    
+    // Check system preference for dark mode
+    const prefersDarkMode = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+    
+    // Add smooth transition for theme changes
+    const addTransitionStyles = () => {
+      if (document.getElementById('dark-mode-transitions')) return;
       
-      setTimeout(() => {
-        document.documentElement.classList.add('dark-mode');
-        darkModeToggle.innerHTML = '<i class="ri-sun-line"></i>';
-        darkModeToggle.setAttribute('title', 'Chế độ sáng');
-        localStorage.setItem('theme', 'dark');
-        
-        darkModeToggle.classList.remove('animate-spin-once');
-        darkModeToggle.classList.add('text-yellow-400');
-        darkModeToggle.classList.remove('text-gray-600');
-      }, 150);
-    } else {
-      // Remove dark mode with animation
-      darkModeToggle.classList.add('animate-spin-once');
+      const style = document.createElement('style');
+      style.id = 'dark-mode-transitions';
+      style.textContent = `
+        body, body *, body *:before, body *:after {
+          transition: background-color 0.5s ease-out, color 0.3s ease-out, border-color 0.3s ease-out !important;
+        }
+      `;
+      document.head.appendChild(style);
       
+      // Remove transitions after they complete to avoid performance issues
       setTimeout(() => {
-        document.documentElement.classList.remove('dark-mode');
-        darkModeToggle.innerHTML = '<i class="ri-moon-line"></i>';
-        darkModeToggle.setAttribute('title', 'Chế độ tối');
-        localStorage.setItem('theme', 'light');
+        if (document.getElementById('dark-mode-transitions')) {
+          document.getElementById('dark-mode-transitions').remove();
+        }
+      }, 800);
+    };
+    
+    /**
+     * Toggle dark mode on/off
+     * @param {boolean} isDark - Whether to enable dark mode
+     * @param {boolean} savePreference - Whether to save preference to localStorage
+     */
+    const toggleDarkMode = (isDark, savePreference = true) => {
+      // Add transition styles before changing theme
+      addTransitionStyles();
+      
+      // Update toggle button icon
+      const icon = darkModeToggle.querySelector('i') || darkModeToggle;
+      
+      if (isDark) {
+        htmlElement.classList.add(darkClass);
         
-        darkModeToggle.classList.remove('animate-spin-once');
-        darkModeToggle.classList.remove('text-yellow-400');
-        darkModeToggle.classList.add('text-gray-600');
-      }, 150);
-    }
-    
-    // Remove transition classes after animation completes
-    setTimeout(() => {
-      document.documentElement.classList.remove('transition-colors', 'duration-300');
-    }, 300);
-  };
-  
-  // Set initial state
-  if (savedTheme === 'dark' || (!savedTheme && prefersDark)) {
-    toggleDarkMode(true);
-  } else {
-    // Make sure toggle has the right classes for light mode
-    darkModeToggle.classList.remove('text-yellow-400');
-    darkModeToggle.classList.add('text-gray-600');
-  }
-  
-  // Handle toggle click with enhanced feedback
-  darkModeToggle.addEventListener('click', () => {
-    const isDarkMode = document.documentElement.classList.contains('dark-mode');
-    toggleDarkMode(!isDarkMode);
-    
-    // Add ripple effect on click
-    const ripple = document.createElement('span');
-    ripple.className = 'absolute inset-0 bg-current opacity-25 rounded-full scale-0';
-    ripple.style.animation = 'ripple 0.6s ease-out';
-    
-    darkModeToggle.appendChild(ripple);
-    
-    setTimeout(() => {
-      ripple.remove();
-    }, 600);
-  });
-  
-  // Add ripple animation if not already in stylesheet
-  if (!document.getElementById('dark-mode-animations')) {
-    const styleSheet = document.createElement('style');
-    styleSheet.id = 'dark-mode-animations';
-    styleSheet.textContent = `
-      @keyframes ripple {
-        to {
-          transform: scale(2);
-          opacity: 0;
+        if (icon) {
+          icon.className = 'ri-sun-line';
+          darkModeToggle.title = 'Chuyển sang chế độ sáng';
+        }
+      } else {
+        htmlElement.classList.remove(darkClass);
+        
+        if (icon) {
+          icon.className = 'ri-moon-line';
+          darkModeToggle.title = 'Chuyển sang chế độ tối';
         }
       }
-    `;
-    document.head.appendChild(styleSheet);
+      
+      // Set ARIA attributes for accessibility
+      darkModeToggle.setAttribute('aria-pressed', isDark.toString());
+      
+      // Apply dark mode styles for specific elements
+      applyDarkModeStyles(isDark);
+      
+      // Save preference to localStorage if requested
+      if (savePreference) {
+        localStorage.setItem('blog-dark-mode', isDark ? 'true' : 'false');
+      }
+      
+      // Dispatch a custom event that other components might need
+      document.dispatchEvent(new CustomEvent('darkModeChanged', { detail: { isDark } }));
+    };
+    
+    /**
+     * Apply specific styles for dark mode that can't be handled by CSS alone
+     * @param {boolean} isDark - Whether dark mode is active
+     */
+    const applyDarkModeStyles = (isDark) => {
+      // Adjust syntax highlighting if present
+      const codeBlocks = document.querySelectorAll('pre code');
+      codeBlocks.forEach(block => {
+        block.classList.toggle('dark', isDark);
+      });
+      
+      // Adjust image brightness for comfort in dark mode
+      const images = document.querySelectorAll('.article-content img:not(.no-dark-filter)');
+      images.forEach(img => {
+        img.style.filter = isDark ? 'brightness(0.9) contrast(1.1)' : '';
+      });
+    };
+    
+    // Set initial dark mode state
+    if (storedDarkMode !== null) {
+      // Use stored preference if available
+      toggleDarkMode(storedDarkMode === 'true', false);
+    } else if (prefersDarkMode) {
+      // Use system preference if no stored preference
+      toggleDarkMode(true, false);
+    }
+    
+    // Toggle dark mode on button click
+    darkModeToggle.addEventListener('click', () => {
+      const isDarkMode = htmlElement.classList.contains(darkClass);
+      toggleDarkMode(!isDarkMode);
+    });
+    
+    // Listen for system preference changes
+    const darkModeMediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+    if (darkModeMediaQuery.addEventListener) {
+      darkModeMediaQuery.addEventListener('change', (e) => {
+        // Only change if no user preference has been set
+        if (localStorage.getItem('blog-dark-mode') === null) {
+          toggleDarkMode(e.matches, false);
+        }
+      });
+    }
+    
+  } catch (error) {
+    console.error('Error setting up dark mode:', error);
   }
 };
 
