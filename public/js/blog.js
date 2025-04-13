@@ -170,10 +170,11 @@ const initMobileMenu = () => {
 // Function to handle category filter toggle
 const initCategoryFilters = () => {
   try {
-    const categoryLinks = document.querySelectorAll('.bg-white ul a');
+    const categoryLinks = document.querySelectorAll('.bg-white .space-y-2 a');
     const blogCards = document.querySelectorAll('.scale-hover');
     
     if (!categoryLinks.length || !blogCards.length) {
+      console.warn('Không tìm thấy các phần tử category hoặc blog cards');
       return;
     }
     
@@ -192,7 +193,10 @@ const initCategoryFilters = () => {
         e.preventDefault();
         
         // Get category from the link's text content
-        const categoryText = link.querySelector('span:first-child').textContent.trim();
+        const categorySpan = link.querySelector('span:first-child');
+        if (!categorySpan) return;
+        
+        const categoryText = categorySpan.textContent.trim();
         const category = categoryText.replace(/^[\s\u00A0]+|[\s\u00A0]+$/g, '');
         
         // Reset all links to default style
@@ -219,41 +223,52 @@ const filterBlogPosts = (cards, selectedCategory) => {
   try {
     let visibleCount = 0;
     
+    // Thêm class để xử lý animation
+    cards.forEach(card => {
+      card.classList.add('transition-all', 'duration-300', 'ease-in-out');
+    });
+
     cards.forEach(card => {
       const cardCategory = card.getAttribute('data-category');
       
-      // Add fade-out animation for hiding cards
-      if (cardCategory === selectedCategory || selectedCategory === 'Tất cả' || selectedCategory === '') {
+      if (cardCategory === selectedCategory || selectedCategory === 'Tất cả' || !selectedCategory) {
+        // Hiển thị card phù hợp với category
         card.style.opacity = '0';
-        requestAnimationFrame(() => {
-          card.style.display = 'block';
-          requestAnimationFrame(() => {
-            card.style.opacity = '1';
-          });
-        });
+        card.style.display = 'block';
+        
+        // Sử dụng setTimeout để tạo animation mượt mà
+        setTimeout(() => {
+          card.style.opacity = '1';
+          card.style.transform = 'translateY(0)';
+        }, 50);
+        
         visibleCount++;
       } else {
+        // Ẩn card không phù hợp
         card.style.opacity = '0';
+        card.style.transform = 'translateY(20px)';
+        
         setTimeout(() => {
           card.style.display = 'none';
         }, 300);
       }
     });
     
-    // Update the pagination based on filtered results
+    // Cập nhật phân trang và hiển thị thông báo
     updatePagination(visibleCount);
-    
-    // Show no results message if needed
     displayNoResults(visibleCount === 0, selectedCategory);
+
+    // Log để debug
+    console.log(`Đã lọc: ${visibleCount} bài viết cho danh mục "${selectedCategory}"`);
   } catch (error) {
-    console.error('Error filtering blog posts:', error);
+    console.error('Lỗi khi lọc bài viết:', error);
   }
 };
 
 // Display no results message
 const displayNoResults = (show, category) => {
   try {
-    // Remove any existing message
+    // Xóa thông báo cũ nếu có
     const existingMessage = document.getElementById('no-results-message');
     if (existingMessage) {
       existingMessage.remove();
@@ -265,20 +280,66 @@ const displayNoResults = (show, category) => {
       if (blogContainer) {
         const message = document.createElement('div');
         message.id = 'no-results-message';
-        message.className = 'col-span-full p-8 text-center bg-white rounded-lg shadow-sm';
+        message.className = 'col-span-full p-8 text-center bg-white rounded-lg shadow-sm transition-all duration-300';
         message.innerHTML = `
           <div class="text-5xl text-gray-300 mb-4 flex justify-center">
-            <i class="ri-file-search-line"></i>
+            <i class="ri-search-line"></i>
           </div>
           <h3 class="text-xl font-bold text-gray-700 mb-2">Không tìm thấy kết quả</h3>
-          <p class="text-gray-600">Không có bài viết nào trong danh mục "${category}"</p>
+          <p class="text-gray-600">Không có bài viết nào trong danh mục "${category || 'đã chọn'}"</p>
+          <button class="mt-4 px-4 py-2 bg-primary text-white rounded-md hover:bg-red-700 transition-colors" onclick="resetFilters()">
+            <i class="ri-refresh-line mr-2"></i>Xem tất cả bài viết
+          </button>
         `;
         
+        // Thêm animation khi hiển thị
+        message.style.opacity = '0';
+        message.style.transform = 'translateY(20px)';
         blogContainer.appendChild(message);
+        
+        setTimeout(() => {
+          message.style.opacity = '1';
+          message.style.transform = 'translateY(0)';
+        }, 50);
       }
     }
   } catch (error) {
-    console.error('Error displaying no results message:', error);
+    console.error('Lỗi khi hiển thị thông báo không có kết quả:', error);
+  }
+};
+
+// Thêm hàm resetFilters để xử lý nút reset
+const resetFilters = () => {
+  try {
+    const blogCards = document.querySelectorAll('.scale-hover');
+    const categoryLinks = document.querySelectorAll('.bg-white .space-y-2 a');
+    
+    // Reset tất cả card về trạng thái hiển thị
+    blogCards.forEach(card => {
+      card.style.opacity = '0';
+      card.style.display = 'block';
+      setTimeout(() => {
+        card.style.opacity = '1';
+        card.style.transform = 'translateY(0)';
+      }, 50);
+    });
+    
+    // Reset style của các category link
+    categoryLinks.forEach(link => {
+      link.classList.remove('text-primary');
+      link.classList.add('text-gray-600');
+    });
+    
+    // Cập nhật phân trang
+    updatePagination(blogCards.length);
+    
+    // Xóa thông báo không có kết quả
+    const noResultsMessage = document.getElementById('no-results-message');
+    if (noResultsMessage) {
+      noResultsMessage.remove();
+    }
+  } catch (error) {
+    console.error('Lỗi khi reset bộ lọc:', error);
   }
 };
 
