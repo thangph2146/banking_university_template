@@ -21,7 +21,8 @@
 <body class="bg-gray-50 min-h-screen">
   <div class="flex h-screen overflow-hidden">
     <!-- Sidebar Backdrop (mobile only) -->
-    <div id="sidebar-backdrop" class="fixed inset-0 bg-black/50 z-20 hidden md:hidden transition-opacity duration-300"></div>
+    <div id="sidebar-backdrop" class="fixed inset-0 bg-black/50 z-20 hidden md:hidden transition-opacity duration-300">
+    </div>
 
     <!-- Sidebar -->
     <aside id="sidebar"
@@ -42,19 +43,23 @@
           <div class="border-b pb-4">
             <h2 class="text-xs uppercase text-gray-400 font-semibold">Quản lý chung</h2>
             <div class="mt-3 space-y-3">
-              <a href="dashboard.html" class="sidebar-link flex items-center text-gray-600 hover:text-primary p-2 rounded-md hover:bg-gray-100">
+              <a href="dashboard.html"
+                class="sidebar-link flex items-center text-gray-600 hover:text-primary p-2 rounded-md hover:bg-gray-100">
                 <i class="sidebar-icon ri-dashboard-line mr-2"></i>
                 <span class="sidebar-link-text">Tổng quan</span>
               </a>
-              <a href="events.html" class="sidebar-link active flex items-center text-primary p-2 rounded-md bg-primary/10 font-medium">
+              <a href="events.html"
+                class="sidebar-link active flex items-center text-primary p-2 rounded-md bg-primary/10 font-medium">
                 <i class="sidebar-icon ri-calendar-event-line mr-2"></i>
                 <span class="sidebar-link-text">Sự kiện</span>
               </a>
-              <a href="users.html" class="sidebar-link flex items-center text-gray-600 hover:text-primary p-2 rounded-md hover:bg-gray-100">
+              <a href="users.html"
+                class="sidebar-link flex items-center text-gray-600 hover:text-primary p-2 rounded-md hover:bg-gray-100">
                 <i class="sidebar-icon ri-user-line mr-2"></i>
                 <span class="sidebar-link-text">Người dùng</span>
               </a>
-              <a href="speakers.html" class="sidebar-link flex items-center text-gray-600 hover:text-primary p-2 rounded-md hover:bg-gray-100">
+              <a href="speakers.html"
+                class="sidebar-link flex items-center text-gray-600 hover:text-primary p-2 rounded-md hover:bg-gray-100">
                 <i class="sidebar-icon ri-mic-line mr-2"></i>
                 <span class="sidebar-link-text">Diễn giả</span>
               </a>
@@ -64,19 +69,23 @@
           <div class="border-b pb-4">
             <h2 class="sidebar-section-title text-xs uppercase text-gray-400 font-semibold">Quản lý sự kiện</h2>
             <div class="mt-3 space-y-3">
-              <a href="registrations.html" class="sidebar-link flex items-center text-gray-600 hover:text-primary p-2 rounded-md hover:bg-gray-100">
+              <a href="registrations.html"
+                class="sidebar-link flex items-center text-gray-600 hover:text-primary p-2 rounded-md hover:bg-gray-100">
                 <i class="sidebar-icon ri-file-list-line mr-2"></i>
                 <span class="sidebar-link-text">Đăng ký sự kiện</span>
               </a>
-              <a href="checkins.html" class="sidebar-link flex items-center text-gray-600 hover:text-primary p-2 rounded-md hover:bg-gray-100">
+              <a href="checkins.html"
+                class="sidebar-link flex items-center text-gray-600 hover:text-primary p-2 rounded-md hover:bg-gray-100">
                 <i class="sidebar-icon ri-login-box-line mr-2"></i>
                 <span class="sidebar-link-text">Check-in</span>
               </a>
-              <a href="checkouts.html" class="sidebar-link flex items-center text-gray-600 hover:text-primary p-2 rounded-md hover:bg-gray-100">
+              <a href="checkouts.html"
+                class="sidebar-link flex items-center text-gray-600 hover:text-primary p-2 rounded-md hover:bg-gray-100">
                 <i class="sidebar-icon ri-logout-box-line mr-2"></i>
                 <span class="sidebar-link-text">Check-out</span>
               </a>
-              <a href="reports.html" class="sidebar-link flex items-center text-gray-600 hover:text-primary p-2 rounded-md hover:bg-gray-100">
+              <a href="reports.html"
+                class="sidebar-link flex items-center text-gray-600 hover:text-primary p-2 rounded-md hover:bg-gray-100">
                 <i class="sidebar-icon ri-bar-chart-line mr-2"></i>
                 <span class="sidebar-link-text">Báo cáo</span>
               </a>
@@ -86,15 +95,18 @@
           <div>
             <h2 class="sidebar-section-title text-xs uppercase text-gray-400 font-semibold">Cài đặt hệ thống</h2>
             <div class="mt-3 space-y-3">
-              <a href="settings.html" class="sidebar-link flex items-center text-gray-600 hover:text-primary p-2 rounded-md hover:bg-gray-100">
+              <a href="settings.html"
+                class="sidebar-link flex items-center text-gray-600 hover:text-primary p-2 rounded-md hover:bg-gray-100">
                 <i class="sidebar-icon ri-settings-3-line mr-2"></i>
                 <span class="sidebar-link-text">Thiết lập</span>
               </a>
-              <a href="roles.html" class="sidebar-link flex items-center text-gray-600 hover:text-primary p-2 rounded-md hover:bg-gray-100">
+              <a href="roles.html"
+                class="sidebar-link flex items-center text-gray-600 hover:text-primary p-2 rounded-md hover:bg-gray-100">
                 <i class="sidebar-icon ri-shield-user-line mr-2"></i>
                 <span class="sidebar-link-text">Phân quyền</span>
               </a>
-              <a href="logs.html" class="sidebar-link flex items-center text-gray-600 hover:text-primary p-2 rounded-md hover:bg-gray-100">
+              <a href="logs.html"
+                class="sidebar-link flex items-center text-gray-600 hover:text-primary p-2 rounded-md hover:bg-gray-100">
                 <i class="sidebar-icon ri-file-list-3-line mr-2"></i>
                 <span class="sidebar-link-text">Nhật ký</span>
               </a>
@@ -107,46 +119,52 @@
     <!-- Main Content -->
     <main class="flex-1 overflow-auto px-6 pb-6 pt-4">
       <!-- Header -->
-    <header class="bg-primary shadow-md sticky top-0 z-50 animate-fade-in mb-6">
-      <div
-        class="container mx-auto px-4 py-2 flex items-center justify-between"
-      >
-        <a href="index.html" class="text-2xl font-['Pacifico'] text-white transition-all duration-300 hover:scale-105">
+      <header class="bg-primary shadow-md sticky top-0 z-50 animate-fade-in mb-6">
+        <div class="container mx-auto px-4 py-2 flex items-center justify-between">
+          <a href="index.html"
+            class="text-2xl font-['Pacifico'] text-white transition-all duration-300 hover:scale-105">
             <img src="../../images/logo/logo-white.png" alt="logo" class="w-12 h-12 md:w-16 md:h-16">
-        </a>
-        <div class="flex items-center space-x-4">
-          <!-- User profile dropdown menu -->
-          <div class="relative group">
-            <button class="flex items-center space-x-2 text-white">
-              <img src="https://readdy.ai/api/search-image?query=professional%20headshot%20young%20vietnamese%20student%20minimal%20background&width=100&height=100&seq=avatar" alt="Ảnh đại diện" class="w-8 h-8 rounded-full border-2 border-white">
-              <span class="hidden sm:block">Nguyễn Văn A</span>
-              <i class="ri-arrow-down-s-line group-hover:rotate-180 transition-transform duration-300"></i>
-            </button>
-            <div class="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg overflow-hidden z-20 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform origin-top-right scale-95 group-hover:scale-100">
-              <div class="py-2">
-                <a href="profile.html" class="flex items-center px-4 py-2 text-sm text-gray-800 hover:bg-primary/10 hover:text-primary border-l-4 border-primary">
-                  <i class="ri-user-line mr-2"></i>
-                  Trang cá nhân
-                </a>
-                <a href="registered-events.html" class="flex items-center px-4 py-2 text-sm text-gray-800 hover:bg-primary/10 hover:text-primary">
-                  <i class="ri-calendar-event-line mr-2"></i>
-                  Sự kiện của tôi
-                </a>
-                <a href="#" class="flex items-center px-4 py-2 text-sm text-gray-800 hover:bg-primary/10 hover:text-primary">
-                  <i class="ri-settings-4-line mr-2"></i>
-                  Cài đặt
-                </a>
-                <hr class="my-1 border-gray-200">
-                <a href="login.html" class="flex items-center px-4 py-2 text-sm text-gray-800 hover:bg-primary/10 hover:text-primary">
-                  <i class="ri-logout-box-r-line mr-2"></i>
-                  Đăng xuất
-                </a>
+          </a>
+          <div class="flex items-center space-x-4">
+            <!-- User profile dropdown menu -->
+            <div class="relative group">
+              <button class="flex items-center space-x-2 text-white">
+                <img
+                  src="https://readdy.ai/api/search-image?query=professional%20headshot%20young%20vietnamese%20student%20minimal%20background&width=100&height=100&seq=avatar"
+                  alt="Ảnh đại diện" class="w-8 h-8 rounded-full border-2 border-white">
+                <span class="hidden sm:block">Nguyễn Văn A</span>
+                <i class="ri-arrow-down-s-line group-hover:rotate-180 transition-transform duration-300"></i>
+              </button>
+              <div
+                class="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg overflow-hidden z-20 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform origin-top-right scale-95 group-hover:scale-100">
+                <div class="py-2">
+                  <a href="profile.html"
+                    class="flex items-center px-4 py-2 text-sm text-gray-800 hover:bg-primary/10 hover:text-primary border-l-4 border-primary">
+                    <i class="ri-user-line mr-2"></i>
+                    Trang cá nhân
+                  </a>
+                  <a href="registered-events.html"
+                    class="flex items-center px-4 py-2 text-sm text-gray-800 hover:bg-primary/10 hover:text-primary">
+                    <i class="ri-calendar-event-line mr-2"></i>
+                    Sự kiện của tôi
+                  </a>
+                  <a href="#"
+                    class="flex items-center px-4 py-2 text-sm text-gray-800 hover:bg-primary/10 hover:text-primary">
+                    <i class="ri-settings-4-line mr-2"></i>
+                    Cài đặt
+                  </a>
+                  <hr class="my-1 border-gray-200">
+                  <a href="login.html"
+                    class="flex items-center px-4 py-2 text-sm text-gray-800 hover:bg-primary/10 hover:text-primary">
+                    <i class="ri-logout-box-r-line mr-2"></i>
+                    Đăng xuất
+                  </a>
+                </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
-    </header>
+      </header>
       <div class="bg-white rounded-lg shadow mb-6 p-4">
         <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between">
           <div>
@@ -154,10 +172,12 @@
             <p class="mt-1 text-sm text-gray-600">Quản lý tất cả các sự kiện trong hệ thống</p>
           </div>
           <div class="mt-4 sm:mt-0 flex gap-2">
-            <button id="refresh-btn" class="flex items-center justify-center px-3 py-2 border border-gray-300 text-gray-700 rounded-md hover:bg-gray-50 transition-colors duration-200">
+            <button id="refresh-btn"
+              class="flex items-center justify-center px-3 py-2 border border-gray-300 text-gray-700 rounded-md hover:bg-gray-50 transition-colors duration-200">
               <i class="ri-refresh-line mr-1"></i> Tải lại
             </button>
-            <a href="event-detail-update.html" class="flex items-center justify-center px-4 py-2 bg-primary text-white rounded-md hover:bg-primary-dark transition-colors duration-200">
+            <a href="event-detail-update.html"
+              class="flex items-center justify-center px-4 py-2 bg-primary text-white rounded-md hover:bg-primary-dark transition-colors duration-200">
               <i class="ri-add-line mr-1"></i> Tạo sự kiện mới
             </a>
           </div>
@@ -184,12 +204,14 @@
             <!-- Filter by Event Name -->
             <div>
               <label for="filter-name" class="block text-sm font-medium text-gray-700 mb-1">Tìm kiếm tên</label>
-              <input type="text" id="filter-name" name="filter-name" placeholder="Nhập tên sự kiện..." class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-primary focus:border-primary text-sm">
+              <input type="text" id="filter-name" name="filter-name" placeholder="Nhập tên sự kiện..."
+                class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-primary focus:border-primary text-sm">
             </div>
             <!-- Filter by Event Type -->
             <div>
               <label for="filter-type" class="block text-sm font-medium text-gray-700 mb-1">Loại sự kiện</label>
-              <select id="filter-type" name="filter-type" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-primary focus:border-primary text-sm">
+              <select id="filter-type" name="filter-type"
+                class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-primary focus:border-primary text-sm">
                 <option value="">Tất cả</option>
                 <option value="hoi_thao">Hội thảo</option>
                 <option value="khoa_hoc">Khoá học</option>
@@ -197,10 +219,11 @@
                 <!-- Thêm các loại khác ở đây -->
               </select>
             </div>
-             <!-- Filter by Status -->
+            <!-- Filter by Status -->
             <div>
               <label for="filter-status" class="block text-sm font-medium text-gray-700 mb-1">Trạng thái</label>
-              <select id="filter-status" name="filter-status" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-primary focus:border-primary text-sm">
+              <select id="filter-status" name="filter-status"
+                class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-primary focus:border-primary text-sm">
                 <option value="">Tất cả</option>
                 <option value="upcoming">Sắp diễn ra</option>
                 <option value="ongoing">Đang diễn ra</option>
@@ -211,23 +234,27 @@
             <div>
               <label for="filter-date" class="block text-sm font-medium text-gray-700 mb-1">Thời gian</label>
               <div class="relative">
-                  <input type="text" id="filter-date" name="filter-date" placeholder="Chọn khoảng thời gian" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-primary focus:border-primary text-sm pl-10" readonly>
-                  <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                      <i class="ri-calendar-2-line text-gray-400"></i>
-                  </div>
+                <input type="text" id="filter-date" name="filter-date" placeholder="Chọn khoảng thời gian"
+                  class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-primary focus:border-primary text-sm pl-10"
+                  readonly>
+                <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                  <i class="ri-calendar-2-line text-gray-400"></i>
+                </div>
               </div>
             </div>
           </div>
           <div class="mt-4 flex justify-end space-x-2">
-            <button type="reset" id="reset-filter-btn" class="px-4 py-2 border border-gray-300 text-gray-700 rounded-md hover:bg-gray-50 text-sm transition-colors duration-200">
+            <button type="reset" id="reset-filter-btn"
+              class="px-4 py-2 border border-gray-300 text-gray-700 rounded-md hover:bg-gray-50 text-sm transition-colors duration-200">
               Đặt lại
             </button>
-            <button type="submit" id="apply-filter-btn" class="px-4 py-2 bg-primary text-white rounded-md hover:bg-primary-dark text-sm transition-colors duration-200">
+            <button type="submit" id="apply-filter-btn"
+              class="px-4 py-2 bg-primary text-white rounded-md hover:bg-primary-dark text-sm transition-colors duration-200">
               Áp dụng
             </button>
           </div>
         </form>
-      </div> 
+      </div>
 
       <!-- Events List -->
       <div class="bg-white rounded-lg shadow overflow-hidden">
@@ -235,19 +262,27 @@
           <h2 class="text-lg font-medium text-gray-900">Danh sách sự kiện (Dữ liệu cứng)</h2>
           <!-- Total count removed -->
         </div>
-        
+
         <!-- Table container -->
         <div class="overflow-x-auto">
           <table id="events-table" class="min-w-full divide-y divide-gray-200">
             <thead class="bg-gray-50">
               <tr>
-                <th scope="col" class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-2/5">Sự kiện</th>
-                <th scope="col" class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Hình thức</th>
-                <th scope="col" class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Loại</th>
-                <th scope="col" class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Địa điểm</th>
-                <th scope="col" class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Tham gia</th>
-                <th scope="col" class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Trạng thái</th>
-                <th scope="col" class="px-4 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">Hành động</th>
+                <th scope="col"
+                  class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-2/5">Sự kiện
+                </th>
+                <th scope="col" class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  Hình thức</th>
+                <th scope="col" class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  Loại</th>
+                <th scope="col" class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  Địa điểm</th>
+                <th scope="col" class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  Tham gia</th>
+                <th scope="col" class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  Trạng thái</th>
+                <th scope="col" class="px-4 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  Hành động</th>
               </tr>
             </thead>
             <tbody id="eventsTableBody" class="bg-white divide-y divide-gray-200">
@@ -256,19 +291,24 @@
                 <td class="px-4 py-3">
                   <div class="flex items-center gap-3">
                     <div class="h-12 w-12 rounded-md overflow-hidden flex-shrink-0">
-                      <img src="/images/event-placeholder.jpg" alt="Hội thảo Blockchain 101" class="w-full h-full object-cover">
+                      <img src="/images/event-placeholder.jpg" alt="Hội thảo Blockchain 101"
+                        class="w-full h-full object-cover">
                     </div>
                     <div>
-                      <p class="font-medium text-gray-900 truncate" title="Hội thảo Blockchain 101">Hội thảo Blockchain 101</p>
+                      <p class="font-medium text-gray-900 truncate" title="Hội thảo Blockchain 101">Hội thảo Blockchain
+                        101</p>
                       <p class="text-sm text-gray-500">20 Thg 7, 2024, 09:00</p>
                     </div>
                   </div>
                 </td>
                 <td class="px-4 py-3">
-                   <span class="px-2.5 py-0.5 inline-flex text-xs leading-5 font-medium rounded-full bg-sky-100 text-sky-800">Offline</span>
+                  <span
+                    class="px-2.5 py-0.5 inline-flex text-xs leading-5 font-medium rounded-full bg-sky-100 text-sky-800">Offline</span>
                 </td>
                 <td class="px-4 py-3">
-                  <span class="px-2.5 py-0.5 inline-flex text-xs leading-5 font-medium rounded-full bg-green-100 text-green-800">Hội thảo</span>
+                  <span
+                    class="px-2.5 py-0.5 inline-flex text-xs leading-5 font-medium rounded-full bg-green-100 text-green-800">Hội
+                    thảo</span>
                 </td>
                 <td class="px-4 py-3">
                   <p class="font-medium text-sm text-gray-700">Hội trường A, HUB</p>
@@ -277,18 +317,26 @@
                   <p class="font-medium text-sm text-gray-700">150 / 200</p>
                   <p class="text-xs text-gray-500">Đã đăng ký</p>
                 </td>
-                 <td class="px-4 py-3">
-                  <span class="px-2.5 py-0.5 inline-flex text-xs leading-5 font-medium rounded-full bg-yellow-100 text-yellow-800">Sắp diễn ra</span>
+                <td class="px-4 py-3">
+                  <span
+                    class="px-2.5 py-0.5 inline-flex text-xs leading-5 font-medium rounded-full bg-yellow-100 text-yellow-800">Sắp
+                    diễn ra</span>
                 </td>
                 <td class="px-4 py-3 text-right">
                   <div class="flex items-center justify-end space-x-2">
-                    <button class="btn-view text-blue-600 hover:text-blue-900 p-1 rounded hover:bg-blue-100" data-event-id="1" title="Xem chi tiết">
+                    <button class="btn-view text-blue-600 hover:text-blue-900 p-1 rounded hover:bg-blue-100"
+                      data-event-id="1" title="Xem chi tiết" \
+                      onclick="window.location.href='event-detail.html'">
                       <i class="ri-eye-line w-5 h-5"></i>
                     </button>
-                    <button class="btn-edit text-yellow-600 hover:text-yellow-900 p-1 rounded hover:bg-yellow-100" data-event-id="1" title="Chỉnh sửa">
+                    <button class="btn-edit text-yellow-600 hover:text-yellow-900 p-1 rounded hover:bg-yellow-100"
+                      data-event-id="1" title="Chỉnh sửa"
+                      onclick="window.location.href='event-detail-update.html'">
                       <i class="ri-pencil-line w-5 h-5"></i>
                     </button>
-                    <button class="btn-delete text-red-600 hover:text-red-900 p-1 rounded hover:bg-red-100" data-event-id="1" title="Xóa">
+                    <button class="btn-delete text-red-600 hover:text-red-900 p-1 rounded hover:bg-red-100"
+                      data-event-id="1" title="Xóa"
+                      onclick="">
                       <i class="ri-delete-bin-line w-5 h-5"></i>
                     </button>
                   </div>
@@ -298,120 +346,157 @@
                 <td class="px-4 py-3">
                   <div class="flex items-center gap-3">
                     <div class="h-12 w-12 rounded-md overflow-hidden flex-shrink-0">
-                      <img src="/images/event-placeholder-2.jpg" alt="Khóa học Lập trình Web" class="w-full h-full object-cover">
+                      <img src="/images/event-placeholder-2.jpg" alt="Khóa học Lập trình Web"
+                        class="w-full h-full object-cover">
                     </div>
                     <div>
-                      <p class="font-medium text-gray-900 truncate" title="Khóa học Lập trình Web Nâng cao">Khóa học Lập trình Web Nâng cao</p>
+                      <p class="font-medium text-gray-900 truncate" title="Khóa học Lập trình Web Nâng cao">Khóa học Lập
+                        trình Web Nâng cao</p>
                       <p class="text-sm text-gray-500">01 Thg 8, 2024, 18:00</p>
                     </div>
                   </div>
                 </td>
-                 <td class="px-4 py-3">
-                   <span class="px-2.5 py-0.5 inline-flex text-xs leading-5 font-medium rounded-full bg-sky-100 text-sky-800">Offline</span>
+                <td class="px-4 py-3">
+                  <span
+                    class="px-2.5 py-0.5 inline-flex text-xs leading-5 font-medium rounded-full bg-sky-100 text-sky-800">Offline</span>
                 </td>
                 <td class="px-4 py-3">
-                  <span class="px-2.5 py-0.5 inline-flex text-xs leading-5 font-medium rounded-full bg-purple-100 text-purple-800">Khoá học</span>
+                  <span
+                    class="px-2.5 py-0.5 inline-flex text-xs leading-5 font-medium rounded-full bg-purple-100 text-purple-800">Khoá
+                    học</span>
                 </td>
                 <td class="px-4 py-3">
                   <p class="font-medium text-sm text-gray-700">Phòng Lab 301, HUB</p>
                 </td>
                 <td class="px-4 py-3">
                   <p class="font-medium text-sm text-gray-700">45 / 50</p>
-                   <p class="text-xs text-gray-500">Đã đăng ký</p>
+                  <p class="text-xs text-gray-500">Đã đăng ký</p>
                 </td>
-                 <td class="px-4 py-3">
-                  <span class="px-2.5 py-0.5 inline-flex text-xs leading-5 font-medium rounded-full bg-green-100 text-green-800">Đang diễn ra</span>
+                <td class="px-4 py-3">
+                  <span
+                    class="px-2.5 py-0.5 inline-flex text-xs leading-5 font-medium rounded-full bg-green-100 text-green-800">Đang
+                    diễn ra</span>
                 </td>
                 <td class="px-4 py-3 text-right">
-                   <div class="flex items-center justify-end space-x-2">
-                     <button class="btn-view text-blue-600 hover:text-blue-900 p-1 rounded hover:bg-blue-100" data-event-id="2" title="Xem chi tiết">
-                       <i class="ri-eye-line w-5 h-5"></i>
-                     </button>
-                     <button class="btn-edit text-yellow-600 hover:text-yellow-900 p-1 rounded hover:bg-yellow-100" data-event-id="2" title="Chỉnh sửa">
-                       <i class="ri-pencil-line w-5 h-5"></i>
-                     </button>
-                     <button class="btn-delete text-red-600 hover:text-red-900 p-1 rounded hover:bg-red-100" data-event-id="2" title="Xóa">
-                       <i class="ri-delete-bin-line w-5 h-5"></i>
-                     </button>
-                   </div>
+                  <div class="flex items-center justify-end space-x-2">
+                    <button class="btn-view text-blue-600 hover:text-blue-900 p-1 rounded hover:bg-blue-100"
+                      data-event-id="2" title="Xem chi tiết"
+                      onclick="window.location.href='event-detail.html'">
+                      <i class="ri-eye-line w-5 h-5"></i>
+                    </button>
+                    <button class="btn-edit text-yellow-600 hover:text-yellow-900 p-1 rounded hover:bg-yellow-100"
+                      data-event-id="2" title="Chỉnh sửa"
+                      onclick="window.location.href='event-detail-update.html'">
+                      <i class="ri-pencil-line w-5 h-5"></i>
+                    </button>
+                    <button class="btn-delete text-red-600 hover:text-red-900 p-1 rounded hover:bg-red-100"
+                      data-event-id="2" title="Xóa"
+                      onclick="">
+                      <i class="ri-delete-bin-line w-5 h-5"></i>
+                    </button>
+                  </div>
                 </td>
               </tr>
-               <tr class="bg-white border-b hover:bg-gray-50" data-event-id="3">
+              <tr class="bg-white border-b hover:bg-gray-50" data-event-id="3">
                 <td class="px-4 py-3">
                   <div class="flex items-center gap-3">
                     <div class="h-12 w-12 rounded-md overflow-hidden flex-shrink-0">
-                      <img src="/images/event-placeholder-3.jpg" alt="Hội nghị Fintech Châu Á" class="w-full h-full object-cover">
+                      <img src="/images/event-placeholder-3.jpg" alt="Hội nghị Fintech Châu Á"
+                        class="w-full h-full object-cover">
                     </div>
                     <div>
-                      <p class="font-medium text-gray-900 truncate" title="Hội nghị Fintech Châu Á 2024">Hội nghị Fintech Châu Á 2024</p>
+                      <p class="font-medium text-gray-900 truncate" title="Hội nghị Fintech Châu Á 2024">Hội nghị
+                        Fintech Châu Á 2024</p>
                       <p class="text-sm text-gray-500">15 Thg 9, 2024, 08:30</p>
                     </div>
                   </div>
                 </td>
-                 <td class="px-4 py-3">
-                   <span class="px-2.5 py-0.5 inline-flex text-xs leading-5 font-medium rounded-full bg-indigo-100 text-indigo-800">Hybrid</span>
+                <td class="px-4 py-3">
+                  <span
+                    class="px-2.5 py-0.5 inline-flex text-xs leading-5 font-medium rounded-full bg-indigo-100 text-indigo-800">Hybrid</span>
                 </td>
                 <td class="px-4 py-3">
-                  <span class="px-2.5 py-0.5 inline-flex text-xs leading-5 font-medium rounded-full bg-blue-100 text-blue-800">Hội nghị</span>
+                  <span
+                    class="px-2.5 py-0.5 inline-flex text-xs leading-5 font-medium rounded-full bg-blue-100 text-blue-800">Hội
+                    nghị</span>
                 </td>
                 <td class="px-4 py-3">
                   <p class="font-medium text-sm text-gray-700">Trung tâm Hội nghị Quốc gia</p>
                 </td>
                 <td class="px-4 py-3">
                   <p class="font-medium text-sm text-gray-700">870 / 1000</p>
-                   <p class="text-xs text-gray-500">Đã đăng ký</p>
+                  <p class="text-xs text-gray-500">Đã đăng ký</p>
                 </td>
-                 <td class="px-4 py-3">
-                   <span class="px-2.5 py-0.5 inline-flex text-xs leading-5 font-medium rounded-full bg-gray-100 text-gray-800">Đã kết thúc</span>
-                 </td>
+                <td class="px-4 py-3">
+                  <span
+                    class="px-2.5 py-0.5 inline-flex text-xs leading-5 font-medium rounded-full bg-gray-100 text-gray-800">Đã
+                    kết thúc</span>
+                </td>
                 <td class="px-4 py-3 text-right">
-                   <div class="flex items-center justify-end space-x-2">
-                     <button class="btn-view text-blue-600 hover:text-blue-900 p-1 rounded hover:bg-blue-100" data-event-id="3" title="Xem chi tiết">
-                       <i class="ri-eye-line w-5 h-5"></i>
-                     </button>
-                     <button class="btn-edit text-yellow-600 hover:text-yellow-900 p-1 rounded hover:bg-yellow-100" data-event-id="3" title="Chỉnh sửa">
-                       <i class="ri-pencil-line w-5 h-5"></i>
-                     </button>
-                     <button class="btn-delete text-red-600 hover:text-red-900 p-1 rounded hover:bg-red-100" data-event-id="3" title="Xóa">
-                       <i class="ri-delete-bin-line w-5 h-5"></i>
-                     </button>
-                   </div>
+                  <div class="flex items-center justify-end space-x-2">
+                    <button class="btn-view text-blue-600 hover:text-blue-900 p-1 rounded hover:bg-blue-100"
+                      data-event-id="3" title="Xem chi tiết"
+                      onclick="window.location.href='event-detail.html'">
+                      <i class="ri-eye-line w-5 h-5"></i>
+                    </button>
+                    <button class="btn-edit text-yellow-600 hover:text-yellow-900 p-1 rounded hover:bg-yellow-100"
+                      data-event-id="3" title="Chỉnh sửa"
+                      onclick="window.location.href='event-detail-update.html'">
+                      <i class="ri-pencil-line w-5 h-5"></i>
+                    </button>
+                    <button class="btn-delete text-red-600 hover:text-red-900 p-1 rounded hover:bg-red-100"
+                      data-event-id="3" title="Xóa"
+                      onclick="">
+                      <i class="ri-delete-bin-line w-5 h-5"></i>
+                    </button>
+                  </div>
                 </td>
               </tr>
               <!-- Hardcoded Table rows END -->
             </tbody>
           </table>
         </div>
-        
+
         <!-- Pagination -->
         <div class="px-4 py-3 bg-gray-50 border-t border-gray-200">
           <div class="flex flex-col sm:flex-row items-center justify-between space-y-2 sm:space-y-0">
             <div class="flex items-center space-x-2 text-sm text-gray-500">
               <span>Hiển thị</span>
-              <select id="items-per-page" name="items-per-page" class="border border-gray-300 rounded-md px-2 py-1 focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary">
+              <select id="items-per-page" name="items-per-page"
+                class="border border-gray-300 rounded-md px-2 py-1 focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary">
                 <option value="10" selected>10</option>
                 <option value="20">20</option>
                 <option value="50">50</option>
                 <option value="100">100</option>
               </select>
-              <span>mục. Tổng số: <span id="total-items-count" class="font-medium text-gray-700">100</span> sự kiện.</span>
+              <span>mục. Tổng số: <span id="total-items-count" class="font-medium text-gray-700">100</span> sự
+                kiện.</span>
             </div>
             <div class="flex items-center space-x-1" id="pagination-controls">
-              <button class="btn-first p-2 rounded text-gray-500 hover:text-gray-700 hover:bg-gray-100 disabled:opacity-50 disabled:cursor-not-allowed" title="Trang đầu">
+              <button
+                class="btn-first p-2 rounded text-gray-500 hover:text-gray-700 hover:bg-gray-100 disabled:opacity-50 disabled:cursor-not-allowed"
+                title="Trang đầu">
                 <i class="ri-skip-left-line"></i>
               </button>
-              <button class="btn-prev p-2 rounded text-gray-500 hover:text-gray-700 hover:bg-gray-100 disabled:opacity-50 disabled:cursor-not-allowed" title="Trang trước">
+              <button
+                class="btn-prev p-2 rounded text-gray-500 hover:text-gray-700 hover:bg-gray-100 disabled:opacity-50 disabled:cursor-not-allowed"
+                title="Trang trước">
                 <i class="ri-arrow-left-s-line"></i>
               </button>
               <div class="flex items-center space-x-1 px-2">
                 <span class="text-sm text-gray-700">Trang</span>
-                <input type="number" id="current-page-input" value="1" min="1" class="w-12 border border-gray-300 rounded-md px-2 py-1 text-center text-sm focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary">
+                <input type="number" id="current-page-input" value="1" min="1"
+                  class="w-12 border border-gray-300 rounded-md px-2 py-1 text-center text-sm focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary">
                 <span class="text-sm text-gray-500">/ <span id="total-pages-count">10</span></span>
               </div>
-              <button class="btn-next p-2 rounded text-gray-500 hover:text-gray-700 hover:bg-gray-100 disabled:opacity-50 disabled:cursor-not-allowed" title="Trang sau">
+              <button
+                class="btn-next p-2 rounded text-gray-500 hover:text-gray-700 hover:bg-gray-100 disabled:opacity-50 disabled:cursor-not-allowed"
+                title="Trang sau">
                 <i class="ri-arrow-right-s-line"></i>
               </button>
-               <button class="btn-last p-2 rounded text-gray-500 hover:text-gray-700 hover:bg-gray-100 disabled:opacity-50 disabled:cursor-not-allowed" title="Trang cuối">
+              <button
+                class="btn-last p-2 rounded text-gray-500 hover:text-gray-700 hover:bg-gray-100 disabled:opacity-50 disabled:cursor-not-allowed"
+                title="Trang cuối">
                 <i class="ri-skip-right-line"></i>
               </button>
             </div>
@@ -420,7 +505,7 @@
       </div>
     </main>
   </div>
-  
+
   <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
   <!-- Thêm jQuery, Moment.js và daterangepicker JS -->
   <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
