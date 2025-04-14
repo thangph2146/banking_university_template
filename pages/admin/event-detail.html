@@ -8,62 +8,103 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet" />
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <link href="../../public/css/custom.css" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com/3.4.16"></script>
     <script src="../../public/js/tailwind.config.js"></script>
-    <!-- QR Code library -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 </head>
 
 <body class="bg-gray-50 min-h-screen">
-    <div class="flex">
-        <!-- Sidebar -->
+    <div class="flex h-screen overflow-hidden">
+        <div id="sidebar-backdrop" class="fixed inset-0 bg-black/50 z-20 hidden md:hidden transition-opacity duration-300">
+        </div>
+
         <aside id="sidebar"
-            class="bg-white w-64 min-h-screen shadow-lg transform -translate-x-full md:translate-x-0 transition-transform duration-300">
+            class="fixed md:relative z-50 bg-white w-72 max-w-[80vw] min-h-screen shadow-lg transform -translate-x-full md:translate-x-0 transition-transform duration-300 overflow-y-auto">
+            <div class="flex items-center justify-between p-4 border-b md:hidden">
+                <a href="index.html" class="text-2xl font-['Pacifico'] text-primary flex items-center">
+                    <img src="../../images/logo/logo-white.png" alt="logo" class="w-8 h-8 mr-2">
+                    <span>HUB Admin</span>
+                </a>
+                <button id="sidebar-close" class="text-gray-500 hover:text-gray-700 focus:outline-none">
+                    <i class="ri-close-line text-2xl"></i>
+                </button>
+            </div>
+
             <nav class="p-4">
                 <div class="space-y-4">
                     <div class="border-b pb-4">
                         <h2 class="text-xs uppercase text-gray-400 font-semibold">Quản lý chung</h2>
                         <div class="mt-3 space-y-3">
-                            <a href="dashboard.html" class="flex items-center text-gray-600 hover:text-primary">
-                                <i class="ri-dashboard-line mr-2"></i>
-                                Tổng quan
+                            <a href="dashboard.html"
+                                class="sidebar-link flex items-center text-gray-600 hover:text-primary p-2 rounded-md hover:bg-gray-100">
+                                <i class="sidebar-icon ri-dashboard-line mr-2"></i>
+                                <span class="sidebar-link-text">Tổng quan</span>
                             </a>
-                            <a href="events.html" class="flex items-center text-primary">
-                                <i class="ri-calendar-event-line mr-2"></i>
-                                Sự kiện
+                            <a href="events.html"
+                                class="sidebar-link active flex items-center text-primary p-2 rounded-md bg-primary/10 font-medium">
+                                <i class="sidebar-icon ri-calendar-event-line mr-2"></i>
+                                <span class="sidebar-link-text">Sự kiện</span>
                             </a>
-                            <a href="users.html" class="flex items-center text-gray-600 hover:text-primary">
-                                <i class="ri-user-line mr-2"></i>
-                                Người dùng
+                            <a href="users.html"
+                                class="sidebar-link flex items-center text-gray-600 hover:text-primary p-2 rounded-md hover:bg-gray-100">
+                                <i class="sidebar-icon ri-user-line mr-2"></i>
+                                <span class="sidebar-link-text">Người dùng</span>
                             </a>
-                            <a href="speakers.html" class="flex items-center text-gray-600 hover:text-primary">
-                                <i class="ri-mic-line mr-2"></i>
-                                Diễn giả
+                            <a href="speakers.html"
+                                class="sidebar-link flex items-center text-gray-600 hover:text-primary p-2 rounded-md hover:bg-gray-100">
+                                <i class="sidebar-icon ri-mic-line mr-2"></i>
+                                <span class="sidebar-link-text">Diễn giả</span>
                             </a>
                         </div>
                     </div>
 
                     <div class="border-b pb-4">
-                        <h2 class="text-xs uppercase text-gray-400 font-semibold">Quản lý sự kiện</h2>
+                        <h2 class="sidebar-section-title text-xs uppercase text-gray-400 font-semibold">Quản lý sự kiện</h2>
                         <div class="mt-3 space-y-3">
-                            <a href="registrations.html" class="flex items-center text-gray-600 hover:text-primary">
-                                <i class="ri-file-list-line mr-2"></i>
-                                Đăng ký sự kiện
+                            <a href="registrations.html"
+                                class="sidebar-link flex items-center text-gray-600 hover:text-primary p-2 rounded-md hover:bg-gray-100">
+                                <i class="sidebar-icon ri-file-list-line mr-2"></i>
+                                <span class="sidebar-link-text">Đăng ký sự kiện</span>
                             </a>
-                            <a href="checkins.html" class="flex items-center text-gray-600 hover:text-primary">
-                                <i class="ri-login-box-line mr-2"></i>
-                                Check-in
+                            <a href="checkins.html"
+                                class="sidebar-link flex items-center text-gray-600 hover:text-primary p-2 rounded-md hover:bg-gray-100">
+                                <i class="sidebar-icon ri-login-box-line mr-2"></i>
+                                <span class="sidebar-link-text">Check-in</span>
                             </a>
-                            <a href="checkouts.html" class="flex items-center text-gray-600 hover:text-primary">
-                                <i class="ri-logout-box-line mr-2"></i>
-                                Check-out
+                            <a href="checkouts.html"
+                                class="sidebar-link flex items-center text-gray-600 hover:text-primary p-2 rounded-md hover:bg-gray-100">
+                                <i class="sidebar-icon ri-logout-box-line mr-2"></i>
+                                <span class="sidebar-link-text">Check-out</span>
                             </a>
-                            <a href="reports.html" class="flex items-center text-gray-600 hover:text-primary">
-                                <i class="ri-bar-chart-line mr-2"></i>
-                                Báo cáo
+                            <a href="reports.html"
+                                class="sidebar-link flex items-center text-gray-600 hover:text-primary p-2 rounded-md hover:bg-gray-100">
+                                <i class="sidebar-icon ri-bar-chart-line mr-2"></i>
+                                <span class="sidebar-link-text">Báo cáo</span>
+                            </a>
+                        </div>
+                    </div>
+
+                    <div>
+                        <h2 class="sidebar-section-title text-xs uppercase text-gray-400 font-semibold">Cài đặt hệ thống</h2>
+                        <div class="mt-3 space-y-3">
+                            <a href="settings.html"
+                                class="sidebar-link flex items-center text-gray-600 hover:text-primary p-2 rounded-md hover:bg-gray-100">
+                                <i class="sidebar-icon ri-settings-3-line mr-2"></i>
+                                <span class="sidebar-link-text">Thiết lập</span>
+                            </a>
+                            <a href="roles.html"
+                                class="sidebar-link flex items-center text-gray-600 hover:text-primary p-2 rounded-md hover:bg-gray-100">
+                                <i class="sidebar-icon ri-shield-user-line mr-2"></i>
+                                <span class="sidebar-link-text">Phân quyền</span>
+                            </a>
+                            <a href="logs.html"
+                                class="sidebar-link flex items-center text-gray-600 hover:text-primary p-2 rounded-md hover:bg-gray-100">
+                                <i class="sidebar-icon ri-file-list-3-line mr-2"></i>
+                                <span class="sidebar-link-text">Nhật ký</span>
                             </a>
                         </div>
                     </div>
@@ -71,61 +112,57 @@
             </nav>
         </aside>
 
-        <!-- Main Content -->
-        <main class="flex-1 p-6">
-            <!-- Header -->
-            <header class="bg-primary shadow-md sticky top-0 z-50 rounded-lg mb-6">
+        <main class="flex-1 overflow-auto px-6 pb-6 pt-4">
+            <header class="bg-primary shadow-md sticky top-0 z-30 animate-fade-in mb-6">
                 <div class="container mx-auto px-4 py-2 flex items-center justify-between">
-                    <div class="flex items-center">
-                        <a href="index.html" class="text-2xl font-['Pacifico'] text-white">
-                            <img src="../../images/logo/logo-white.png" alt="logo" class="w-12 h-12">
-                        </a>
-                    </div>
+                    <button id="sidebar-open" class="text-white p-2 rounded-md md:hidden focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white">
+                        <i class="ri-menu-line text-2xl"></i>
+                    </button>
 
+                    <a href="index.html"
+                        class="text-2xl font-['Pacifico'] text-white transition-all duration-300 hover:scale-105">
+                        <img src="../../images/logo/logo-white.png" alt="logo" class="w-12 h-12 md:w-16 md:h-16">
+                    </a>
                     <div class="flex items-center space-x-4">
-                        <div class="relative">
-                            <button class="text-white hover:text-gray-200 focus:outline-none">
-                                <i class="ri-notification-3-line text-xl"></i>
-                                <span
-                                    class="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full w-4 h-4 flex items-center justify-center">3</span>
-                            </button>
-                        </div>
-                        <div class="flex items-center space-x-4">
-                            <!-- User profile dropdown menu -->
-                            <div class="relative group">
-                              <button class="flex items-center space-x-2 text-white">
-                                <img src="https://readdy.ai/api/search-image?query=professional%20headshot%20young%20vietnamese%20student%20minimal%20background&width=100&height=100&seq=avatar" alt="Ảnh đại diện" class="w-8 h-8 rounded-full border-2 border-white">
+                        <div class="relative group">
+                            <button class="flex items-center space-x-2 text-white">
+                                <img
+                                src="https://readdy.ai/api/search-image?query=professional%20headshot%20young%20vietnamese%20student%20minimal%20background&width=100&height=100&seq=avatar"
+                                alt="Ảnh đại diện" class="w-8 h-8 rounded-full border-2 border-white">
                                 <span class="hidden sm:block">Nguyễn Văn A</span>
                                 <i class="ri-arrow-down-s-line group-hover:rotate-180 transition-transform duration-300"></i>
-                              </button>
-                              <div class="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg overflow-hidden z-20 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform origin-top-right scale-95 group-hover:scale-100">
+                            </button>
+                            <div
+                                class="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg overflow-hidden z-20 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform origin-top-right scale-95 group-hover:scale-100">
                                 <div class="py-2">
-                                  <a href="profile.html" class="flex items-center px-4 py-2 text-sm text-gray-800 hover:bg-primary/10 hover:text-primary border-l-4 border-primary">
-                                    <i class="ri-user-line mr-2"></i>
-                                    Trang cá nhân
-                                  </a>
-                                  <a href="registered-events.html" class="flex items-center px-4 py-2 text-sm text-gray-800 hover:bg-primary/10 hover:text-primary">
-                                    <i class="ri-calendar-event-line mr-2"></i>
-                                    Sự kiện của tôi
-                                  </a>
-                                  <a href="#" class="flex items-center px-4 py-2 text-sm text-gray-800 hover:bg-primary/10 hover:text-primary">
-                                    <i class="ri-settings-4-line mr-2"></i>
-                                    Cài đặt
-                                  </a>
-                                  <hr class="my-1 border-gray-200">
-                                  <a href="login.html" class="flex items-center px-4 py-2 text-sm text-gray-800 hover:bg-primary/10 hover:text-primary">
-                                    <i class="ri-logout-box-r-line mr-2"></i>
-                                    Đăng xuất
-                                  </a>
+                                    <a href="profile.html"
+                                        class="flex items-center px-4 py-2 text-sm text-gray-800 hover:bg-primary/10 hover:text-primary border-l-4 border-primary">
+                                        <i class="ri-user-line mr-2"></i>
+                                        Trang cá nhân
+                                    </a>
+                                    <a href="registered-events.html"
+                                        class="flex items-center px-4 py-2 text-sm text-gray-800 hover:bg-primary/10 hover:text-primary">
+                                        <i class="ri-calendar-event-line mr-2"></i>
+                                        Sự kiện của tôi
+                                    </a>
+                                    <a href="#"
+                                        class="flex items-center px-4 py-2 text-sm text-gray-800 hover:bg-primary/10 hover:text-primary">
+                                        <i class="ri-settings-4-line mr-2"></i>
+                                        Cài đặt
+                                    </a>
+                                    <hr class="my-1 border-gray-200">
+                                    <a href="login.html"
+                                        class="flex items-center px-4 py-2 text-sm text-gray-800 hover:bg-primary/10 hover:text-primary">
+                                        <i class="ri-logout-box-r-line mr-2"></i>
+                                        Đăng xuất
+                                    </a>
                                 </div>
-                              </div>
                             </div>
-                          </div>
+                        </div>
                     </div>
                 </div>
             </header>
             <div class="container mx-auto">
-                <!-- Breadcrumb -->
                 <nav class="flex mb-6" aria-label="Breadcrumb">
                     <ol class="inline-flex items-center space-x-1 md:space-x-3">
                         <li class="inline-flex items-center">
@@ -138,7 +175,7 @@
                             <div class="flex items-center">
                                 <i class="ri-arrow-right-s-line text-gray-400"></i>
                                 <a href="events.html" class="ml-1 text-gray-700 hover:text-primary">
-                                    Quản lý sự kiện
+                                    Sự kiện
                                 </a>
                             </div>
                         </li>
@@ -151,7 +188,6 @@
                     </ol>
                 </nav>
 
-                <!-- Page Header -->
                 <div class="flex flex-col md:flex-row md:items-center md:justify-between mb-6">
                     <h1 class="text-2xl font-semibold text-gray-900">Chi tiết sự kiện</h1>
                     <div class="mt-4 md:mt-0 flex space-x-2">
@@ -173,39 +209,36 @@
                     </div>
                 </div>
 
-                <!-- Tab Navigation -->
                 <div class="bg-white rounded-lg shadow-sm mb-6">
                     <div class="border-b border-gray-200">
                         <nav class="flex overflow-x-auto hide-scrollbar" id="event-tabs">
-                            <button class="tab-btn active py-4 px-6 text-center border-b-2 border-primary text-primary font-medium" data-tab="basic-info">
+                            <button class="tab-btn active py-4 px-6 text-center border-b-2 border-primary text-primary font-medium min-w-[150px]" data-tab="basic-info">
                                 Thông tin cơ bản
                             </button>
-                            <button class="tab-btn py-4 px-6 text-center border-b-2 border-transparent text-gray-500 hover:text-primary hover:border-primary font-medium" data-tab="description">
+                            <button class="tab-btn py-4 px-6 text-center border-b-2 border-transparent text-gray-500 hover:text-primary hover:border-primary font-medium min-w-[150px]" data-tab="description">
                                 Mô tả & Chi tiết
                             </button>
-                            <button class="tab-btn py-4 px-6 text-center border-b-2 border-transparent text-gray-500 hover:text-primary hover:border-primary font-medium" data-tab="schedule">
+                            <button class="tab-btn py-4 px-6 text-center border-b-2 border-transparent text-gray-500 hover:text-primary hover:border-primary font-medium min-w-[150px]" data-tab="schedule">
                                 Lịch trình
                             </button>
-                            <button class="tab-btn py-4 px-6 text-center border-b-2 border-transparent text-gray-500 hover:text-primary hover:border-primary font-medium" data-tab="participants">
+                            <button class="tab-btn py-4 px-6 text-center border-b-2 border-transparent text-gray-500 hover:text-primary hover:border-primary font-medium min-w-[150px]" data-tab="participants">
                                 Người tham gia
                             </button>
-                            <button class="tab-btn py-4 px-6 text-center border-b-2 border-transparent text-gray-500 hover:text-primary hover:border-primary font-medium" data-tab="speakers">
+                            <button class="tab-btn py-4 px-6 text-center border-b-2 border-transparent text-gray-500 hover:text-primary hover:border-primary font-medium min-w-[150px]" data-tab="speakers">
                                 Diễn giả
                             </button>
-                            <button class="tab-btn py-4 px-6 text-center border-b-2 border-transparent text-gray-500 hover:text-primary hover:border-primary font-medium" data-tab="check-config">
+                            <button class="tab-btn py-4 px-6 text-center border-b-2 border-transparent text-gray-500 hover:text-primary hover:border-primary font-medium min-w-[150px]" data-tab="check-config">
                                 Cấu hình điểm danh
                             </button>
-                            <button class="tab-btn py-4 px-6 text-center border-b-2 border-transparent text-gray-500 hover:text-primary hover:border-primary font-medium" data-tab="statistics">
+                            <button class="tab-btn py-4 px-6 text-center border-b-2 border-transparent text-gray-500 hover:text-primary hover:border-primary font-medium min-w-[150px]" data-tab="statistics">
                                 Thống kê
                             </button>
                         </nav>
                     </div>
                 </div>
 
-                <!-- Tab Basic Info -->
                 <div class="tab-content" id="tab-basic-info">
                     <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-                        <!-- Thông tin cơ bản -->
                         <div class="lg:col-span-2">
                             <div class="bg-white rounded-lg shadow-sm p-6 mb-6">
                                 <h2 class="text-lg font-semibold mb-4">Thông tin cơ bản</h2>
@@ -272,7 +305,6 @@
                             </div>
                         </div>
                         
-                        <!-- Thống kê -->
                         <div>
                             <div class="bg-white rounded-lg shadow-sm p-6 mb-6">
                                 <h2 class="text-lg font-semibold mb-4">Thống kê tham gia</h2>
@@ -327,10 +359,8 @@
                     </div>
                 </div>
 
-                <!-- Tab Mô tả & Chi tiết -->
                 <div class="tab-content hidden" id="tab-description">
                     <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-                        <!-- Mô tả và chi tiết -->
                         <div class="lg:col-span-2">
                             <div class="bg-white rounded-lg shadow-sm p-6 mb-6">
                                 <h2 class="text-lg font-semibold mb-4">Mô tả và chi tiết</h2>
@@ -377,28 +407,8 @@
                                     </div>
                                 </div>
                             </div>
-                            
-                            <!-- Hình ảnh sự kiện -->
-                            <div class="bg-white rounded-lg shadow-sm p-6">
-                                <h2 class="text-lg font-semibold mb-4">Hình ảnh sự kiện</h2>
-                                <div class="space-y-4">
-                                    <div>
-                                        <label class="block text-sm font-medium text-gray-700">Ảnh bìa</label>
-                                        <div class="mt-2">
-                                            <img id="hinh_anh" src="https://images.unsplash.com/photo-1540575467063-178a50c2df87?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1000&h=600&q=80" alt="Ảnh bìa sự kiện" class="w-full h-auto rounded-lg image-hover-effect">
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <label class="block text-sm font-medium text-gray-700">Ảnh background</label>
-                                        <div class="mt-2">
-                                            <img id="hinh_anh_bg" src="https://images.unsplash.com/photo-1517048676732-d65bc937f952?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1000&h=600&q=80" alt="Ảnh background" class="w-full h-auto rounded-lg image-hover-effect">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
                         </div>
                         
-                        <!-- Thông tin bổ sung -->
                         <div>
                             <div class="bg-white rounded-lg shadow-sm p-6 mb-6">
                                 <h2 class="text-lg font-semibold mb-4">Thông tin bổ sung</h2>
@@ -429,7 +439,6 @@
                     </div>
                 </div>
 
-                <!-- Tab Lịch trình -->
                 <div class="tab-content hidden" id="tab-schedule">
                     <div class="bg-white rounded-lg shadow-sm p-6 mb-6">
                         <h2 class="text-lg font-semibold mb-4">Lịch trình sự kiện</h2>
@@ -518,7 +527,6 @@
                     </div>
                 </div>
 
-                <!-- Tab Người tham gia -->
                 <div class="tab-content hidden" id="tab-participants">
                     <div class="bg-white rounded-lg shadow-sm p-6 mb-6">
                         <h2 class="text-lg font-semibold mb-4">Danh sách người tham gia</h2>
@@ -589,7 +597,6 @@
                     </div>
                 </div>
 
-                <!-- Tab Diễn giả -->
                 <div class="tab-content hidden" id="tab-speakers">
                     <div class="bg-white rounded-lg shadow-sm p-6 mb-6">
                         <h2 class="text-lg font-semibold mb-4">Danh sách diễn giả</h2>
@@ -598,7 +605,7 @@
                                 <div class="flex md:flex-row flex-col">
                                     <div class="md:w-1/4 w-full">
                                         <img class="h-48 w-full object-cover" src="https://images.unsplash.com/photo-1548449112-96a38a643324" alt="TS. Nguyễn Văn Giáo" 
-                                            onerror="this.src='https://dummyimage.com/200x200/e0e0e0/ffffff&text=Không+có+ảnh'">
+                                            onerror="this.onerror=null; this.src='../../images/placeholder.jpg';">
                                     </div>
                                     <div class="md:w-3/4 w-full p-4">
                                         <div class="mb-2 text-xs font-medium text-primary">
@@ -628,7 +635,7 @@
                                 <div class="flex md:flex-row flex-col">
                                     <div class="md:w-1/4 w-full">
                                         <img class="h-48 w-full object-cover" src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2" alt="ThS. Trần Thị Chuyên" 
-                                            onerror="this.src='https://dummyimage.com/200x200/e0e0e0/ffffff&text=Không+có+ảnh'">
+                                            onerror="this.onerror=null; this.src='../../images/placeholder.jpg';">
                                     </div>
                                     <div class="md:w-3/4 w-full p-4">
                                         <div class="mb-2 text-xs font-medium text-primary">
@@ -658,7 +665,7 @@
                                 <div class="flex md:flex-row flex-col">
                                     <div class="md:w-1/4 w-full">
                                         <img class="h-48 w-full object-cover" src="https://images.unsplash.com/photo-1560250097-0b93528c311a" alt="PGS.TS. Phạm Văn Nghiên" 
-                                            onerror="this.src='https://dummyimage.com/200x200/e0e0e0/ffffff&text=Không+có+ảnh'">
+                                            onerror="this.onerror=null; this.src='../../images/placeholder.jpg';">
                                     </div>
                                     <div class="md:w-3/4 w-full p-4">
                                         <div class="mb-2 text-xs font-medium text-primary">
@@ -687,7 +694,6 @@
                     </div>
                 </div>
 
-                <!-- Tab Cấu hình điểm danh -->
                 <div class="tab-content hidden" id="tab-check-config">
                     <div class="bg-white rounded-lg shadow-sm p-6 mb-6">
                         <h2 class="text-lg font-semibold mb-4">Cấu hình check-in</h2>
@@ -723,120 +729,10 @@
                             </div>
                         </div>
                     </div>
-                    
-                    <div class="bg-white rounded-lg shadow-sm p-6">
-                        <h2 class="text-lg font-semibold mb-4">Thống kê tham gia</h2>
-                        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
-                            <div class="bg-gradient-to-r from-green-50 to-green-100 p-4 rounded-lg shadow-sm">
-                                <div class="flex items-center justify-between">
-                                    <div>
-                                        <p class="text-sm text-gray-600">Tổng số đăng ký</p>
-                                        <h3 class="text-2xl font-bold text-green-800">180</h3>
-                                    </div>
-                                    <div class="text-green-500 bg-green-100 rounded-full p-2">
-                                        <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                                            <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd"></path>
-                                        </svg>
-                                    </div>
-                                </div>
-                            </div>
-                            
-                            <div class="bg-gradient-to-r from-blue-50 to-blue-100 p-4 rounded-lg shadow-sm">
-                                <div class="flex items-center justify-between">
-                                    <div>
-                                        <p class="text-sm text-gray-600">Số lượng check-in</p>
-                                        <h3 class="text-2xl font-bold text-blue-800">120</h3>
-                                    </div>
-                                    <div class="text-blue-500 bg-blue-100 rounded-full p-2">
-                                        <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                                            <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
-                                        </svg>
-                                    </div>
-                                </div>
-                            </div>
-                            
-                            <div class="bg-gradient-to-r from-purple-50 to-purple-100 p-4 rounded-lg shadow-sm">
-                                <div class="flex items-center justify-between">
-                                    <div>
-                                        <p class="text-sm text-gray-600">Số lượng check-out</p>
-                                        <h3 class="text-2xl font-bold text-purple-800">110</h3>
-                                    </div>
-                                    <div class="text-purple-500 bg-purple-100 rounded-full p-2">
-                                        <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                                            <path fill-rule="evenodd" d="M17.707 9.293a1 1 0 010 1.414l-7 7a1 1 0 01-1.414 0l-7-7A.997.997 0 012 10V5a1 1 0 011-1h5.586l.707-.707A1 1 0 0110 3h4a1 1 0 011 1v6z" clip-rule="evenodd"></path>
-                                        </svg>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                            <div class="p-4 border rounded-lg">
-                                <h4 class="text-base font-semibold mb-2">Tỷ lệ tham gia</h4>
-                                <div class="relative pt-1">
-                                    <div class="flex mb-2 items-center justify-between">
-                                        <div>
-                                            <span class="text-xs font-semibold inline-block py-1 px-2 uppercase rounded-full text-blue-600 bg-blue-200">
-                                                Check-in
-                                            </span>
-                                        </div>
-                                        <div class="text-right">
-                                            <span class="text-xs font-semibold inline-block text-blue-600">
-                                                66.7%
-                                            </span>
-                                        </div>
-                                    </div>
-                                    <div class="overflow-hidden h-2 mb-4 text-xs flex rounded bg-blue-200">
-                                        <div style="width: 66.7%" class="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center bg-blue-500"></div>
-                                    </div>
-                                    
-                                    <div class="flex mb-2 items-center justify-between">
-                                        <div>
-                                            <span class="text-xs font-semibold inline-block py-1 px-2 uppercase rounded-full text-purple-600 bg-purple-200">
-                                                Check-out
-                                            </span>
-                                        </div>
-                                        <div class="text-right">
-                                            <span class="text-xs font-semibold inline-block text-purple-600">
-                                                61.1%
-                                            </span>
-                                        </div>
-                                    </div>
-                                    <div class="overflow-hidden h-2 mb-4 text-xs flex rounded bg-purple-200">
-                                        <div style="width: 61.1%" class="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center bg-purple-500"></div>
-                                    </div>
-                                </div>
-                            </div>
-                            
-                            <div class="p-4 border rounded-lg">
-                                <h4 class="text-base font-semibold mb-2">Thống kê nhanh</h4>
-                                <ul class="space-y-2">
-                                    <li class="flex items-center justify-between">
-                                        <span class="text-sm text-gray-600">Số lượng diễn giả:</span>
-                                        <span class="text-sm font-medium">3 người</span>
-                                    </li>
-                                    <li class="flex items-center justify-between">
-                                        <span class="text-sm text-gray-600">Giảng viên tham gia:</span>
-                                        <span class="text-sm font-medium">15 người</span>
-                                    </li>
-                                    <li class="flex items-center justify-between">
-                                        <span class="text-sm text-gray-600">Sinh viên tham gia:</span>
-                                        <span class="text-sm font-medium">165 người</span>
-                                    </li>
-                                    <li class="flex items-center justify-between">
-                                        <span class="text-sm text-gray-600">Thời gian diễn ra:</span>
-                                        <span class="text-sm font-medium">9 giờ</span>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
                 </div>
 
-                <!-- Tab Thống kê -->
                 <div class="tab-content hidden" id="tab-statistics">
                     <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-                        <!-- Thống kê chung -->
                         <div class="lg:col-span-3">
                             <div class="bg-white rounded-lg shadow-sm p-6 mb-6">
                                 <h2 class="text-lg font-semibold mb-4">Tổng quan thống kê</h2>
@@ -889,12 +785,10 @@
                             </div>
                         </div>
                         
-                        <!-- Biểu đồ thống kê -->
                         <div class="lg:col-span-2">
                             <div class="bg-white rounded-lg shadow-sm p-6 mb-6">
                                 <h2 class="text-lg font-semibold mb-4">Biểu đồ thống kê tham gia</h2>
                                 <div id="chart_container" class="w-full h-64">
-                                    <!-- Biểu đồ sẽ được render bằng JS -->
                                     <div class="w-full h-full flex items-center justify-center text-gray-500">
                                         <p>Đang tải biểu đồ...</p>
                                     </div>
@@ -902,7 +796,6 @@
                             </div>
                         </div>
 
-                        <!-- Thông tin bổ sung -->
                         <div>
                             <div class="bg-white rounded-lg shadow-sm p-6 mb-6">
                                 <h2 class="text-lg font-semibold mb-4">Thông tin bổ sung</h2>
@@ -925,10 +818,9 @@
                     </div>
                 </div>
             </div>
-        </main>
+        </div>
     </div>
 
-    <!-- Loading Overlay -->
     <div id="loading-overlay" class="position-fixed top-0 start-0 w-100 h-100 d-flex justify-content-center align-items-center bg-white" style="z-index: 9999;">
       <div class="text-center">
         <div class="spinner-border" role="status" style="width: 3rem; height: 3rem;"></div>
