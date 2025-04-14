@@ -17,7 +17,7 @@ document.addEventListener('DOMContentLoaded', function() {
   // Xử lý sidebar
   const sidebarOpen = document.getElementById('sidebar-open');
   const sidebarClose = document.getElementById('sidebar-close');
-  const sidebar = document.getElementById('sidebar');
+const sidebar = document.getElementById('sidebar');
   const sidebarBackdrop = document.getElementById('sidebar-backdrop');
 
   if (sidebarOpen) {
@@ -50,17 +50,17 @@ document.addEventListener('DOMContentLoaded', function() {
       userMenuDropdown.classList.toggle('hidden');
     });
 
-    document.addEventListener('click', (e) => {
+document.addEventListener('click', (e) => {
       if (!userMenu.contains(e.target) && !userMenuDropdown.contains(e.target)) {
         userMenuDropdown.classList.add('hidden');
-      }
-    });
+  }
+});
   }
 
   // Modal xử lý
-  const createUserBtn = document.getElementById('create-user-btn');
-  
-  function openUserModal() {
+const createUserBtn = document.getElementById('create-user-btn');
+
+function openUserModal() {
     const modal = document.getElementById('user-modal');
     if (modal) {
       modal.classList.remove('hidden');
@@ -77,24 +77,24 @@ document.addEventListener('DOMContentLoaded', function() {
   };
 
   if (createUserBtn) {
-    createUserBtn.addEventListener('click', openUserModal);
+createUserBtn.addEventListener('click', openUserModal);
   }
 
   // Form xử lý
   const userForm = document.getElementById('user-form');
   if (userForm) {
     userForm.addEventListener('submit', function(e) {
-      e.preventDefault();
-      
+  e.preventDefault();
+  
       const password = document.getElementById('mat_khau').value;
       const confirmPassword = document.getElementById('xac_nhan_mat_khau').value;
       
       // Kiểm tra mật khẩu và xác nhận mật khẩu
       if (password !== confirmPassword) {
         alert('Mật khẩu và xác nhận mật khẩu không khớp!');
-        return;
-      }
-      
+      return;
+    }
+    
       // Nếu thành công, thêm user mới vào danh sách
       const newUser = {
         id: allUsers.length + 1,
@@ -428,20 +428,20 @@ document.addEventListener('DOMContentLoaded', function() {
     tableBody.innerHTML = displayedUsers.map(user => `
       <tr>
         <td class="px-6 py-4">
-          <div class="flex items-center">
-            <div class="flex-shrink-0 h-10 w-10">
+        <div class="flex items-center">
+          <div class="flex-shrink-0 h-10 w-10">
               <img class="h-10 w-10 rounded-full" src="${user.avatar}" alt="${user.ho_ten}">
             </div>
             <div class="ml-4">
               <div class="text-sm font-medium text-gray-900">${user.ho_ten}</div>
               <div class="text-sm text-gray-500">${user.email}</div>
-            </div>
           </div>
-        </td>
+        </div>
+      </td>
         <td class="px-6 py-4">
           <div class="text-sm text-gray-900">${user.so_dien_thoai}</div>
           <div class="text-sm text-gray-500">${user.dia_chi || 'Chưa cập nhật'}</div>
-        </td>
+      </td>
         <td class="px-6 py-4">
           <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full 
             ${user.vai_tro === 'admin' ? 'bg-purple-100 text-purple-800' : 
@@ -450,8 +450,8 @@ document.addEventListener('DOMContentLoaded', function() {
             ${user.vai_tro === 'admin' ? 'Admin' : 
             user.vai_tro === 'moderator' ? 'Điều hành viên' : 
             'Người dùng'}
-          </span>
-        </td>
+        </span>
+      </td>
         <td class="px-6 py-4">
           <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full 
             ${user.trang_thai === 'active' ? 'bg-green-100 text-green-800' : 
@@ -460,27 +460,27 @@ document.addEventListener('DOMContentLoaded', function() {
             ${user.trang_thai === 'active' ? 'Đang hoạt động' : 
             user.trang_thai === 'inactive' ? 'Không hoạt động' : 
             'Đã khóa'}
-          </span>
-        </td>
+        </span>
+      </td>
         <td class="px-6 py-4 text-sm text-gray-500">
           ${formatDate(user.ngay_tham_gia)}
-        </td>
+      </td>
         <td class="px-6 py-4 text-right text-sm font-medium">
           <div class="flex justify-end space-x-2">
             <button onclick="viewUser(${user.id})" class="text-blue-600 hover:text-blue-900">
-              <i class="ri-eye-line"></i>
-            </button>
+            <i class="ri-eye-line"></i>
+          </button>
             <button onclick="editUser(${user.id})" class="text-green-600 hover:text-green-900">
-              <i class="ri-edit-line"></i>
-            </button>
+            <i class="ri-edit-line"></i>
+          </button>
             <button onclick="deleteUser(${user.id})" class="text-red-600 hover:text-red-900">
-              <i class="ri-delete-bin-line"></i>
-            </button>
-          </div>
-        </td>
-      </tr>
-    `).join('');
-  }
+            <i class="ri-delete-bin-line"></i>
+          </button>
+        </div>
+      </td>
+    </tr>
+  `).join('');
+}
 
   // Định dạng ngày
   function formatDate(dateString) {

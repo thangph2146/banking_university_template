@@ -200,30 +200,30 @@ const renderTable = () => {
         const row = document.createElement('tr');
         row.innerHTML = `
             <td class="px-4 py-4 whitespace-nowrap">
-                <div class="flex items-center">
-                    <div class="flex-shrink-0 h-10 w-10">
+        <div class="flex items-center">
+          <div class="flex-shrink-0 h-10 w-10">
                         <img class="h-10 w-10 rounded-full object-cover" src="${reg.User?.Avatar || '#'}" alt="${reg.User?.FullName || ''}">
-                    </div>
-                    <div class="ml-4">
+          </div>
+          <div class="ml-4">
                         <div class="text-sm font-medium text-gray-900">${reg.User?.FullName || 'N/A'}</div>
                         <div class="text-sm text-gray-500">${reg.User?.Email || 'N/A'}</div>
-                    </div>
-                </div>
-            </td>
+          </div>
+        </div>
+      </td>
             <td class="px-4 py-4 whitespace-nowrap">
                 <div class="text-sm text-gray-900">${reg.Event?.EventName || 'N/A'}</div>
                 <div class="text-sm text-gray-500">${formatDate(reg.Event?.StartTime)}</div>
-            </td>
+      </td>
             <td class="px-4 py-4 whitespace-nowrap text-sm text-gray-500">${formatDateTime(reg.RegistrationTime)}</td>
             <td class="px-4 py-4 whitespace-nowrap">
                 <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${getStatusClass(reg.Status)}">
                     ${getStatusText(reg.Status)}
-                </span>
-            </td>
+        </span>
+      </td>
             <td class="px-4 py-4 whitespace-nowrap text-sm">
                 <div class="text-green-600"> ${reg.CheckInTime ? `<i class="ri-login-box-line mr-1"></i> ${formatDateTime(reg.CheckInTime)}` : '-'}</div>
                 <div class="text-blue-600"> ${reg.CheckOutTime ? `<i class="ri-logout-box-line mr-1"></i> ${formatDateTime(reg.CheckOutTime)}` : '-'}</div>
-            </td>
+      </td>
             <td class="px-4 py-4 whitespace-nowrap text-right text-sm font-medium">
                 <div class="flex justify-end space-x-2">
                     <button class="text-green-600 hover:text-green-900 action-btn" title="Duyệt" data-id="${reg.ID}" data-action="approve" ${reg.Status !== 'pending' ? 'disabled class="opacity-50 cursor-not-allowed"' : ''}>
@@ -231,15 +231,15 @@ const renderTable = () => {
                     </button>
                     <button class="text-red-600 hover:text-red-900 action-btn" title="Từ chối" data-id="${reg.ID}" data-action="reject" ${reg.Status !== 'pending' ? 'disabled class="opacity-50 cursor-not-allowed"' : ''}>
                         <i class="ri-close-line"></i>
-                    </button>
+          </button>
                     <button class="text-blue-600 hover:text-blue-900 action-btn" title="Xem/Sửa" data-id="${reg.ID}" data-action="edit">
-                        <i class="ri-edit-line"></i>
-                    </button>
+            <i class="ri-edit-line"></i>
+          </button>
                     <button class="text-gray-500 hover:text-gray-700 action-btn" title="Xóa" data-id="${reg.ID}" data-action="delete">
-                        <i class="ri-delete-bin-line"></i>
-                    </button>
-                </div>
-            </td>
+            <i class="ri-delete-bin-line"></i>
+          </button>
+        </div>
+      </td>
         `;
         registrationsTableBody.appendChild(row);
     });
