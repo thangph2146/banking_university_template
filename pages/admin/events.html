@@ -26,7 +26,7 @@
 
     <!-- Sidebar -->
     <aside id="sidebar"
-      class="fixed md:relative z-30 bg-white w-72 max-w-[80vw] min-h-screen shadow-lg transform -translate-x-full md:translate-x-0 transition-transform duration-300 overflow-y-auto">
+      class="fixed md:relative z-50 bg-white w-72 max-w-[80vw] min-h-screen shadow-lg transform -translate-x-full md:translate-x-0 transition-transform duration-300 overflow-y-auto">
       <!-- Logo/Brand for mobile -->
       <div class="flex items-center justify-between p-4 border-b md:hidden">
         <a href="index.html" class="text-2xl font-['Pacifico'] text-primary flex items-center">
@@ -119,8 +119,13 @@
     <!-- Main Content -->
     <main class="flex-1 overflow-auto px-6 pb-6 pt-4">
       <!-- Header -->
-      <header class="bg-primary shadow-md sticky top-0 z-50 animate-fade-in mb-6">
+      <header class="bg-primary shadow-md sticky top-0 z-30 animate-fade-in mb-6">
         <div class="container mx-auto px-4 py-2 flex items-center justify-between">
+          <!-- Mobile Menu Toggle Button -->
+          <button id="sidebar-open" class="text-white p-2 rounded-md md:hidden focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white">
+            <i class="ri-menu-line text-2xl"></i>
+          </button>
+
           <a href="index.html"
             class="text-2xl font-['Pacifico'] text-white transition-all duration-300 hover:scale-105">
             <img src="../../images/logo/logo-white.png" alt="logo" class="w-12 h-12 md:w-16 md:h-16">

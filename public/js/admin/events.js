@@ -47,6 +47,7 @@ document.addEventListener('DOMContentLoaded', function() {
             $(this).val(picker.startDate.format('DD/MM/YYYY') + ' - ' + picker.endDate.format('DD/MM/YYYY'));
             // Add logic here to trigger filtering based on the selected date range
             console.log('Date range selected:', $(this).val()); 
+            applyFilters(); // Apply filters when date is selected
         });
 
         // Event handler for canceling/clearing the date range
@@ -54,8 +55,44 @@ document.addEventListener('DOMContentLoaded', function() {
             $(this).val('');
              // Add logic here to clear date filter and reload data
             console.log('Date range cleared');
+            applyFilters(); // Apply filters when date is cleared
         });
     }
+
+    // --- Mobile Sidebar Toggle --- 
+    const sidebar = document.getElementById('sidebar');
+    const sidebarOpenBtn = document.getElementById('sidebar-open');
+    const sidebarCloseBtn = document.getElementById('sidebar-close');
+    const sidebarBackdrop = document.getElementById('sidebar-backdrop');
+
+    function openSidebar() {
+        if (sidebar && sidebarBackdrop) {
+            sidebar.classList.remove('-translate-x-full');
+            sidebarBackdrop.classList.remove('hidden');
+            sidebarBackdrop.classList.add('opacity-100'); // Ensure opacity transition starts correctly
+        }
+    }
+
+    function closeSidebar() {
+        if (sidebar && sidebarBackdrop) {
+            sidebar.classList.add('-translate-x-full');
+            sidebarBackdrop.classList.add('hidden');
+            sidebarBackdrop.classList.remove('opacity-100');
+        }
+    }
+
+    if (sidebarOpenBtn) {
+        sidebarOpenBtn.addEventListener('click', openSidebar);
+    }
+
+    if (sidebarCloseBtn) {
+        sidebarCloseBtn.addEventListener('click', closeSidebar);
+    }
+
+    if (sidebarBackdrop) {
+        sidebarBackdrop.addEventListener('click', closeSidebar);
+    }
+    // --- End Mobile Sidebar Toggle --- 
 
     // --- Add other event listeners and functions for events page below --- 
 
@@ -82,7 +119,7 @@ document.addEventListener('DOMContentLoaded', function() {
             
             // Reload data or apply default filters
             console.log('Filters reset');
-            // applyFilters(); // Re-apply filters (which should now be default/empty)
+            applyFilters(); // Re-apply empty filters
         });
     }
     
