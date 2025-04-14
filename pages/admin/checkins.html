@@ -4,12 +4,14 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Quản lý Đăng ký Sự kiện - HUB Admin</title>
+  <title>Quản lý Check-in - HUB Admin</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet" />
   <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet" />
   <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+  <!-- Thêm CSS cho daterangepicker -->
+  <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
   <link href="../../public/css/custom.css" rel="stylesheet">
   <script src="https://cdn.tailwindcss.com/3.4.16"></script>
   <script src="../../public/js/tailwind.config.js"></script>
@@ -27,7 +29,7 @@
       <!-- Logo/Brand for mobile -->
       <div class="flex items-center justify-between p-4 border-b md:hidden">
         <a href="index.html" class="text-2xl font-['Pacifico'] text-primary flex items-center">
-          <img src="../../images/logo/hub-logo.png" alt="logo" class="w-8 h-8 mr-2"> <!-- Use hub logo -->
+          <img src="../../images/logo/hub-logo.png" alt="logo" class="w-8 h-8 mr-2">
           <span>HUB Admin</span>
         </a>
         <button id="sidebar-close" class="text-gray-500 hover:text-gray-700 focus:outline-none">
@@ -67,12 +69,12 @@
             <h2 class="sidebar-section-title text-xs uppercase text-gray-400 font-semibold">Quản lý sự kiện</h2>
             <div class="mt-3 space-y-3">
               <a href="registrations.html"
-                class="sidebar-link active flex items-center text-primary p-2 rounded-md bg-primary/10 font-medium"> <!-- Active link -->
+                class="sidebar-link flex items-center text-gray-600 hover:text-primary p-2 rounded-md hover:bg-gray-100">
                 <i class="sidebar-icon ri-file-list-line mr-2"></i>
                 <span class="sidebar-link-text">Đăng ký sự kiện</span>
               </a>
               <a href="checkins.html"
-                class="sidebar-link flex items-center text-gray-600 hover:text-primary p-2 rounded-md hover:bg-gray-100">
+                class="sidebar-link active flex items-center text-primary p-2 rounded-md bg-primary/10 font-medium"> <!-- Active link -->
                 <i class="sidebar-icon ri-login-box-line mr-2"></i>
                 <span class="sidebar-link-text">Check-in</span>
               </a>
@@ -174,18 +176,19 @@
       <div class="bg-white rounded-lg shadow mb-6 p-4">
         <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between">
           <div>
-            <h1 class="text-2xl font-semibold text-gray-900">Quản lý Đăng ký Sự kiện</h1>
-            <p class="mt-1 text-sm text-gray-600">Quản lý tất cả các lượt đăng ký sự kiện trong hệ thống</p>
+            <h1 class="text-2xl font-semibold text-gray-900">Quản lý Check-in</h1>
+            <p class="mt-1 text-sm text-gray-600">Xem lịch sử check-in của người tham dự sự kiện</p>
           </div>
           <div class="mt-4 sm:mt-0 flex gap-2">
             <button id="refresh-btn"
               class="flex items-center justify-center px-3 py-2 border border-gray-300 text-gray-700 rounded-md hover:bg-gray-50 transition-colors duration-200">
               <i class="ri-refresh-line mr-1"></i> Tải lại
             </button>
-            <button id="create-registration-btn"
+            <!-- Optional: Add manual check-in button if needed -->
+            <!-- <button id="manual-checkin-btn"
               class="flex items-center justify-center px-4 py-2 bg-primary text-white rounded-md hover:bg-primary-dark transition-colors duration-200">
-              <i class="ri-add-line mr-1"></i> Thêm đăng ký
-            </button>
+              <i class="ri-user-add-line mr-1"></i> Check-in thủ công
+            </button> -->
           </div>
         </div>
       </div>
@@ -203,14 +206,14 @@
             <span class="text-gray-500">Quản lý sự kiện</span>
             <i class="ri-arrow-right-s-line text-gray-400 mx-2"></i>
           </li>
-          <li class="text-primary" aria-current="page">Đăng ký sự kiện</li>
+          <li class="text-primary" aria-current="page">Check-in</li>
         </ol>
       </nav>
 
       <!-- Filters Section -->
       <div class="bg-white p-4 rounded-lg shadow mb-4">
         <form id="filter-form">
-          <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
+          <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
             <!-- Filter by Search Term -->
             <div>
               <label for="filter-search" class="block text-sm font-medium text-gray-700 mb-1">Tìm kiếm</label>
@@ -226,23 +229,15 @@
                 <!-- Options populated by JS -->
               </select>
             </div>
-            <!-- Filter by Status -->
+            <!-- Filter by Date Range -->
             <div>
-              <label for="filter-status" class="block text-sm font-medium text-gray-700 mb-1">Trạng thái</label>
-              <select id="filter-status" name="filter-status"
-                class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-primary focus:border-primary text-sm">
-                <option value="">Tất cả</option>
-                <option value="pending">Chờ duyệt</option>
-                <option value="approved">Đã duyệt</option>
-                <option value="rejected">Từ chối</option>
-                <option value="cancelled">Đã hủy</option>
-              </select>
-            </div>
-            <!-- Filter by Registration Date -->
-            <div>
-              <label for="filter-date" class="block text-sm font-medium text-gray-700 mb-1">Ngày đăng ký</label>
-              <input type="date" id="filter-date" name="filter-date"
-                class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-primary focus:border-primary text-sm">
+              <label for="filter-date" class="block text-sm font-medium text-gray-700 mb-1">Thời gian Check-in</label>
+              <div class="relative">
+                 <input type="text" id="filter-date" name="filter-date" placeholder="Chọn khoảng thời gian" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-primary focus:border-primary text-sm pl-10" readonly>
+                 <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                     <i class="ri-calendar-2-line text-gray-400"></i>
+                 </div>
+              </div>
             </div>
           </div>
           <div class="mt-4 flex justify-end space-x-2">
@@ -258,76 +253,39 @@
         </form>
       </div>
 
-      <!-- Registrations List Table -->
+      <!-- Check-ins List Table -->
       <div class="bg-white rounded-lg shadow overflow-hidden">
         <div class="p-4 border-b border-gray-200 flex justify-between items-center">
-          <h2 class="text-lg font-medium text-gray-900">Danh sách đăng ký</h2>
+          <h2 class="text-lg font-medium text-gray-900">Danh sách Check-in</h2>
           <!-- Total count info will be added by JS in pagination -->
         </div>
 
         <!-- Table container -->
         <div class="overflow-x-auto">
-          <table id="registrations-table" class="min-w-full divide-y divide-gray-200">
+          <table id="checkins-table" class="min-w-full divide-y divide-gray-200">
             <thead class="bg-gray-50">
               <tr>
                 <th scope="col" class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider min-w-[200px]">
-                  Người đăng ký</th>
+                  Người dùng</th>
                 <th scope="col" class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider min-w-[200px]">
                   Sự kiện</th>
                 <th scope="col" class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider min-w-[150px]">
-                  T.gian ĐK</th>
-                <th scope="col" class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider min-w-[120px]">
-                  Trạng thái</th>
+                  Thời gian Check-in</th>
                 <th scope="col" class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider min-w-[150px]">
-                  Check-in/out</th>
-                <th scope="col" class="px-4 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider min-w-[150px]">
+                  Thiết bị</th>
+                 <th scope="col" class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider min-w-[150px]">
+                  Vị trí</th>
+                <th scope="col" class="px-4 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider min-w-[100px]">
                   Hành động</th>
               </tr>
             </thead>
-            <tbody id="registrationsTableBody" class="bg-white divide-y divide-gray-200">
+            <tbody id="checkinsTableBody" class="bg-white divide-y divide-gray-200">
               <!-- Table rows will be dynamically inserted here by JavaScript -->
-              <!-- Example Row (for structure reference, remove later) -->
-              <tr>
-                <td class="px-4 py-4 whitespace-nowrap">
-                  <div class="flex items-center">
-                    <div class="flex-shrink-0 h-10 w-10">
-                      <img class="h-10 w-10 rounded-full" src="https://ui-avatars.com/api/?name=L+V+B&background=random" alt="">
-                    </div>
-                    <div class="ml-4">
-                      <div class="text-sm font-medium text-gray-900">Lê Văn B</div>
-                      <div class="text-sm text-gray-500">levanb@example.com</div>
-                    </div>
-                  </div>
-                </td>
-                <td class="px-4 py-4 whitespace-nowrap">
-                  <div class="text-sm text-gray-900">Workshop Phát triển Kỹ năng Mềm</div>
-                  <div class="text-sm text-gray-500">10/08/2024</div>
-                </td>
-                 <td class="px-4 py-4 whitespace-nowrap text-sm text-gray-500">01/08/2024 09:15</td>
-                <td class="px-4 py-4 whitespace-nowrap">
-                  <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-yellow-100 text-yellow-800">
-                    Chờ duyệt
-                  </span>
-                </td>
-                <td class="px-4 py-4 whitespace-nowrap text-sm text-gray-500">
-                   <div>-</div>
-                   <div>-</div>
-                </td>
-                <td class="px-4 py-4 whitespace-nowrap text-right text-sm font-medium">
-                  <div class="flex justify-end space-x-2">
-                     <button class="text-green-600 hover:text-green-900" title="Duyệt"><i class="ri-check-line"></i></button>
-                     <button class="text-red-600 hover:text-red-900" title="Từ chối"><i class="ri-close-line"></i></button>
-                     <button class="text-blue-600 hover:text-blue-900" title="Xem chi tiết"><i class="ri-eye-line"></i></button>
-                     <button class="text-gray-500 hover:text-gray-700" title="Xóa"><i class="ri-delete-bin-line"></i></button>
-                  </div>
-                </td>
-              </tr>
-              <!-- End Example Row -->
             </tbody>
           </table>
            <!-- Placeholder for No Data -->
            <div id="no-data-placeholder" class="text-center py-10 text-gray-500 hidden">
-            Không có dữ liệu đăng ký nào phù hợp.
+            Không có dữ liệu check-in nào phù hợp.
           </div>
         </div>
 
@@ -343,7 +301,7 @@
                 <option value="50">50</option>
                 <option value="100">100</option>
               </select>
-              <span>mục. Tổng số: <span id="total-items-count" class="font-medium text-gray-700">0</span> đăng ký.</span>
+              <span>mục. Tổng số: <span id="total-items-count" class="font-medium text-gray-700">0</span> lượt check-in.</span>
             </div>
             <div class="flex items-center space-x-1" id="pagination-controls">
               <button
@@ -379,58 +337,12 @@
     </main>
   </div>
 
-  <!-- Registration Modal -->
-  <div id="registration-modal" class="fixed inset-0 flex items-center justify-center z-50 hidden">
-    <div class="absolute inset-0 bg-black bg-opacity-50"></div>
-    <div class="relative bg-white rounded-lg shadow-lg max-w-lg w-full mx-4 max-h-[90vh] overflow-y-auto">
-        <div class="flex items-center justify-between p-4 border-b">
-            <h3 class="text-xl font-semibold text-gray-800" id="modal-title">Thêm đăng ký mới</h3>
-            <button id="close-registration-modal" class="text-gray-500 hover:text-gray-700">
-                <i class="ri-close-line text-2xl"></i>
-            </button>
-        </div>
-        <form id="registration-form" class="p-4">
-            <input type="hidden" id="registration-id" name="id">
-            <div class="space-y-4">
-                 <div>
-                    <label for="modal-event-id" class="block text-sm font-medium text-gray-700 mb-1">Sự kiện <span class="text-red-500">*</span></label>
-                    <select id="modal-event-id" name="event_id" required class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary">
-                      <option value="">Chọn sự kiện</option>
-                      <!-- Populated by JS -->
-                    </select>
-                 </div>
-                 <div>
-                    <label for="modal-user-id" class="block text-sm font-medium text-gray-700 mb-1">Người đăng ký <span class="text-red-500">*</span></label>
-                    <select id="modal-user-id" name="user_id" required class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary">
-                       <option value="">Chọn người dùng</option>
-                       <!-- Populated by JS -->
-                    </select>
-                 </div>
-                 <div>
-                    <label for="modal-status" class="block text-sm font-medium text-gray-700 mb-1">Trạng thái <span class="text-red-500">*</span></label>
-                    <select id="modal-status" name="status" required class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary">
-                      <option value="pending">Chờ duyệt</option>
-                      <option value="approved">Đã duyệt</option>
-                      <option value="rejected">Từ chối</option>
-                      <option value="cancelled">Đã hủy</option>
-                    </select>
-                 </div>
-                 <div>
-                    <label for="modal-notes" class="block text-sm font-medium text-gray-700 mb-1">Ghi chú</label>
-                    <textarea id="modal-notes" name="notes" rows="3" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary"></textarea>
-                 </div>
-            </div>
-            <div class="flex justify-end gap-2 mt-6">
-                <button type="button" id="cancel-registration" class="px-4 py-2 bg-gray-300 text-gray-700 rounded-md hover:bg-gray-400">Hủy</button>
-                <button type="submit" class="px-4 py-2 bg-primary text-white rounded-md hover:bg-primary-dark">Lưu</button>
-            </div>
-        </form>
-    </div>
-</div>
-
-
   <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-  <script src="../../public/js/admin/registrations.js"></script>
+  <!-- Thêm jQuery, Moment.js và daterangepicker JS -->
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+  <script src="../../public/js/admin/checkins.js"></script>
 </body>
 
 </html>

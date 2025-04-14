@@ -1,1 +1,0 @@
-// Xóa phần xử lý click event cho user dropdown menu vì đã chuyển sang dùng group hover 
