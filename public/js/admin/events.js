@@ -227,7 +227,7 @@ function renderTable() {
                    <button class="btn-view text-blue-600 hover:text-blue-900 p-1 rounded hover:bg-blue-100" data-event-id="${event.su_kien_id}" title="Xem chi tiết" onclick="window.location.href='event-detail.html?id=${event.su_kien_id}'">
                      <i class="ri-eye-line w-5 h-5"></i>
                    </button>
-                   <button class="btn-edit text-yellow-600 hover:text-yellow-900 p-1 rounded hover:bg-yellow-100" data-event-id="${event.su_kien_id}" title="Chỉnh sửa" onclick="window.location.href='event-detail-update.html?id=${event.su_kien_id}'">
+                   <button class="btn-edit text-yellow-600 hover:text-yellow-900 p-1 rounded hover:bg-yellow-100" data-event-id="${event.su_kien_id}" title="Chỉnh sửa" onclick="window.location.href='event-edit.html?id=${event.su_kien_id}'">
                      <i class="ri-pencil-line w-5 h-5"></i>
                    </button>
                    <button class="btn-delete text-red-600 hover:text-red-900 p-1 rounded hover:bg-red-100" data-event-id="${event.su_kien_id}" title="Xóa" onclick="confirmDelete(${event.su_kien_id})">

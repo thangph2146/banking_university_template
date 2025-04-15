@@ -15,42 +15,6 @@
   <script src="https://cdn.tailwindcss.com/3.4.16"></script>
   <script src="../../public/js/tailwind.config.js"></script>
   <script src="https://cdn.tiny.cloud/1/b7whk7hw51nvscdfn62fpplvwtw6h7xavw8hk5t35l1bbrnz/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
-  <style>
-    /* Animation cho toast notifications */
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-    
-    @keyframes fadeOut {
-      from { opacity: 1; transform: translateY(0); }
-      to { opacity: 0; transform: translateY(20px); }
-    }
-    
-    .animate-fade-in {
-      animation: fadeIn 0.3s ease-out forwards;
-    }
-    
-    .animate-fade-out {
-      animation: fadeOut 0.3s ease-out forwards;
-    }
-    
-    /* Animation cho tab content */
-    .tab-content {
-      transition: opacity 0.3s ease, transform 0.3s ease;
-    }
-    
-    /* Animation pulse cho tab highlight */
-    @keyframes pulse {
-      0% { opacity: 0.8; }
-      50% { opacity: 0.4; }
-      100% { opacity: 0.8; }
-    }
-    
-    .animate-pulse {
-      animation: pulse 1s ease-in-out infinite;
-    }
-  </style>
 </head>
 
 <body class="bg-gray-50 min-h-screen">
@@ -819,6 +783,6 @@
   </div>
 
   <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
-  <script src="../../public/js/admin/event-detail-update.js"></script>
+  <script src="../../public/js/admin/event-edit.js"></script>
 </body>
 </html> 
