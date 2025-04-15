@@ -249,7 +249,7 @@
         <div class="flex flex-col md:flex-row md:items-center md:justify-between mb-6" data-aos="fade-down">
           <h1 class="text-2xl font-semibold text-gray-900">Cập nhật loại sự kiện</h1>
           <div class="mt-4 md:mt-0 flex space-x-3">
-            <button id="back-btn" onclick="history.back()" class="bg-gray-100 text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-gray-300">
+            <button id="back-btn" class="bg-gray-100 text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-gray-300">
               <i class="ri-arrow-left-line mr-1"></i>
               Quay lại
             </button>
@@ -260,74 +260,99 @@
           </div>
         </div>
         
-        <div class="border-gray-200" data-aos="fade-up">
-          <form id="event-type-form" class="bg-white rounded-lg shadow-sm overflow-hidden">
-            <div class="p-6">
-              <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div class="group">
-                  <label class="block text-sm font-medium text-gray-700 mb-1 flex items-center">
-                    Tên loại sự kiện <span class="text-red-500 ml-1 text-sm">*</span>
-                  </label>
-                  <div class="relative">
-                    <i class="ri-price-tag-3-line absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 group-focus-within:text-primary"></i>
-                    <input type="text" id="ten_loai_su_kien" name="ten_loai_su_kien" required
-                      placeholder="Nhập tên loại sự kiện..."
-                      class="w-full pl-10 pr-4 py-2.5 rounded-md border border-gray-300 focus:ring-2 focus:ring-primary/50 focus:border-primary transition-colors duration-200">
-                  </div>
-                  <div class="mt-1 text-xs text-gray-500">
-                    <p>Tên hiển thị cho loại sự kiện này</p>
-                  </div>
+        <div class="bg-white rounded-lg shadow-sm overflow-hidden" data-aos="fade-up">
+          <form id="event-type-form" class="p-6">
+            <input type="hidden" id="loai_su_kien_id" name="loai_su_kien_id">
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <!-- Tên loại sự kiện -->
+              <div class="group">
+                <label for="ten_loai_su_kien" class="block text-sm font-medium text-gray-700 mb-1 flex items-center">
+                  Tên loại sự kiện <span class="text-red-500 ml-1 text-sm">*</span>
+                </label>
+                <div class="relative">
+                  <i class="ri-price-tag-3-line absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 group-focus-within:text-primary"></i>
+                  <input type="text" id="ten_loai_su_kien" name="ten_loai_su_kien" required
+                    placeholder="Nhập tên loại sự kiện..."
+                    class="w-full pl-10 pr-4 py-2.5 rounded-md border border-gray-300 focus:ring-2 focus:ring-primary/50 focus:border-primary transition-colors duration-200">
                 </div>
-
-                <div class="group">
-                  <label class="block text-sm font-medium text-gray-700 mb-1 flex items-center">
-                    Mã loại sự kiện <span class="text-gray-400 ml-1 text-xs">(tùy chọn)</span>
-                  </label>
-                  <div class="relative">
-                    <i class="ri-hashtag absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 group-focus-within:text-primary"></i>
-                    <input type="text" id="ma_loai_su_kien" name="ma_loai_su_kien"
-                      placeholder="Nhập mã viết tắt..."
-                      class="w-full pl-10 pr-4 py-2.5 rounded-md border border-gray-300 focus:ring-2 focus:ring-primary/50 focus:border-primary transition-colors duration-200">
-                  </div>
-                  <div class="mt-1 text-xs text-gray-500">
-                    <p>Mã viết tắt không dấu và không khoảng trắng</p>
-                  </div>
+                <div class="mt-1 text-xs text-gray-500">
+                  <p>Tên hiển thị cho loại sự kiện này</p>
                 </div>
+              </div>
 
-                <div class="group">
-                  <label class="block text-sm font-medium text-gray-700 mb-1 flex items-center">
-                    Trạng thái <span class="text-red-500 ml-1 text-sm">*</span>
-                  </label>
-                  <div class="relative">
-                    <i class="ri-toggle-line absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 group-focus-within:text-primary"></i>
-                    <select id="status" name="status" required
-                      class="w-full pl-10 pr-4 py-2.5 rounded-md border border-gray-300 focus:ring-2 focus:ring-primary/50 focus:border-primary transition-colors duration-200">
-                      <option value="1">Đang hoạt động</option>
-                      <option value="0">Không hoạt động</option>
-                    </select>
-                  </div>
-                  <div class="mt-1 text-xs text-gray-500">
-                    <p>Loại sự kiện không hoạt động sẽ không được hiển thị trong hệ thống</p>
-                  </div>
+              <!-- Mã loại sự kiện -->
+              <div class="group">
+                <label for="ma_loai_su_kien" class="block text-sm font-medium text-gray-700 mb-1 flex items-center">
+                  Mã loại sự kiện <span class="text-gray-400 ml-1 text-xs">(tùy chọn)</span>
+                </label>
+                <div class="relative">
+                  <i class="ri-hashtag absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 group-focus-within:text-primary"></i>
+                  <input type="text" id="ma_loai_su_kien" name="ma_loai_su_kien"
+                    placeholder="Nhập mã viết tắt..."
+                    class="w-full pl-10 pr-4 py-2.5 rounded-md border border-gray-300 focus:ring-2 focus:ring-primary/50 focus:border-primary transition-colors duration-200">
+                </div>
+                <div class="mt-1 text-xs text-gray-500">
+                  <p>Mã viết tắt không dấu và không khoảng trắng</p>
+                </div>
+              </div>
+
+              <!-- Trạng thái -->
+              <div class="group">
+                <label for="status" class="block text-sm font-medium text-gray-700 mb-1 flex items-center">
+                  Trạng thái <span class="text-red-500 ml-1 text-sm">*</span>
+                </label>
+                <div class="relative">
+                  <i class="ri-toggle-line absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 group-focus-within:text-primary"></i>
+                  <select id="status" name="status" required
+                    class="w-full pl-10 pr-4 py-2.5 rounded-md border border-gray-300 focus:ring-2 focus:ring-primary/50 focus:border-primary transition-colors duration-200">
+                    <option value="1">Đang hoạt động</option>
+                    <option value="0">Không hoạt động</option>
+                  </select>
+                </div>
+                <div class="mt-1 text-xs text-gray-500">
+                  <p>Loại sự kiện không hoạt động sẽ không được hiển thị trong hệ thống</p>
                 </div>
               </div>
               
-              <div class="mt-6 pt-4 border-t border-gray-200">
-                <div class="flex justify-end space-x-3">
-                  <button type="button" id="cancel-btn" class="bg-gray-200 text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-gray-400">
-                    <i class="ri-close-line mr-1"></i>
-                    Hủy bỏ
-                  </button>
-                  <button type="submit" class="bg-primary text-white px-4 py-2 rounded-lg hover:bg-primary/90 focus:outline-none focus:ring-2 focus:ring-primary/50">
-                    <i class="ri-save-line mr-1"></i>
-                    Lưu thay đổi
-                  </button>
+              <!-- Thời gian cập nhật (chỉ để hiển thị) -->
+              <div class="group">
+                <label class="block text-sm font-medium text-gray-700 mb-1">
+                  Thông tin cập nhật
+                </label>
+                <div class="pl-2 border-l-2 border-gray-200">
+                  <p class="text-sm text-gray-500">Cập nhật lần cuối: <span id="updated_at" class="font-medium">-</span></p>
+                  <p class="text-sm text-gray-500">Ngày tạo: <span id="created_at" class="font-medium">-</span></p>
                 </div>
+              </div>
+            </div>
+              
+            <div class="mt-6 pt-4 border-t border-gray-200">
+              <div class="flex justify-end space-x-3">
+                <button type="button" id="cancel-btn" class="bg-gray-200 text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-gray-400">
+                  <i class="ri-close-line mr-1"></i>
+                  Hủy bỏ
+                </button>
+                <button type="submit" class="bg-primary text-white px-4 py-2 rounded-lg hover:bg-primary/90 focus:outline-none focus:ring-2 focus:ring-primary/50">
+                  <i class="ri-save-line mr-1"></i>
+                  Lưu thay đổi
+                </button>
               </div>
             </div>
           </form>
         </div>
+      </div>
     </main>
+  </div>
+
+  <!-- Loading overlay -->
+  <div id="loading-overlay" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
+    <div class="bg-white p-6 rounded-lg shadow-xl">
+      <div class="flex items-center space-x-4">
+        <div class="animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-primary"></div>
+        <p class="text-gray-700" id="loading-text">Đang xử lý...</p>
+      </div>
+    </div>
   </div>
 
   <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
