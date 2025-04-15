@@ -27,7 +27,6 @@ CREATE TABLE `roles` (
 --
 -- Table structure for table `roles_users`
 --
-
 CREATE TABLE `roles_users` (
   `ru_id` int(11) UNSIGNED NOT NULL,
   `user_id` int(11) UNSIGNED DEFAULT NULL,
@@ -57,10 +56,8 @@ CREATE TABLE `permission_roles` (
   `permission_id` int(11) UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
-
 -- Table structure for table `settings`
 --
-
 CREATE TABLE `settings` (
   `id` int(9) NOT NULL,
   `class` varchar(255) NOT NULL,
@@ -71,21 +68,6 @@ CREATE TABLE `settings` (
   `created_at` datetime NOT NULL,
   `updated_at` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
-
---
--- Dumping data for table `settings`
---
-
-INSERT INTO `settings` (`id`, `class`, `key`, `value`, `type`, `context`, `created_at`, `updated_at`) VALUES
-(1, 'Config\\App', 'GOOGLE_CLIENT_ID', 'YOUR_GOOGLE_CLIENT_ID', 'string', NULL, '2025-03-11 11:01:10', '2025-03-11 11:01:10'),
-(2, 'Config\\App', 'GOOGLE_CLIENT_SECRET', 'YOUR_GOOGLE_CLIENT_SECRET', 'string', NULL, '2025-03-11 11:01:23', '2025-03-11 11:01:23'),
-(3, 'Config\\App', 'GOOGLE_REDIRECT_URI', 'https://muster.vn/google-callback', 'string', NULL, '2025-03-11 11:01:33', '2025-03-11 11:01:33'),
-(4, 'Config\\App', 'resetPassWord', '123456', 'string', NULL, '2025-03-12 08:32:41', '2025-03-12 08:34:31'),
-(5, 'Config\\App', 'classTable', 'table_id', 'string', NULL, '2025-03-12 11:11:09', '2025-03-12 11:14:15'),
-(6, 'Config\\App', 'table_id', 'example2_wrapper', 'string', NULL, '2025-03-12 11:14:46', '2025-03-12 11:14:46');
-
--- Bật lại kiểm tra khóa ngoại
-SET FOREIGN_KEY_CHECKS = 1;
 
 -- Bảng loại người dùng
 CREATE TABLE loai_nguoi_dung (
@@ -273,20 +255,6 @@ CREATE TABLE nguoi_dung (
 ) DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci 
   COMMENT='Bảng lưu trữ thông tin người dùng trong hệ thống';
 
--- Bảng khuôn mặt người dùng
-CREATE TABLE face_nguoi_dung (
-    face_nguoi_dung_id INT AUTO_INCREMENT PRIMARY KEY, 
-    nguoi_dung_id INT UNSIGNED NOT NULL, 
-    duong_dan_anh VARCHAR(255) NOT NULL, 
-    status TINYINT(1) DEFAULT 1, 
-    created_at DATETIME NULL DEFAULT CURRENT_TIMESTAMP, 
-    updated_at DATETIME NULL, 
-    deleted_at DATETIME NULL, 
-    INDEX idx_nguoi_dung_id (nguoi_dung_id), 
-    FOREIGN KEY (nguoi_dung_id) REFERENCES nguoi_dung(nguoi_dung_id) ON DELETE CASCADE ON UPDATE CASCADE 
-) DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci 
-  COMMENT='Bảng lưu trữ thông tin khuôn mặt người dùng cho nhận diện';
-
 -- Bảng màn hình
 CREATE TABLE man_hinh (
     man_hinh_id INT AUTO_INCREMENT PRIMARY KEY, 
@@ -406,54 +374,6 @@ CREATE TABLE dien_gia (
     INDEX idx_email (email)
 ) DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci
   COMMENT='Bảng lưu trữ thông tin diễn giả';
-
--- Bảng diễn giả sự kiện
-CREATE TABLE su_kien_dien_gia (
-    su_kien_dien_gia_id INT AUTO_INCREMENT PRIMARY KEY,
-    su_kien_id INT NOT NULL,
-    dien_gia_id INT NOT NULL,
-    thu_tu INT DEFAULT 0 COMMENT 'Thứ tự xuất hiện của diễn giả',
-    vai_tro VARCHAR(100) NULL COMMENT 'Vai trò trong sự kiện (Chủ tọa, Người thuyết trình...)',
-    mo_ta TEXT NULL COMMENT 'Mô tả vai trò hoặc nội dung trình bày',
-    thoi_gian_trinh_bay DATETIME NULL COMMENT 'Thời gian diễn giả trình bày',
-    thoi_gian_ket_thuc DATETIME NULL COMMENT 'Thời gian kết thúc trình bày',
-    thoi_luong_phut INT NULL COMMENT 'Thời lượng trình bày (phút)',
-    tieu_de_trinh_bay VARCHAR(255) NULL COMMENT 'Tiêu đề phần trình bày',
-    tai_lieu_dinh_kem JSON NULL COMMENT 'Tài liệu đính kèm (JSON)',
-    trang_thai_tham_gia ENUM('xac_nhan', 'cho_xac_nhan', 'tu_choi', 'khong_lien_he_duoc') DEFAULT 'cho_xac_nhan' COMMENT 'Trạng thái tham gia của diễn giả',
-    hien_thi_cong_khai BOOLEAN DEFAULT TRUE COMMENT 'Hiển thị thông tin diễn giả công khai',
-    ghi_chu TEXT NULL COMMENT 'Ghi chú về diễn giả trong sự kiện',
-    created_at DATETIME NULL DEFAULT CURRENT_TIMESTAMP,
-    updated_at DATETIME NULL,    
-    deleted_at DATETIME NULL,
-    UNIQUE KEY uk_sukien_diengia (su_kien_id, dien_gia_id),
-    INDEX idx_su_kien_id (su_kien_id),
-    INDEX idx_dien_gia_id (dien_gia_id),
-    INDEX idx_trang_thai_tham_gia (trang_thai_tham_gia),
-    FOREIGN KEY (su_kien_id) REFERENCES su_kien(su_kien_id) ON DELETE CASCADE ON UPDATE CASCADE,
-    FOREIGN KEY (dien_gia_id) REFERENCES dien_gia(dien_gia_id) ON DELETE CASCADE ON UPDATE CASCADE
-) DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci
-  COMMENT='Bảng liên kết giữa sự kiện và diễn giả';
-
--- Bảng form đăng ký sự kiện
-CREATE TABLE form_dang_ky_su_kien (
-    form_id INT AUTO_INCREMENT PRIMARY KEY,
-    ten_form VARCHAR(255) NOT NULL COMMENT 'Tên form đăng ký',
-    mo_ta TEXT NULL COMMENT 'Mô tả chi tiết về form',
-    su_kien_id INT NOT NULL COMMENT 'Liên kết đến sự kiện',
-    cau_truc_form JSON NOT NULL COMMENT 'Cấu trúc form dưới dạng JSON',
-    hien_thi_cong_khai BOOLEAN DEFAULT TRUE COMMENT 'Hiển thị form công khai',
-    bat_buoc_dien BOOLEAN DEFAULT FALSE COMMENT 'Bắt buộc phải điền form khi đăng ký',
-    so_lan_su_dung INT DEFAULT 0 COMMENT 'Số lần form được sử dụng',
-    status TINYINT(1) DEFAULT 1 COMMENT '1: Hoạt động, 0: Không hoạt động',
-    created_at DATETIME NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'Thời điểm tạo form',
-    updated_at DATETIME NULL COMMENT 'Thời điểm cập nhật form gần nhất',
-    deleted_at DATETIME NULL COMMENT 'Thời điểm xóa mềm (soft delete)',
-    INDEX idx_ten_form (ten_form),
-    INDEX idx_su_kien_id (su_kien_id),
-    FOREIGN KEY (su_kien_id) REFERENCES su_kien(su_kien_id) ON DELETE CASCADE ON UPDATE CASCADE
-) DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci 
-  COMMENT='Bảng lưu trữ thông tin form đăng ký sự kiện';
 
 -- Bảng check-in sự kiện (tạo trước để giải quyết tham chiếu vòng)
 CREATE TABLE checkin_sukien (

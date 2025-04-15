@@ -4,10 +4,11 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Quản lý Đăng ký Sự kiện - HUB Admin</title>
+  <title>Quản lý Màn hình - HUB Admin</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
   <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet" />
   <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
   <link href="../../public/css/custom.css" rel="stylesheet">
@@ -77,7 +78,7 @@
                  <span class="sidebar-link-text">Diễn giả Sự kiện</span>
                </a>
               <a href="registrations.html"
-                class="sidebar-link active flex items-center text-primary p-2 rounded-md bg-primary/10 font-medium"> <!-- Active link -->
+                class="sidebar-link flex items-center text-gray-600 hover:text-primary p-2 rounded-md hover:bg-gray-100">
                 <i class="sidebar-icon ri-file-list-line mr-2"></i>
                 <span class="sidebar-link-text">Đăng ký sự kiện</span>
               </a>
@@ -92,7 +93,7 @@
                 <span class="sidebar-link-text">Check-out</span>
               </a>
               <a href="screens.html"
-                 class="sidebar-link flex items-center text-gray-600 hover:text-primary p-2 rounded-md hover:bg-gray-100">
+                 class="sidebar-link active flex items-center text-primary p-2 rounded-md bg-primary/10 font-medium">
                  <i class="sidebar-icon ri-tv-2-line mr-2"></i>
                  <span class="sidebar-link-text">Màn hình</span>
                </a>
@@ -174,67 +175,65 @@
           </button>
 
           <a href="index.html"
-            class="text-2xl font-['Pacifico'] text-white transition-all duration-300 hover:scale-105 hidden md:block">
+            class="text-2xl font-['Pacifico'] text-white transition-all duration-300 hover:scale-105">
             <img src="../../images/logo/logo-white.png" alt="logo" class="w-12 h-12 md:w-16 md:h-16">
           </a>
           <div class="flex items-center space-x-4">
-             <!-- User profile dropdown menu -->
-             <div class="relative group">
-              <button id="user-menu-button" class="flex items-center space-x-2 text-white">
+            <!-- User profile dropdown menu -->
+            <div class="relative group" id="user-menu-button">
+              <button class="flex items-center space-x-2 text-white">
                 <img
-                  id="header-avatar"
-                  src="https://ui-avatars.com/api/?name=N+V+A&background=0D8ABC&color=fff"
+                  src="https://readdy.ai/api/search-image?query=professional%20headshot%20young%20vietnamese%20student%20minimal%20background&width=100&height=100&seq=avatar"
                   alt="Ảnh đại diện" class="w-8 h-8 rounded-full border-2 border-white">
-                <span id="header-fullname" class="hidden sm:block">Nguyễn Văn A</span>
+                <span class="hidden sm:block">Nguyễn Văn A</span>
                 <i class="ri-arrow-down-s-line group-hover:rotate-180 transition-transform duration-300"></i>
               </button>
-              <div
-                id="user-menu"
+              <div id="user-menu"
                 class="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg overflow-hidden z-20 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform origin-top-right scale-95 group-hover:scale-100">
-                <div class="py-2">
-                  <a href="profile.html"
-                    class="flex items-center px-4 py-2 text-sm text-gray-800 hover:bg-primary/10 hover:text-primary">
-                    <i class="ri-user-line mr-2"></i>
-                    Trang cá nhân
-                  </a>
-                  <a href="registered-events.html"
-                    class="flex items-center px-4 py-2 text-sm text-gray-800 hover:bg-primary/10 hover:text-primary">
-                    <i class="ri-calendar-event-line mr-2"></i>
-                    Sự kiện của tôi
-                  </a>
-                  <a href="#"
-                    class="flex items-center px-4 py-2 text-sm text-gray-800 hover:bg-primary/10 hover:text-primary">
-                    <i class="ri-settings-4-line mr-2"></i>
-                    Cài đặt
-                  </a>
-                  <hr class="my-1 border-gray-200">
-                  <a href="login.html"
-                    class="flex items-center px-4 py-2 text-sm text-gray-800 hover:bg-primary/10 hover:text-primary">
-                    <i class="ri-logout-box-r-line mr-2"></i>
-                    Đăng xuất
-                  </a>
-                </div>
+                 <div class="py-2">
+                   <a href="profile.html"
+                     class="flex items-center px-4 py-2 text-sm text-gray-800 hover:bg-primary/10 hover:text-primary border-l-4 border-transparent">
+                     <i class="ri-user-line mr-2"></i>
+                     Trang cá nhân
+                   </a>
+                   <a href="registered-events.html"
+                     class="flex items-center px-4 py-2 text-sm text-gray-800 hover:bg-primary/10 hover:text-primary border-l-4 border-transparent">
+                     <i class="ri-calendar-event-line mr-2"></i>
+                     Sự kiện của tôi
+                   </a>
+                   <a href="#"
+                     class="flex items-center px-4 py-2 text-sm text-gray-800 hover:bg-primary/10 hover:text-primary border-l-4 border-transparent">
+                     <i class="ri-settings-4-line mr-2"></i>
+                     Cài đặt
+                   </a>
+                   <hr class="my-1 border-gray-200">
+                   <a href="login.html"
+                     class="flex items-center px-4 py-2 text-sm text-gray-800 hover:bg-primary/10 hover:text-primary border-l-4 border-transparent">
+                     <i class="ri-logout-box-r-line mr-2"></i>
+                     Đăng xuất
+                   </a>
+                 </div>
               </div>
             </div>
           </div>
         </div>
       </header>
 
-      <!-- Page Header Section -->
+      <!-- Main Page Header -->
       <div class="bg-white rounded-lg shadow mb-6 p-4">
         <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between">
           <div>
-            <h1 class="text-2xl font-semibold text-gray-900">Quản lý Đăng ký Sự kiện</h1>
-            <p class="mt-1 text-sm text-gray-600">Quản lý tất cả các lượt đăng ký sự kiện trong hệ thống</p>
+            <h1 class="text-2xl font-semibold text-gray-900">Quản lý Màn hình</h1>
+            <p class="mt-1 text-sm text-gray-600">Quản lý các màn hình hiển thị trong hệ thống</p>
           </div>
           <div class="mt-4 sm:mt-0 flex gap-2">
             <button id="refresh-btn"
               class="flex items-center justify-center px-3 py-2 border border-gray-300 text-gray-700 rounded-md hover:bg-gray-50 transition-colors duration-200">
               <i class="ri-refresh-line mr-1"></i> Tải lại
             </button>
-            <button id="create-registration-btn"
+            <button id="add-screen-btn"
               class="flex items-center justify-center px-4 py-2 bg-primary text-white rounded-md hover:bg-primary-dark transition-colors duration-200">
-              <i class="ri-add-line mr-1"></i> Thêm đăng ký
+              <i class="ri-add-line mr-1"></i> Thêm Màn hình mới
             </button>
           </div>
         </div>
@@ -249,11 +248,7 @@
             </a>
             <i class="ri-arrow-right-s-line text-gray-400 mx-2"></i>
           </li>
-           <li class="flex items-center">
-            <span class="text-gray-500">Quản lý sự kiện</span>
-            <i class="ri-arrow-right-s-line text-gray-400 mx-2"></i>
-          </li>
-          <li class="text-primary" aria-current="page">Đăng ký sự kiện</li>
+          <li class="text-primary" aria-current="page">Màn hình</li>
         </ol>
       </nav>
 
@@ -261,20 +256,17 @@
       <div class="bg-white p-4 rounded-lg shadow mb-4">
         <form id="filter-form">
           <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
-            <!-- Filter by Search Term -->
+            <!-- Filter by Name -->
             <div>
-              <label for="filter-search" class="block text-sm font-medium text-gray-700 mb-1">Tìm kiếm</label>
-              <input type="text" id="filter-search" name="filter-search" placeholder="Tên user, email, tên event..."
+              <label for="filter-name" class="block text-sm font-medium text-gray-700 mb-1">Tìm theo Tên Màn hình</label>
+              <input type="text" id="filter-name" name="filter-name" placeholder="Nhập tên màn hình..."
                 class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-primary focus:border-primary text-sm">
             </div>
-            <!-- Filter by Event -->
+            <!-- Filter by Code -->
             <div>
-              <label for="filter-event" class="block text-sm font-medium text-gray-700 mb-1">Sự kiện</label>
-              <select id="filter-event" name="filter-event"
+              <label for="filter-code" class="block text-sm font-medium text-gray-700 mb-1">Tìm theo Mã Màn hình</label>
+              <input type="text" id="filter-code" name="filter-code" placeholder="Nhập mã..."
                 class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-primary focus:border-primary text-sm">
-                <option value="">Tất cả sự kiện</option>
-                <!-- Options populated by JS -->
-              </select>
             </div>
             <!-- Filter by Status -->
             <div>
@@ -282,16 +274,20 @@
               <select id="filter-status" name="filter-status"
                 class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-primary focus:border-primary text-sm">
                 <option value="">Tất cả</option>
-                <option value="pending">Chờ duyệt</option>
-                <option value="approved">Đã duyệt</option>
-                <option value="rejected">Từ chối</option>
-                <option value="cancelled">Đã hủy</option>
+                <option value="1">Hoạt động</option>
+                <option value="0">Không hoạt động</option>
               </select>
             </div>
-            <!-- Filter by Registration Date -->
+            <!-- Filter by Camera ID -->
             <div>
-              <label for="filter-date" class="block text-sm font-medium text-gray-700 mb-1">Ngày đăng ký</label>
-              <input type="date" id="filter-date" name="filter-date"
+              <label for="filter-camera-id" class="block text-sm font-medium text-gray-700 mb-1">ID Camera</label>
+              <input type="number" id="filter-camera-id" name="filter-camera-id" placeholder="Nhập ID..." min="1"
+                class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-primary focus:border-primary text-sm">
+            </div>
+            <!-- Filter by Template ID -->
+            <div>
+              <label for="filter-template-id" class="block text-sm font-medium text-gray-700 mb-1">ID Template</label>
+              <input type="number" id="filter-template-id" name="filter-template-id" placeholder="Nhập ID..." min="1"
                 class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-primary focus:border-primary text-sm">
             </div>
           </div>
@@ -308,77 +304,46 @@
         </form>
       </div>
 
-      <!-- Registrations List Table -->
+      <!-- Screens List -->
       <div class="bg-white rounded-lg shadow overflow-hidden">
         <div class="p-4 border-b border-gray-200 flex justify-between items-center">
-          <h2 class="text-lg font-medium text-gray-900">Danh sách đăng ký</h2>
-          <!-- Total count info will be added by JS in pagination -->
+          <h2 class="text-lg font-medium text-gray-900">Danh sách Màn hình</h2>
+          <!-- Total count will be updated by JS -->
         </div>
 
         <!-- Table container -->
         <div class="overflow-x-auto">
-          <table id="registrations-table" class="min-w-full divide-y divide-gray-200">
+          <table id="screens-table" class="min-w-full divide-y divide-gray-200">
             <thead class="bg-gray-50">
               <tr>
+                <th scope="col"
+                  class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-16">ID
+                </th>
                 <th scope="col" class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider min-w-[200px]">
-                  Người đăng ký</th>
-                <th scope="col" class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider min-w-[200px]">
-                  Sự kiện</th>
-                <th scope="col" class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider min-w-[150px]">
-                  T.gian ĐK</th>
+                  Tên Màn hình</th>
+                <th scope="col" class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider min-w-[100px]">
+                  Mã MH</th>
+                <th scope="col" class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider min-w-[100px]">
+                  Camera ID</th>
+                 <th scope="col" class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider min-w-[100px]">
+                  Template ID</th>
                 <th scope="col" class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider min-w-[120px]">
                   Trạng thái</th>
-                <th scope="col" class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider min-w-[150px]">
-                  Check-in/out</th>
-                <th scope="col" class="px-4 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider min-w-[150px]">
+                <th scope="col" class="px-4 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider min-w-[100px]">
                   Hành động</th>
               </tr>
             </thead>
-            <tbody id="registrationsTableBody" class="bg-white divide-y divide-gray-200">
+            <tbody id="screensTableBody" class="bg-white divide-y divide-gray-200">
+               <!-- Placeholder row for no data -->
+               <tr id="no-data-placeholder" class="hidden">
+                 <td colspan="7" class="text-center py-10 text-gray-500">
+                   <i class="ri-inbox-2-line text-4xl mb-2"></i>
+                   <p>Không tìm thấy dữ liệu màn hình.</p>
+                 </td>
+               </tr>
               <!-- Table rows will be dynamically inserted here by JavaScript -->
-              <!-- Example Row (for structure reference, remove later) -->
-              <tr>
-                <td class="px-4 py-4 whitespace-nowrap">
-                  <div class="flex items-center">
-                    <div class="flex-shrink-0 h-10 w-10">
-                      <img class="h-10 w-10 rounded-full" src="https://ui-avatars.com/api/?name=L+V+B&background=random" alt="">
-                    </div>
-                    <div class="ml-4">
-                      <div class="text-sm font-medium text-gray-900">Lê Văn B</div>
-                      <div class="text-sm text-gray-500">levanb@example.com</div>
-                    </div>
-                  </div>
-                </td>
-                <td class="px-4 py-4 whitespace-nowrap">
-                  <div class="text-sm text-gray-900">Workshop Phát triển Kỹ năng Mềm</div>
-                  <div class="text-sm text-gray-500">10/08/2024</div>
-                </td>
-                 <td class="px-4 py-4 whitespace-nowrap text-sm text-gray-500">01/08/2024 09:15</td>
-                <td class="px-4 py-4 whitespace-nowrap">
-                  <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-yellow-100 text-yellow-800">
-                    Chờ duyệt
-                  </span>
-                </td>
-                <td class="px-4 py-4 whitespace-nowrap text-sm text-gray-500">
-                   <div>-</div>
-                   <div>-</div>
-                </td>
-                <td class="px-4 py-4 whitespace-nowrap text-right text-sm font-medium">
-                  <div class="flex justify-end space-x-2">
-                     <button class="text-green-600 hover:text-green-900" title="Duyệt"><i class="ri-check-line"></i></button>
-                     <button class="text-red-600 hover:text-red-900" title="Từ chối"><i class="ri-close-line"></i></button>
-                     <button class="text-blue-600 hover:text-blue-900" title="Xem chi tiết"><i class="ri-eye-line"></i></button>
-                     <button class="text-gray-500 hover:text-gray-700" title="Xóa"><i class="ri-delete-bin-line"></i></button>
-                  </div>
-                </td>
-              </tr>
-              <!-- End Example Row -->
             </tbody>
           </table>
-           <!-- Placeholder for No Data -->
-           <div id="no-data-placeholder" class="text-center py-10 text-gray-500 hidden">
-            Không có dữ liệu đăng ký nào phù hợp.
-          </div>
         </div>
 
         <!-- Pagination -->
@@ -393,7 +358,7 @@
                 <option value="50">50</option>
                 <option value="100">100</option>
               </select>
-              <span>mục. Tổng số: <span id="total-items-count" class="font-medium text-gray-700">0</span> đăng ký.</span>
+              <span>mục. Tổng số: <span id="total-items-count" class="font-medium text-gray-700">0</span> màn hình.</span>
             </div>
             <div class="flex items-center space-x-1" id="pagination-controls">
               <button
@@ -429,58 +394,67 @@
     </main>
   </div>
 
-  <!-- Registration Modal -->
-  <div id="registration-modal" class="fixed inset-0 flex items-center justify-center z-50 hidden">
-    <div class="absolute inset-0 bg-black bg-opacity-50"></div>
-    <div class="relative bg-white rounded-lg shadow-lg max-w-lg w-full mx-4 max-h-[90vh] overflow-y-auto">
-        <div class="flex items-center justify-between p-4 border-b">
-            <h3 class="text-xl font-semibold text-gray-800" id="modal-title">Thêm đăng ký mới</h3>
-            <button id="close-registration-modal" class="text-gray-500 hover:text-gray-700">
-                <i class="ri-close-line text-2xl"></i>
-            </button>
+  <!-- Add/Edit Screen Modal -->
+  <div id="screen-modal" class="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full z-50 hidden" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+    <div class="relative top-10 mx-auto p-5 border w-full max-w-lg shadow-lg rounded-md bg-white">
+      <div class="flex justify-between items-center border-b pb-3">
+        <h3 class="text-lg font-medium text-gray-900" id="modal-title">Thêm Màn hình mới</h3>
+        <button id="close-screen-modal" class="text-gray-400 hover:text-gray-600">
+          <i class="ri-close-line text-xl"></i>
+        </button>
+      </div>
+      <form id="screen-form" class="mt-4 space-y-4">
+        <input type="hidden" id="screen-id">
+        <div>
+          <label for="modal-screen-name" class="block text-sm font-medium text-gray-700">Tên Màn hình <span class="text-red-500">*</span></label>
+          <input type="text" name="modal-screen-name" id="modal-screen-name" required
+            class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary focus:border-primary sm:text-sm">
         </div>
-        <form id="registration-form" class="p-4">
-            <input type="hidden" id="registration-id" name="id">
-            <div class="space-y-4">
-                 <div>
-                    <label for="modal-event-id" class="block text-sm font-medium text-gray-700 mb-1">Sự kiện <span class="text-red-500">*</span></label>
-                    <select id="modal-event-id" name="event_id" required class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary">
-                      <option value="">Chọn sự kiện</option>
-                      <!-- Populated by JS -->
-                    </select>
-                 </div>
-                 <div>
-                    <label for="modal-user-id" class="block text-sm font-medium text-gray-700 mb-1">Người đăng ký <span class="text-red-500">*</span></label>
-                    <select id="modal-user-id" name="user_id" required class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary">
-                       <option value="">Chọn người dùng</option>
-                       <!-- Populated by JS -->
-                    </select>
-                 </div>
-                 <div>
-                    <label for="modal-status" class="block text-sm font-medium text-gray-700 mb-1">Trạng thái <span class="text-red-500">*</span></label>
-                    <select id="modal-status" name="status" required class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary">
-                      <option value="pending">Chờ duyệt</option>
-                      <option value="approved">Đã duyệt</option>
-                      <option value="rejected">Từ chối</option>
-                      <option value="cancelled">Đã hủy</option>
-                    </select>
-                 </div>
-                 <div>
-                    <label for="modal-notes" class="block text-sm font-medium text-gray-700 mb-1">Ghi chú</label>
-                    <textarea id="modal-notes" name="notes" rows="3" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary"></textarea>
-                 </div>
-            </div>
-            <div class="flex justify-end gap-2 mt-6">
-                <button type="button" id="cancel-registration" class="px-4 py-2 bg-gray-300 text-gray-700 rounded-md hover:bg-gray-400">Hủy</button>
-                <button type="submit" class="px-4 py-2 bg-primary text-white rounded-md hover:bg-primary-dark">Lưu</button>
-            </div>
-        </form>
+        <div>
+          <label for="modal-screen-code" class="block text-sm font-medium text-gray-700">Mã Màn hình</label>
+          <input type="text" name="modal-screen-code" id="modal-screen-code"
+            class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary focus:border-primary sm:text-sm">
+        </div>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div>
+            <label for="modal-camera-id" class="block text-sm font-medium text-gray-700">ID Camera</label>
+            <input type="number" name="modal-camera-id" id="modal-camera-id" min="1" placeholder="(Tùy chọn)"
+              class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary focus:border-primary sm:text-sm">
+              <!-- Consider dropdown if camera list is available -->
+          </div>
+          <div>
+            <label for="modal-template-id" class="block text-sm font-medium text-gray-700">ID Template</label>
+            <input type="number" name="modal-template-id" id="modal-template-id" min="1" placeholder="(Tùy chọn)"
+              class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary focus:border-primary sm:text-sm">
+              <!-- Consider dropdown if template list is available -->
+          </div>
+        </div>
+        <div>
+           <label for="modal-screen-status" class="block text-sm font-medium text-gray-700">Trạng thái</label>
+           <select id="modal-screen-status" name="modal-screen-status"
+             class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary focus:border-primary sm:text-sm">
+             <option value="1">Hoạt động</option>
+             <option value="0">Không hoạt động</option>
+           </select>
+         </div>
+
+        <div class="pt-3 border-t flex justify-end space-x-2">
+          <button type="button" id="cancel-screen"
+            class="px-4 py-2 bg-gray-200 text-gray-800 rounded-md hover:bg-gray-300 transition-colors duration-200">
+            Hủy
+          </button>
+          <button type="submit" id="save-screen-btn"
+            class="px-4 py-2 bg-primary text-white rounded-md hover:bg-primary-dark transition-colors duration-200">
+            Lưu
+          </button>
+        </div>
+      </form>
     </div>
-</div>
+  </div>
 
 
   <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-  <script src="../../public/js/admin/registrations.js"></script>
+  <script src="../../public/js/admin/screens.js"></script>
 </body>
 
-</html>
+</html> 

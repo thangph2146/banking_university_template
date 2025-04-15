@@ -4,10 +4,11 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Quản lý Đăng ký Sự kiện - HUB Admin</title>
+  <title>Quản lý Diễn giả Sự kiện - HUB Admin</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
   <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet" />
   <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
   <link href="../../public/css/custom.css" rel="stylesheet">
@@ -26,7 +27,7 @@
       class="fixed md:relative z-50 bg-white w-72 max-w-[80vw] min-h-screen shadow-lg transform -translate-x-full md:translate-x-0 transition-transform duration-300 overflow-y-auto">
       <!-- Logo/Brand for mobile -->
       <div class="flex items-center justify-between p-4 border-b md:hidden">
-        <a href="index.html" class="text-2xl font-[\'Pacifico\'] text-primary flex items-center">
+        <a href="index.html" class="text-2xl font-['Pacifico'] text-primary flex items-center">
           <img src="../../images/logo/logo-white.png" alt="logo" class="w-8 h-8 mr-2">
           <span>HUB Admin</span>
         </a>
@@ -71,13 +72,14 @@
                  <i class="sidebar-icon ri-price-tag-3-line mr-2"></i>
                  <span class="sidebar-link-text">Loại sự kiện</span>
               </a>
-              <a href="event-speakers.html"
-                 class="sidebar-link flex items-center text-gray-600 hover:text-primary p-2 rounded-md hover:bg-gray-100">
+               <!-- Active link for Event Speakers -->
+               <a href="event-speakers.html"
+                 class="sidebar-link active flex items-center text-primary p-2 rounded-md bg-primary/10 font-medium">
                  <i class="sidebar-icon ri-user-voice-line mr-2"></i>
                  <span class="sidebar-link-text">Diễn giả Sự kiện</span>
                </a>
               <a href="registrations.html"
-                class="sidebar-link active flex items-center text-primary p-2 rounded-md bg-primary/10 font-medium"> <!-- Active link -->
+                class="sidebar-link flex items-center text-gray-600 hover:text-primary p-2 rounded-md hover:bg-gray-100">
                 <i class="sidebar-icon ri-file-list-line mr-2"></i>
                 <span class="sidebar-link-text">Đăng ký sự kiện</span>
               </a>
@@ -93,9 +95,9 @@
               </a>
               <a href="screens.html"
                  class="sidebar-link flex items-center text-gray-600 hover:text-primary p-2 rounded-md hover:bg-gray-100">
-                 <i class="sidebar-icon ri-tv-2-line mr-2"></i>
-                 <span class="sidebar-link-text">Màn hình</span>
-               </a>
+                <i class="sidebar-icon ri-tv-2-line mr-2"></i>
+                <span class="sidebar-link-text">Màn hình</span>
+              </a>
               <a href="reports.html"
                 class="sidebar-link flex items-center text-gray-600 hover:text-primary p-2 rounded-md hover:bg-gray-100">
                 <i class="sidebar-icon ri-bar-chart-line mr-2"></i>
@@ -174,67 +176,65 @@
           </button>
 
           <a href="index.html"
-            class="text-2xl font-['Pacifico'] text-white transition-all duration-300 hover:scale-105 hidden md:block">
+            class="text-2xl font-['Pacifico'] text-white transition-all duration-300 hover:scale-105">
             <img src="../../images/logo/logo-white.png" alt="logo" class="w-12 h-12 md:w-16 md:h-16">
           </a>
           <div class="flex items-center space-x-4">
-             <!-- User profile dropdown menu -->
-             <div class="relative group">
-              <button id="user-menu-button" class="flex items-center space-x-2 text-white">
+            <!-- User profile dropdown menu -->
+            <div class="relative group" id="user-menu-button">
+              <button class="flex items-center space-x-2 text-white">
                 <img
-                  id="header-avatar"
-                  src="https://ui-avatars.com/api/?name=N+V+A&background=0D8ABC&color=fff"
+                  src="https://readdy.ai/api/search-image?query=professional%20headshot%20young%20vietnamese%20student%20minimal%20background&width=100&height=100&seq=avatar"
                   alt="Ảnh đại diện" class="w-8 h-8 rounded-full border-2 border-white">
-                <span id="header-fullname" class="hidden sm:block">Nguyễn Văn A</span>
+                <span class="hidden sm:block">Nguyễn Văn A</span>
                 <i class="ri-arrow-down-s-line group-hover:rotate-180 transition-transform duration-300"></i>
               </button>
-              <div
-                id="user-menu"
+              <div id="user-menu"
                 class="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg overflow-hidden z-20 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform origin-top-right scale-95 group-hover:scale-100">
-                <div class="py-2">
-                  <a href="profile.html"
-                    class="flex items-center px-4 py-2 text-sm text-gray-800 hover:bg-primary/10 hover:text-primary">
-                    <i class="ri-user-line mr-2"></i>
-                    Trang cá nhân
-                  </a>
-                  <a href="registered-events.html"
-                    class="flex items-center px-4 py-2 text-sm text-gray-800 hover:bg-primary/10 hover:text-primary">
-                    <i class="ri-calendar-event-line mr-2"></i>
-                    Sự kiện của tôi
-                  </a>
-                  <a href="#"
-                    class="flex items-center px-4 py-2 text-sm text-gray-800 hover:bg-primary/10 hover:text-primary">
-                    <i class="ri-settings-4-line mr-2"></i>
-                    Cài đặt
-                  </a>
-                  <hr class="my-1 border-gray-200">
-                  <a href="login.html"
-                    class="flex items-center px-4 py-2 text-sm text-gray-800 hover:bg-primary/10 hover:text-primary">
-                    <i class="ri-logout-box-r-line mr-2"></i>
-                    Đăng xuất
-                  </a>
-                </div>
+                 <div class="py-2">
+                   <a href="profile.html"
+                     class="flex items-center px-4 py-2 text-sm text-gray-800 hover:bg-primary/10 hover:text-primary border-l-4 border-transparent">
+                     <i class="ri-user-line mr-2"></i>
+                     Trang cá nhân
+                   </a>
+                   <a href="registered-events.html"
+                     class="flex items-center px-4 py-2 text-sm text-gray-800 hover:bg-primary/10 hover:text-primary border-l-4 border-transparent">
+                     <i class="ri-calendar-event-line mr-2"></i>
+                     Sự kiện của tôi
+                   </a>
+                   <a href="#"
+                     class="flex items-center px-4 py-2 text-sm text-gray-800 hover:bg-primary/10 hover:text-primary border-l-4 border-transparent">
+                     <i class="ri-settings-4-line mr-2"></i>
+                     Cài đặt
+                   </a>
+                   <hr class="my-1 border-gray-200">
+                   <a href="login.html"
+                     class="flex items-center px-4 py-2 text-sm text-gray-800 hover:bg-primary/10 hover:text-primary border-l-4 border-transparent">
+                     <i class="ri-logout-box-r-line mr-2"></i>
+                     Đăng xuất
+                   </a>
+                 </div>
               </div>
             </div>
           </div>
         </div>
       </header>
 
-      <!-- Page Header Section -->
+      <!-- Main Page Header -->
       <div class="bg-white rounded-lg shadow mb-6 p-4">
         <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between">
           <div>
-            <h1 class="text-2xl font-semibold text-gray-900">Quản lý Đăng ký Sự kiện</h1>
-            <p class="mt-1 text-sm text-gray-600">Quản lý tất cả các lượt đăng ký sự kiện trong hệ thống</p>
+            <h1 class="text-2xl font-semibold text-gray-900">Quản lý Diễn giả Sự kiện</h1>
+            <p class="mt-1 text-sm text-gray-600">Phân công diễn giả cho các sự kiện</p>
           </div>
           <div class="mt-4 sm:mt-0 flex gap-2">
             <button id="refresh-btn"
               class="flex items-center justify-center px-3 py-2 border border-gray-300 text-gray-700 rounded-md hover:bg-gray-50 transition-colors duration-200">
               <i class="ri-refresh-line mr-1"></i> Tải lại
             </button>
-            <button id="create-registration-btn"
+            <button id="add-event-speaker-btn"
               class="flex items-center justify-center px-4 py-2 bg-primary text-white rounded-md hover:bg-primary-dark transition-colors duration-200">
-              <i class="ri-add-line mr-1"></i> Thêm đăng ký
+              <i class="ri-add-line mr-1"></i> Thêm Diễn giả vào Sự kiện
             </button>
           </div>
         </div>
@@ -250,50 +250,33 @@
             <i class="ri-arrow-right-s-line text-gray-400 mx-2"></i>
           </li>
            <li class="flex items-center">
-            <span class="text-gray-500">Quản lý sự kiện</span>
+            <a href="events.html" class="text-gray-500 hover:text-primary">
+               Sự kiện
+            </a>
             <i class="ri-arrow-right-s-line text-gray-400 mx-2"></i>
           </li>
-          <li class="text-primary" aria-current="page">Đăng ký sự kiện</li>
+          <li class="text-primary" aria-current="page">Diễn giả Sự kiện</li>
         </ol>
       </nav>
 
       <!-- Filters Section -->
       <div class="bg-white p-4 rounded-lg shadow mb-4">
         <form id="filter-form">
-          <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
-            <!-- Filter by Search Term -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+            <!-- Filter by Event ID -->
             <div>
-              <label for="filter-search" class="block text-sm font-medium text-gray-700 mb-1">Tìm kiếm</label>
-              <input type="text" id="filter-search" name="filter-search" placeholder="Tên user, email, tên event..."
+              <label for="filter-event-id" class="block text-sm font-medium text-gray-700 mb-1">Tìm theo ID Sự kiện</label>
+              <input type="number" id="filter-event-id" name="filter-event-id" placeholder="Nhập ID Sự kiện..." min="1"
                 class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-primary focus:border-primary text-sm">
             </div>
-            <!-- Filter by Event -->
+            <!-- Filter by Speaker ID -->
             <div>
-              <label for="filter-event" class="block text-sm font-medium text-gray-700 mb-1">Sự kiện</label>
-              <select id="filter-event" name="filter-event"
-                class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-primary focus:border-primary text-sm">
-                <option value="">Tất cả sự kiện</option>
-                <!-- Options populated by JS -->
-              </select>
-            </div>
-            <!-- Filter by Status -->
-            <div>
-              <label for="filter-status" class="block text-sm font-medium text-gray-700 mb-1">Trạng thái</label>
-              <select id="filter-status" name="filter-status"
-                class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-primary focus:border-primary text-sm">
-                <option value="">Tất cả</option>
-                <option value="pending">Chờ duyệt</option>
-                <option value="approved">Đã duyệt</option>
-                <option value="rejected">Từ chối</option>
-                <option value="cancelled">Đã hủy</option>
-              </select>
-            </div>
-            <!-- Filter by Registration Date -->
-            <div>
-              <label for="filter-date" class="block text-sm font-medium text-gray-700 mb-1">Ngày đăng ký</label>
-              <input type="date" id="filter-date" name="filter-date"
+              <label for="filter-speaker-id" class="block text-sm font-medium text-gray-700 mb-1">Tìm theo ID Diễn giả</label>
+              <input type="number" id="filter-speaker-id" name="filter-speaker-id" placeholder="Nhập ID Diễn giả..." min="1"
                 class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-primary focus:border-primary text-sm">
             </div>
+            <!-- Placeholder for potential future filter -->
+            <div></div>
           </div>
           <div class="mt-4 flex justify-end space-x-2">
             <button type="reset" id="reset-filter-btn"
@@ -308,77 +291,39 @@
         </form>
       </div>
 
-      <!-- Registrations List Table -->
+      <!-- Event Speakers List -->
       <div class="bg-white rounded-lg shadow overflow-hidden">
         <div class="p-4 border-b border-gray-200 flex justify-between items-center">
-          <h2 class="text-lg font-medium text-gray-900">Danh sách đăng ký</h2>
-          <!-- Total count info will be added by JS in pagination -->
+          <h2 class="text-lg font-medium text-gray-900">Danh sách Diễn giả theo Sự kiện</h2>
+          <!-- Total count will be updated by JS -->
         </div>
 
         <!-- Table container -->
         <div class="overflow-x-auto">
-          <table id="registrations-table" class="min-w-full divide-y divide-gray-200">
+          <table id="event-speakers-table" class="min-w-full divide-y divide-gray-200">
             <thead class="bg-gray-50">
               <tr>
-                <th scope="col" class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider min-w-[200px]">
-                  Người đăng ký</th>
-                <th scope="col" class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider min-w-[200px]">
-                  Sự kiện</th>
-                <th scope="col" class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider min-w-[150px]">
-                  T.gian ĐK</th>
-                <th scope="col" class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider min-w-[120px]">
-                  Trạng thái</th>
-                <th scope="col" class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider min-w-[150px]">
-                  Check-in/out</th>
-                <th scope="col" class="px-4 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider min-w-[150px]">
+                <th scope="col"
+                  class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-2/5">ID Sự kiện
+                </th>
+                <th scope="col" class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-2/5">
+                  ID Diễn giả</th>
+                <!-- Maybe Add Event Name / Speaker Name columns if data is available -->
+                <th scope="col" class="px-4 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider w-1/5">
                   Hành động</th>
               </tr>
             </thead>
-            <tbody id="registrationsTableBody" class="bg-white divide-y divide-gray-200">
+            <tbody id="eventSpeakersTableBody" class="bg-white divide-y divide-gray-200">
+               <!-- Placeholder row for no data -->
+               <tr id="no-data-placeholder" class="hidden">
+                 <td colspan="3" class="text-center py-10 text-gray-500">
+                   <i class="ri-inbox-2-line text-4xl mb-2"></i>
+                   <p>Không tìm thấy dữ liệu diễn giả cho sự kiện.</p>
+                 </td>
+               </tr>
               <!-- Table rows will be dynamically inserted here by JavaScript -->
-              <!-- Example Row (for structure reference, remove later) -->
-              <tr>
-                <td class="px-4 py-4 whitespace-nowrap">
-                  <div class="flex items-center">
-                    <div class="flex-shrink-0 h-10 w-10">
-                      <img class="h-10 w-10 rounded-full" src="https://ui-avatars.com/api/?name=L+V+B&background=random" alt="">
-                    </div>
-                    <div class="ml-4">
-                      <div class="text-sm font-medium text-gray-900">Lê Văn B</div>
-                      <div class="text-sm text-gray-500">levanb@example.com</div>
-                    </div>
-                  </div>
-                </td>
-                <td class="px-4 py-4 whitespace-nowrap">
-                  <div class="text-sm text-gray-900">Workshop Phát triển Kỹ năng Mềm</div>
-                  <div class="text-sm text-gray-500">10/08/2024</div>
-                </td>
-                 <td class="px-4 py-4 whitespace-nowrap text-sm text-gray-500">01/08/2024 09:15</td>
-                <td class="px-4 py-4 whitespace-nowrap">
-                  <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-yellow-100 text-yellow-800">
-                    Chờ duyệt
-                  </span>
-                </td>
-                <td class="px-4 py-4 whitespace-nowrap text-sm text-gray-500">
-                   <div>-</div>
-                   <div>-</div>
-                </td>
-                <td class="px-4 py-4 whitespace-nowrap text-right text-sm font-medium">
-                  <div class="flex justify-end space-x-2">
-                     <button class="text-green-600 hover:text-green-900" title="Duyệt"><i class="ri-check-line"></i></button>
-                     <button class="text-red-600 hover:text-red-900" title="Từ chối"><i class="ri-close-line"></i></button>
-                     <button class="text-blue-600 hover:text-blue-900" title="Xem chi tiết"><i class="ri-eye-line"></i></button>
-                     <button class="text-gray-500 hover:text-gray-700" title="Xóa"><i class="ri-delete-bin-line"></i></button>
-                  </div>
-                </td>
-              </tr>
-              <!-- End Example Row -->
             </tbody>
           </table>
-           <!-- Placeholder for No Data -->
-           <div id="no-data-placeholder" class="text-center py-10 text-gray-500 hidden">
-            Không có dữ liệu đăng ký nào phù hợp.
-          </div>
         </div>
 
         <!-- Pagination -->
@@ -393,7 +338,7 @@
                 <option value="50">50</option>
                 <option value="100">100</option>
               </select>
-              <span>mục. Tổng số: <span id="total-items-count" class="font-medium text-gray-700">0</span> đăng ký.</span>
+              <span>mục. Tổng số: <span id="total-items-count" class="font-medium text-gray-700">0</span> bản ghi.</span>
             </div>
             <div class="flex items-center space-x-1" id="pagination-controls">
               <button
@@ -429,58 +374,47 @@
     </main>
   </div>
 
-  <!-- Registration Modal -->
-  <div id="registration-modal" class="fixed inset-0 flex items-center justify-center z-50 hidden">
-    <div class="absolute inset-0 bg-black bg-opacity-50"></div>
-    <div class="relative bg-white rounded-lg shadow-lg max-w-lg w-full mx-4 max-h-[90vh] overflow-y-auto">
-        <div class="flex items-center justify-between p-4 border-b">
-            <h3 class="text-xl font-semibold text-gray-800" id="modal-title">Thêm đăng ký mới</h3>
-            <button id="close-registration-modal" class="text-gray-500 hover:text-gray-700">
-                <i class="ri-close-line text-2xl"></i>
-            </button>
+  <!-- Add Event Speaker Modal -->
+  <div id="event-speaker-modal" class="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full z-50 hidden" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+    <div class="relative top-20 mx-auto p-5 border w-full max-w-md shadow-lg rounded-md bg-white">
+      <div class="flex justify-between items-center border-b pb-3">
+        <h3 class="text-lg font-medium text-gray-900" id="modal-title">Thêm Diễn giả vào Sự kiện</h3>
+        <button id="close-event-speaker-modal" class="text-gray-400 hover:text-gray-600">
+          <i class="ri-close-line text-xl"></i>
+        </button>
+      </div>
+      <form id="event-speaker-form" class="mt-4 space-y-4">
+        <!-- No hidden ID needed for adding, composite key (su_kien_id, dien_gia_id) identifies the record -->
+        <div>
+          <label for="modal-event-id" class="block text-sm font-medium text-gray-700">ID Sự kiện <span class="text-red-500">*</span></label>
+          <input type="number" name="modal-event-id" id="modal-event-id" required placeholder="Nhập ID Sự kiện" min="1"
+            class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary focus:border-primary sm:text-sm">
+           <!-- Consider replacing with a searchable dropdown fetched from events data -->
         </div>
-        <form id="registration-form" class="p-4">
-            <input type="hidden" id="registration-id" name="id">
-            <div class="space-y-4">
-                 <div>
-                    <label for="modal-event-id" class="block text-sm font-medium text-gray-700 mb-1">Sự kiện <span class="text-red-500">*</span></label>
-                    <select id="modal-event-id" name="event_id" required class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary">
-                      <option value="">Chọn sự kiện</option>
-                      <!-- Populated by JS -->
-                    </select>
-                 </div>
-                 <div>
-                    <label for="modal-user-id" class="block text-sm font-medium text-gray-700 mb-1">Người đăng ký <span class="text-red-500">*</span></label>
-                    <select id="modal-user-id" name="user_id" required class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary">
-                       <option value="">Chọn người dùng</option>
-                       <!-- Populated by JS -->
-                    </select>
-                 </div>
-                 <div>
-                    <label for="modal-status" class="block text-sm font-medium text-gray-700 mb-1">Trạng thái <span class="text-red-500">*</span></label>
-                    <select id="modal-status" name="status" required class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary">
-                      <option value="pending">Chờ duyệt</option>
-                      <option value="approved">Đã duyệt</option>
-                      <option value="rejected">Từ chối</option>
-                      <option value="cancelled">Đã hủy</option>
-                    </select>
-                 </div>
-                 <div>
-                    <label for="modal-notes" class="block text-sm font-medium text-gray-700 mb-1">Ghi chú</label>
-                    <textarea id="modal-notes" name="notes" rows="3" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary"></textarea>
-                 </div>
-            </div>
-            <div class="flex justify-end gap-2 mt-6">
-                <button type="button" id="cancel-registration" class="px-4 py-2 bg-gray-300 text-gray-700 rounded-md hover:bg-gray-400">Hủy</button>
-                <button type="submit" class="px-4 py-2 bg-primary text-white rounded-md hover:bg-primary-dark">Lưu</button>
-            </div>
-        </form>
+        <div>
+          <label for="modal-speaker-id" class="block text-sm font-medium text-gray-700">ID Diễn giả <span class="text-red-500">*</span></label>
+          <input type="number" name="modal-speaker-id" id="modal-speaker-id" required placeholder="Nhập ID Diễn giả" min="1"
+            class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary focus:border-primary sm:text-sm">
+           <!-- Consider replacing with a searchable dropdown fetched from speakers data -->
+        </div>
+
+        <div class="pt-3 border-t flex justify-end space-x-2">
+          <button type="button" id="cancel-event-speaker"
+            class="px-4 py-2 bg-gray-200 text-gray-800 rounded-md hover:bg-gray-300 transition-colors duration-200">
+            Hủy
+          </button>
+          <button type="submit" id="save-event-speaker-btn"
+            class="px-4 py-2 bg-primary text-white rounded-md hover:bg-primary-dark transition-colors duration-200">
+            Thêm
+          </button>
+        </div>
+      </form>
     </div>
-</div>
+  </div>
 
 
   <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-  <script src="../../public/js/admin/registrations.js"></script>
+  <script src="../../public/js/admin/event-speakers.js"></script>
 </body>
 
-</html>
+</html> 

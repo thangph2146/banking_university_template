@@ -28,7 +28,7 @@
       class="fixed md:relative z-50 bg-white w-72 max-w-[80vw] min-h-screen shadow-lg transform -translate-x-full md:translate-x-0 transition-transform duration-300 overflow-y-auto">
       <!-- Logo/Brand for mobile -->
       <div class="flex items-center justify-between p-4 border-b md:hidden">
-        <a href="index.html" class="text-2xl font-['Pacifico'] text-primary flex items-center">
+        <a href="index.html" class="text-2xl font-[\'Pacifico\'] text-primary flex items-center">
           <img src="../../images/logo/logo-white.png" alt="logo" class="w-8 h-8 mr-2">
           <span>HUB Admin</span>
         </a>
@@ -68,6 +68,16 @@
           <div class="border-b pb-4">
             <h2 class="sidebar-section-title text-xs uppercase text-gray-400 font-semibold">Quản lý sự kiện</h2>
             <div class="mt-3 space-y-3">
+              <a href="event-types.html"
+                class="sidebar-link flex items-center text-gray-600 hover:text-primary p-2 rounded-md hover:bg-gray-100">
+                 <i class="sidebar-icon ri-price-tag-3-line mr-2"></i>
+                 <span class="sidebar-link-text">Loại sự kiện</span>
+              </a>
+              <a href="event-speakers.html"
+                 class="sidebar-link flex items-center text-gray-600 hover:text-primary p-2 rounded-md hover:bg-gray-100">
+                 <i class="sidebar-icon ri-user-voice-line mr-2"></i>
+                 <span class="sidebar-link-text">Diễn giả Sự kiện</span>
+               </a>
               <a href="registrations.html"
                 class="sidebar-link flex items-center text-gray-600 hover:text-primary p-2 rounded-md hover:bg-gray-100">
                 <i class="sidebar-icon ri-file-list-line mr-2"></i>
@@ -83,6 +93,11 @@
                 <i class="sidebar-icon ri-logout-box-line mr-2"></i>
                 <span class="sidebar-link-text">Check-out</span>
               </a>
+              <a href="screens.html"
+                 class="sidebar-link flex items-center text-gray-600 hover:text-primary p-2 rounded-md hover:bg-gray-100">
+                 <i class="sidebar-icon ri-tv-2-line mr-2"></i>
+                 <span class="sidebar-link-text">Màn hình</span>
+               </a>
               <a href="reports.html"
                 class="sidebar-link flex items-center text-gray-600 hover:text-primary p-2 rounded-md hover:bg-gray-100">
                 <i class="sidebar-icon ri-bar-chart-line mr-2"></i>
@@ -104,43 +119,36 @@
                 <i class="sidebar-icon ri-shield-user-line mr-2"></i>
                 <span class="sidebar-link-text">Phân quyền</span>
               </a>
-              <!-- loại người dùng -->
               <a href="user-types.html"
                 class="sidebar-link flex items-center text-gray-600 hover:text-primary p-2 rounded-md hover:bg-gray-100">
                 <i class="sidebar-icon ri-group-line mr-2"></i>
                 <span class="sidebar-link-text">Loại người dùng</span>
               </a>
-              <!-- bậc học -->
               <a href="academic-levels.html"
                 class="sidebar-link flex items-center text-gray-600 hover:text-primary p-2 rounded-md hover:bg-gray-100">
                 <i class="sidebar-icon ri-graduation-cap-line mr-2"></i>
                 <span class="sidebar-link-text">Bậc học</span>
               </a>
-              <!-- khoá học -->
               <a href="courses.html"
                 class="sidebar-link flex items-center text-gray-600 hover:text-primary p-2 rounded-md hover:bg-gray-100">
                 <i class="sidebar-icon ri-book-open-line mr-2"></i>
                 <span class="sidebar-link-text">Khoá học</span>
               </a>
-              <!-- Ngành đào tạo -->
               <a href="majors.html"
                 class="sidebar-link flex items-center text-gray-600 hover:text-primary p-2 rounded-md hover:bg-gray-100">
                 <i class="sidebar-icon ri-book-mark-line mr-2"></i>
                 <span class="sidebar-link-text">Ngành đào tạo</span>
               </a>
-              <!-- phòng khoa -->
               <a href="departments.html"
                 class="sidebar-link flex items-center text-gray-600 hover:text-primary p-2 rounded-md hover:bg-gray-100">
                 <i class="sidebar-icon ri-building-line mr-2"></i>
                 <span class="sidebar-link-text">Phòng khoa</span>
               </a>
-              <!-- Năm học -->
               <a href="academic-years.html"
                 class="sidebar-link flex items-center text-gray-600 hover:text-primary p-2 rounded-md hover:bg-gray-100">
                 <i class="sidebar-icon ri-calendar-check-line mr-2"></i>
                 <span class="sidebar-link-text">Năm học</span>
               </a>
-              <!-- Camera -->
               <a href="cameras.html"
                 class="sidebar-link flex items-center text-gray-600 hover:text-primary p-2 rounded-md hover:bg-gray-100">
                 <i class="sidebar-icon ri-camera-line mr-2"></i>
@@ -218,10 +226,7 @@
             <p class="mt-1 text-sm text-gray-600">Quản lý tất cả người dùng trong hệ thống</p>
           </div>
           <div class="mt-4 sm:mt-0 flex gap-2">
-            <button id="refresh-btn"
-              class="flex items-center justify-center px-3 py-2 border border-gray-300 text-gray-700 rounded-md hover:bg-gray-50 transition-colors duration-200">
-              <i class="ri-refresh-line mr-1"></i> Tải lại
-            </button>
+           
             <button id="create-user-btn"
               class="flex items-center justify-center px-4 py-2 bg-primary text-white rounded-md hover:bg-primary-dark transition-colors duration-200">
               <i class="ri-add-line mr-1"></i> Thêm người dùng mới
@@ -272,11 +277,11 @@
           </div>
 
           <div class="flex items-end space-x-2 md:col-span-3">
-            <button type="submit" class="px-4 py-2 bg-primary text-white rounded-md hover:bg-primary-dark">
-              <i class="ri-filter-line mr-1"></i> Lọc
-            </button>
             <button type="button" id="reset-filter-btn" class="px-4 py-2 border border-gray-300 text-gray-700 rounded-md hover:bg-gray-50">
               <i class="ri-refresh-line mr-1"></i> Đặt lại
+            </button>
+            <button type="submit" class="px-4 py-2 bg-primary text-white rounded-md hover:bg-primary-dark">
+              <i class="ri-filter-line mr-1"></i> Lọc
             </button>
           </div>
         </form>
