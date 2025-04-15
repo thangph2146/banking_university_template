@@ -1,0 +1,794 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tạo Sự kiện mới - HUB Admin</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet" />
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+  <link href="../../public/css/custom.css" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com/3.4.16"></script>
+  <script src="../../public/js/tailwind.config.js"></script>
+  <script src="https://cdn.tiny.cloud/1/b7whk7hw51nvscdfn62fpplvwtw6h7xavw8hk5t35l1bbrnz/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
+  <style>
+    /* Animation cho toast notifications */
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    
+    @keyframes fadeOut {
+      from { opacity: 1; transform: translateY(0); }
+      to { opacity: 0; transform: translateY(20px); }
+    }
+    
+    .animate-fade-in {
+      animation: fadeIn 0.3s ease-out forwards;
+    }
+    
+    .animate-fade-out {
+      animation: fadeOut 0.3s ease-out forwards;
+    }
+    
+    /* Animation cho tab content */
+    .tab-content {
+      transition: opacity 0.3s ease, transform 0.3s ease;
+    }
+    
+    /* Animation pulse cho tab highlight */
+    @keyframes pulse {
+      0% { opacity: 0.8; }
+      50% { opacity: 0.4; }
+      100% { opacity: 0.8; }
+    }
+    
+    .animate-pulse {
+      animation: pulse 1s ease-in-out infinite;
+    }
+  </style>
+</head>
+
+<body class="bg-gray-50 min-h-screen">
+  <div class="flex h-screen overflow-hidden">
+    <div id="sidebar-backdrop" class="fixed inset-0 bg-black/50 z-20 hidden md:hidden transition-opacity duration-300">
+    </div>
+
+    <aside id="sidebar"
+      class="fixed md:relative z-50 bg-white w-72 max-w-[80vw] min-h-screen shadow-lg transform -translate-x-full md:translate-x-0 transition-transform duration-300 overflow-y-auto">
+      <div class="flex items-center justify-between p-4 border-b md:hidden">
+        <a href="index.html" class="text-2xl font-['Pacifico'] text-primary flex items-center">
+          <img src="../../images/logo/logo-white.png" alt="logo" class="w-8 h-8 mr-2">
+          <span>HUB Admin</span>
+        </a>
+        <button id="sidebar-close" class="text-gray-500 hover:text-gray-700 focus:outline-none">
+          <i class="ri-close-line text-2xl"></i>
+        </button>
+      </div>
+
+      <nav class="p-4">
+        <div class="space-y-4">
+          <div class="border-b pb-4">
+            <h2 class="text-xs uppercase text-gray-400 font-semibold">Quản lý chung</h2>
+            <div class="mt-3 space-y-3">
+              <a href="dashboard.html"
+                class="sidebar-link flex items-center text-gray-600 hover:text-primary p-2 rounded-md hover:bg-gray-100">
+                <i class="sidebar-icon ri-dashboard-line mr-2"></i>
+                <span class="sidebar-link-text">Tổng quan</span>
+              </a>
+              <a href="events.html"
+                class="sidebar-link active flex items-center text-primary p-2 rounded-md bg-primary/10 font-medium">
+                <i class="sidebar-icon ri-calendar-event-line mr-2"></i>
+                <span class="sidebar-link-text">Sự kiện</span>
+              </a>
+              <a href="users.html"
+                class="sidebar-link flex items-center text-gray-600 hover:text-primary p-2 rounded-md hover:bg-gray-100">
+                <i class="sidebar-icon ri-user-line mr-2"></i>
+                <span class="sidebar-link-text">Người dùng</span>
+              </a>
+              <a href="speakers.html"
+                class="sidebar-link flex items-center text-gray-600 hover:text-primary p-2 rounded-md hover:bg-gray-100">
+                <i class="sidebar-icon ri-mic-line mr-2"></i>
+                <span class="sidebar-link-text">Diễn giả</span>
+              </a>
+            </div>
+          </div>
+
+          <div class="border-b pb-4">
+            <h2 class="sidebar-section-title text-xs uppercase text-gray-400 font-semibold">Quản lý sự kiện</h2>
+            <div class="mt-3 space-y-3">
+              <a href="event-types.html"
+                class="sidebar-link flex items-center text-gray-600 hover:text-primary p-2 rounded-md hover:bg-gray-100">
+                 <i class="sidebar-icon ri-price-tag-3-line mr-2"></i>
+                 <span class="sidebar-link-text">Loại sự kiện</span>
+              </a>
+              <a href="event-speakers.html"
+                 class="sidebar-link flex items-center text-gray-600 hover:text-primary p-2 rounded-md hover:bg-gray-100">
+                 <i class="sidebar-icon ri-user-voice-line mr-2"></i>
+                 <span class="sidebar-link-text">Diễn giả Sự kiện</span>
+               </a>
+              <a href="registrations.html"
+                class="sidebar-link flex items-center text-gray-600 hover:text-primary p-2 rounded-md hover:bg-gray-100">
+                <i class="sidebar-icon ri-file-list-line mr-2"></i>
+                <span class="sidebar-link-text">Đăng ký sự kiện</span>
+              </a>
+              <a href="checkins.html"
+                class="sidebar-link flex items-center text-gray-600 hover:text-primary p-2 rounded-md hover:bg-gray-100">
+                <i class="sidebar-icon ri-login-box-line mr-2"></i>
+                <span class="sidebar-link-text">Check-in</span>
+              </a>
+              <a href="checkouts.html"
+                class="sidebar-link flex items-center text-gray-600 hover:text-primary p-2 rounded-md hover:bg-gray-100">
+                <i class="sidebar-icon ri-logout-box-line mr-2"></i>
+                <span class="sidebar-link-text">Check-out</span>
+              </a>
+              <a href="screens.html"
+                 class="sidebar-link flex items-center text-gray-600 hover:text-primary p-2 rounded-md hover:bg-gray-100">
+                 <i class="sidebar-icon ri-tv-2-line mr-2"></i>
+                 <span class="sidebar-link-text">Màn hình</span>
+               </a>
+              <a href="reports.html"
+                class="sidebar-link flex items-center text-gray-600 hover:text-primary p-2 rounded-md hover:bg-gray-100">
+                <i class="sidebar-icon ri-bar-chart-line mr-2"></i>
+                <span class="sidebar-link-text">Báo cáo</span>
+              </a>
+            </div>
+          </div>
+
+          <div>
+            <h2 class="sidebar-section-title text-xs uppercase text-gray-400 font-semibold">Cài đặt hệ thống</h2>
+            <div class="mt-3 space-y-3">
+              <a href="settings.html"
+                class="sidebar-link flex items-center text-gray-600 hover:text-primary p-2 rounded-md hover:bg-gray-100">
+                <i class="sidebar-icon ri-settings-3-line mr-2"></i>
+                <span class="sidebar-link-text">Thiết lập</span>
+              </a>
+              <a href="roles.html"
+                class="sidebar-link flex items-center text-gray-600 hover:text-primary p-2 rounded-md hover:bg-gray-100">
+                <i class="sidebar-icon ri-shield-user-line mr-2"></i>
+                <span class="sidebar-link-text">Phân quyền</span>
+              </a>
+              <a href="user-types.html"
+                class="sidebar-link flex items-center text-gray-600 hover:text-primary p-2 rounded-md hover:bg-gray-100">
+                <i class="sidebar-icon ri-group-line mr-2"></i>
+                <span class="sidebar-link-text">Loại người dùng</span>
+              </a>
+              <a href="academic-levels.html"
+                class="sidebar-link flex items-center text-gray-600 hover:text-primary p-2 rounded-md hover:bg-gray-100">
+                <i class="sidebar-icon ri-graduation-cap-line mr-2"></i>
+                <span class="sidebar-link-text">Bậc học</span>
+              </a>
+              <a href="courses.html"
+                class="sidebar-link flex items-center text-gray-600 hover:text-primary p-2 rounded-md hover:bg-gray-100">
+                <i class="sidebar-icon ri-book-open-line mr-2"></i>
+                <span class="sidebar-link-text">Khoá học</span>
+              </a>
+              <a href="majors.html"
+                class="sidebar-link flex items-center text-primary p-2 rounded-md bg-primary/10 font-medium">
+                <i class="sidebar-icon ri-book-open-line mr-2"></i>
+                <span class="sidebar-link-text">Ngành đào tạo</span>
+              </a>
+              <a href="departments.html"
+                class="sidebar-link flex items-center text-gray-600 hover:text-primary p-2 rounded-md hover:bg-gray-100">
+                <i class="sidebar-icon ri-building-line mr-2"></i>
+                <span class="sidebar-link-text">Phòng khoa</span>
+              </a>
+              <a href="academic-years.html"
+                class="sidebar-link flex items-center text-gray-600 hover:text-primary p-2 rounded-md hover:bg-gray-100">
+                <i class="sidebar-icon ri-calendar-check-line mr-2"></i>
+                <span class="sidebar-link-text">Năm học</span>
+              </a>
+              <a href="cameras.html"
+                class="sidebar-link flex items-center text-gray-600 hover:text-primary p-2 rounded-md hover:bg-gray-100">
+                <i class="sidebar-icon ri-camera-line mr-2"></i>
+                <span class="sidebar-link-text">Camera</span>
+              </a>
+              <a href="logs.html"
+                class="sidebar-link flex items-center text-gray-600 hover:text-primary p-2 rounded-md hover:bg-gray-100">
+                <i class="sidebar-icon ri-file-list-3-line mr-2"></i>
+                <span class="sidebar-link-text">Nhật ký</span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </aside>
+
+    <main class="flex-1 overflow-auto px-6 pb-6 pt-4">
+      <header class="bg-primary shadow-md sticky top-0 z-30 animate-fade-in mb-6">
+        <div class="container mx-auto px-4 py-2 flex items-center justify-between">
+          <button id="sidebar-open" class="text-white p-2 rounded-md md:hidden focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white">
+            <i class="ri-menu-line text-2xl"></i>
+          </button>
+
+          <a href="index.html"
+            class="text-2xl font-['Pacifico'] text-white transition-all duration-300 hover:scale-105">
+            <img src="../../images/logo/logo-white.png" alt="logo" class="w-12 h-12 md:w-16 md:h-16">
+          </a>
+          <div class="flex items-center space-x-4">
+            <div class="relative">
+              <button class="text-white hover:text-gray-200 focus:outline-none">
+                <i class="ri-notification-3-line text-xl"></i>
+                <span class="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full w-4 h-4 flex items-center justify-center">3</span>
+              </button>
+            </div>
+
+            <div class="flex items-center space-x-4">
+              <div class="relative group">
+                <button class="flex items-center space-x-2 text-white">
+                  <img src="https://readdy.ai/api/search-image?query=professional%20headshot%20young%20vietnamese%20student%20minimal%20background&width=100&height=100&seq=avatar" alt="Ảnh đại diện" class="w-8 h-8 rounded-full border-2 border-white">
+                  <span class="hidden sm:block">Nguyễn Văn A</span>
+                  <i class="ri-arrow-down-s-line group-hover:rotate-180 transition-transform duration-300"></i>
+                </button>
+                <div class="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg overflow-hidden z-20 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform origin-top-right scale-95 group-hover:scale-100">
+                  <div class="py-2">
+                    <a href="profile.html"
+                      class="flex items-center px-4 py-2 text-sm text-gray-800 hover:bg-primary/10 hover:text-primary border-l-4 border-primary">
+                      <i class="ri-user-line mr-2"></i>
+                      Trang cá nhân
+                    </a>
+                    <a href="#"
+                      class="flex items-center px-4 py-2 text-sm text-gray-800 hover:bg-primary/10 hover:text-primary">
+                      <i class="ri-calendar-event-line mr-2"></i>
+                      Sự kiện của tôi
+                    </a>
+                    <a href="#"
+                      class="flex items-center px-4 py-2 text-sm text-gray-800 hover:bg-primary/10 hover:text-primary">
+                      <i class="ri-settings-4-line mr-2"></i>
+                      Cài đặt
+                    </a>
+                    <hr class="my-1 border-gray-200">
+                    <a href="login.html"
+                      class="flex items-center px-4 py-2 text-sm text-gray-800 hover:bg-primary/10 hover:text-primary">
+                      <i class="ri-logout-box-r-line mr-2"></i>
+                      Đăng xuất
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <div class="container mx-auto">
+        <nav class="flex mb-6" aria-label="Breadcrumb">
+          <ol class="inline-flex items-center space-x-1 md:space-x-3">
+            <li class="inline-flex items-center">
+              <a href="dashboard.html" class="text-gray-700 hover:text-primary">
+                <i class="ri-dashboard-line mr-2"></i>
+                Dashboard
+              </a>
+            </li>
+            <li>
+              <div class="flex items-center">
+                <i class="ri-arrow-right-s-line text-gray-400"></i>
+                <a href="events.html" class="ml-1 text-gray-700 hover:text-primary">
+                  Sự kiện
+                </a>
+              </div>
+            </li>
+            <li>
+              <div class="flex items-center">
+                <i class="ri-arrow-right-s-line text-gray-400"></i>
+                <span class="ml-1 text-primary font-medium">Tạo sự kiện mới</span>
+              </div>
+            </li>
+          </ol>
+        </nav>
+
+        <div class="flex flex-col md:flex-row md:items-center md:justify-between mb-6">
+          <h1 class="text-2xl font-semibold text-gray-900">Tạo sự kiện mới</h1>
+          <div class="mt-4 md:mt-0 flex space-x-3">
+            <button id="shortcuts-btn" type="button" class="text-gray-700 px-3 py-2 rounded-lg hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-300 relative group">
+              <i class="ri-keyboard-line text-lg"></i>
+              <div class="absolute right-0 mt-2 w-72 bg-white rounded-lg shadow-lg p-4 z-50 invisible opacity-0 group-hover:visible group-hover:opacity-100 transition-all duration-300 -translate-y-2 group-hover:translate-y-0">
+                <h3 class="text-sm font-medium text-gray-800 border-b pb-1 mb-2">Phím tắt hỗ trợ</h3>
+                <div class="text-xs text-gray-600 space-y-1.5">
+                  <p><span class="bg-gray-100 px-1.5 py-0.5 rounded font-mono">Alt</span> + <span class="bg-gray-100 px-1.5 py-0.5 rounded font-mono">←</span>/<span class="bg-gray-100 px-1.5 py-0.5 rounded font-mono">→</span>: Di chuyển giữa các tab</p>
+                  <p><span class="bg-gray-100 px-1.5 py-0.5 rounded font-mono">Alt</span> + <span class="bg-gray-100 px-1.5 py-0.5 rounded font-mono">1-7</span>: Chuyển đến tab tương ứng</p>
+                  <p><span class="bg-gray-100 px-1.5 py-0.5 rounded font-mono">Alt</span> + <span class="bg-gray-100 px-1.5 py-0.5 rounded font-mono">Tab</span>: Tab tiếp theo</p>
+                </div>
+              </div>
+            </button>
+            <button onclick="history.back()" class="bg-gray-100 text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-gray-300">
+              <i class="ri-arrow-left-line mr-1"></i>
+              Quay lại
+            </button>
+            <button type="submit" form="event-form" class="bg-primary text-white px-4 py-2 rounded-lg hover:bg-primary/90 focus:outline-none focus:ring-2 focus:ring-primary/50">
+              <i class="ri-save-line mr-1"></i>
+              Tạo sự kiện
+            </button>
+          </div>
+        </div>
+        
+        <div class="border-gray-200">
+          <form id="event-form" class="bg-white rounded-lg shadow-sm overflow-hidden">
+            <div class="border-b border-gray-200 overflow-x-auto scrollbar-hide">
+              <nav class="flex flex-nowrap -mb-px min-w-full" aria-label="Tabs">
+                <button type="button" class="tab-button border-b-2 border-primary text-primary px-6 py-4 text-sm font-medium flex items-center whitespace-nowrap transition-all duration-200 hover:text-primary hover:border-primary/50 min-w-[150px]" data-tab="basic" aria-selected="true">
+                  <i class="ri-information-line mr-2"></i>
+                  Thông tin cơ bản
+                </button>
+                <button type="button" class="tab-button border-b-2 border-transparent text-gray-500 px-6 py-4 text-sm font-medium flex items-center whitespace-nowrap transition-all duration-200 hover:text-primary hover:border-primary/50 min-w-[150px]" data-tab="time" aria-selected="false">
+                  <i class="ri-time-line mr-2"></i>
+                  Thời gian
+                </button>
+                <button type="button" class="tab-button border-b-2 border-transparent text-gray-500 px-6 py-4 text-sm font-medium flex items-center whitespace-nowrap transition-all duration-200 hover:text-primary hover:border-primary/50 min-w-[150px]" data-tab="location" aria-selected="false">
+                  <i class="ri-map-pin-line mr-2"></i>
+                  Địa điểm
+                </button>
+                <button type="button" class="tab-button border-b-2 border-transparent text-gray-500 px-6 py-4 text-sm font-medium flex items-center whitespace-nowrap transition-all duration-200 hover:text-primary hover:border-primary/50 min-w-[150px]" data-tab="description" aria-selected="false">
+                  <i class="ri-file-text-line mr-2"></i>
+                  Mô tả
+                </button>
+                <button type="button" class="tab-button border-b-2 border-transparent text-gray-500 px-6 py-4 text-sm font-medium flex items-center whitespace-nowrap transition-all duration-200 hover:text-primary hover:border-primary/50 min-w-[150px]" data-tab="schedule" aria-selected="false">
+                  <i class="ri-calendar-todo-line mr-2"></i>
+                  Lịch trình
+                </button>
+                <button type="button" class="tab-button border-b-2 border-transparent text-gray-500 px-6 py-4 text-sm font-medium flex items-center whitespace-nowrap transition-all duration-200 hover:text-primary hover:border-primary/50 min-w-[150px]" data-tab="attendance" aria-selected="false">
+                  <i class="ri-user-follow-line mr-2"></i>
+                  Điểm danh
+                </button>
+                <button type="button" class="tab-button border-b-2 border-transparent text-gray-500 px-6 py-4 text-sm font-medium flex items-center whitespace-nowrap transition-all duration-200 hover:text-primary hover:border-primary/50 min-w-[150px]" data-tab="other" aria-selected="false">
+                  <i class="ri-settings-3-line mr-2"></i>
+                  Cấu hình khác
+                </button>
+              </nav>
+            </div>
+
+            <div class="p-6">
+              <div class="tab-content transition-opacity duration-300" id="basic" aria-hidden="false">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <div class="group">
+                    <label class="block text-sm font-medium text-gray-700 mb-1">
+                      Tên sự kiện <i class="ri-asterisk text-red-500 text-xs"></i>
+                    </label>
+                    <div class="relative">
+                      <i class="ri-edit-line absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 group-focus-within:text-primary"></i>
+                      <input type="text" id="ten_su_kien" name="ten_su_kien" required placeholder="Nhập tên sự kiện"
+                        class="w-full pl-10 pr-4 py-2.5 rounded-md border border-gray-300 focus:ring-2 focus:ring-primary/50 focus:border-primary transition-colors duration-200">
+                    </div>
+                  </div>
+
+                  <div class="group">
+                    <label class="block text-sm font-medium text-gray-700 mb-1">
+                      Đơn vị tổ chức <i class="ri-asterisk text-red-500 text-xs"></i>
+                    </label>
+                    <div class="relative">
+                      <i class="ri-building-line absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 group-focus-within:text-primary"></i>
+                      <input type="text" id="don_vi_to_chuc" name="don_vi_to_chuc" required placeholder="Nhập tên đơn vị tổ chức"
+                        class="w-full pl-10 pr-4 py-2.5 rounded-md border border-gray-300 focus:ring-2 focus:ring-primary/50 focus:border-primary transition-colors duration-200">
+                    </div>
+                  </div>
+
+                  <div class="group">
+                    <label class="block text-sm font-medium text-gray-700 mb-1">
+                      Đơn vị phối hợp
+                    </label>
+                    <div class="relative">
+                      <i class="ri-team-line absolute left-3 top-3 text-gray-400 group-focus-within:text-primary"></i>
+                      <textarea id="don_vi_phoi_hop" name="don_vi_phoi_hop" rows="2" placeholder="Nhập tên đơn vị phối hợp (nếu có)"
+                        class="w-full pl-10 pr-4 py-2.5 rounded-md border border-gray-300 focus:ring-2 focus:ring-primary/50 focus:border-primary transition-colors duration-200"></textarea>
+                    </div>
+                  </div>
+
+                  <div class="group">
+                    <label class="block text-sm font-medium text-gray-700 mb-1">
+                      Loại sự kiện <i class="ri-asterisk text-red-500 text-xs"></i>
+                    </label>
+                    <div class="relative">
+                      <i class="ri-calendar-event-line absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 group-focus-within:text-primary"></i>
+                      <select id="loai_su_kien_id" name="loai_su_kien_id" required
+                        class="w-full pl-10 pr-4 py-2.5 rounded-md border border-gray-300 focus:ring-2 focus:ring-primary/50 focus:border-primary appearance-none transition-colors duration-200">
+                        <option value="">Chọn loại sự kiện</option>
+                        <option value="1">Hội thảo</option>
+                        <option value="2">Seminar</option>
+                        <option value="3">Workshop</option>
+                        <option value="4">Talkshow</option>
+                        <option value="5">Cuộc thi</option>
+                      </select>
+                      <i class="ri-arrow-down-s-line absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none"></i>
+                    </div>
+                  </div>
+
+                  <div class="group">
+                    <label class="block text-sm font-medium text-gray-700 mb-1">
+                      Hình thức tổ chức <i class="ri-asterisk text-red-500 text-xs"></i>
+                    </label>
+                    <div class="relative">
+                      <i class="ri-projector-line absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 group-focus-within:text-primary"></i>
+                      <select id="hinh_thuc" name="hinh_thuc" required
+                        class="w-full pl-10 pr-4 py-2.5 rounded-md border border-gray-300 focus:ring-2 focus:ring-primary/50 focus:border-primary appearance-none transition-colors duration-200">
+                        <option value="offline">Offline</option>
+                        <option value="online">Online</option>
+                        <option value="hybrid">Hybrid</option>
+                      </select>
+                      <i class="ri-arrow-down-s-line absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none"></i>
+                    </div>
+                  </div>
+
+                  <div class="md:col-span-2">
+                    <label class="block text-sm font-medium text-gray-700 mb-1">
+                      Poster sự kiện
+                    </label>
+                    <div class="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-md hover:border-primary/50 transition-colors duration-200">
+                      <div class="space-y-2 text-center">
+                        <i class="ri-upload-cloud-2-line text-5xl text-gray-400"></i>
+                        <div class="flex text-sm text-gray-600">
+                          <label for="su_kien_poster"
+                            class="relative cursor-pointer bg-white rounded-md font-medium text-primary hover:text-primary/80 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-primary transition-colors duration-200">
+                            <span>Tải ảnh lên</span>
+                            <input id="su_kien_poster" name="su_kien_poster" type="file" class="sr-only" accept="image/*">
+                          </label>
+                          <p class="pl-1">hoặc kéo thả vào đây</p>
+                        </div>
+                        <p class="text-xs text-gray-500">PNG, JPG, GIF tối đa 10MB</p>
+                      </div>
+                    </div>
+                    <div id="poster_preview" class="mt-4 hidden">
+                      <div class="relative group">
+                        <img src="" alt="Poster preview" class="max-h-40 rounded-lg">
+                        <div class="absolute inset-0 bg-black bg-opacity-50 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-200 flex items-center justify-center">
+                          <button type="button" class="text-white hover:text-red-500 transition-colors duration-200" onclick="removePoster()">
+                            <i class="ri-delete-bin-line text-2xl"></i>
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="tab-content hidden transition-opacity duration-300" id="time" aria-hidden="true">
+                <div class="space-y-8">
+                  <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="group">
+                      <label class="block text-sm font-medium text-gray-700 mb-1">
+                        Thời gian bắt đầu <i class="ri-asterisk text-red-500 text-xs"></i>
+                      </label>
+                      <div class="relative">
+                        <i class="ri-calendar-line absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 group-focus-within:text-primary"></i>
+                        <input type="datetime-local" id="thoi_gian_bat_dau_su_kien" name="thoi_gian_bat_dau_su_kien" required
+                          class="w-full pl-10 pr-4 py-2.5 rounded-md border border-gray-300 focus:ring-2 focus:ring-primary/50 focus:border-primary transition-colors duration-200">
+                      </div>
+                    </div>
+                    <div class="group">
+                      <label class="block text-sm font-medium text-gray-700 mb-1">
+                        Thời gian kết thúc <i class="ri-asterisk text-red-500 text-xs"></i>
+                      </label>
+                      <div class="relative">
+                        <i class="ri-calendar-line absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 group-focus-within:text-primary"></i>
+                        <input type="datetime-local" id="thoi_gian_ket_thuc_su_kien" name="thoi_gian_ket_thuc_su_kien" required
+                          class="w-full pl-10 pr-4 py-2.5 rounded-md border border-gray-300 focus:ring-2 focus:ring-primary/50 focus:border-primary transition-colors duration-200">
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="group">
+                      <label class="block text-sm font-medium text-gray-700 mb-1">
+                        Bắt đầu đăng ký <i class="ri-asterisk text-red-500 text-xs"></i>
+                      </label>
+                      <div class="relative">
+                        <i class="ri-calendar-line absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 group-focus-within:text-primary"></i>
+                        <input type="datetime-local" id="thoi_gian_bat_dau_dang_ky" name="thoi_gian_bat_dau_dang_ky" required
+                          class="w-full pl-10 pr-4 py-2.5 rounded-lg border border-gray-300 focus:ring-2 focus:ring-primary/50 focus:border-primary transition-colors duration-200">
+                      </div>
+                    </div>
+                    <div class="group">
+                      <label class="block text-sm font-medium text-gray-700 mb-1">
+                        Kết thúc đăng ký <i class="ri-asterisk text-red-500 text-xs"></i>
+                      </label>
+                      <div class="relative">
+                        <i class="ri-calendar-line absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 group-focus-within:text-primary"></i>
+                        <input type="datetime-local" id="thoi_gian_ket_thuc_dang_ky" name="thoi_gian_ket_thuc_dang_ky" required
+                          class="w-full pl-10 pr-4 py-2.5 rounded-lg border border-gray-300 focus:ring-2 focus:ring-primary/50 focus:border-primary transition-colors duration-200">
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="group">
+                      <label class="block text-sm font-medium text-gray-700 mb-1">
+                        Bắt đầu check-in
+                      </label>
+                      <div class="relative">
+                        <i class="ri-calendar-line absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 group-focus-within:text-primary"></i>
+                        <input type="datetime-local" id="thoi_gian_checkin_bat_dau" name="thoi_gian_checkin_bat_dau"
+                          class="w-full pl-10 pr-4 py-2.5 rounded-lg border border-gray-300 focus:ring-2 focus:ring-primary/50 focus:border-primary transition-colors duration-200">
+                      </div>
+                    </div>
+                    <div class="group">
+                      <label class="block text-sm font-medium text-gray-700 mb-1">
+                        Kết thúc check-in
+                      </label>
+                      <div class="relative">
+                        <i class="ri-calendar-line absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 group-focus-within:text-primary"></i>
+                        <input type="datetime-local" id="thoi_gian_checkin_ket_thuc" name="thoi_gian_checkin_ket_thuc"
+                          class="w-full pl-10 pr-4 py-2.5 rounded-lg border border-gray-300 focus:ring-2 focus:ring-primary/50 focus:border-primary transition-colors duration-200">
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="group">
+                      <label class="block text-sm font-medium text-gray-700 mb-1">
+                        Bắt đầu check-out
+                      </label>
+                      <div class="relative">
+                        <i class="ri-calendar-line absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 group-focus-within:text-primary"></i>
+                        <input type="datetime-local" id="thoi_gian_checkout_bat_dau" name="thoi_gian_checkout_bat_dau"
+                          class="w-full pl-10 pr-4 py-2.5 rounded-lg border border-gray-300 focus:ring-2 focus:ring-primary/50 focus:border-primary transition-colors duration-200">
+                      </div>
+                    </div>
+                    <div class="group">
+                      <label class="block text-sm font-medium text-gray-700 mb-1">
+                        Kết thúc check-out
+                      </label>
+                      <div class="relative">
+                        <i class="ri-calendar-line absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 group-focus-within:text-primary"></i>
+                        <input type="datetime-local" id="thoi_gian_checkout_ket_thuc" name="thoi_gian_checkout_ket_thuc"
+                          class="w-full pl-10 pr-4 py-2.5 rounded-lg border border-gray-300 focus:ring-2 focus:ring-primary/50 focus:border-primary transition-colors duration-200">
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="tab-content hidden transition-opacity duration-300" id="location" aria-hidden="true">
+                <div class="space-y-6">
+                  <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                      <label class="block text-sm font-medium text-gray-700 mb-1">
+                        Địa điểm <i class="ri-asterisk text-red-500 text-xs"></i>
+                      </label>
+                      <input type="text" id="dia_diem" name="dia_diem" required placeholder="Nhập địa điểm tổ chức"
+                        class="w-full px-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-primary/50 focus:border-primary">
+                    </div>
+                    <div>
+                      <label class="block text-sm font-medium text-gray-700 mb-1">
+                        Địa chỉ cụ thể
+                      </label>
+                      <input type="text" id="dia_chi_cu_the" name="dia_chi_cu_the" placeholder="Nhập địa chỉ chi tiết"
+                        class="w-full px-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-primary/50 focus:border-primary">
+                    </div>
+                  </div>
+                  <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                      <label class="block text-sm font-medium text-gray-700 mb-1">
+                        Tọa độ GPS
+                      </label>
+                      <input type="text" id="toa_do_gps" name="toa_do_gps" placeholder="Vd: 10.762622, 106.660172"
+                        class="w-full px-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-primary/50 focus:border-primary">
+                    </div>
+                    <div id="online_section" class="hidden">
+                      <label class="block text-sm font-medium text-gray-700 mb-1">
+                        Link tham gia online
+                      </label>
+                      <input type="url" id="link_online" name="link_online" placeholder="Nhập link tham gia online"
+                        class="w-full px-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-primary/50 focus:border-primary">
+                      <div class="mt-2">
+                        <label class="block text-sm font-medium text-gray-700">Mật khẩu phòng họp (nếu có)</label>
+                        <input type="text" id="mat_khau_online" name="mat_khau_online" placeholder="Mật khẩu phòng họp"
+                          class="w-full px-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-primary/50 focus:border-primary">
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="tab-content hidden transition-opacity duration-300" id="description" aria-hidden="true">
+                <div class="space-y-6">
+                  <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                      <label class="block text-sm font-medium text-gray-700 mb-1">
+                        Mô tả ngắn <i class="ri-asterisk text-red-500 text-xs"></i>
+                      </label>
+                      <textarea id="mo_ta" name="mo_ta" rows="3" required placeholder="Mô tả ngắn gọn về sự kiện"
+                        class="w-full px-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-primary/50 focus:border-primary"></textarea>
+                    </div>
+                    <div>
+                      <label class="block text-sm font-medium text-gray-700 mb-1">
+                        Mô tả chi tiết
+                      </label>
+                      <textarea id="mo_ta_su_kien" name="mo_ta_su_kien" rows="4" placeholder="Mô tả chi tiết về sự kiện"
+                        class="w-full px-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-primary/50 focus:border-primary"></textarea>
+                    </div>
+                  </div>
+                  <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                      <label class="block text-sm font-medium text-gray-700 mb-1">
+                        Chi tiết sự kiện
+                      </label>
+                      <textarea id="chi_tiet_su_kien" name="chi_tiet_su_kien" placeholder="Nội dung chi tiết của sự kiện"
+                        class="w-full px-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-primary/50 focus:border-primary"></textarea>
+                    </div>
+                    <div>
+                      <label class="block text-sm font-medium text-gray-700 mb-1">
+                        Đối tượng tham gia
+                      </label>
+                      <textarea id="doi_tuong_tham_gia" name="doi_tuong_tham_gia" rows="2" placeholder="Đối tượng tham gia sự kiện"
+                        class="w-full px-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-primary/50 focus:border-primary"></textarea>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="tab-content hidden transition-opacity duration-300" id="schedule" aria-hidden="true">
+                <div class="space-y-6">
+                  <div class="bg-white rounded-lg p-6">
+                    <div class="flex justify-between items-center mb-4">
+                      <h3 class="font-medium text-gray-900">Lịch trình sự kiện</h3>
+                      <button type="button" id="add-schedule-item" class="bg-primary text-white px-3 py-1.5 rounded-md hover:bg-primary/90 flex items-center">
+                        <i class="ri-add-line mr-1"></i> Thêm hoạt động
+                      </button>
+                    </div>
+                    
+                    <div class="overflow-x-auto">
+                      <table class="min-w-full divide-y divide-gray-200">
+                        <thead>
+                          <tr>
+                            <th scope="col" class="px-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-16">STT</th>
+                            <th scope="col" class="px-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-40">Thời gian</th>
+                            <th scope="col" class="px-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Hoạt động</th>
+                            <th scope="col" class="px-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-40">Người phụ trách</th>
+                            <th scope="col" class="px-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-32">Thao tác</th>
+                          </tr>
+                        </thead>
+                        <tbody id="schedule-items" class="bg-white divide-y divide-gray-200">
+                          <tr class="schedule-item">
+                            <td class="px-3 py-2 whitespace-nowrap">
+                              <span class="item-order">1</span>
+                            </td>
+                            <td class="px-3 py-2">
+                              <div class="flex space-x-2">
+                                <input type="time" name="schedule_time[]" class="w-full px-2 py-1 text-sm border border-gray-300 rounded-md" value="08:00">
+                                <span class="flex items-center">-</span>
+                                <input type="time" name="schedule_time_end[]" class="w-full px-2 py-1 text-sm border border-gray-300 rounded-md" value="08:30">
+                              </div>
+                            </td>
+                            <td class="px-3 py-2">
+                              <input type="text" name="schedule_activity[]" class="w-full px-2 py-1 text-sm border border-gray-300 rounded-md" value="Đón tiếp đại biểu">
+                            </td>
+                            <td class="px-3 py-2">
+                              <input type="text" name="schedule_person[]" class="w-full px-2 py-1 text-sm border border-gray-300 rounded-md" value="Ban tổ chức">
+                            </td>
+                            <td class="px-3 py-2 whitespace-nowrap">
+                              <div class="flex space-x-1">
+                                <button type="button" class="move-up text-gray-500 hover:text-primary p-1" title="Di chuyển lên">
+                                  <i class="ri-arrow-up-s-line"></i>
+                                </button>
+                                <button type="button" class="move-down text-gray-500 hover:text-primary p-1" title="Di chuyển xuống">
+                                  <i class="ri-arrow-down-s-line"></i>
+                                </button>
+                                <button type="button" class="remove-item text-gray-500 hover:text-red-500 p-1" title="Xóa">
+                                  <i class="ri-delete-bin-line"></i>
+                                </button>
+                              </div>
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                    
+                    <div class="mt-4 text-sm text-gray-500 italic">
+                      <p><i class="ri-information-line mr-1"></i> Di chuyển các hoạt động để sắp xếp lịch trình theo thứ tự mong muốn.</p>
+                    </div>
+                  </div>
+                  
+                  <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                      <label class="block text-sm font-medium text-gray-700 mb-1">
+                        Ghi chú lịch trình
+                      </label>
+                      <textarea id="ghi_chu_lich_trinh" name="ghi_chu_lich_trinh" rows="3" placeholder="Ghi chú về lịch trình sự kiện"
+                        class="w-full px-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-primary/50 focus:border-primary"></textarea>
+                    </div>
+                    <div>
+                      <label class="block text-sm font-medium text-gray-700 mb-1">
+                        Thông tin bổ sung
+                      </label>
+                      <textarea id="thong_tin_bo_sung_lich_trinh" name="thong_tin_bo_sung_lich_trinh" rows="3" placeholder="Thông tin bổ sung về lịch trình"
+                        class="w-full px-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-primary/50 focus:border-primary"></textarea>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="tab-content hidden transition-opacity duration-300" id="attendance" aria-hidden="true">
+                <div class="space-y-6">
+                  <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="flex items-center">
+                      <input type="checkbox" id="cho_phep_check_in" name="cho_phep_check_in"
+                        class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded">
+                      <label class="ml-2 block text-sm text-gray-900">Cho phép check-in</label>
+                    </div>
+                    <div class="flex items-center">
+                      <input type="checkbox" id="cho_phep_check_out" name="cho_phep_check_out"
+                        class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded">
+                      <label class="ml-2 block text-sm text-gray-900">Cho phép check-out</label>
+                    </div>
+                  </div>
+                  <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="flex items-center">
+                      <input type="checkbox" id="yeu_cau_face_id" name="yeu_cau_face_id"
+                        class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded">
+                      <label class="ml-2 block text-sm text-gray-900">Yêu cầu xác thực khuôn mặt</label>
+                    </div>
+                    <div class="flex items-center">
+                      <input type="checkbox" id="cho_phep_checkin_thu_cong" name="cho_phep_checkin_thu_cong"
+                        class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded">
+                      <label class="ml-2 block text-sm text-gray-900">Cho phép check-in thủ công</label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="tab-content hidden transition-opacity duration-300" id="other" aria-hidden="true">
+                <div class="space-y-6">
+                  <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                      <label class="block text-sm font-medium text-gray-700 mb-1">
+                        Số lượng tham gia tối đa
+                      </label>
+                      <input type="number" id="so_luong_tham_gia" name="so_luong_tham_gia" min="0" placeholder="Nhập số lượng người tham gia tối đa"
+                        class="w-full px-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-primary/50 focus:border-primary">
+                    </div>
+                    <div>
+                      <label class="block text-sm font-medium text-gray-700 mb-1">
+                        Số lượng diễn giả
+                      </label>
+                      <input type="number" id="so_luong_dien_gia" name="so_luong_dien_gia" min="0" placeholder="Nhập số lượng diễn giả"
+                        class="w-full px-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-primary/50 focus:border-primary">
+                    </div>
+                  </div>
+                  <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                      <label class="block text-sm font-medium text-gray-700 mb-1">
+                        Hạn hủy đăng ký
+                      </label>
+                      <input type="datetime-local" id="han_huy_dang_ky" name="han_huy_dang_ky"
+                        class="w-full px-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-primary/50 focus:border-primary">
+                    </div>
+                    <div>
+                      <label class="block text-sm font-medium text-gray-700 mb-1">
+                        Giới hạn loại người dùng
+                      </label>
+                      <input type="text" id="gioi_han_loai_nguoi_dung" name="gioi_han_loai_nguoi_dung" placeholder="Các loại người dùng được tham gia"
+                        class="w-full px-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-primary/50 focus:border-primary">
+                    </div>
+                  </div>
+                  <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                      <label class="block text-sm font-medium text-gray-700 mb-1">
+                        Từ khóa tìm kiếm
+                      </label>
+                      <input type="text" id="tu_khoa_su_kien" name="tu_khoa_su_kien" placeholder="Từ khóa tìm kiếm sự kiện (ngăn cách bằng dấu phẩy)"
+                        class="w-full px-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-primary/50 focus:border-primary">
+                    </div>
+                    <div>
+                      <label class="block text-sm font-medium text-gray-700 mb-1">
+                        Hashtag
+                      </label>
+                      <input type="text" id="hashtag" name="hashtag" placeholder="Hashtag của sự kiện (ngăn cách bằng dấu phẩy)"
+                        class="w-full px-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-primary/50 focus:border-primary">
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+  <script src="../../public/js/admin/event-create.js"></script>
+</body>
+</html> 
