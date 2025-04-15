@@ -4,14 +4,13 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Quản lý Check-out - HUB Admin</title>
+  <title>Quản lý Cài đặt - HUB Admin</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
   <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet" />
   <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-  <!-- Thêm CSS cho daterangepicker -->
-  <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
   <link href="../../public/css/custom.css" rel="stylesheet">
   <script src="https://cdn.tailwindcss.com/3.4.16"></script>
   <script src="../../public/js/tailwind.config.js"></script>
@@ -28,7 +27,7 @@
       class="fixed md:relative z-50 bg-white w-72 max-w-[80vw] min-h-screen shadow-lg transform -translate-x-full md:translate-x-0 transition-transform duration-300 overflow-y-auto">
       <!-- Logo/Brand for mobile -->
       <div class="flex items-center justify-between p-4 border-b md:hidden">
-        <a href="index.html" class="text-2xl font-[\'Pacifico\'] text-primary flex items-center">
+        <a href="index.html" class="text-2xl font-['Pacifico'] text-primary flex items-center">
           <img src="../../images/logo/logo-white.png" alt="logo" class="w-8 h-8 mr-2">
           <span>HUB Admin</span>
         </a>
@@ -62,6 +61,7 @@
                 <i class="sidebar-icon ri-mic-line mr-2"></i>
                 <span class="sidebar-link-text">Diễn giả</span>
               </a>
+               
             </div>
           </div>
 
@@ -89,7 +89,7 @@
                 <span class="sidebar-link-text">Check-in</span>
               </a>
               <a href="checkouts.html"
-                class="sidebar-link active flex items-center text-primary p-2 rounded-md bg-primary/10 font-medium"> <!-- Active link -->
+                class="sidebar-link flex items-center text-gray-600 hover:text-primary p-2 rounded-md hover:bg-gray-100">
                 <i class="sidebar-icon ri-logout-box-line mr-2"></i>
                 <span class="sidebar-link-text">Check-out</span>
               </a>
@@ -110,7 +110,7 @@
             <h2 class="sidebar-section-title text-xs uppercase text-gray-400 font-semibold">Cài đặt hệ thống</h2>
             <div class="mt-3 space-y-3">
               <a href="settings.html"
-                class="sidebar-link flex items-center text-gray-600 hover:text-primary p-2 rounded-md hover:bg-gray-100">
+                class="sidebar-link active flex items-center text-primary p-2 rounded-md bg-primary/10 font-medium">
                 <i class="sidebar-icon ri-settings-3-line mr-2"></i>
                 <span class="sidebar-link-text">Thiết lập</span>
               </a>
@@ -159,6 +159,11 @@
                 <i class="sidebar-icon ri-file-list-3-line mr-2"></i>
                 <span class="sidebar-link-text">Nhật ký</span>
               </a>
+              <a href="accounts.html"
+                class="sidebar-link flex items-center text-gray-600 hover:text-primary p-2 rounded-md hover:bg-gray-100">
+                <i class="sidebar-icon ri-user-settings-line mr-2"></i>
+                <span class="sidebar-link-text">Tài khoản</span>
+              </a>
             </div>
           </div>
         </div>
@@ -176,26 +181,24 @@
           </button>
 
           <a href="index.html"
-            class="text-2xl font-['Pacifico'] text-white transition-all duration-300 hover:scale-105 hidden md:block">
+            class="text-2xl font-['Pacifico'] text-white transition-all duration-300 hover:scale-105">
             <img src="../../images/logo/logo-white.png" alt="logo" class="w-12 h-12 md:w-16 md:h-16">
           </a>
           <div class="flex items-center space-x-4">
-             <!-- User profile dropdown menu -->
-             <div class="relative group">
-              <button id="user-menu-button" class="flex items-center space-x-2 text-white">
+            <!-- User profile dropdown menu -->
+            <div class="relative group">
+              <button class="flex items-center space-x-2 text-white">
                 <img
-                  id="header-avatar"
-                  src="https://ui-avatars.com/api/?name=N+V+A&background=0D8ABC&color=fff"
+                  src="https://readdy.ai/api/search-image?query=professional%20headshot%20young%20vietnamese%20student%20minimal%20background&width=100&height=100&seq=avatar"
                   alt="Ảnh đại diện" class="w-8 h-8 rounded-full border-2 border-white">
-                <span id="header-fullname" class="hidden sm:block">Nguyễn Văn A</span>
+                <span class="hidden sm:block">Nguyễn Văn A</span>
                 <i class="ri-arrow-down-s-line group-hover:rotate-180 transition-transform duration-300"></i>
               </button>
               <div
-                id="user-menu"
                 class="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg overflow-hidden z-20 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform origin-top-right scale-95 group-hover:scale-100">
                 <div class="py-2">
                   <a href="profile.html"
-                    class="flex items-center px-4 py-2 text-sm text-gray-800 hover:bg-primary/10 hover:text-primary">
+                    class="flex items-center px-4 py-2 text-sm text-gray-800 hover:bg-primary/10 hover:text-primary border-l-4 border-primary">
                     <i class="ri-user-line mr-2"></i>
                     Trang cá nhân
                   </a>
@@ -222,12 +225,17 @@
         </div>
       </header>
 
-      <!-- Page Header Section -->
       <div class="bg-white rounded-lg shadow mb-6 p-4">
         <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between">
           <div>
-            <h1 class="text-2xl font-semibold text-gray-900">Quản lý Check-out</h1>
-            <p class="mt-1 text-sm text-gray-600">Xem lịch sử check-out của người tham dự sự kiện</p>
+            <h1 class="text-2xl font-semibold text-gray-900">Quản lý cài đặt hệ thống</h1>
+            <p class="mt-1 text-sm text-gray-600">Quản lý các thiết lập và cấu hình của hệ thống</p>
+          </div>
+          <div class="mt-4 sm:mt-0 flex gap-2">
+            <a href="#" id="create-setting-btn"
+              class="flex items-center justify-center px-4 py-2 bg-primary text-white rounded-md hover:bg-primary-dark transition-colors duration-200">
+              <i class="ri-add-line mr-1"></i> Thêm cài đặt mới
+            </a>
           </div>
         </div>
       </div>
@@ -241,11 +249,7 @@
             </a>
             <i class="ri-arrow-right-s-line text-gray-400 mx-2"></i>
           </li>
-           <li class="flex items-center">
-            <span class="text-gray-500">Quản lý sự kiện</span>
-            <i class="ri-arrow-right-s-line text-gray-400 mx-2"></i>
-          </li>
-          <li class="text-primary" aria-current="page">Check-out</li>
+          <li class="text-primary" aria-current="page">Cài đặt</li>
         </ol>
       </nav>
 
@@ -253,30 +257,33 @@
       <div class="bg-white p-4 rounded-lg shadow mb-4">
         <form id="filter-form">
           <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-            <!-- Filter by Search Term -->
+            <!-- Filter by Name/Key -->
             <div>
               <label for="filter-search" class="block text-sm font-medium text-gray-700 mb-1">Tìm kiếm</label>
-              <input type="text" id="filter-search" name="filter-search" placeholder="Tên user, email, tên event..."
+              <input type="text" id="filter-search" name="filter-search" placeholder="Nhập tên cài đặt hoặc mô tả..."
                 class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-primary focus:border-primary text-sm">
             </div>
-            <!-- Filter by Event -->
+            <!-- Filter by Category -->
             <div>
-              <label for="filter-event" class="block text-sm font-medium text-gray-700 mb-1">Sự kiện</label>
-              <select id="filter-event" name="filter-event"
+              <label for="filter-category" class="block text-sm font-medium text-gray-700 mb-1">Phân loại</label>
+              <select id="filter-category" name="filter-category"
                 class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-primary focus:border-primary text-sm">
-                <option value="">Tất cả sự kiện</option>
-                <!-- Options populated by JS -->
+                <option value="">Tất cả</option>
+                <option value="general">Chung</option>
+                <option value="email">Email</option>
+                <option value="security">Bảo mật</option>
+                <option value="notification">Thông báo</option>
               </select>
             </div>
-            <!-- Filter by Date Range -->
+            <!-- Filter by Status -->
             <div>
-              <label for="filter-date" class="block text-sm font-medium text-gray-700 mb-1">Thời gian Check-out</label>
-              <div class="relative">
-                 <input type="text" id="filter-date" name="filter-date" placeholder="Chọn khoảng thời gian" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-primary focus:border-primary text-sm pl-10" readonly>
-                 <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                     <i class="ri-calendar-2-line text-gray-400"></i>
-                 </div>
-              </div>
+              <label for="filter-status" class="block text-sm font-medium text-gray-700 mb-1">Trạng thái</label>
+              <select id="filter-status" name="filter-status"
+                class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-primary focus:border-primary text-sm">
+                <option value="">Tất cả</option>
+                <option value="1">Kích hoạt</option>
+                <option value="0">Đã tắt</option>
+              </select>
             </div>
           </div>
           <div class="mt-4 flex justify-end space-x-2">
@@ -292,40 +299,39 @@
         </form>
       </div>
 
-      <!-- Check-outs List Table -->
+      <!-- Settings List -->
       <div class="bg-white rounded-lg shadow overflow-hidden">
         <div class="p-4 border-b border-gray-200 flex justify-between items-center">
-          <h2 class="text-lg font-medium text-gray-900">Danh sách Check-out</h2>
-          <!-- Total count info will be added by JS in pagination -->
+          <h2 class="text-lg font-medium text-gray-900">Danh sách cài đặt</h2>
         </div>
 
         <!-- Table container -->
         <div class="overflow-x-auto">
-          <table id="checkouts-table" class="min-w-full divide-y divide-gray-200">
+          <table id="settings-table" class="min-w-full divide-y divide-gray-200">
             <thead class="bg-gray-50">
               <tr>
-                <th scope="col" class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider min-w-[200px]">
-                  Người dùng</th>
-                <th scope="col" class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider min-w-[200px]">
-                  Sự kiện</th>
+                <th scope="col"
+                  class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-1/3 min-w-[150px]">
+                  Tên cài đặt
+                </th>
                 <th scope="col" class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider min-w-[150px]">
-                  Thời gian Check-out</th>
-                <th scope="col" class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider min-w-[150px]">
-                  Thiết bị</th>
-                 <th scope="col" class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider min-w-[150px]">
-                  Vị trí</th>
+                  Giá trị</th>
+                <th scope="col" class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider min-w-[120px]">
+                  Phân loại</th>
+                <th scope="col" class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider min-w-[120px]">
+                  Context</th>
+                <th scope="col" class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider min-w-[100px]">
+                  Trạng thái</th>
+                <th scope="col" class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider min-w-[120px]">
+                  Cập nhật</th>
                 <th scope="col" class="px-4 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider min-w-[100px]">
                   Hành động</th>
               </tr>
             </thead>
-            <tbody id="checkoutsTableBody" class="bg-white divide-y divide-gray-200">
+            <tbody id="settings-table-body" class="bg-white divide-y divide-gray-200">
               <!-- Table rows will be dynamically inserted here by JavaScript -->
             </tbody>
           </table>
-           <!-- Placeholder for No Data -->
-           <div id="no-data-placeholder" class="text-center py-10 text-gray-500 hidden">
-            Không có dữ liệu check-out nào phù hợp.
-          </div>
         </div>
 
         <!-- Pagination -->
@@ -340,7 +346,7 @@
                 <option value="50">50</option>
                 <option value="100">100</option>
               </select>
-              <span>mục. Tổng số: <span id="total-items-count" class="font-medium text-gray-700">0</span> lượt check-out.</span>
+              <span>mục. Tổng số: <span id="total-items-count" class="font-medium text-gray-700">0</span> cài đặt.</span>
             </div>
             <div class="flex items-center space-x-1" id="pagination-controls">
               <button
@@ -376,12 +382,75 @@
     </main>
   </div>
 
+  <!-- Setting Modal -->
+  <div id="setting-modal" class="fixed inset-0 z-50 overflow-auto hidden">
+    <div class="flex items-center justify-center min-h-screen p-4">
+      <div class="fixed inset-0 bg-black/50 transition-opacity"></div>
+      <div class="relative bg-white rounded-lg shadow-xl w-full max-w-md mx-auto">
+        <div class="p-6">
+          <h3 class="text-lg font-medium mb-4">Thêm cài đặt mới</h3>
+          <form id="setting-form">
+            <div class="space-y-4">
+              <div>
+                <label for="key" class="block text-sm font-medium text-gray-700 mb-1">Key <span class="text-red-500">*</span></label>
+                <input type="text" id="key" name="key" required class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-primary focus:border-primary">
+              </div>
+              <div>
+                <label for="value" class="block text-sm font-medium text-gray-700 mb-1">Giá trị <span class="text-red-500">*</span></label>
+                <input type="text" id="value" name="value" required class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-primary focus:border-primary">
+              </div>
+              <div>
+                <label for="class" class="block text-sm font-medium text-gray-700 mb-1">Class <span class="text-red-500">*</span></label>
+                <select id="class" name="class" required class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-primary focus:border-primary">
+                  <option value="Config\\App">Config\App</option>
+                  <option value="Config\\Email">Config\Email</option>
+                  <option value="Config\\Security">Config\Security</option>
+                  <option value="Config\\System">Config\System</option>
+                </select>
+              </div>
+              <div>
+                <label for="type" class="block text-sm font-medium text-gray-700 mb-1">Kiểu dữ liệu <span class="text-red-500">*</span></label>
+                <select id="type" name="type" required class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-primary focus:border-primary">
+                  <option value="string">Chuỗi</option>
+                  <option value="number">Số</option>
+                  <option value="boolean">Boolean</option>
+                  <option value="json">JSON</option>
+                </select>
+              </div>
+              <div>
+                <label for="context" class="block text-sm font-medium text-gray-700 mb-1">Context</label>
+                <select id="context" name="context" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-primary focus:border-primary">
+                  <option value="">Không có</option>
+                  <option value="general">Chung</option>
+                  <option value="email">Email</option>
+                  <option value="security">Bảo mật</option>
+                  <option value="notification">Thông báo</option>
+                </select>
+              </div>
+              <div>
+                <label for="trang_thai" class="block text-sm font-medium text-gray-700 mb-1">Trạng thái <span class="text-red-500">*</span></label>
+                <select id="trang_thai" name="trang_thai" required class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-primary focus:border-primary">
+                  <option value="1">Kích hoạt</option>
+                  <option value="0">Đã tắt</option>
+                </select>
+              </div>
+            </div>
+            <div class="flex justify-end space-x-2 mt-6">
+              <button type="button" onclick="closeSettingModal()" class="px-4 py-2 bg-gray-200 text-gray-700 rounded-md hover:bg-gray-300">
+                Hủy
+              </button>
+              <button type="submit" class="px-4 py-2 bg-primary text-white rounded-md hover:bg-primary-dark">
+                Lưu
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-  <!-- Thêm jQuery, Moment.js và daterangepicker JS -->
-  <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
-  <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
-  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
-  <script src="../../public/js/admin/checkouts.js"></script>
+  <script src="../../public/js/admin/settings.js"></script>
 </body>
 
-</html>
+</html> 

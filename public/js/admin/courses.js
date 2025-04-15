@@ -1,366 +1,632 @@
-// Initialize AOS
-AOS.init({
-  duration: 800, // Animation duration
-  once: true, // Whether animation should happen only once
-});
+// Khởi tạo AOS
+AOS.init();
 
-document.addEventListener('DOMContentLoaded', function () {
-  // State variables
-  let allCourses = []; // Stores all courses
-  let currentCourses = []; // Stores courses currently displayed
-  let currentPage = 1;
-  let itemsPerPage = 10;
-  let totalPages = 1;
+// Khởi tạo các biến trạng thái
+let allCourses = [];
+let filteredCourses = [];
 
-  // --- Sample Data (Based on khoa_hoc table structure) ---
-  allCourses = [
-    { MaKH: 1, TenKH: 'K64', MoTaKH: 'Khóa tuyển sinh năm 2023' },
-    { MaKH: 2, TenKH: 'K63', MoTaKH: 'Khóa tuyển sinh năm 2022' },
-    { MaKH: 3, TenKH: 'K62', MoTaKH: 'Khóa tuyển sinh năm 2021' },
-    { MaKH: 4, TenKH: 'K61', MoTaKH: 'Khóa tuyển sinh năm 2020' },
-    { MaKH: 5, TenKH: 'K60', MoTaKH: 'Khóa tuyển sinh năm 2019' },
-    { MaKH: 6, TenKH: 'K59', MoTaKH: 'Khóa tuyển sinh năm 2018' },
-    { MaKH: 7, TenKH: 'K58', MoTaKH: 'Khóa tuyển sinh năm 2017' },
-    { MaKH: 8, TenKH: 'K57', MoTaKH: 'Khóa tuyển sinh năm 2016' },
-    { MaKH: 9, TenKH: 'K56', MoTaKH: 'Khóa tuyển sinh năm 2015' },
-    { MaKH: 10, TenKH: 'K55', MoTaKH: 'Khóa tuyển sinh năm 2014' }
-    // Add more sample courses if needed
-  ];
+// Biến pagination
+const paginationState = {
+  currentPage: 1,
+  itemsPerPage: 10,
+  totalPages: 1
+};
 
-  // DOM Elements
+// Sự kiện khi DOM đã tải
+document.addEventListener('DOMContentLoaded', function() {
+  // Xử lý sidebar
+  const sidebarOpen = document.getElementById('sidebar-open');
+  const sidebarClose = document.getElementById('sidebar-close');
   const sidebar = document.getElementById('sidebar');
   const sidebarBackdrop = document.getElementById('sidebar-backdrop');
-  const sidebarOpenBtn = document.getElementById('sidebar-open');
-  const sidebarCloseBtn = document.getElementById('sidebar-close');
-  const userMenuButton = document.getElementById('user-menu-button');
-  const userMenu = document.getElementById('user-menu');
-  const coursesTableBody = document.getElementById('coursesTableBody');
-  const paginationControls = document.getElementById('pagination-controls');
-  const itemsPerPageSelect = document.getElementById('items-per-page');
-  const totalItemsCountSpan = document.getElementById('total-items-count');
-  const totalPagesCountSpan = document.getElementById('total-pages-count');
-  const currentPageInput = document.getElementById('current-page-input');
-  const filterForm = document.getElementById('filter-form');
-  const filterNameInput = document.getElementById('filter-name');
-  const filterDescriptionInput = document.getElementById('filter-description');
-  const noDataPlaceholder = document.getElementById('no-data-placeholder');
 
-  // Modal elements
-  const courseModal = document.getElementById('course-modal');
-  const addCourseBtn = document.getElementById('add-course-btn');
-  const closeCourseModalBtn = document.getElementById('close-course-modal');
-  const cancelCourseBtn = document.getElementById('cancel-course');
-  const courseForm = document.getElementById('course-form');
-  const modalTitle = document.getElementById('modal-title');
-  const courseIdInput = document.getElementById('course-id');
-  const modalCourseNameInput = document.getElementById('modal-course-name');
-  const modalCourseDescriptionInput = document.getElementById('modal-course-description');
-
-  // --- UI Interactions ---
-
-  // Sidebar toggle
-  if (sidebarOpenBtn && sidebar && sidebarBackdrop && sidebarCloseBtn) {
-    sidebarOpenBtn.addEventListener('click', () => {
+  if (sidebarOpen) {
+    sidebarOpen.addEventListener('click', () => {
       sidebar.classList.remove('-translate-x-full');
       sidebarBackdrop.classList.remove('hidden');
     });
-    sidebarCloseBtn.addEventListener('click', () => {
+  }
+
+  if (sidebarClose) {
+    sidebarClose.addEventListener('click', () => {
       sidebar.classList.add('-translate-x-full');
       sidebarBackdrop.classList.add('hidden');
     });
+  }
+
+  if (sidebarBackdrop) {
     sidebarBackdrop.addEventListener('click', () => {
       sidebar.classList.add('-translate-x-full');
       sidebarBackdrop.classList.add('hidden');
     });
   }
 
-  // User menu toggle
-  if (userMenuButton && userMenu) {
-     function handleClickOutside(event) {
-        if (userMenu && !userMenu.contains(event.target) && !userMenuButton.contains(event.target)) {
-            userMenu.classList.add('opacity-0', 'invisible', 'scale-95');
-            userMenu.classList.remove('opacity-100', 'visible', 'scale-100');
-            document.removeEventListener('click', handleClickOutside);
+  // User Menu Toggle
+  const userMenu = document.querySelector('.group button');
+  const userMenuDropdown = document.querySelector('.group div.hidden');
+
+  if (userMenu && userMenuDropdown) {
+    userMenu.addEventListener('click', () => {
+      userMenuDropdown.classList.toggle('hidden');
+    });
+
+    document.addEventListener('click', (e) => {
+      if (!userMenu.contains(e.target) && !userMenuDropdown.contains(e.target)) {
+        userMenuDropdown.classList.add('hidden');
+      }
+    });
+  }
+
+  // Modal xử lý
+  const createCourseBtn = document.getElementById('add-course-btn');
+
+  function openCourseModal() {
+    const modal = document.getElementById('course-modal');
+    if (modal) {
+      modal.classList.remove('hidden');
+    }
+  }
+
+  window.closeCourseModal = function() {
+    const modal = document.getElementById('course-modal');
+    if (modal) {
+      modal.classList.add('hidden');
+      // Reset form
+      document.getElementById('course-form').reset();
+    }
+  };
+
+  if (createCourseBtn) {
+    createCourseBtn.addEventListener('click', openCourseModal);
+  }
+
+  // Form xử lý
+  const courseForm = document.getElementById('course-form');
+  if (courseForm) {
+    courseForm.addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      // Lấy dữ liệu từ form
+      const courseName = document.getElementById('modal-course-name').value;
+      
+      if (!courseName) {
+        alert('Vui lòng nhập tên khóa học!');
+        return;
+      }
+      
+      // Kiểm tra nếu có course ID thì là edit, không thì là thêm mới
+      const courseId = document.getElementById('course-id').value;
+      
+      if (courseId) {
+        // Cập nhật khóa học
+        const index = allCourses.findIndex(course => course.khoa_hoc_id === parseInt(courseId));
+        if (index !== -1) {
+          allCourses[index].ten_khoa_hoc = courseName;
+          allCourses[index].phong_khoa_id = document.getElementById('modal-course-department').value || null;
+          allCourses[index].nam_bat_dau = document.getElementById('modal-course-year-start').value || null;
+          allCourses[index].nam_ket_thuc = document.getElementById('modal-course-year-end').value || null;
+          allCourses[index].status = parseInt(document.getElementById('modal-course-status').value);
+          allCourses[index].updated_at = new Date().toISOString();
+          
+          alert('Cập nhật khóa học thành công!');
+        } else {
+          alert('Không tìm thấy khóa học để cập nhật!');
         }
+      } else {
+        // Thêm khóa học mới
+        const newCourse = {
+          khoa_hoc_id: allCourses.length > 0 ? Math.max(...allCourses.map(c => c.khoa_hoc_id)) + 1 : 1,
+          ten_khoa_hoc: courseName,
+          phong_khoa_id: document.getElementById('modal-course-department').value || null,
+          nam_bat_dau: document.getElementById('modal-course-year-start').value || null,
+          nam_ket_thuc: document.getElementById('modal-course-year-end').value || null,
+          status: parseInt(document.getElementById('modal-course-status').value),
+          created_at: new Date().toISOString(),
+          updated_at: new Date().toISOString(),
+          deleted_at: null
+        };
+        
+        allCourses.unshift(newCourse);
+        alert('Thêm khóa học mới thành công!');
       }
-      userMenuButton.addEventListener('click', (event) => {
-          event.stopPropagation();
-          const isVisible = userMenu.classList.contains('opacity-100');
-          if (isVisible) {
-              userMenu.classList.add('opacity-0', 'invisible', 'scale-95');
-              userMenu.classList.remove('opacity-100', 'visible', 'scale-100');
-              document.removeEventListener('click', handleClickOutside);
-          } else {
-              userMenu.classList.remove('opacity-0', 'invisible', 'scale-95');
-              userMenu.classList.add('opacity-100', 'visible', 'scale-100');
-              setTimeout(() => document.addEventListener('click', handleClickOutside), 0);
-          }
-      });
+      
+      closeCourseModal();
+      applyFilters();
+    });
   }
 
-  // --- Modal Handling ---
-  function openModal(course = null) {
-    courseForm.reset();
-    if (course) {
-      // Edit mode
-      modalTitle.textContent = 'Chỉnh sửa Khoá học';
-      courseIdInput.value = course.MaKH;
-      modalCourseNameInput.value = course.TenKH;
-      modalCourseDescriptionInput.value = course.MoTaKH || '';
-    } else {
-      // Add mode
-      modalTitle.textContent = 'Thêm Khoá học mới';
-      courseIdInput.value = '';
+  // Dữ liệu mẫu cho 20 khóa học
+  allCourses = [
+    {
+      khoa_hoc_id: 1,
+      ten_khoa_hoc: "Khóa 2021-2025",
+      nam_bat_dau: 2021,
+      nam_ket_thuc: 2025,
+      phong_khoa_id: 1,
+      status: 1,
+      created_at: "2021-05-10T00:00:00",
+      updated_at: "2021-05-10T00:00:00",
+      deleted_at: null
+    },
+    {
+      khoa_hoc_id: 2,
+      ten_khoa_hoc: "Khóa 2020-2024",
+      nam_bat_dau: 2020,
+      nam_ket_thuc: 2024,
+      phong_khoa_id: 2,
+      status: 1,
+      created_at: "2020-05-15T00:00:00",
+      updated_at: "2020-05-15T00:00:00",
+      deleted_at: null
+    },
+    {
+      khoa_hoc_id: 3,
+      ten_khoa_hoc: "Khóa 2019-2023",
+      nam_bat_dau: 2019,
+      nam_ket_thuc: 2023,
+      phong_khoa_id: 1,
+      status: 1,
+      created_at: "2019-05-20T00:00:00",
+      updated_at: "2019-05-20T00:00:00",
+      deleted_at: null
+    },
+    {
+      khoa_hoc_id: 4,
+      ten_khoa_hoc: "Khóa 2018-2022",
+      nam_bat_dau: 2018,
+      nam_ket_thuc: 2022,
+      phong_khoa_id: 3,
+      status: 0,
+      created_at: "2018-05-25T00:00:00",
+      updated_at: "2018-05-25T00:00:00",
+      deleted_at: null
+    },
+    {
+      khoa_hoc_id: 5,
+      ten_khoa_hoc: "Khóa 2017-2021",
+      nam_bat_dau: 2017,
+      nam_ket_thuc: 2021,
+      phong_khoa_id: 2,
+      status: 0,
+      created_at: "2017-06-01T00:00:00",
+      updated_at: "2017-06-01T00:00:00",
+      deleted_at: null
+    },
+    {
+      khoa_hoc_id: 6,
+      ten_khoa_hoc: "Khóa 2022-2026",
+      nam_bat_dau: 2022,
+      nam_ket_thuc: 2026,
+      phong_khoa_id: 4,
+      status: 1,
+      created_at: "2022-05-05T00:00:00",
+      updated_at: "2022-05-05T00:00:00",
+      deleted_at: null
+    },
+    {
+      khoa_hoc_id: 7,
+      ten_khoa_hoc: "Khóa 2023-2027",
+      nam_bat_dau: 2023,
+      nam_ket_thuc: 2027,
+      phong_khoa_id: 1,
+      status: 1,
+      created_at: "2023-05-01T00:00:00",
+      updated_at: "2023-05-01T00:00:00",
+      deleted_at: null
+    },
+    {
+      khoa_hoc_id: 8,
+      ten_khoa_hoc: "Khóa 2016-2020",
+      nam_bat_dau: 2016,
+      nam_ket_thuc: 2020,
+      phong_khoa_id: 3,
+      status: 0,
+      created_at: "2016-05-10T00:00:00",
+      updated_at: "2016-05-10T00:00:00",
+      deleted_at: null
+    },
+    {
+      khoa_hoc_id: 9,
+      ten_khoa_hoc: "Khóa 2015-2019",
+      nam_bat_dau: 2015,
+      nam_ket_thuc: 2019,
+      phong_khoa_id: 2,
+      status: 0,
+      created_at: "2015-05-15T00:00:00",
+      updated_at: "2015-05-15T00:00:00",
+      deleted_at: null
+    },
+    {
+      khoa_hoc_id: 10,
+      ten_khoa_hoc: "Khóa 2024-2028",
+      nam_bat_dau: 2024,
+      nam_ket_thuc: 2028,
+      phong_khoa_id: 4,
+      status: 1,
+      created_at: "2024-04-30T00:00:00",
+      updated_at: "2024-04-30T00:00:00",
+      deleted_at: null
+    },
+    {
+      khoa_hoc_id: 11,
+      ten_khoa_hoc: "Khóa 2014-2018",
+      nam_bat_dau: 2014,
+      nam_ket_thuc: 2018,
+      phong_khoa_id: 1,
+      status: 0,
+      created_at: "2014-05-20T00:00:00",
+      updated_at: "2014-05-20T00:00:00",
+      deleted_at: null
+    },
+    {
+      khoa_hoc_id: 12,
+      ten_khoa_hoc: "Khóa 2013-2017",
+      nam_bat_dau: 2013,
+      nam_ket_thuc: 2017,
+      phong_khoa_id: 3,
+      status: 0,
+      created_at: "2013-05-25T00:00:00",
+      updated_at: "2013-05-25T00:00:00",
+      deleted_at: null
+    },
+    {
+      khoa_hoc_id: 13,
+      ten_khoa_hoc: "Khóa 2012-2016",
+      nam_bat_dau: 2012,
+      nam_ket_thuc: 2016,
+      phong_khoa_id: 2,
+      status: 0,
+      created_at: "2012-06-01T00:00:00",
+      updated_at: "2012-06-01T00:00:00",
+      deleted_at: null
+    },
+    {
+      khoa_hoc_id: 14,
+      ten_khoa_hoc: "Khóa 2011-2015",
+      nam_bat_dau: 2011,
+      nam_ket_thuc: 2015,
+      phong_khoa_id: 4,
+      status: 0,
+      created_at: "2011-05-05T00:00:00",
+      updated_at: "2011-05-05T00:00:00",
+      deleted_at: null
+    },
+    {
+      khoa_hoc_id: 15,
+      ten_khoa_hoc: "Khóa 2010-2014",
+      nam_bat_dau: 2010,
+      nam_ket_thuc: 2014,
+      phong_khoa_id: 1,
+      status: 0,
+      created_at: "2010-05-10T00:00:00",
+      updated_at: "2010-05-10T00:00:00",
+      deleted_at: null
+    },
+    {
+      khoa_hoc_id: 16,
+      ten_khoa_hoc: "Khóa 2009-2013",
+      nam_bat_dau: 2009,
+      nam_ket_thuc: 2013,
+      phong_khoa_id: 3,
+      status: 0,
+      created_at: "2009-05-15T00:00:00",
+      updated_at: "2009-05-15T00:00:00",
+      deleted_at: null
+    },
+    {
+      khoa_hoc_id: 17,
+      ten_khoa_hoc: "Khóa 2008-2012",
+      nam_bat_dau: 2008,
+      nam_ket_thuc: 2012,
+      phong_khoa_id: 2,
+      status: 0,
+      created_at: "2008-05-20T00:00:00",
+      updated_at: "2008-05-20T00:00:00",
+      deleted_at: null
+    },
+    {
+      khoa_hoc_id: 18,
+      ten_khoa_hoc: "Khóa 2007-2011",
+      nam_bat_dau: 2007,
+      nam_ket_thuc: 2011,
+      phong_khoa_id: 4,
+      status: 0,
+      created_at: "2007-05-25T00:00:00",
+      updated_at: "2007-05-25T00:00:00",
+      deleted_at: null
+    },
+    {
+      khoa_hoc_id: 19,
+      ten_khoa_hoc: "Khóa 2006-2010",
+      nam_bat_dau: 2006,
+      nam_ket_thuc: 2010,
+      phong_khoa_id: 1,
+      status: 0,
+      created_at: "2006-06-01T00:00:00",
+      updated_at: "2006-06-01T00:00:00",
+      deleted_at: null
+    },
+    {
+      khoa_hoc_id: 20,
+      ten_khoa_hoc: "Khóa 2005-2009",
+      nam_bat_dau: 2005,
+      nam_ket_thuc: 2009,
+      phong_khoa_id: 3,
+      status: 0,
+      created_at: "2005-05-05T00:00:00",
+      updated_at: "2005-05-05T00:00:00",
+      deleted_at: null
     }
-    courseModal.classList.remove('hidden');
-  }
+  ];
 
-  function closeModal() {
-    courseModal.classList.add('hidden');
-    courseForm.reset();
-  }
-
-  if (addCourseBtn) {
-    addCourseBtn.addEventListener('click', () => openModal());
-  }
-  if (closeCourseModalBtn) {
-    closeCourseModalBtn.addEventListener('click', closeModal);
-  }
-  if (cancelCourseBtn) {
-    cancelCourseBtn.addEventListener('click', closeModal);
-  }
-  if (courseModal) {
-    courseModal.addEventListener('click', (event) => {
-      if (event.target === courseModal) {
-        closeModal();
-      }
-    });
-  }
-
-  // --- Data Handling & Rendering ---
-
-  function renderTable() {
-    coursesTableBody.innerHTML = '';
-    noDataPlaceholder.classList.add('hidden');
-
-    if (currentCourses.length === 0) {
-      noDataPlaceholder.classList.remove('hidden');
-      totalItemsCountSpan.textContent = 0;
-      totalPagesCountSpan.textContent = 1;
-      currentPageInput.value = 1;
-      updatePaginationButtons();
-      return;
-    }
-
-    const startIndex = (currentPage - 1) * itemsPerPage;
-    const endIndex = startIndex + itemsPerPage;
-    const coursesToRender = currentCourses.slice(startIndex, endIndex);
-
-    coursesToRender.forEach(course => {
-      const row = document.createElement('tr');
-      row.className = 'hover:bg-gray-50 transition-colors duration-150';
-
-      row.innerHTML = `
-        <td class="px-4 py-3 text-sm text-gray-700">${course.MaKH}</td>
-        <td class="px-4 py-3 text-sm font-medium text-gray-900">${course.TenKH}</td>
-        <td class="px-4 py-3 text-sm text-gray-600">${course.MoTaKH || 'N/A'}</td>
-        <td class="px-4 py-3 text-right text-sm font-medium space-x-2">
-          <button class="text-blue-600 hover:text-blue-800 edit-course-btn" data-id="${course.MaKH}" title="Sửa">
-            <i class="ri-pencil-line"></i>
-          </button>
-          <button class="text-red-600 hover:text-red-800 delete-course-btn" data-id="${course.MaKH}" title="Xóa">
-            <i class="ri-delete-bin-line"></i>
-          </button>
-        </td>
-      `;
-      coursesTableBody.appendChild(row);
-    });
-
-    coursesTableBody.querySelectorAll('.edit-course-btn').forEach(button => {
-      button.addEventListener('click', handleEditCourse);
-    });
-    coursesTableBody.querySelectorAll('.delete-course-btn').forEach(button => {
-      button.addEventListener('click', handleDeleteCourse);
-    });
-
-    updatePaginationInfo();
-  }
-
-  function updatePaginationInfo() {
-    totalPages = Math.ceil(currentCourses.length / itemsPerPage);
-    if (totalPages < 1) totalPages = 1;
-
-    totalItemsCountSpan.textContent = currentCourses.length;
-    totalPagesCountSpan.textContent = totalPages;
-    currentPageInput.max = totalPages;
-    currentPageInput.value = currentPage;
-
-    updatePaginationButtons();
-  }
-
-  function updatePaginationButtons() {
-    const isFirstPage = currentPage === 1;
-    const isLastPage = currentPage === totalPages;
-
-    paginationControls.querySelector('.btn-first').disabled = isFirstPage;
-    paginationControls.querySelector('.btn-prev').disabled = isFirstPage;
-    paginationControls.querySelector('.btn-next').disabled = isLastPage;
-    paginationControls.querySelector('.btn-last').disabled = isLastPage;
-  }
-
+  // Hàm lọc khóa học
   function applyFilters() {
-    const nameFilter = filterNameInput.value.toLowerCase().trim();
-    const descriptionFilter = filterDescriptionInput.value.toLowerCase().trim();
-
-    currentCourses = allCourses.filter(course => {
-      const nameMatch = !nameFilter || course.TenKH.toLowerCase().includes(nameFilter);
-      const descriptionMatch = !descriptionFilter || (course.MoTaKH && course.MoTaKH.toLowerCase().includes(descriptionFilter));
-      return nameMatch && descriptionMatch;
+    const nameFilter = document.getElementById('filter-name').value.toLowerCase();
+    const yearFilter = document.getElementById('filter-year').value;
+    const statusFilter = document.getElementById('filter-status').value;
+    
+    filteredCourses = allCourses.filter(course => {
+      // Kiểm tra tên
+      const nameMatch = !nameFilter || 
+        course.ten_khoa_hoc.toLowerCase().includes(nameFilter);
+      
+      // Kiểm tra năm học
+      const yearMatch = !yearFilter || 
+        (yearFilter === course.nam_bat_dau + "-" + course.nam_ket_thuc);
+      
+      // Kiểm tra trạng thái
+      const statusMatch = !statusFilter || course.status.toString() === statusFilter;
+      
+      return nameMatch && yearMatch && statusMatch;
     });
-
-    currentPage = 1;
+    
+    // Cập nhật phân trang
+    paginationState.currentPage = 1;
+    updatePagination();
+    
+    // Render bảng với dữ liệu đã lọc
     renderTable();
   }
 
-  // --- Event Listeners ---
-
-  if (filterForm) {
-    filterForm.addEventListener('submit', (e) => {
-      e.preventDefault();
-      applyFilters();
-    });
-    const resetFilterBtn = document.getElementById('reset-filter-btn');
-    if (resetFilterBtn) {
-      resetFilterBtn.addEventListener('click', () => {
-        filterForm.reset();
-        applyFilters();
-      });
+  // Cập nhật trạng thái phân trang
+  function updatePagination() {
+    const totalItems = filteredCourses.length;
+    paginationState.totalPages = Math.max(1, Math.ceil(totalItems / paginationState.itemsPerPage));
+    
+    // Điều chỉnh trang hiện tại nếu vượt quá tổng số trang
+    if (paginationState.currentPage > paginationState.totalPages) {
+      paginationState.currentPage = paginationState.totalPages;
     }
+    
+    // Cập nhật UI phân trang
+    const currentPageInput = document.getElementById('current-page-input');
+    const totalPagesCount = document.getElementById('total-pages-count');
+    const totalItemsCount = document.getElementById('total-items-count');
+    const btnFirst = document.querySelector('.btn-first');
+    const btnPrev = document.querySelector('.btn-prev');
+    const btnNext = document.querySelector('.btn-next');
+    const btnLast = document.querySelector('.btn-last');
+    
+    if (currentPageInput) currentPageInput.value = paginationState.currentPage;
+    if (totalPagesCount) totalPagesCount.textContent = paginationState.totalPages;
+    if (totalItemsCount) totalItemsCount.textContent = totalItems;
+    
+    // Cập nhật trạng thái nút
+    if (btnFirst) btnFirst.disabled = paginationState.currentPage === 1;
+    if (btnPrev) btnPrev.disabled = paginationState.currentPage === 1;
+    if (btnNext) btnNext.disabled = paginationState.currentPage === paginationState.totalPages;
+    if (btnLast) btnLast.disabled = paginationState.currentPage === paginationState.totalPages;
   }
 
-  if (itemsPerPageSelect) {
-    itemsPerPageSelect.addEventListener('change', (e) => {
-      itemsPerPage = parseInt(e.target.value, 10);
-      currentPage = 1;
-      renderTable();
-    });
-  }
-
-  if (paginationControls) {
-    paginationControls.addEventListener('click', (e) => {
-      const button = e.target.closest('button');
-      if (!button) return;
-      if (button.classList.contains('btn-first')) currentPage = 1;
-      else if (button.classList.contains('btn-prev')) { if (currentPage > 1) currentPage--; }
-      else if (button.classList.contains('btn-next')) { if (currentPage < totalPages) currentPage++; }
-      else if (button.classList.contains('btn-last')) currentPage = totalPages;
-      renderTable();
-    });
-    currentPageInput.addEventListener('change', (e) => {
-      let newPage = parseInt(e.target.value, 10);
-      if (isNaN(newPage) || newPage < 1) newPage = 1;
-      else if (newPage > totalPages) newPage = totalPages;
-      currentPage = newPage;
-      renderTable();
-    });
-    currentPageInput.addEventListener('keypress', (e) => {
-        if (e.key === 'Enter') {
-            let newPage = parseInt(e.target.value, 10);
-            if (isNaN(newPage) || newPage < 1) newPage = 1;
-            else if (newPage > totalPages) newPage = totalPages;
-            currentPage = newPage;
-            renderTable();
-        }
-    });
-  }
-
-  if (courseForm) {
-    courseForm.addEventListener('submit', (e) => {
-      e.preventDefault();
-      const id = courseIdInput.value;
-      const name = modalCourseNameInput.value.trim();
-      const description = modalCourseDescriptionInput.value.trim();
-
-      if (!name) {
-        alert('Vui lòng nhập Tên Khoá học.');
-        return;
+  // Render dữ liệu vào bảng
+  function renderTable() {
+    const tableBody = document.getElementById('coursesTableBody');
+    const noDataPlaceholder = document.getElementById('no-data-placeholder');
+    
+    if (!tableBody) return;
+    
+    const startIndex = (paginationState.currentPage - 1) * paginationState.itemsPerPage;
+    const endIndex = Math.min(startIndex + paginationState.itemsPerPage, filteredCourses.length);
+    const displayedCourses = filteredCourses.slice(startIndex, endIndex);
+    
+    // Kiểm tra nếu không có dữ liệu
+    if (displayedCourses.length === 0) {
+      tableBody.innerHTML = '';
+      if (noDataPlaceholder) {
+        noDataPlaceholder.classList.remove('hidden');
       }
-
-      const courseData = {
-        TenKH: name,
-        MoTaKH: description || null,
-      };
-
-      if (id) {
-        courseData.MaKH = parseInt(id, 10);
-        const index = allCourses.findIndex(c => c.MaKH === courseData.MaKH);
-        if (index !== -1) {
-          allCourses[index] = { ...allCourses[index], ...courseData };
-          console.log('Updated course:', allCourses[index]);
-          alert('Cập nhật khoá học thành công!');
-        } else {
-            console.error('Course not found for editing');
-            alert('Lỗi: Không tìm thấy khoá học để cập nhật.');
-            return;
-        }
-      } else {
-        courseData.MaKH = allCourses.length > 0 ? Math.max(...allCourses.map(c => c.MaKH)) + 1 : 1;
-        allCourses.push(courseData);
-        console.log('Added course:', courseData);
-        alert('Thêm khoá học thành công!');
-      }
-      closeModal();
-      applyFilters();
-    });
+      return;
+    }
+    
+    // Ẩn thông báo không có dữ liệu nếu có dữ liệu
+    if (noDataPlaceholder) {
+      noDataPlaceholder.classList.add('hidden');
+    }
+    
+    // Render dữ liệu
+    tableBody.innerHTML = displayedCourses.map(course => `
+      <tr class="hover:bg-gray-50">
+        <td class="px-4 py-3 text-sm">${course.khoa_hoc_id}</td>
+        <td class="px-4 py-3">
+          <div class="font-medium text-gray-900">${course.ten_khoa_hoc}</div>
+          <div class="text-sm text-gray-500">${course.nam_bat_dau || ''} - ${course.nam_ket_thuc || ''}</div>
+        </td>
+        <td class="px-4 py-3">
+          <div class="text-sm text-gray-600">
+            ${course.phong_khoa_id ? `Khoa/Phòng ID: ${course.phong_khoa_id}` : 'Chưa phân công'}
+          </div>
+        </td>
+        <td class="px-4 py-3">
+          <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full 
+            ${course.status === 1 ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'}">
+            ${course.status === 1 ? 'Hoạt động' : 'Không hoạt động'}
+          </span>
+        </td>
+        <td class="px-4 py-3 text-right text-sm font-medium">
+          <div class="flex justify-end space-x-2">
+            <button onclick="editCourse(${course.khoa_hoc_id})" class="text-blue-600 hover:text-blue-900">
+              <i class="ri-edit-line"></i>
+            </button>
+            <button onclick="deleteCourse(${course.khoa_hoc_id})" class="text-red-600 hover:text-red-900">
+              <i class="ri-delete-bin-line"></i>
+            </button>
+          </div>
+        </td>
+      </tr>
+    `).join('');
   }
 
-  function handleEditCourse(event) {
-    const button = event.target.closest('.edit-course-btn');
-    const courseId = parseInt(button.dataset.id, 10);
-    const courseToEdit = allCourses.find(course => course.MaKH === courseId);
-    if (courseToEdit) {
-      openModal(courseToEdit);
+  // Định dạng ngày
+  function formatDate(dateString) {
+    if (!dateString) return '';
+    const options = { day: '2-digit', month: '2-digit', year: 'numeric' };
+    return new Date(dateString).toLocaleDateString('vi-VN', options);
+  }
+  
+  // Các hàm xử lý khóa học
+  window.editCourse = function(courseId) {
+    const course = allCourses.find(c => c.khoa_hoc_id === courseId);
+    if (course) {
+      document.getElementById('course-id').value = course.khoa_hoc_id;
+      document.getElementById('modal-course-name').value = course.ten_khoa_hoc;
+      
+      if (document.getElementById('modal-course-department')) {
+        document.getElementById('modal-course-department').value = course.phong_khoa_id || '';
+      }
+      
+      if (document.getElementById('modal-course-year-start')) {
+        document.getElementById('modal-course-year-start').value = course.nam_bat_dau || '';
+      }
+      
+      if (document.getElementById('modal-course-year-end')) {
+        document.getElementById('modal-course-year-end').value = course.nam_ket_thuc || '';
+      }
+      
+      if (document.getElementById('modal-course-status')) {
+        document.getElementById('modal-course-status').value = course.status.toString();
+      }
+      
+      document.getElementById('modal-title').textContent = 'Chỉnh sửa khóa học';
+      openCourseModal();
     } else {
-      console.error('Course not found for editing:', courseId);
-      alert('Lỗi: Không tìm thấy khoá học để chỉnh sửa.');
+      alert('Không tìm thấy khóa học này!');
     }
-  }
-
-  function handleDeleteCourse(event) {
-    const button = event.target.closest('.delete-course-btn');
-    const courseId = parseInt(button.dataset.id, 10);
-    const courseToDelete = allCourses.find(course => course.MaKH === courseId);
-
-    if (!courseToDelete) {
-        console.error('Course not found for deletion:', courseId);
-        alert('Lỗi: Không tìm thấy khoá học để xóa.');
-        return;
-    }
-
-    if (confirm(`Bạn có chắc chắn muốn xóa khoá học "${courseToDelete.TenKH}" (ID: ${courseId}) không?`)) {
-      const index = allCourses.findIndex(c => c.MaKH === courseId);
-      if (index !== -1) {
-        allCourses.splice(index, 1);
-        console.log('Deleted course ID:', courseId);
-        alert('Xóa khoá học thành công!');
-        applyFilters();
+  };
+  
+  window.deleteCourse = function(courseId) {
+    if (confirm('Bạn có chắc chắn muốn xóa khóa học này?')) {
+      const courseIndex = allCourses.findIndex(c => c.khoa_hoc_id === courseId);
+      if (courseIndex !== -1) {
+        allCourses.splice(courseIndex, 1);
+        applyFilters(); // Cập nhật lại danh sách
+        alert('Đã xóa khóa học thành công!');
       } else {
-        console.error('Course index not found for deletion after confirmation:', courseId);
-        alert('Lỗi: Không thể xóa khoá học.');
+        alert('Không tìm thấy khóa học để xóa!');
       }
     }
-  }
+  };
 
-  const refreshBtn = document.getElementById('refresh-btn');
-  if (refreshBtn) {
-    refreshBtn.addEventListener('click', () => {
-      filterForm.reset();
-      applyFilters();
-      alert('Đã tải lại danh sách khoá học.');
+  // Thiết lập các event listeners cho phân trang
+  const itemsPerPageSelect = document.getElementById('items-per-page');
+  const currentPageInput = document.getElementById('current-page-input');
+  const btnFirst = document.querySelector('.btn-first');
+  const btnPrev = document.querySelector('.btn-prev');
+  const btnNext = document.querySelector('.btn-next');
+  const btnLast = document.querySelector('.btn-last');
+  
+  if (itemsPerPageSelect) {
+    itemsPerPageSelect.addEventListener('change', function() {
+      paginationState.itemsPerPage = Number(this.value);
+      paginationState.currentPage = 1;
+      updatePagination();
+      renderTable();
+    });
+  }
+  
+  if (currentPageInput) {
+    currentPageInput.addEventListener('change', function() {
+      let newPage = Number(this.value);
+      if (newPage < 1) newPage = 1;
+      if (newPage > paginationState.totalPages) newPage = paginationState.totalPages;
+      
+      paginationState.currentPage = newPage;
+      updatePagination();
+      renderTable();
+    });
+  }
+  
+  if (btnFirst) {
+    btnFirst.addEventListener('click', function() {
+      if (paginationState.currentPage > 1) {
+        paginationState.currentPage = 1;
+        updatePagination();
+        renderTable();
+      }
+    });
+  }
+  
+  if (btnPrev) {
+    btnPrev.addEventListener('click', function() {
+      if (paginationState.currentPage > 1) {
+        paginationState.currentPage--;
+        updatePagination();
+        renderTable();
+      }
+    });
+  }
+  
+  if (btnNext) {
+    btnNext.addEventListener('click', function() {
+      if (paginationState.currentPage < paginationState.totalPages) {
+        paginationState.currentPage++;
+        updatePagination();
+        renderTable();
+      }
+    });
+  }
+  
+  if (btnLast) {
+    btnLast.addEventListener('click', function() {
+      if (paginationState.currentPage < paginationState.totalPages) {
+        paginationState.currentPage = paginationState.totalPages;
+        updatePagination();
+        renderTable();
+      }
     });
   }
 
-  // --- Initial Load ---
-  itemsPerPage = parseInt(itemsPerPageSelect.value, 10);
-  applyFilters(); // Apply default filters (none) and render initial data
+  // Thiết lập các event listeners cho bộ lọc
+  const filterForm = document.getElementById('filter-form');
+  const resetFilterBtn = document.getElementById('reset-filter-btn');
+  const refreshBtn = document.getElementById('refresh-btn');
+  
+  if (filterForm) {
+    filterForm.addEventListener('submit', function(e) {
+      e.preventDefault();
+      applyFilters();
+    });
+  }
+  
+  if (resetFilterBtn) {
+    resetFilterBtn.addEventListener('click', function() {
+      filterForm.reset();
+    });
+  }
+  
+  if (refreshBtn) {
+    refreshBtn.addEventListener('click', function() {
+      // Reset lại dữ liệu từ nguồn (trong trường hợp thực tế sẽ gọi API)
+      filteredCourses = [...allCourses];
+      filterForm.reset();
+      paginationState.currentPage = 1;
+      updatePagination();
+      renderTable();
+      alert('Đã tải lại danh sách khóa học!');
+    });
+  }
+
+  // Khởi tạo ban đầu
+  filteredCourses = [...allCourses];
+  updatePagination();
+  renderTable();
 }); 

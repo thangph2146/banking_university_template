@@ -227,10 +227,6 @@
             <p class="mt-1 text-sm text-gray-600">Quản lý các phòng khoa trong hệ thống</p>
           </div>
           <div class="mt-4 sm:mt-0 flex gap-2">
-            <button id="refresh-btn"
-              class="flex items-center justify-center px-3 py-2 border border-gray-300 text-gray-700 rounded-md hover:bg-gray-50 transition-colors duration-200">
-              <i class="ri-refresh-line mr-1"></i> Tải lại
-            </button>
             <button id="add-department-btn"
               class="flex items-center justify-center px-4 py-2 bg-primary text-white rounded-md hover:bg-primary-dark transition-colors duration-200">
               <i class="ri-add-line mr-1"></i> Tạo Phòng khoa mới
@@ -392,7 +388,7 @@
     <div class="relative top-20 mx-auto p-5 border w-full max-w-md shadow-lg rounded-md bg-white">
       <div class="flex justify-between items-center border-b pb-3">
         <h3 class="text-lg font-medium text-gray-900" id="modal-title">Thêm Phòng khoa mới</h3>
-        <button id="close-department-modal" class="text-gray-400 hover:text-gray-600">
+        <button id="close-department-modal" class="text-gray-400 hover:text-gray-600" onclick="closeDepartmentModal()">
           <i class="ri-close-line text-xl"></i>
         </button>
       </div>
@@ -409,7 +405,7 @@
             class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary focus:border-primary sm:text-sm"></textarea>
         </div>
         <div class="pt-3 border-t flex justify-end space-x-2">
-          <button type="button" id="cancel-department"
+          <button type="button" id="cancel-department" onclick="closeDepartmentModal()"
             class="px-4 py-2 bg-gray-200 text-gray-800 rounded-md hover:bg-gray-300 transition-colors duration-200">
             Hủy
           </button>

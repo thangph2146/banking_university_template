@@ -4,6 +4,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="csrf-token" content="{{ csrf_token() }}">
   <title>Quản lý Ngành đào tạo - HUB Admin</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -12,6 +13,7 @@
   <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet" />
   <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
   <link href="../../public/css/custom.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
   <script src="https://cdn.tailwindcss.com/3.4.16"></script>
   <script src="../../public/js/tailwind.config.js"></script>
 </head>
@@ -227,13 +229,9 @@
             <p class="mt-1 text-sm text-gray-600">Quản lý các ngành đào tạo trong hệ thống</p>
           </div>
           <div class="mt-4 sm:mt-0 flex gap-2">
-            <button id="refresh-btn"
-              class="flex items-center justify-center px-3 py-2 border border-gray-300 text-gray-700 rounded-md hover:bg-gray-50 transition-colors duration-200">
-              <i class="ri-refresh-line mr-1"></i> Tải lại
-            </button>
-            <button id="add-major-btn"
+            <button id="addMajorBtn"
               class="flex items-center justify-center px-4 py-2 bg-primary text-white rounded-md hover:bg-primary-dark transition-colors duration-200">
-              <i class="ri-add-line mr-1"></i> Tạo Ngành mới
+              <i class="ri-add-line mr-1"></i> Thêm ngành mới
             </button>
           </div>
         </div>
@@ -256,16 +254,10 @@
       <div class="bg-white p-4 rounded-lg shadow mb-4">
         <form id="filter-form">
           <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
-            <!-- Filter by Name -->
+            <!-- Filter by Search Term -->
             <div>
-              <label for="filter-name" class="block text-sm font-medium text-gray-700 mb-1">Tìm kiếm tên</label>
-              <input type="text" id="filter-name" name="filter-name" placeholder="Nhập tên ngành đào tạo..."
-                class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-primary focus:border-primary text-sm">
-            </div>
-            <!-- Filter by Code -->
-            <div>
-              <label for="filter-code" class="block text-sm font-medium text-gray-700 mb-1">Mã ngành</label>
-              <input type="text" id="filter-code" name="filter-code" placeholder="Nhập mã ngành..."
+              <label for="search" class="block text-sm font-medium text-gray-700 mb-1">Tìm kiếm</label>
+              <input type="text" id="search" name="search" placeholder="Tên ngành, mã ngành..."
                 class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-primary focus:border-primary text-sm">
             </div>
             <!-- Filter by Department -->
@@ -274,10 +266,7 @@
               <select id="filter-department" name="filter-department"
                 class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-primary focus:border-primary text-sm">
                 <option value="">Tất cả</option>
-                <option value="cntt">Công nghệ thông tin</option>
-                <option value="ktqt">Kế toán - Quản trị</option>
-                <option value="nnh">Ngôn ngữ học</option>
-                <option value="tcnh">Tài chính - Ngân hàng</option>
+                <!-- Các options sẽ được thêm từ JavaScript -->
               </select>
             </div>
             <!-- Filter by Status -->
@@ -289,6 +278,12 @@
                 <option value="1">Hoạt động</option>
                 <option value="0">Không hoạt động</option>
               </select>
+            </div>
+            <!-- Filter by Date Created -->
+            <div>
+              <label for="filter-date" class="block text-sm font-medium text-gray-700 mb-1">Ngày tạo</label>
+              <input type="date" id="filter-date" name="filter-date"
+                class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-primary focus:border-primary text-sm">
             </div>
           </div>
           <div class="mt-4 flex justify-end space-x-2">
@@ -304,126 +299,163 @@
         </form>
       </div>
 
-      <!-- Majors List -->
-      <div class="bg-white rounded-lg shadow overflow-hidden">
+      <!-- Majors List Section -->
+      <div class="bg-white rounded-lg shadow overflow-hidden" data-aos="fade-up" data-aos-duration="500" data-aos-delay="100">
         <div class="p-4 border-b border-gray-200 flex justify-between items-center">
           <h2 class="text-lg font-medium text-gray-900">Danh sách Ngành đào tạo</h2>
-          <!-- Total count will be updated by JS -->
+          <div class="text-sm text-gray-500">Tổng số: <span id="totalCount" class="font-medium">0</span> ngành</div>
         </div>
-
-        <!-- Table container -->
+        
+        <!-- Loading indicator -->
+        <div id="loading" class="w-full p-4 flex justify-center items-center hidden">
+          <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
+        </div>
+        
         <div class="overflow-x-auto">
-          <table id="majors-table" class="min-w-full divide-y divide-gray-200">
+          <table id="majorsTable" class="min-w-full divide-y divide-gray-200">
             <thead class="bg-gray-50">
               <tr>
-                <th scope="col"
-                  class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-16">Mã
-                </th>
-                <th scope="col" class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider min-w-[200px]">
-                  Tên Ngành</th>
-                <th scope="col" class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider min-w-[300px]">
-                  Mô tả</th>
-                <th scope="col" class="px-4 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider min-w-[100px]">
-                  Hành động</th>
+                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-16">STT</th>
+                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-32">Mã ngành</th>
+                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider min-w-[200px]">Tên ngành</th>
+                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider min-w-[150px]">Khoa/Phòng</th>
+                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-32">Trạng thái</th>
+                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-36">Ngày tạo</th>
+                <th scope="col" class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider w-24">Thao tác</th>
               </tr>
             </thead>
-            <tbody id="majorsTableBody" class="bg-white divide-y divide-gray-200">
-               <!-- Placeholder row for no data -->
-               <tr id="no-data-placeholder" class="hidden">
-                 <td colspan="4" class="text-center py-10 text-gray-500">
-                   <i class="ri-inbox-2-line text-4xl mb-2"></i>
-                   <p>Không tìm thấy dữ liệu ngành đào tạo.</p>
-                 </td>
-               </tr>
-              <!-- Table rows will be dynamically inserted here by JavaScript -->
+            <tbody class="bg-white divide-y divide-gray-200">
+              <!-- JavaScript sẽ render dữ liệu ở đây -->
+              <tr id="no-data-row" class="hidden">
+                <td colspan="7" class="px-6 py-10 text-center text-gray-500">
+                  <i class="ri-inbox-line text-4xl mb-3"></i>
+                  <p>Không tìm thấy dữ liệu ngành đào tạo.</p>
+                </td>
+              </tr>
             </tbody>
           </table>
         </div>
 
-        <!-- Pagination -->
-        <div class="px-4 py-3 bg-gray-50 border-t border-gray-200">
-          <div class="flex flex-col sm:flex-row items-center justify-between space-y-2 sm:space-y-0">
-            <div class="flex items-center space-x-2 text-sm text-gray-500">
-              <span>Hiển thị</span>
-              <select id="items-per-page" name="items-per-page"
-                class="border border-gray-300 rounded-md px-2 py-1 focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary">
-                <option value="10" selected>10</option>
-                <option value="20">20</option>
+        <!-- Pagination Controls -->
+        <div class="px-6 py-4 bg-gray-50 border-t border-gray-200">
+          <div class="flex flex-col sm:flex-row justify-between items-center">
+            <div class="flex items-center mb-4 sm:mb-0">
+              <span class="text-sm text-gray-700">Hiển thị</span>
+              <select id="items-per-page" class="mx-2 border border-gray-300 rounded p-1 text-sm">
+                <option value="10">10</option>
+                <option value="25">25</option>
                 <option value="50">50</option>
                 <option value="100">100</option>
               </select>
-              <span>mục. Tổng số: <span id="total-items-count" class="font-medium text-gray-700">0</span> ngành.</span>
+              <span class="text-sm text-gray-700">trên tổng số <span id="total-items-count">0</span> ngành</span>
             </div>
-            <div class="flex items-center space-x-1" id="pagination-controls">
-              <button
-                class="btn-first p-2 rounded text-gray-500 hover:text-gray-700 hover:bg-gray-100 disabled:opacity-50 disabled:cursor-not-allowed"
-                title="Trang đầu">
-                <i class="ri-skip-left-line"></i>
-              </button>
-              <button
-                class="btn-prev p-2 rounded text-gray-500 hover:text-gray-700 hover:bg-gray-100 disabled:opacity-50 disabled:cursor-not-allowed"
-                title="Trang trước">
-                <i class="ri-arrow-left-s-line"></i>
-              </button>
-              <div class="flex items-center space-x-1 px-2">
-                <span class="text-sm text-gray-700">Trang</span>
-                <input type="number" id="current-page-input" value="1" min="1"
-                  class="w-12 border border-gray-300 rounded-md px-2 py-1 text-center text-sm focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary">
-                <span class="text-sm text-gray-500">/ <span id="total-pages-count">1</span></span>
-              </div>
-              <button
-                class="btn-next p-2 rounded text-gray-500 hover:text-gray-700 hover:bg-gray-100 disabled:opacity-50 disabled:cursor-not-allowed"
-                title="Trang sau">
-                <i class="ri-arrow-right-s-line"></i>
-              </button>
-              <button
-                class="btn-last p-2 rounded text-gray-500 hover:text-gray-700 hover:bg-gray-100 disabled:opacity-50 disabled:cursor-not-allowed"
-                title="Trang cuối">
-                <i class="ri-skip-right-line"></i>
-              </button>
-            </div>
+
+            <nav class="pagination" aria-label="Pagination">
+              <ul class="flex items-center space-x-2">
+                <!-- JavaScript sẽ render phân trang ở đây -->
+              </ul>
+            </nav>
           </div>
         </div>
       </div>
     </main>
   </div>
 
-  <!-- Add/Edit Major Modal -->
-  <div id="major-modal" class="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full z-50 hidden" aria-labelledby="modal-title" role="dialog" aria-modal="true">
-    <div class="relative top-20 mx-auto p-5 border w-full max-w-md shadow-lg rounded-md bg-white">
-      <div class="flex justify-between items-center border-b pb-3">
-        <h3 class="text-lg font-medium text-gray-900" id="modal-title">Thêm Ngành mới</h3>
-        <button id="close-major-modal" class="text-gray-400 hover:text-gray-600">
-          <i class="ri-close-line text-xl"></i>
-        </button>
+  <!-- Add/Edit Modal Form -->
+  <div id="majorModal" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+    <div class="flex items-center justify-center min-h-screen p-4">
+      <div class="bg-white rounded-lg shadow-xl max-w-md w-full max-h-[90vh] overflow-y-auto">
+        <div class="flex justify-between items-center p-6 border-b">
+          <h3 class="text-xl font-semibold text-gray-900" id="modal-title">Thêm ngành mới</h3>
+          <button type="button" class="text-gray-400 hover:text-gray-500" id="close-modal">
+            <i class="ri-close-line text-2xl"></i>
+          </button>
+        </div>
+
+        <div class="p-6">
+          <form id="majorForm" data-action="add" class="space-y-4">
+            <input type="hidden" id="majorId" name="majorId">
+            
+            <div>
+              <label for="majorCode" class="block text-sm font-medium text-gray-700 mb-1">
+                Mã ngành <span class="text-red-500">*</span>
+              </label>
+              <input type="text" id="majorCode" name="majorCode" required
+                class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-primary focus:border-primary">
+            </div>
+            
+            <div>
+              <label for="majorName" class="block text-sm font-medium text-gray-700 mb-1">
+                Tên ngành <span class="text-red-500">*</span>
+              </label>
+              <input type="text" id="majorName" name="majorName" required
+                class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-primary focus:border-primary">
+            </div>
+            
+            <div>
+              <label for="department" class="block text-sm font-medium text-gray-700 mb-1">
+                Khoa/Phòng <span class="text-red-500">*</span>
+              </label>
+              <select id="department" name="department" required
+                class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-primary focus:border-primary">
+                <option value="0">-- Chọn Khoa/Phòng --</option>
+                <!-- Options will be populated by JavaScript -->
+              </select>
+            </div>
+            
+            <div>
+              <div class="flex items-center">
+                <input type="checkbox" id="status" name="status" class="h-4 w-4 text-primary focus:ring-primary border-gray-300 rounded">
+                <label for="status" class="ml-2 block text-sm text-gray-700">
+                  Hoạt động
+                </label>
+              </div>
+            </div>
+            
+            <div class="pt-4 border-t flex justify-end space-x-3">
+              <button type="button" id="cancel-button"
+                class="px-4 py-2 bg-gray-200 text-gray-800 rounded-md hover:bg-gray-300 transition-colors duration-200">
+                Hủy
+              </button>
+              <button type="submit"
+                class="px-4 py-2 bg-primary text-white rounded-md hover:bg-primary-dark transition-colors duration-200">
+                Lưu
+              </button>
+            </div>
+          </form>
+        </div>
       </div>
-      <form id="major-form" class="mt-4 space-y-4">
-        <input type="hidden" id="major-id">
-        <div>
-          <label for="modal-major-name" class="block text-sm font-medium text-gray-700">Tên Ngành <span class="text-red-500">*</span></label>
-          <input type="text" name="modal-major-name" id="modal-major-name" required
-            class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary focus:border-primary sm:text-sm">
-        </div>
-        <div>
-          <label for="modal-major-description" class="block text-sm font-medium text-gray-700">Mô tả</label>
-          <textarea name="modal-major-description" id="modal-major-description" rows="3"
-            class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary focus:border-primary sm:text-sm"></textarea>
-        </div>
-        <div class="pt-3 border-t flex justify-end space-x-2">
-          <button type="button" id="cancel-major"
-            class="px-4 py-2 bg-gray-200 text-gray-800 rounded-md hover:bg-gray-300 transition-colors duration-200">
-            Hủy
-          </button>
-          <button type="submit" id="save-major-btn"
-            class="px-4 py-2 bg-primary text-white rounded-md hover:bg-primary-dark transition-colors duration-200">
-            Lưu
-          </button>
-        </div>
-      </form>
     </div>
   </div>
 
+  <!-- Delete Confirmation Modal -->
+  <div id="deleteModal" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden" aria-labelledby="delete-modal-title" role="dialog" aria-modal="true">
+    <div class="flex items-center justify-center min-h-screen p-4">
+      <div class="bg-white rounded-lg shadow-xl max-w-md w-full">
+        <div class="p-6">
+          <div class="text-center">
+            <i class="ri-error-warning-line text-5xl text-red-500 mb-4"></i>
+            <h3 class="text-xl font-semibold text-gray-900 mb-2" id="delete-modal-title">Xác nhận xóa</h3>
+            <p class="text-gray-600">Bạn có chắc chắn muốn xóa ngành đào tạo này? Hành động này không thể hoàn tác.</p>
+          </div>
 
+          <div class="mt-6 flex justify-center space-x-3">
+            <button type="button" id="cancel-delete"
+              class="px-4 py-2 bg-gray-200 text-gray-800 rounded-md hover:bg-gray-300 transition-colors duration-200">
+              Hủy
+            </button>
+            <button type="button" id="confirm-delete"
+              class="px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-700 transition-colors duration-200">
+              Xóa
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
   <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
   <script src="../../public/js/admin/majors.js"></script>
 </body>

@@ -1,411 +1,552 @@
-// Initialize AOS
-AOS.init({
-  duration: 800, // Animation duration
-  once: true, // Whether animation should happen only once
-});
+// Khởi tạo AOS
+AOS.init();
 
-document.addEventListener('DOMContentLoaded', function () {
-  // State variables
-  let allRoles = []; // Stores all roles fetched or defined
-  let currentRoles = []; // Stores roles currently displayed (after filtering/pagination)
-  let currentPage = 1;
-  let itemsPerPage = 10;
-  let totalPages = 1;
+// Khởi tạo các biến trạng thái
+let allRoles = [];
+let filteredRoles = [];
 
-  // --- Sample Data (Based on loai_nguoi_dung table) ---
-  allRoles = [
-    { MaLoai: 1, TenLoai: 'Quản trị viên', MoTa: 'Quản lý toàn bộ hệ thống' },
-    { MaLoai: 2, TenLoai: 'Biên tập viên', MoTa: 'Quản lý nội dung sự kiện' },
-    { MaLoai: 3, TenLoai: 'Người dùng thường', MoTa: 'Tham gia sự kiện' },
-    { MaLoai: 4, TenLoai: 'Diễn giả', MoTa: 'Trình bày tại sự kiện' },
-    { MaLoai: 5, TenLoai: 'Đối tác', MoTa: 'Hợp tác tổ chức sự kiện' },
-    { MaLoai: 6, TenLoai: 'Khách mời VIP', MoTa: 'Khách mời đặc biệt' },
-    { MaLoai: 7, TenLoai: 'Tình nguyện viên', MoTa: 'Hỗ trợ tổ chức sự kiện' },
-    { MaLoai: 8, TenLoai: 'Nhân viên kỹ thuật', MoTa: 'Hỗ trợ kỹ thuật cho sự kiện' },
-    { MaLoai: 9, TenLoai: 'Ban tổ chức', MoTa: 'Thành viên trong ban tổ chức' },
-    { MaLoai: 10, TenLoai: 'Nhà tài trợ', MoTa: 'Đơn vị tài trợ cho sự kiện' },
-    // Add more sample roles if needed
-  ];
+// Biến pagination
+const paginationState = {
+  currentPage: 1,
+  itemsPerPage: 10,
+  totalPages: 1
+};
 
-  // DOM Elements
+// Sự kiện khi DOM đã tải
+document.addEventListener('DOMContentLoaded', function() {
+  // Xử lý sidebar
+  const sidebarOpen = document.getElementById('sidebar-open');
+  const sidebarClose = document.getElementById('sidebar-close');
   const sidebar = document.getElementById('sidebar');
   const sidebarBackdrop = document.getElementById('sidebar-backdrop');
-  const sidebarOpenBtn = document.getElementById('sidebar-open');
-  const sidebarCloseBtn = document.getElementById('sidebar-close');
-  const userMenuButton = document.getElementById('user-menu-button');
-  const userMenu = document.getElementById('user-menu');
-  const rolesTableBody = document.getElementById('rolesTableBody');
-  const paginationControls = document.getElementById('pagination-controls');
-  const itemsPerPageSelect = document.getElementById('items-per-page');
-  const totalItemsCountSpan = document.getElementById('total-items-count');
-  const totalPagesCountSpan = document.getElementById('total-pages-count');
-  const currentPageInput = document.getElementById('current-page-input');
-  const filterForm = document.getElementById('filter-form');
-  const filterNameInput = document.getElementById('filter-name');
-  const filterDescriptionInput = document.getElementById('filter-description');
-  const noDataPlaceholder = document.getElementById('no-data-placeholder');
 
-  // Modal elements
-  const roleModal = document.getElementById('role-modal');
-  const addRoleBtn = document.getElementById('add-role-btn');
-  const closeRoleModalBtn = document.getElementById('close-role-modal');
-  const cancelRoleBtn = document.getElementById('cancel-role');
-  const roleForm = document.getElementById('role-form');
-  const modalTitle = document.getElementById('modal-title');
-  const roleIdInput = document.getElementById('role-id');
-  const modalRoleNameInput = document.getElementById('modal-role-name');
-  const modalRoleDescriptionInput = document.getElementById('modal-role-description');
-
-  // --- UI Interactions ---
-
-  // Sidebar toggle
-  if (sidebarOpenBtn && sidebar && sidebarBackdrop && sidebarCloseBtn) {
-    sidebarOpenBtn.addEventListener('click', () => {
+  if (sidebarOpen) {
+    sidebarOpen.addEventListener('click', () => {
       sidebar.classList.remove('-translate-x-full');
       sidebarBackdrop.classList.remove('hidden');
     });
+  }
 
-    sidebarCloseBtn.addEventListener('click', () => {
+  if (sidebarClose) {
+    sidebarClose.addEventListener('click', () => {
       sidebar.classList.add('-translate-x-full');
       sidebarBackdrop.classList.add('hidden');
     });
+  }
 
+  if (sidebarBackdrop) {
     sidebarBackdrop.addEventListener('click', () => {
       sidebar.classList.add('-translate-x-full');
       sidebarBackdrop.classList.add('hidden');
     });
   }
 
-  // User menu toggle (assuming similar structure)
+  // User Menu Toggle
+  const userMenuButton = document.getElementById('user-menu-button');
+  const userMenu = document.getElementById('user-menu');
+
   if (userMenuButton && userMenu) {
-     // Function to check if click is outside the menu
-     function handleClickOutside(event) {
-        if (userMenu && !userMenu.contains(event.target) && !userMenuButton.contains(event.target)) {
-            userMenu.classList.add('opacity-0', 'invisible', 'scale-95');
-            userMenu.classList.remove('opacity-100', 'visible', 'scale-100');
-            document.removeEventListener('click', handleClickOutside);
-        }
+    // Hàm kiểm tra click bên ngoài menu
+    function handleClickOutside(event) {
+      if (userMenu && !userMenu.contains(event.target) && !userMenuButton.contains(event.target)) {
+        userMenu.classList.add('opacity-0', 'invisible', 'scale-95');
+        userMenu.classList.remove('opacity-100', 'visible', 'scale-100');
+        document.removeEventListener('click', handleClickOutside);
       }
-
-      userMenuButton.addEventListener('click', (event) => {
-          event.stopPropagation(); // Prevent the click from immediately closing the menu
-          const isVisible = userMenu.classList.contains('opacity-100');
-          if (isVisible) {
-              userMenu.classList.add('opacity-0', 'invisible', 'scale-95');
-              userMenu.classList.remove('opacity-100', 'visible', 'scale-100');
-              document.removeEventListener('click', handleClickOutside);
-          } else {
-              userMenu.classList.remove('opacity-0', 'invisible', 'scale-95');
-              userMenu.classList.add('opacity-100', 'visible', 'scale-100');
-              // Add event listener to close when clicking outside
-              setTimeout(() => document.addEventListener('click', handleClickOutside), 0);
-          }
-      });
-  }
-
-  // --- Modal Handling ---
-  function openModal(role = null) {
-    roleForm.reset(); // Clear form fields
-    if (role) {
-      // Edit mode
-      modalTitle.textContent = 'Chỉnh sửa Loại người dùng';
-      roleIdInput.value = role.MaLoai;
-      modalRoleNameInput.value = role.TenLoai;
-      modalRoleDescriptionInput.value = role.MoTa || '';
-    } else {
-      // Add mode
-      modalTitle.textContent = 'Thêm Loại người dùng';
-      roleIdInput.value = ''; // Ensure ID is empty for adding
     }
-    roleModal.classList.remove('hidden');
+
+    userMenuButton.addEventListener('click', (event) => {
+      event.stopPropagation(); // Ngăn chặn click từ đóng menu ngay lập tức
+      const isVisible = userMenu.classList.contains('opacity-100');
+      if (isVisible) {
+        userMenu.classList.add('opacity-0', 'invisible', 'scale-95');
+        userMenu.classList.remove('opacity-100', 'visible', 'scale-100');
+        document.removeEventListener('click', handleClickOutside);
+      } else {
+        userMenu.classList.remove('opacity-0', 'invisible', 'scale-95');
+        userMenu.classList.add('opacity-100', 'visible', 'scale-100');
+        // Thêm sự kiện để đóng khi click bên ngoài
+        setTimeout(() => document.addEventListener('click', handleClickOutside), 0);
+      }
+    });
   }
 
-  function closeModal() {
-    roleModal.classList.add('hidden');
-    roleForm.reset();
+  // Modal xử lý
+  const addRoleBtn = document.getElementById('add-role-btn');
+
+  function openRoleModal(role = null) {
+    const modal = document.getElementById('role-modal');
+    const roleForm = document.getElementById('role-form');
+    const modalTitle = document.getElementById('modal-title');
+    const roleIdInput = document.getElementById('role-id');
+    const roleNameInput = document.getElementById('modal-role-name');
+    const roleDescriptionInput = document.getElementById('modal-role-description');
+    const roleStatusInput = document.getElementById('modal-role-status');
+
+    if (modal) {
+      roleForm.reset(); // Xóa dữ liệu form cũ
+      
+      if (role) {
+        // Chế độ chỉnh sửa
+        modalTitle.textContent = 'Chỉnh sửa vai trò';
+        roleIdInput.value = role.r_id;
+        roleNameInput.value = role.r_name;
+        roleDescriptionInput.value = role.r_description || '';
+        roleStatusInput.value = role.r_status.toString();
+      } else {
+        // Chế độ thêm mới
+        modalTitle.textContent = 'Thêm vai trò mới';
+        roleIdInput.value = '';
+        roleStatusInput.value = '1'; // Mặc định là hoạt động
+      }
+      
+      modal.classList.remove('hidden');
+    }
   }
 
+  window.closeRoleModal = function() {
+    const modal = document.getElementById('role-modal');
+    if (modal) {
+      modal.classList.add('hidden');
+      // Reset form
+      document.getElementById('role-form').reset();
+    }
+  };
+
+  // Mở modal khi click vào nút thêm mới
   if (addRoleBtn) {
-    addRoleBtn.addEventListener('click', () => openModal());
+    addRoleBtn.addEventListener('click', () => openRoleModal());
   }
-  if (closeRoleModalBtn) {
-    closeRoleModalBtn.addEventListener('click', closeModal);
-  }
-  if (cancelRoleBtn) {
-    cancelRoleBtn.addEventListener('click', closeModal);
-  }
-  // Close modal on outside click
+
+  // Đóng modal khi click bên ngoài
+  const roleModal = document.getElementById('role-modal');
   if (roleModal) {
     roleModal.addEventListener('click', (event) => {
       if (event.target === roleModal) {
-        closeModal();
+        closeRoleModal();
       }
     });
   }
 
-  // --- Data Handling & Rendering ---
+  // Đóng modal khi click nút đóng hoặc hủy
+  const closeRoleModalBtn = document.getElementById('close-role-modal');
+  const cancelRoleBtn = document.getElementById('cancel-role');
+  
+  if (closeRoleModalBtn) {
+    closeRoleModalBtn.addEventListener('click', closeRoleModal);
+  }
+  
+  if (cancelRoleBtn) {
+    cancelRoleBtn.addEventListener('click', closeRoleModal);
+  }
 
-  // Function to render the table
-  function renderTable() {
-    rolesTableBody.innerHTML = ''; // Clear existing rows
-    noDataPlaceholder.classList.add('hidden'); // Hide no data message initially
+  // Form xử lý
+  const roleForm = document.getElementById('role-form');
+  if (roleForm) {
+    roleForm.addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      const roleId = document.getElementById('role-id').value;
+      const roleName = document.getElementById('modal-role-name').value.trim();
+      const roleDescription = document.getElementById('modal-role-description').value.trim();
+      const roleStatus = document.getElementById('modal-role-status').value;
+      
+      if (!roleName) {
+        alert('Vui lòng nhập tên vai trò!');
+        return;
+      }
+      
+      // Dữ liệu vai trò
+      const roleData = {
+        r_name: roleName,
+        r_description: roleDescription || null,
+        r_status: parseInt(roleStatus),
+        r_created_at: new Date().toISOString(),
+        r_updated_at: new Date().toISOString()
+      };
+      
+      if (roleId) {
+        // Chỉnh sửa vai trò đã có
+        roleData.r_id = parseInt(roleId);
+        // Tìm và cập nhật trong mảng
+        const index = allRoles.findIndex(r => r.r_id === roleData.r_id);
+        if (index !== -1) {
+          allRoles[index] = { ...allRoles[index], ...roleData };
+          alert('Vai trò đã được cập nhật thành công!');
+        }
+      } else {
+        // Thêm vai trò mới
+        // Tạo ID tạm thời (trong thực tế sẽ do server tạo)
+        roleData.r_id = allRoles.length > 0 ? Math.max(...allRoles.map(r => r.r_id)) + 1 : 1;
+        allRoles.push(roleData);
+        alert('Vai trò mới đã được tạo thành công!');
+      }
+      
+      applyFilters();
+      closeRoleModal();
+    });
+  }
 
-    if (currentRoles.length === 0) {
-      noDataPlaceholder.classList.remove('hidden'); // Show if no data
-      // Optionally clear pagination info or disable controls
-      totalItemsCountSpan.textContent = 0;
-      totalPagesCountSpan.textContent = 1;
-      currentPageInput.value = 1;
-      updatePaginationButtons();
-      return;
+  // Dữ liệu mẫu dựa theo bảng 'roles' trong hanet.sql
+  allRoles = [
+    {
+      r_id: 1,
+      r_name: "Quản trị viên",
+      r_description: "Quản lý toàn bộ hệ thống và phân quyền",
+      r_status: 1,
+      r_created_at: "2023-01-15T00:00:00",
+      r_updated_at: "2023-01-15T00:00:00",
+      r_deleted_at: null
+    },
+    {
+      r_id: 2,
+      r_name: "Biên tập viên",
+      r_description: "Quản lý nội dung và sự kiện",
+      r_status: 1,
+      r_created_at: "2023-01-20T00:00:00",
+      r_updated_at: "2023-01-20T00:00:00",
+      r_deleted_at: null
+    },
+    {
+      r_id: 3,
+      r_name: "Người dùng",
+      r_description: "Người dùng thông thường",
+      r_status: 1,
+      r_created_at: "2023-01-25T00:00:00",
+      r_updated_at: "2023-01-25T00:00:00",
+      r_deleted_at: null
+    },
+    {
+      r_id: 4,
+      r_name: "Điều hành viên",
+      r_description: "Điều hành sự kiện và quản lý người tham gia",
+      r_status: 1,
+      r_created_at: "2023-02-10T00:00:00",
+      r_updated_at: "2023-02-10T00:00:00",
+      r_deleted_at: null
+    },
+    {
+      r_id: 5,
+      r_name: "Nhân viên kỹ thuật",
+      r_description: "Hỗ trợ kỹ thuật cho hệ thống",
+      r_status: 1,
+      r_created_at: "2023-03-05T00:00:00",
+      r_updated_at: "2023-03-05T00:00:00",
+      r_deleted_at: null
+    },
+    {
+      r_id: 6,
+      r_name: "Nhân viên quản lý sự kiện",
+      r_description: "Tổ chức và quản lý sự kiện",
+      r_status: 0,
+      r_created_at: "2023-04-15T00:00:00",
+      r_updated_at: "2023-04-15T00:00:00",
+      r_deleted_at: null
+    },
+    {
+      r_id: 7,
+      r_name: "Quản lý cơ sở dữ liệu",
+      r_description: "Quản lý và duy trì cơ sở dữ liệu",
+      r_status: 1,
+      r_created_at: "2023-05-20T00:00:00",
+      r_updated_at: "2023-05-20T00:00:00",
+      r_deleted_at: null
+    },
+    {
+      r_id: 8,
+      r_name: "Giám sát viên",
+      r_description: "Giám sát hoạt động của hệ thống",
+      r_status: 1,
+      r_created_at: "2023-06-25T00:00:00",
+      r_updated_at: "2023-06-25T00:00:00",
+      r_deleted_at: null
+    },
+    {
+      r_id: 9,
+      r_name: "Nhân viên phân tích dữ liệu",
+      r_description: "Phân tích dữ liệu và báo cáo",
+      r_status: 0,
+      r_created_at: "2023-07-30T00:00:00",
+      r_updated_at: "2023-07-30T00:00:00",
+      r_deleted_at: null
+    },
+    {
+      r_id: 10,
+      r_name: "Nhân viên hỗ trợ",
+      r_description: "Hỗ trợ người dùng",
+      r_status: 1,
+      r_created_at: "2023-08-10T00:00:00",
+      r_updated_at: "2023-08-10T00:00:00",
+      r_deleted_at: null
     }
+  ];
 
-    const startIndex = (currentPage - 1) * itemsPerPage;
-    const endIndex = startIndex + itemsPerPage;
-    const rolesToRender = currentRoles.slice(startIndex, endIndex);
-
-    rolesToRender.forEach(role => {
-      const row = document.createElement('tr');
-      row.className = 'hover:bg-gray-50 transition-colors duration-150';
-
-      row.innerHTML = `
-        <td class="px-4 py-3 text-sm text-gray-700">${role.MaLoai}</td>
-        <td class="px-4 py-3 text-sm font-medium text-gray-900">${role.TenLoai}</td>
-        <td class="px-4 py-3 text-sm text-gray-600">${role.MoTa || 'N/A'}</td>
-        <td class="px-4 py-3 text-right text-sm font-medium space-x-2">
-          <button class="text-blue-600 hover:text-blue-800 edit-role-btn" data-id="${role.MaLoai}" title="Sửa">
-            <i class="ri-pencil-line"></i>
-          </button>
-          <button class="text-red-600 hover:text-red-800 delete-role-btn" data-id="${role.MaLoai}" title="Xóa">
-            <i class="ri-delete-bin-line"></i>
-          </button>
-        </td>
-      `;
-      rolesTableBody.appendChild(row);
-    });
-
-    // Add event listeners for edit/delete buttons
-    rolesTableBody.querySelectorAll('.edit-role-btn').forEach(button => {
-      button.addEventListener('click', handleEditRole);
-    });
-    rolesTableBody.querySelectorAll('.delete-role-btn').forEach(button => {
-      button.addEventListener('click', handleDeleteRole);
-    });
-
-    updatePaginationInfo();
-  }
-
-  // Function to update pagination info (total items, total pages)
-  function updatePaginationInfo() {
-    totalPages = Math.ceil(currentRoles.length / itemsPerPage);
-    if (totalPages < 1) totalPages = 1; // Ensure at least one page
-
-    totalItemsCountSpan.textContent = currentRoles.length;
-    totalPagesCountSpan.textContent = totalPages;
-    currentPageInput.max = totalPages;
-    currentPageInput.value = currentPage;
-
-    updatePaginationButtons();
-  }
-
-  // Function to update pagination button states (disabled/enabled)
-  function updatePaginationButtons() {
-    const isFirstPage = currentPage === 1;
-    const isLastPage = currentPage === totalPages;
-
-    paginationControls.querySelector('.btn-first').disabled = isFirstPage;
-    paginationControls.querySelector('.btn-prev').disabled = isFirstPage;
-    paginationControls.querySelector('.btn-next').disabled = isLastPage;
-    paginationControls.querySelector('.btn-last').disabled = isLastPage;
-  }
-
-  // Function to apply filters
+  // Hàm lọc vai trò
   function applyFilters() {
-    const nameFilter = filterNameInput.value.toLowerCase().trim();
-    const descriptionFilter = filterDescriptionInput.value.toLowerCase().trim();
-
-    currentRoles = allRoles.filter(role => {
-      const nameMatch = !nameFilter || role.TenLoai.toLowerCase().includes(nameFilter);
-      const descriptionMatch = !descriptionFilter || (role.MoTa && role.MoTa.toLowerCase().includes(descriptionFilter));
-      return nameMatch && descriptionMatch;
+    const nameFilter = document.getElementById('filter-name').value.toLowerCase().trim();
+    const descriptionFilter = document.getElementById('filter-description').value.toLowerCase().trim();
+    const statusFilter = document.getElementById('filter-status').value;
+    
+    filteredRoles = allRoles.filter(role => {
+      // Kiểm tra tên
+      const nameMatch = !nameFilter || role.r_name.toLowerCase().includes(nameFilter);
+      
+      // Kiểm tra mô tả
+      const descriptionMatch = !descriptionFilter || 
+        (role.r_description && role.r_description.toLowerCase().includes(descriptionFilter));
+      
+      // Kiểm tra trạng thái
+      const statusMatch = !statusFilter || role.r_status.toString() === statusFilter;
+      
+      return nameMatch && descriptionMatch && statusMatch;
     });
-
-    currentPage = 1; // Reset to first page after filtering
+    
+    // Cập nhật phân trang
+    paginationState.currentPage = 1;
+    updatePagination();
+    
+    // Render bảng với dữ liệu đã lọc
     renderTable();
   }
 
-  // --- Event Listeners ---
-
-  // Filter form submission
-  if (filterForm) {
-    filterForm.addEventListener('submit', (e) => {
-      e.preventDefault();
-      applyFilters();
-    });
-
-    // Reset button
-    const resetFilterBtn = document.getElementById('reset-filter-btn');
-    if (resetFilterBtn) {
-      resetFilterBtn.addEventListener('click', () => {
-        filterForm.reset();
-        applyFilters(); // Re-apply filters (which will show all roles)
-      });
+  // Cập nhật trạng thái phân trang
+  function updatePagination() {
+    const totalItems = filteredRoles.length;
+    paginationState.totalPages = Math.max(1, Math.ceil(totalItems / paginationState.itemsPerPage));
+    
+    // Điều chỉnh trang hiện tại nếu vượt quá tổng số trang
+    if (paginationState.currentPage > paginationState.totalPages) {
+      paginationState.currentPage = paginationState.totalPages;
     }
+    
+    // Cập nhật UI phân trang
+    const currentPageInput = document.getElementById('current-page-input');
+    const totalPagesCount = document.getElementById('total-pages-count');
+    const totalItemsCount = document.getElementById('total-items-count');
+    const btnFirst = document.querySelector('.btn-first');
+    const btnPrev = document.querySelector('.btn-prev');
+    const btnNext = document.querySelector('.btn-next');
+    const btnLast = document.querySelector('.btn-last');
+    
+    if (currentPageInput) currentPageInput.value = paginationState.currentPage;
+    if (totalPagesCount) totalPagesCount.textContent = paginationState.totalPages;
+    if (totalItemsCount) totalItemsCount.textContent = totalItems;
+    
+    // Cập nhật trạng thái nút
+    if (btnFirst) btnFirst.disabled = paginationState.currentPage === 1;
+    if (btnPrev) btnPrev.disabled = paginationState.currentPage === 1;
+    if (btnNext) btnNext.disabled = paginationState.currentPage === paginationState.totalPages;
+    if (btnLast) btnLast.disabled = paginationState.currentPage === paginationState.totalPages;
   }
 
-  // Items per page change
+  // Render dữ liệu vào bảng
+  function renderTable() {
+    const tableBody = document.getElementById('rolesTableBody');
+    const noDataPlaceholder = document.getElementById('no-data-placeholder');
+    
+    if (!tableBody) return;
+    
+    const startIndex = (paginationState.currentPage - 1) * paginationState.itemsPerPage;
+    const endIndex = Math.min(startIndex + paginationState.itemsPerPage, filteredRoles.length);
+    const displayedRoles = filteredRoles.slice(startIndex, endIndex);
+    
+    // Kiểm tra nếu không có dữ liệu
+    if (displayedRoles.length === 0) {
+      tableBody.innerHTML = '';
+      if (noDataPlaceholder) {
+        noDataPlaceholder.classList.remove('hidden');
+      }
+      return;
+    }
+    
+    // Có dữ liệu, ẩn thông báo không có dữ liệu
+    if (noDataPlaceholder) {
+      noDataPlaceholder.classList.add('hidden');
+    }
+    
+    // Render dữ liệu
+    tableBody.innerHTML = displayedRoles.map(role => `
+      <tr class="hover:bg-gray-50 transition-colors duration-150">
+        <td class="px-4 py-3 text-sm text-gray-700">${role.r_id}</td>
+        <td class="px-4 py-3 text-sm font-medium text-gray-900">${role.r_name}</td>
+        <td class="px-4 py-3 text-sm text-gray-600">${role.r_description || 'N/A'}</td>
+        <td class="px-4 py-3 text-sm">
+          <span class="px-2 py-1 text-xs font-medium rounded-full ${
+            role.r_status === 1 
+              ? 'bg-green-100 text-green-800' 
+              : 'bg-red-100 text-red-800'
+          }">
+            ${role.r_status === 1 ? 'Hoạt động' : 'Không hoạt động'}
+          </span>
+        </td>
+        <td class="px-4 py-3 text-sm text-gray-500">${formatDate(role.r_created_at)}</td>
+        <td class="px-4 py-3 text-right text-sm font-medium space-x-2">
+          <button class="text-blue-600 hover:text-blue-800 edit-role-btn" 
+                  onclick="editRole(${role.r_id})" title="Sửa">
+            <i class="ri-pencil-line"></i>
+          </button>
+          <button class="text-red-600 hover:text-red-800 delete-role-btn" 
+                  onclick="deleteRole(${role.r_id})" title="Xóa">
+            <i class="ri-delete-bin-line"></i>
+          </button>
+        </td>
+      </tr>
+    `).join('');
+  }
+
+  // Định dạng ngày
+  function formatDate(dateString) {
+    if (!dateString) return 'N/A';
+    const options = { day: '2-digit', month: '2-digit', year: 'numeric' };
+    return new Date(dateString).toLocaleDateString('vi-VN', options);
+  }
+  
+  // Các hàm xử lý vai trò
+  window.editRole = function(roleId) {
+    const role = allRoles.find(r => r.r_id === roleId);
+    if (role) {
+      openRoleModal(role);
+    }
+  };
+  
+  window.deleteRole = function(roleId) {
+    const role = allRoles.find(r => r.r_id === roleId);
+    if (!role) return;
+    
+    if (confirm(`Bạn có chắc chắn muốn xóa vai trò "${role.r_name}" không?`)) {
+      // Trong thực tế sẽ gửi yêu cầu DELETE đến API
+      // Ở đây chỉ xóa khỏi mảng
+      const roleIndex = allRoles.findIndex(r => r.r_id === roleId);
+      if (roleIndex !== -1) {
+        allRoles.splice(roleIndex, 1);
+        applyFilters(); // Cập nhật lại danh sách
+        alert('Đã xóa vai trò thành công!');
+      }
+    }
+  };
+
+  // Thiết lập các event listeners cho phân trang
+  const itemsPerPageSelect = document.getElementById('items-per-page');
+  const currentPageInput = document.getElementById('current-page-input');
+  const btnFirst = document.querySelector('.btn-first');
+  const btnPrev = document.querySelector('.btn-prev');
+  const btnNext = document.querySelector('.btn-next');
+  const btnLast = document.querySelector('.btn-last');
+  
   if (itemsPerPageSelect) {
-    itemsPerPageSelect.addEventListener('change', (e) => {
-      itemsPerPage = parseInt(e.target.value, 10);
-      currentPage = 1; // Reset to first page
+    itemsPerPageSelect.addEventListener('change', function() {
+      paginationState.itemsPerPage = Number(this.value);
+      paginationState.currentPage = 1;
+      updatePagination();
       renderTable();
     });
   }
-
-  // Pagination controls
-  if (paginationControls) {
-    paginationControls.addEventListener('click', (e) => {
-      const button = e.target.closest('button');
-      if (!button) return;
-
-      if (button.classList.contains('btn-first')) {
-        currentPage = 1;
-      } else if (button.classList.contains('btn-prev')) {
-        if (currentPage > 1) currentPage--;
-      } else if (button.classList.contains('btn-next')) {
-        if (currentPage < totalPages) currentPage++;
-      } else if (button.classList.contains('btn-last')) {
-        currentPage = totalPages;
-      }
+  
+  if (currentPageInput) {
+    currentPageInput.addEventListener('change', function() {
+      let newPage = Number(this.value);
+      if (newPage < 1) newPage = 1;
+      if (newPage > paginationState.totalPages) newPage = paginationState.totalPages;
+      
+      paginationState.currentPage = newPage;
+      updatePagination();
       renderTable();
     });
-
-    // Current page input change
-    currentPageInput.addEventListener('change', (e) => {
-      let newPage = parseInt(e.target.value, 10);
-      if (isNaN(newPage) || newPage < 1) {
-        newPage = 1;
-      } else if (newPage > totalPages) {
-        newPage = totalPages;
+    
+    currentPageInput.addEventListener('keypress', function(e) {
+      if (e.key === 'Enter') {
+        let newPage = Number(this.value);
+        if (newPage < 1) newPage = 1;
+        if (newPage > paginationState.totalPages) newPage = paginationState.totalPages;
+        
+        paginationState.currentPage = newPage;
+        updatePagination();
+        renderTable();
       }
-      currentPage = newPage;
-      renderTable();
-    });
-    currentPageInput.addEventListener('keypress', (e) => {
-        if (e.key === 'Enter') {
-            let newPage = parseInt(e.target.value, 10);
-            if (isNaN(newPage) || newPage < 1) {
-                newPage = 1;
-            } else if (newPage > totalPages) {
-                newPage = totalPages;
-            }
-            currentPage = newPage;
-            renderTable();
-        }
     });
   }
-
-  // Role form submission (Add/Edit)
-  if (roleForm) {
-    roleForm.addEventListener('submit', (e) => {
-      e.preventDefault();
-      const id = roleIdInput.value;
-      const name = modalRoleNameInput.value.trim();
-      const description = modalRoleDescriptionInput.value.trim();
-
-      if (!name) {
-        // Basic validation
-        alert('Vui lòng nhập Tên loại.');
-        return;
+  
+  if (btnFirst) {
+    btnFirst.addEventListener('click', function() {
+      if (paginationState.currentPage > 1) {
+        paginationState.currentPage = 1;
+        updatePagination();
+        renderTable();
       }
-
-      const roleData = {
-        TenLoai: name,
-        MoTa: description || null, // Store null if empty
-      };
-
-      if (id) {
-        // Edit existing role
-        roleData.MaLoai = parseInt(id, 10);
-        // Find index and update (in real app, send to server)
-        const index = allRoles.findIndex(r => r.MaLoai === roleData.MaLoai);
-        if (index !== -1) {
-          allRoles[index] = { ...allRoles[index], ...roleData };
-          console.log('Updated role:', allRoles[index]);
-          alert('Cập nhật loại người dùng thành công!');
-        } else {
-            console.error('Role not found for editing');
-            alert('Lỗi: Không tìm thấy loại người dùng để cập nhật.');
-            return; // Stop if role not found
-        }
-      } else {
-        // Add new role
-        // Generate a temporary ID (in real app, server provides ID)
-        roleData.MaLoai = allRoles.length > 0 ? Math.max(...allRoles.map(r => r.MaLoai)) + 1 : 1;
-        allRoles.push(roleData);
-        console.log('Added role:', roleData);
-        alert('Thêm loại người dùng thành công!');
+    });
+  }
+  
+  if (btnPrev) {
+    btnPrev.addEventListener('click', function() {
+      if (paginationState.currentPage > 1) {
+        paginationState.currentPage--;
+        updatePagination();
+        renderTable();
       }
-
-      closeModal();
-      applyFilters(); // Refresh the table to show changes
+    });
+  }
+  
+  if (btnNext) {
+    btnNext.addEventListener('click', function() {
+      if (paginationState.currentPage < paginationState.totalPages) {
+        paginationState.currentPage++;
+        updatePagination();
+        renderTable();
+      }
+    });
+  }
+  
+  if (btnLast) {
+    btnLast.addEventListener('click', function() {
+      if (paginationState.currentPage < paginationState.totalPages) {
+        paginationState.currentPage = paginationState.totalPages;
+        updatePagination();
+        renderTable();
+      }
     });
   }
 
-  // Handler for Edit Role button click
-  function handleEditRole(event) {
-    const button = event.target.closest('.edit-role-btn');
-    const roleId = parseInt(button.dataset.id, 10);
-    const roleToEdit = allRoles.find(role => role.MaLoai === roleId);
-    if (roleToEdit) {
-      openModal(roleToEdit);
-    } else {
-      console.error('Role not found for editing:', roleId);
-      alert('Lỗi: Không tìm thấy loại người dùng để chỉnh sửa.');
-    }
-  }
-
-  // Handler for Delete Role button click
-  function handleDeleteRole(event) {
-    const button = event.target.closest('.delete-role-btn');
-    const roleId = parseInt(button.dataset.id, 10);
-    const roleToDelete = allRoles.find(role => role.MaLoai === roleId);
-
-    if (!roleToDelete) {
-        console.error('Role not found for deletion:', roleId);
-        alert('Lỗi: Không tìm thấy loại người dùng để xóa.');
-        return;
-    }
-
-    // Confirmation dialog
-    if (confirm(`Bạn có chắc chắn muốn xóa loại người dùng "${roleToDelete.TenLoai}" (ID: ${roleId}) không?`)) {
-      // Find index and remove (in real app, send delete request to server)
-      const index = allRoles.findIndex(r => r.MaLoai === roleId);
-      if (index !== -1) {
-        allRoles.splice(index, 1);
-        console.log('Deleted role ID:', roleId);
-        alert('Xóa loại người dùng thành công!');
-        applyFilters(); // Refresh the table
-      } else {
-        console.error('Role index not found for deletion after confirmation:', roleId);
-        alert('Lỗi: Không thể xóa loại người dùng.');
-      }
-    }
-  }
-
-  // Refresh Button
+  // Thiết lập các event listeners cho bộ lọc
+  const filterForm = document.getElementById('filter-form');
+  const resetFilterBtn = document.getElementById('reset-filter-btn');
   const refreshBtn = document.getElementById('refresh-btn');
-  if (refreshBtn) {
-    refreshBtn.addEventListener('click', () => {
-      // In a real app, you might re-fetch data here
-      // For now, just reset filters and render
-      filterForm.reset();
+  
+  if (filterForm) {
+    filterForm.addEventListener('submit', function(e) {
+      e.preventDefault();
       applyFilters();
-      alert('Đã tải lại danh sách loại người dùng.');
+    });
+  }
+  
+  if (resetFilterBtn) {
+    resetFilterBtn.addEventListener('click', function() {
+      document.getElementById('filter-name').value = '';
+      document.getElementById('filter-description').value = '';
+      document.getElementById('filter-status').value = '';
+      applyFilters();
+    });
+  }
+  
+  if (refreshBtn) {
+    refreshBtn.addEventListener('click', function() {
+      // Reset lại dữ liệu từ nguồn (trong trường hợp thực tế sẽ gọi API)
+      filteredRoles = [...allRoles];
+      
+      // Reset bộ lọc
+      document.getElementById('filter-name').value = '';
+      document.getElementById('filter-description').value = '';
+      document.getElementById('filter-status').value = '';
+      
+      paginationState.currentPage = 1;
+      updatePagination();
+      renderTable();
+      
+      alert('Đã tải lại danh sách vai trò!');
     });
   }
 
-  // --- Initial Load ---
-  itemsPerPage = parseInt(itemsPerPageSelect.value, 10);
-  applyFilters(); // Apply default filters (none) and render initial data
+  // Khởi tạo ban đầu
+  filteredRoles = [...allRoles];
+  updatePagination();
+  renderTable();
 }); 

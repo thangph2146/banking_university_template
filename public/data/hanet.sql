@@ -68,6 +68,17 @@ CREATE TABLE `settings` (
   `created_at` datetime NOT NULL,
   `updated_at` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+--
+-- Đang đổ dữ liệu cho bảng `settings`
+--
+
+INSERT INTO `settings` (`id`, `class`, `key`, `value`, `type`, `context`, `created_at`, `updated_at`) VALUES
+(1, 'Config\\App', 'GOOGLE_CLIENT_ID', 'YOUR_GOOGLE_CLIENT_ID_PLACEHOLDER', 'string', NULL, '2025-03-11 11:01:10', '2025-03-11 11:01:10'),
+(2, 'Config\\App', 'GOOGLE_CLIENT_SECRET', 'YOUR_GOOGLE_CLIENT_SECRET_PLACEHOLDER', 'string', NULL, '2025-03-11 11:01:23', '2025-03-11 11:01:23'),
+(3, 'Config\\App', 'GOOGLE_REDIRECT_URI', 'YOUR_GOOGLE_REDIRECT_URI_PLACEHOLDER', 'string', NULL, '2025-03-11 11:01:33', '2025-03-11 11:01:33'),
+(4, 'Config\\App', 'resetPassWord', '123456', 'string', NULL, '2025-03-12 08:32:41', '2025-03-12 08:34:31'),
+(5, 'Config\\App', 'classTable', 'table_id', 'string', NULL, '2025-03-12 11:11:09', '2025-03-12 11:14:15'),
+(6, 'Config\\App', 'table_id', 'example2_wrapper', 'string', NULL, '2025-03-12 11:14:46', '2025-03-12 11:14:46');
 
 -- Bảng loại người dùng
 CREATE TABLE loai_nguoi_dung (

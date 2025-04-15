@@ -234,10 +234,6 @@
             <p class="mt-1 text-sm text-gray-600">Quản lý các bậc học trong hệ thống</p>
           </div>
           <div class="mt-4 sm:mt-0 flex gap-2">
-            <button id="refresh-btn"
-              class="flex items-center justify-center px-3 py-2 border border-gray-300 text-gray-700 rounded-md hover:bg-gray-50 transition-colors duration-200">
-              <i class="ri-refresh-line mr-1"></i> Tải lại
-            </button>
             <button id="add-level-btn"
               class="flex items-center justify-center px-4 py-2 bg-primary text-white rounded-md hover:bg-primary-dark transition-colors duration-200">
               <i class="ri-add-line mr-1"></i> Tạo Bậc học mới
@@ -316,8 +312,8 @@
                 </th>
                 <th scope="col" class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider min-w-[200px]">
                   Tên Bậc học</th>
-                <th scope="col" class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider min-w-[300px]">
-                  Mô tả</th>
+                <th scope="col" class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider min-w-[100px]">
+                  Trạng thái</th>
                 <th scope="col" class="px-4 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider min-w-[100px]">
                   Hành động</th>
               </tr>
@@ -400,9 +396,17 @@
             class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary focus:border-primary sm:text-sm">
         </div>
         <div>
-          <label for="modal-level-description" class="block text-sm font-medium text-gray-700">Mô tả</label>
-          <textarea name="modal-level-description" id="modal-level-description" rows="3"
-            class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary focus:border-primary sm:text-sm"></textarea>
+          <label for="modal-level-description" class="block text-sm font-medium text-gray-700">Mã bậc học</label>
+          <input type="text" name="modal-level-description" id="modal-level-description" 
+            class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary focus:border-primary sm:text-sm">
+        </div>
+        <div>
+          <label for="modal-level-status" class="block text-sm font-medium text-gray-700">Trạng thái</label>
+          <select id="modal-level-status" name="modal-level-status"
+            class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary focus:border-primary sm:text-sm">
+            <option value="1">Hoạt động</option>
+            <option value="0">Không hoạt động</option>
+          </select>
         </div>
         <div class="pt-3 border-t flex justify-end space-x-2">
           <button type="button" id="cancel-level"
