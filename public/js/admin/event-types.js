@@ -10,6 +10,7 @@ document.addEventListener('DOMContentLoaded', function () {
   let itemsPerPage = 10;
   let totalPages = 1;
   let filteredEventTypes = [];
+  let currentEventTypeIdToDelete = null;
 
   // DOM Elements - Sửa lại các selector để khớp với HTML
   const sidebar = document.getElementById('sidebar');
@@ -35,6 +36,7 @@ document.addEventListener('DOMContentLoaded', function () {
   const deleteModal = document.getElementById('confirm-delete-modal');
   const confirmDeleteBtn = document.getElementById('confirm-delete-btn');
   const cancelDeleteBtn = document.getElementById('cancel-delete-btn');
+  const deleteConfirmationText = document.getElementById('delete-confirmation-text');
   const loadingOverlay = document.getElementById('loading-overlay');
   const filterName = document.getElementById('filter-name');
   const filterCode = document.getElementById('filter-code');
@@ -51,6 +53,7 @@ document.addEventListener('DOMContentLoaded', function () {
   const eventTypeStatusSelect = document.getElementById('event-type-status');
   const saveEventTypeBtn = document.getElementById('save-event-type-btn');
   const closeEventTypeModalBtn = document.getElementById('close-event-type-modal');
+  const refreshBtn = document.getElementById('refresh-btn');
 
   // Tạo mẫu dữ liệu cho thử nghiệm
   function generateSampleEventTypes() {
@@ -137,6 +140,9 @@ document.addEventListener('DOMContentLoaded', function () {
     // Cập nhật phân trang và hiển thị dữ liệu
     updatePagination();
     renderTable();
+    
+    // Cập nhật tổng số mục đếm được
+    totalItemsCount.textContent = filteredEventTypes.length;
   }
 
   // Hàm để hiển thị dữ liệu vào bảng
@@ -191,7 +197,7 @@ document.addEventListener('DOMContentLoaded', function () {
 					<button class="edit-btn text-blue-500 hover:text-blue-700 mx-1" data-id="${eventType.loai_su_kien_id}">
 						<i class="ri-edit-line text-lg"></i>
 					</button>
-					<button class="delete-btn text-red-500 hover:text-red-700 mx-1" data-id="${eventType.loai_su_kien_id}">
+					<button class="delete-btn text-red-500 hover:text-red-700 mx-1" data-id="${eventType.loai_su_kien_id}" data-name="${eventType.ten_loai_su_kien}">
 						<i class="ri-delete-bin-line text-lg"></i>
 					</button>
 				</td>
@@ -200,10 +206,47 @@ document.addEventListener('DOMContentLoaded', function () {
       eventTypesTableBody.appendChild(row);
     }
 
-    // Gắn sự kiện cho các nút sửa
-    attachEditButtonListeners();
+    // Gắn sự kiện cho các nút
+    attachButtonListeners();
+  }
+
+  // Gắn sự kiện cho các nút trong bảng
+  function attachButtonListeners() {
     // Gắn sự kiện cho các nút xem
-    attachViewButtonListeners();
+    const viewButtons = document.querySelectorAll('.view-btn');
+    viewButtons.forEach(button => {
+      button.addEventListener('click', function() {
+        const id = this.dataset.id;
+        window.location.href = `event-type-detail.html?id=${id}`;
+      });
+    });
+
+    // Gắn sự kiện cho các nút sửa
+    const editButtons = document.querySelectorAll('.edit-btn');
+    editButtons.forEach(button => {
+      button.addEventListener('click', function() {
+        const id = this.dataset.id;
+        window.location.href = `event-type-edit.html?id=${id}`;
+      });
+    });
+
+    // Gắn sự kiện cho các nút xóa
+    const deleteButtons = document.querySelectorAll('.delete-btn');
+    deleteButtons.forEach(button => {
+      button.addEventListener('click', function() {
+        const id = this.dataset.id;
+        const name = this.dataset.name;
+        
+        // Lưu ID của loại sự kiện cần xóa
+        currentEventTypeIdToDelete = id;
+        
+        // Cập nhật nội dung xác nhận xóa
+        deleteConfirmationText.textContent = `Bạn có chắc chắn muốn xóa loại sự kiện "${name}" không? Hành động này không thể hoàn tác.`;
+        
+        // Hiển thị modal xác nhận xóa
+        deleteModal.classList.remove('hidden');
+      });
+    });
   }
 
   // Cập nhật thông tin phân trang
@@ -238,155 +281,77 @@ document.addEventListener('DOMContentLoaded', function () {
     renderTable();
   }
 
-  // Hàm hiển thị modal thêm/sửa loại sự kiện
-  function showEventTypeModal(isEdit = false, eventTypeId = null) {
-    // Đặt tiêu đề cho modal
-    eventTypeModalTitle.textContent = isEdit ? 'Chỉnh sửa loại sự kiện' : 'Thêm mới loại sự kiện';
+  // Hàm xóa loại sự kiện
+  function deleteEventType(id) {
+    // Trong thực tế sẽ gọi API để xóa
+    allEventTypes = allEventTypes.filter(eventType => eventType.loai_su_kien_id.toString() !== id.toString());
+    filteredEventTypes = filteredEventTypes.filter(eventType => eventType.loai_su_kien_id.toString() !== id.toString());
 
-    // Nếu là chỉnh sửa, điền thông tin loại sự kiện vào form
-    if (isEdit && eventTypeId) {
-      const eventType = allEventTypes.find(et => et.loai_su_kien_id.toString() === eventTypeId.toString());
-      if (eventType) {
-        eventTypeNameInput.value = eventType.ten_loai_su_kien;
-        eventTypeCodeInput.value = eventType.ma_loai_su_kien;
-        eventTypeStatusSelect.value = eventType.status;
-        saveEventTypeBtn.dataset.id = eventTypeId;
-        saveEventTypeBtn.dataset.mode = 'edit';
-      } else {
-        showToast('Không tìm thấy loại sự kiện', 'error');
-        return;
-      }
-    } else {
-      // Nếu là thêm mới, reset form
-      eventTypeForm.reset();
-      saveEventTypeBtn.dataset.id = '';
-      saveEventTypeBtn.dataset.mode = 'add';
-    }
+    // Cập nhật UI
+    updatePagination();
+    renderTable();
+    totalItemsCount.textContent = filteredEventTypes.length;
 
-    // Hiển thị modal
-    eventTypeModal.classList.remove('hidden');
+    // Hiển thị thông báo thành công
+    showToast("Xóa loại sự kiện thành công!", "success");
   }
 
-  // Hàm đóng modal thêm/sửa loại sự kiện
-  function closeEventTypeModal() {
-    eventTypeModal.classList.add('hidden');
-    eventTypeForm.reset();
-  }
+  // Hàm hiển thị thông báo toast
+  function showToast(message, type = 'info') {
+    let backgroundColor = '#3b82f6'; // Mặc định màu xanh info
 
-  // Hàm xử lý lưu loại sự kiện (thêm mới hoặc chỉnh sửa)
-  function saveEventType() {
-    // Kiểm tra form có hợp lệ không
-    if (!validateEventTypeForm()) {
-      return;
+    if (type === 'success') {
+      backgroundColor = '#10B981';
+    } else if (type === 'error') {
+      backgroundColor = '#EF4444';
+    } else if (type === 'warning') {
+      backgroundColor = '#F59E0B';
     }
 
-    const mode = saveEventTypeBtn.dataset.mode;
-    const id = saveEventTypeBtn.dataset.id;
-    const name = eventTypeNameInput.value.trim();
-    const code = eventTypeCodeInput.value.trim().toUpperCase();
-    const status = parseInt(eventTypeStatusSelect.value);
-
-    if (mode === 'add') {
-      // Tạo loại sự kiện mới
-      const newId = allEventTypes.length > 0
-        ? Math.max(...allEventTypes.map(et => parseInt(et.loai_su_kien_id))) + 1
-        : 1;
-
-      const newEventType = {
-        loai_su_kien_id: newId,
-        ten_loai_su_kien: name,
-        ma_loai_su_kien: code,
-        status: status,
-        created_at: new Date().toISOString().replace('T', ' ').slice(0, 19)
-      };
-
-      // Trong thực tế sẽ gọi API để thêm mới
-      allEventTypes.push(newEventType);
-      showToast('Thêm mới loại sự kiện thành công!', 'success');
-    } else if (mode === 'edit') {
-      // Cập nhật loại sự kiện
-      const index = allEventTypes.findIndex(et => et.loai_su_kien_id.toString() === id.toString());
-      if (index !== -1) {
-        // Trong thực tế sẽ gọi API để cập nhật
-        allEventTypes[index].ten_loai_su_kien = name;
-        allEventTypes[index].ma_loai_su_kien = code;
-        allEventTypes[index].status = status;
-        showToast('Cập nhật loại sự kiện thành công!', 'success');
-      } else {
-        showToast('Không tìm thấy loại sự kiện để cập nhật!', 'error');
-      }
-    }
-
-    // Đóng modal
-    closeEventTypeModal();
-
-    // Cập nhật lại mảng lọc
-    filteredEventTypes = [...allEventTypes];
-
-    // Áp dụng lại các filter hiện tại
-    applyFiltersAndPagination();
-  }
-
-  // Hàm kiểm tra form thêm/sửa loại sự kiện
-  function validateEventTypeForm() {
-    const name = eventTypeNameInput.value.trim();
-    const code = eventTypeCodeInput.value.trim();
-
-    // Kiểm tra tên không được để trống
-    if (!name) {
-      showToast('Vui lòng nhập tên loại sự kiện', 'error');
-      eventTypeNameInput.focus();
-      return false;
-    }
-
-    // Kiểm tra mã không được để trống
-    if (!code) {
-      showToast('Vui lòng nhập mã loại sự kiện', 'error');
-      eventTypeCodeInput.focus();
-      return false;
-    }
-
-    // Kiểm tra mã không được trùng (trừ trường hợp đang sửa chính nó)
-    const mode = saveEventTypeBtn.dataset.mode;
-    const id = saveEventTypeBtn.dataset.id;
-
-    const isDuplicate = allEventTypes.some(et => {
-      // Nếu đang ở chế độ sửa, bỏ qua chính nó
-      if (mode === 'edit' && et.loai_su_kien_id.toString() === id.toString()) {
-        return false;
-      }
-      return et.ma_loai_su_kien.toLowerCase() === code.toLowerCase();
-    });
-
-    if (isDuplicate) {
-      showToast('Mã loại sự kiện đã tồn tại', 'error');
-      eventTypeCodeInput.focus();
-      return false;
-    }
-
-    return true;
-  }
-
-  // Gắn sự kiện cho các nút sửa
-  function attachEditButtonListeners() {
-    const editButtons = document.querySelectorAll('.edit-btn');
-    editButtons.forEach(button => {
-      button.addEventListener('click', function () {
-        const id = this.dataset.id;
-        window.location.href = `event-type-edit.html?id=${id}`;
-      });
+    // Tạo toast message
+    const toast = document.createElement('div');
+    toast.className = 'fixed top-4 right-4 z-50 px-4 py-2 rounded-md text-white shadow-lg transform transition-transform duration-300 ease-in-out';
+    toast.style.backgroundColor = backgroundColor;
+    toast.style.minWidth = '250px';
+    toast.style.transform = 'translateX(100%)';
+    
+    // Nội dung toast
+    toast.innerHTML = `
+      <div class="flex items-center justify-between">
+        <div class="flex items-center">
+          <i class="ri-${type === 'success' ? 'check-line' : type === 'error' ? 'error-warning-line' : 'information-line'} mr-2"></i>
+          <span>${message}</span>
+        </div>
+        <button class="text-white hover:text-gray-200 focus:outline-none ml-4">
+          <i class="ri-close-line"></i>
+        </button>
+      </div>
+    `;
+    
+    document.body.appendChild(toast);
+    
+    // Hiệu ứng xuất hiện
+    setTimeout(() => {
+      toast.style.transform = 'translateX(0)';
+    }, 10);
+    
+    // Tự động đóng sau 3 giây
+    setTimeout(() => {
+      toast.style.transform = 'translateX(100%)';
+      setTimeout(() => {
+        toast.remove();
+      }, 300);
+    }, 3000);
+    
+    // Sự kiện nút đóng
+    toast.querySelector('button').addEventListener('click', () => {
+      toast.style.transform = 'translateX(100%)';
+      setTimeout(() => {
+        toast.remove();
+      }, 300);
     });
   }
-  // Gắn sự kiện cho các nút xem
-  function attachViewButtonListeners() {
-    const viewButtons = document.querySelectorAll('.view-btn');
-    viewButtons.forEach(button => {
-      button.addEventListener('click', function () {
-        const id = this.dataset.id;
-        window.location.href = `event-type-detail.html?id=${id}`;
-      });
-    });
-  }
+
   // Event Listeners
   // Sidebar toggle
   if (sidebarOpen) {
@@ -428,6 +393,20 @@ document.addEventListener('DOMContentLoaded', function () {
     resetFilterBtn.addEventListener('click', function () {
       filterForm.reset();
       // Không tự động áp dụng filter sau khi đặt lại, chờ người dùng nhấn nút Lọc
+    });
+  }
+
+  // Nút refresh dữ liệu
+  if (refreshBtn) {
+    refreshBtn.addEventListener('click', function() {
+      loadingOverlay.classList.remove('hidden');
+      
+      // Giả lập tải lại dữ liệu từ server
+      setTimeout(() => {
+        init();
+        loadingOverlay.classList.add('hidden');
+        showToast('Dữ liệu đã được làm mới!', 'success');
+      }, 800);
     });
   }
 
@@ -474,66 +453,24 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   }
 
-  // Sự kiện cho nút xóa
-  document.addEventListener('click', function (event) {
-    if (event.target.closest('.delete-btn')) {
-      const id = event.target.closest('.delete-btn').dataset.id;
-      // Hiển thị modal xác nhận xóa
-      deleteModal.classList.remove('hidden');
-
-      // Lưu ID của loại sự kiện cần xóa vào nút xác nhận
-      confirmDeleteBtn.dataset.id = id;
-    }
-  });
-
   // Sự kiện xác nhận xóa
   if (confirmDeleteBtn) {
     confirmDeleteBtn.addEventListener('click', function () {
-      const id = this.dataset.id;
-
-      // Trong thực tế sẽ gọi API để xóa
-      allEventTypes = allEventTypes.filter(eventType => eventType.loai_su_kien_id.toString() !== id);
-      filteredEventTypes = filteredEventTypes.filter(eventType => eventType.loai_su_kien_id.toString() !== id);
-
-      // Cập nhật UI
-      updatePagination();
-      renderTable();
-      totalItemsCount.textContent = allEventTypes.length;
-
-      // Hiển thị thông báo thành công
-      showToast("Xóa loại sự kiện thành công!", "success");
-
-      // Ẩn modal
-      deleteModal.classList.add('hidden');
+      if (currentEventTypeIdToDelete) {
+        deleteEventType(currentEventTypeIdToDelete);
+        
+        // Reset biến lưu trữ ID và ẩn modal
+        currentEventTypeIdToDelete = null;
+        deleteModal.classList.add('hidden');
+      }
     });
   }
 
   // Sự kiện hủy xóa
   if (cancelDeleteBtn) {
     cancelDeleteBtn.addEventListener('click', function () {
+      currentEventTypeIdToDelete = null;
       deleteModal.classList.add('hidden');
-    });
-  }
-
-  // Sự kiện thêm mới loại sự kiện
-  if (addEventTypeBtn) {
-    addEventTypeBtn.addEventListener('click', function () {
-      showEventTypeModal(false);
-    });
-  }
-
-  // Sự kiện lưu loại sự kiện
-  if (saveEventTypeBtn) {
-    saveEventTypeBtn.addEventListener('click', function (event) {
-      event.preventDefault();
-      saveEventType();
-    });
-  }
-
-  // Sự kiện đóng modal thêm/sửa
-  if (closeEventTypeModalBtn) {
-    closeEventTypeModalBtn.addEventListener('click', function () {
-      closeEventTypeModal();
     });
   }
 
@@ -542,43 +479,21 @@ document.addEventListener('DOMContentLoaded', function () {
     if (event.key === 'Escape') {
       // Đóng modal xóa nếu đang mở
       if (!deleteModal.classList.contains('hidden')) {
+        currentEventTypeIdToDelete = null;
         deleteModal.classList.add('hidden');
-      }
-
-      // Đóng modal thêm/sửa nếu đang mở
-      if (!eventTypeModal.classList.contains('hidden')) {
-        closeEventTypeModal();
       }
     }
   });
 
-  // Hàm hiển thị thông báo toast
-  function showToast(message, type = 'info') {
-    // Kiểm tra nếu Toastify đã được load
-    if (typeof Toastify === 'function') {
-      let backgroundColor = '#3b82f6'; // Mặc định màu xanh info
-
-      if (type === 'success') {
-        backgroundColor = '#10B981';
-      } else if (type === 'error') {
-        backgroundColor = '#EF4444';
-      } else if (type === 'warning') {
-        backgroundColor = '#F59E0B';
-      }
-
-      Toastify({
-        text: message,
-        duration: 3000,
-        gravity: "top",
-        position: "right",
-        backgroundColor: backgroundColor,
-        stopOnFocus: true
-      }).showToast();
-    } else {
-      // Fallback nếu không có Toastify
-      alert(message);
+  // Sự kiện click vào overlay để đóng modal
+  document.addEventListener('click', function(event) {
+    // Đóng modal xóa khi click ra ngoài
+    if (!deleteModal.classList.contains('hidden') && 
+        event.target === deleteModal) {
+      currentEventTypeIdToDelete = null;
+      deleteModal.classList.add('hidden');
     }
-  }
+  });
 
   // Khởi tạo dữ liệu khi trang được tải
   init();
