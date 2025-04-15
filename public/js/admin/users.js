@@ -17,7 +17,7 @@ document.addEventListener('DOMContentLoaded', function() {
   // Xử lý sidebar
   const sidebarOpen = document.getElementById('sidebar-open');
   const sidebarClose = document.getElementById('sidebar-close');
-const sidebar = document.getElementById('sidebar');
+  const sidebar = document.getElementById('sidebar');
   const sidebarBackdrop = document.getElementById('sidebar-backdrop');
 
   if (sidebarOpen) {
@@ -50,72 +50,10 @@ const sidebar = document.getElementById('sidebar');
       userMenuDropdown.classList.toggle('hidden');
     });
 
-document.addEventListener('click', (e) => {
+    document.addEventListener('click', (e) => {
       if (!userMenu.contains(e.target) && !userMenuDropdown.contains(e.target)) {
         userMenuDropdown.classList.add('hidden');
-  }
-});
-  }
-
-  // Modal xử lý
-const createUserBtn = document.getElementById('create-user-btn');
-
-function openUserModal() {
-    const modal = document.getElementById('user-modal');
-    if (modal) {
-      modal.classList.remove('hidden');
-    }
-  }
-
-  window.closeUserModal = function() {
-    const modal = document.getElementById('user-modal');
-    if (modal) {
-      modal.classList.add('hidden');
-      // Reset form
-      document.getElementById('user-form').reset();
-    }
-  };
-
-  if (createUserBtn) {
-createUserBtn.addEventListener('click', openUserModal);
-  }
-
-  // Form xử lý
-  const userForm = document.getElementById('user-form');
-  if (userForm) {
-    userForm.addEventListener('submit', function(e) {
-  e.preventDefault();
-  
-      const password = document.getElementById('mat_khau').value;
-      const confirmPassword = document.getElementById('xac_nhan_mat_khau').value;
-      
-      // Kiểm tra mật khẩu và xác nhận mật khẩu
-      if (password !== confirmPassword) {
-        alert('Mật khẩu và xác nhận mật khẩu không khớp!');
-      return;
-    }
-    
-      // Nếu thành công, thêm user mới vào danh sách
-      const newUser = {
-        id: allUsers.length + 1,
-        ho_ten: document.getElementById('ho_ten').value,
-        email: document.getElementById('email').value,
-        so_dien_thoai: document.getElementById('so_dien_thoai').value,
-        vai_tro: document.getElementById('vai_tro').value,
-        trang_thai: document.getElementById('trang_thai').value,
-        ngay_tham_gia: new Date().toISOString().split('T')[0],
-        dia_chi: document.getElementById('dia_chi').value,
-        avatar: 'https://readdy.ai/api/search-image?query=young%20vietnamese%20' + 
-                (Math.random() > 0.5 ? 'male' : 'female') + 
-                '%20student%20minimal%20background&width=100&height=100&seq=' + 
-                Math.floor(Math.random() * 20)
-      };
-      
-      allUsers.unshift(newUser);
-      applyFilters();
-      
-      alert('Người dùng đã được tạo thành công!');
-      closeUserModal();
+      }
     });
   }
 
@@ -348,6 +286,7 @@ createUserBtn.addEventListener('click', openUserModal);
     const searchInput = document.getElementById('filter-search').value.toLowerCase();
     const roleFilter = document.getElementById('filter-role').value;
     const statusFilter = document.getElementById('filter-status').value;
+    const departmentFilter = document.getElementById('filter-department').value;
     
     filteredUsers = allUsers.filter(user => {
       // Kiểm tra tìm kiếm
@@ -362,7 +301,10 @@ createUserBtn.addEventListener('click', openUserModal);
       // Kiểm tra trạng thái
       const statusMatch = !statusFilter || user.trang_thai === statusFilter;
       
-      return searchMatch && roleMatch && statusMatch;
+      // Giả định phòng khoa filter (trong mô hình dữ liệu thực tế cần bổ sung)
+      const departmentMatch = !departmentFilter || true;
+      
+      return searchMatch && roleMatch && statusMatch && departmentMatch;
     });
     
     // Cập nhật phân trang
@@ -492,16 +434,14 @@ createUserBtn.addEventListener('click', openUserModal);
   window.viewUser = function(userId) {
     const user = allUsers.find(u => u.id === userId);
     if (user) {
-      alert(`Xem chi tiết người dùng: ${user.ho_ten}`);
-      // Thực hiện chuyển hướng hoặc hiển thị modal chi tiết
+      window.location.href = `user-detail.html?id=${userId}`;
     }
   };
   
   window.editUser = function(userId) {
     const user = allUsers.find(u => u.id === userId);
     if (user) {
-      alert(`Sửa thông tin người dùng: ${user.ho_ten}`);
-      // Thực hiện mở modal chỉnh sửa và điền dữ liệu
+      window.location.href = `user-edit.html?id=${userId}`;
     }
   };
   
@@ -588,7 +528,6 @@ createUserBtn.addEventListener('click', openUserModal);
   // Thiết lập các event listeners cho bộ lọc
   const filterForm = document.getElementById('filter-form');
   const resetFilterBtn = document.getElementById('reset-filter-btn');
-  const refreshBtn = document.getElementById('refresh-btn');
   
   if (filterForm) {
     filterForm.addEventListener('submit', function(e) {
@@ -602,20 +541,8 @@ createUserBtn.addEventListener('click', openUserModal);
       document.getElementById('filter-search').value = '';
       document.getElementById('filter-role').value = '';
       document.getElementById('filter-status').value = '';
+      document.getElementById('filter-department').value = '';
       applyFilters();
-    });
-  }
-  
-  if (refreshBtn) {
-    refreshBtn.addEventListener('click', function() {
-      // Reset lại dữ liệu từ nguồn (trong trường hợp thực tế sẽ gọi API)
-      filteredUsers = [...allUsers];
-      document.getElementById('filter-search').value = '';
-      document.getElementById('filter-role').value = '';
-      document.getElementById('filter-status').value = '';
-      paginationState.currentPage = 1;
-      updatePagination();
-      renderTable();
     });
   }
 

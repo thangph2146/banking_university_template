@@ -4,29 +4,57 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Quản lý Diễn giả - HUB Admin</title>
+  <title>Chi Tiết Người Dùng - HUB Admin</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet" />
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
   <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet" />
   <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-  <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
   <link href="../../public/css/custom.css" rel="stylesheet">
   <script src="https://cdn.tailwindcss.com/3.4.16"></script>
   <script src="../../public/js/tailwind.config.js"></script>
+  <style>
+    /* Animation cho toast notifications */
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    
+    @keyframes fadeOut {
+      from { opacity: 1; transform: translateY(0); }
+      to { opacity: 0; transform: translateY(20px); }
+    }
+    
+    .animate-fade-in {
+      animation: fadeIn 0.3s ease-out forwards;
+    }
+    
+    .animate-fade-out {
+      animation: fadeOut 0.3s ease-out forwards;
+    }
+
+    .tab-content {
+      transition: opacity 0.2s ease-in-out;
+    }
+  </style>
 </head>
 
 <body class="bg-gray-50 min-h-screen">
+  <!-- Loading Overlay -->
+  <div id="loading-overlay" class="fixed inset-0 bg-white z-50 flex items-center justify-center">
+    <div class="flex flex-col items-center">
+      <div class="w-16 h-16 border-4 border-primary border-t-transparent rounded-full animate-spin"></div>
+      <p class="mt-4 text-gray-600">Đang tải thông tin người dùng...</p>
+    </div>
+  </div>
+
   <div class="flex h-screen overflow-hidden">
-    <!-- Sidebar Backdrop (mobile only) -->
     <div id="sidebar-backdrop" class="fixed inset-0 bg-black/50 z-20 hidden md:hidden transition-opacity duration-300">
     </div>
 
-    <!-- Sidebar -->
     <aside id="sidebar"
       class="fixed md:relative z-50 bg-white w-72 max-w-[80vw] min-h-screen shadow-lg transform -translate-x-full md:translate-x-0 transition-transform duration-300 overflow-y-auto">
-      <!-- Logo/Brand for mobile -->
       <div class="flex items-center justify-between p-4 border-b md:hidden">
         <a href="index.html" class="text-2xl font-['Pacifico'] text-primary flex items-center">
           <img src="../../images/logo/logo-white.png" alt="logo" class="w-8 h-8 mr-2">
@@ -53,16 +81,15 @@
                 <span class="sidebar-link-text">Sự kiện</span>
               </a>
               <a href="users.html"
-                class="sidebar-link flex items-center text-gray-600 hover:text-primary p-2 rounded-md hover:bg-gray-100">
+                class="sidebar-link active flex items-center text-primary p-2 rounded-md bg-primary/10 font-medium">
                 <i class="sidebar-icon ri-user-line mr-2"></i>
                 <span class="sidebar-link-text">Người dùng</span>
               </a>
               <a href="speakers.html"
-                class="sidebar-link active flex items-center text-primary p-2 rounded-md bg-primary/10 font-medium">
+                class="sidebar-link flex items-center text-gray-600 hover:text-primary p-2 rounded-md hover:bg-gray-100">
                 <i class="sidebar-icon ri-mic-line mr-2"></i>
                 <span class="sidebar-link-text">Diễn giả</span>
               </a>
-               
             </div>
           </div>
 
@@ -136,7 +163,7 @@
                 <span class="sidebar-link-text">Khoá học</span>
               </a>
               <a href="majors.html"
-                class="sidebar-link flex items-center text-primary p-2 rounded-md bg-primary/10 font-medium">
+                class="sidebar-link flex items-center text-gray-600 hover:text-primary p-2 rounded-md hover:bg-gray-100">
                 <i class="sidebar-icon ri-book-open-line mr-2"></i>
                 <span class="sidebar-link-text">Ngành đào tạo</span>
               </a>
@@ -172,9 +199,9 @@
     </aside>
 
     <!-- Main Content -->
-    <main class="flex-1 overflow-auto px-6 pb-6 pt-4">
+    <main class="flex-1 overflow-auto">
       <!-- Header -->
-      <header class="bg-primary shadow-md sticky top-0 z-30 animate-fade-in mb-6">
+      <header class="bg-primary shadow-md sticky top-0 z-30 animate-fade-in">
         <div class="container mx-auto px-4 py-2 flex items-center justify-between">
           <!-- Mobile Menu Toggle Button -->
           <button id="sidebar-open" class="text-white p-2 rounded-md md:hidden focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white">
@@ -225,174 +252,204 @@
           </div>
         </div>
       </header>
-      
-      <div class="bg-white rounded-lg shadow mb-6 p-4">
-        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between">
-          <div>
-            <h1 class="text-2xl font-semibold text-gray-900">Quản lý diễn giả</h1>
-            <p class="mt-1 text-sm text-gray-600">Quản lý tất cả diễn giả trong hệ thống</p>
+
+      <div class="container mx-auto px-4 py-6">
+        <!-- Breadcrumb -->
+        <div class="flex items-center text-sm text-gray-600 mb-6">
+          <a href="dashboard.html" class="hover:text-primary">Trang chủ</a>
+          <i class="ri-arrow-right-s-line mx-2"></i>
+          <a href="users.html" class="hover:text-primary">Người dùng</a>
+          <i class="ri-arrow-right-s-line mx-2"></i>
+          <span class="text-gray-800 font-medium">Chi tiết người dùng</span>
+        </div>
+
+        <!-- Page Header -->
+        <div class="flex flex-wrap items-center justify-between gap-4 mb-6">
+          <div class="flex items-center">
+            <div class="w-14 h-14 rounded-full bg-primary/10 flex items-center justify-center mr-4">
+              <i class="ri-user-line text-3xl text-primary"></i>
+            </div>
+            <div>
+              <h1 class="text-2xl md:text-3xl font-bold text-gray-800" id="user-name">Nguyễn Văn A</h1>
+              <p class="text-gray-500 text-sm md:text-base" id="user-role">Sinh viên • Khoa Công nghệ thông tin</p>
+            </div>
           </div>
-          <div class="mt-4 sm:mt-0 flex gap-2">
-            <a href="speaker-create.html" id="create-speaker-btn"
-              class="flex items-center justify-center px-4 py-2 bg-primary text-white rounded-md hover:bg-primary-dark transition-colors duration-200">
-              <i class="ri-add-line mr-1"></i> Thêm diễn giả mới
+          <div class="flex flex-wrap gap-2">
+            <button id="back-btn" class="btn-outline">
+              <i class="ri-arrow-left-line mr-1"></i> Quay lại
+            </button>
+            <a href="user-edit.html?id=1" class="btn-primary">
+              <i class="ri-edit-line mr-1"></i> Chỉnh sửa
             </a>
           </div>
         </div>
-      </div>
 
-      <!-- Breadcrumb -->
-      <nav class="text-sm font-medium mb-3" aria-label="Breadcrumb">
-        <ol class="list-none p-0 inline-flex">
-          <li class="flex items-center">
-            <a href="dashboard.html" class="text-gray-500 hover:text-primary">
-              <i class="ri-dashboard-line mr-1"></i> Dashboard
-            </a>
-            <i class="ri-arrow-right-s-line text-gray-400 mx-2"></i>
-          </li>
-          <li class="text-primary" aria-current="page">Diễn giả</li>
-        </ol>
-      </nav>
-
-        <!-- Filters -->
-        <div class="bg-white p-4 rounded-lg shadow mb-4">
-          <form id="filter-form">
-            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
-              <!-- Tìm kiếm tên diễn giả -->
-              <div>
-                <label for="filter-name" class="block text-sm font-medium text-gray-700 mb-1">Tìm kiếm</label>
-                <input type="text" id="filter-name" name="filter-name" placeholder="Nhập tên diễn giả..."
-                  class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-primary focus:border-primary text-sm">
-              </div>
-              <!-- Lọc theo tổ chức -->
-              <div>
-                <label for="filter-organization" class="block text-sm font-medium text-gray-700 mb-1">Tổ chức</label>
-                <select id="filter-organization" name="filter-organization"
-                  class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-primary focus:border-primary text-sm">
-                  <option value="">Tất cả</option>
-                  <option value="university">Trường đại học</option>
-                  <option value="company">Doanh nghiệp</option>
-                  <option value="institute">Viện nghiên cứu</option>
-                </select>
-              </div>
-              <!-- Lọc theo chuyên môn -->
-              <div>
-                <label for="filter-expertise" class="block text-sm font-medium text-gray-700 mb-1">Chuyên môn</label>
-                <input type="text" id="filter-expertise" name="filter-expertise" placeholder="Nhập lĩnh vực chuyên môn..."
-                  class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-primary focus:border-primary text-sm">
-              </div>
-              <!-- Lọc theo trạng thái -->
-              <div>
-                <label for="filter-status" class="block text-sm font-medium text-gray-700 mb-1">Trạng thái</label>
-                <select id="filter-status" name="filter-status"
-                  class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-primary focus:border-primary text-sm">
-                  <option value="">Tất cả</option>
-                  <option value="1">Hoạt động</option>
-                  <option value="0">Không hoạt động</option>
-                </select>
-              </div>
-            </div>
-            <div class="mt-4 flex justify-end space-x-2">
-              <button type="reset" id="reset-filter-btn"
-                class="px-4 py-2 border border-gray-300 text-gray-700 rounded-md hover:bg-gray-50 text-sm transition-colors duration-200">
-                Đặt lại
-              </button>
-              <button type="submit" id="apply-filter-btn"
-                class="px-4 py-2 bg-primary text-white rounded-md hover:bg-primary-dark text-sm transition-colors duration-200">
-                <i class="ri-filter-line mr-1"></i> Lọc
-              </button>
-            </div>
-          </form>
+        <!-- Tabs Navigation -->
+        <div class="border-b mb-6">
+          <div class="flex flex-wrap -mb-px">
+            <button type="button" class="tab-btn px-6 py-3 border-b-2 border-transparent text-gray-500 hover:text-primary hover:border-primary" data-tab="basic-info">
+              Thông tin cơ bản
+            </button>
+            <button type="button" class="tab-btn px-6 py-3 border-b-2 border-transparent text-gray-500 hover:text-primary hover:border-primary" data-tab="academic-info">
+              Thông tin học thuật
+            </button>
+            <button type="button" class="tab-btn px-6 py-3 border-b-2 border-transparent text-gray-500 hover:text-primary hover:border-primary" data-tab="events">
+              Sự kiện đã tham gia
+            </button>
+            <button type="button" class="tab-btn px-6 py-3 border-b-2 border-transparent text-gray-500 hover:text-primary hover:border-primary" data-tab="activity">
+              Lịch sử hoạt động
+            </button>
+          </div>
         </div>
 
-        <!-- Speakers Table -->
-        <div class="bg-white rounded-lg shadow overflow-hidden">
-          <div class="p-4 border-b border-gray-200 flex justify-between items-center">
-            <h2 class="text-lg font-medium text-gray-900">Danh sách diễn giả</h2>
-          </div>
-          <div class="overflow-x-auto">
-            <table class="min-w-full divide-y divide-gray-200">
-              <thead class="bg-gray-50">
-                <tr>
-                  <th scope="col"
-                    class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider min-w-[200px]">
-                    Diễn giả
-                  </th>
-                  <th scope="col"
-                    class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider min-w-[150px]">
-                    Thông tin liên hệ
-                  </th>
-                  <th scope="col"
-                    class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider min-w-[200px]">
-                    Chuyên môn
-                  </th>
-                  <th scope="col"
-                    class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider min-w-[100px]">
-                    Tổ chức
-                  </th>
-                  <th scope="col"
-                    class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider min-w-[100px]">
-                    Trạng thái
-                  </th>
-                  <th scope="col"
-                    class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider min-w-[120px]">
-                    Thao tác
-                  </th>
-                </tr>
-              </thead>
-              <tbody id="speakers-table-body" class="bg-white divide-y divide-gray-200">
-                <!-- Rows will be inserted here by JavaScript -->
-                <tr>
-                  <td colspan="6" class="px-6 py-4 text-center text-gray-500">
-                    Đang tải dữ liệu...
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-
-          <!-- Pagination -->
-          <div class="px-4 py-3 bg-gray-50 border-t border-gray-200">
-            <div class="flex flex-col sm:flex-row items-center justify-between space-y-2 sm:space-y-0">
-              <div class="flex items-center space-x-2 text-sm text-gray-500">
-                <span>Hiển thị</span>
-                <select id="items-per-page" name="items-per-page"
-                  class="border border-gray-300 rounded-md px-2 py-1 focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary">
-                  <option value="10" selected>10</option>
-                  <option value="20">20</option>
-                  <option value="50">50</option>
-                  <option value="100">100</option>
-                </select>
-                <span>mục. Tổng số: <span id="total-items-count" class="font-medium text-gray-700">0</span> diễn
-                  giả.</span>
-              </div>
-              <div class="flex items-center space-x-1" id="pagination-controls">
-                <button
-                  class="btn-first p-2 rounded text-gray-500 hover:text-gray-700 hover:bg-gray-100 disabled:opacity-50 disabled:cursor-not-allowed"
-                  title="Trang đầu">
-                  <i class="ri-skip-left-line"></i>
-                </button>
-                <button
-                  class="btn-prev p-2 rounded text-gray-500 hover:text-gray-700 hover:bg-gray-100 disabled:opacity-50 disabled:cursor-not-allowed"
-                  title="Trang trước">
-                  <i class="ri-arrow-left-s-line"></i>
-                </button>
-                <div class="flex items-center space-x-1 px-2">
-                  <span class="text-sm text-gray-700">Trang</span>
-                  <input type="number" id="current-page-input" value="1" min="1"
-                    class="w-12 border border-gray-300 rounded-md px-2 py-1 text-center text-sm focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary">
-                  <span class="text-sm text-gray-500">/ <span id="total-pages-count">1</span></span>
+        <!-- Tab Contents -->
+        <div class="space-y-6">
+          <!-- Basic Information Tab -->
+          <div id="tab-basic-info" class="tab-content">
+            <div class="bg-white rounded-lg shadow-sm p-6">
+              <h2 class="text-xl font-semibold mb-4 text-gray-800">Thông tin cá nhân</h2>
+              
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
+                  <p class="text-sm text-gray-500 mb-1">Họ</p>
+                  <p class="font-medium" id="user-lastname">Nguyễn</p>
                 </div>
-                <button
-                  class="btn-next p-2 rounded text-gray-500 hover:text-gray-700 hover:bg-gray-100 disabled:opacity-50 disabled:cursor-not-allowed"
-                  title="Trang sau">
-                  <i class="ri-arrow-right-s-line"></i>
-                </button>
-                <button
-                  class="btn-last p-2 rounded text-gray-500 hover:text-gray-700 hover:bg-gray-100 disabled:opacity-50 disabled:cursor-not-allowed"
-                  title="Trang cuối">
-                  <i class="ri-skip-right-line"></i>
-                </button>
+                <div>
+                  <p class="text-sm text-gray-500 mb-1">Tên đệm</p>
+                  <p class="font-medium" id="user-middlename">Văn</p>
+                </div>
+                <div>
+                  <p class="text-sm text-gray-500 mb-1">Tên</p>
+                  <p class="font-medium" id="user-firstname">A</p>
+                </div>
+                <div>
+                  <p class="text-sm text-gray-500 mb-1">Họ và tên đầy đủ</p>
+                  <p class="font-medium" id="user-fullname">Nguyễn Văn A</p>
+                </div>
+                <div>
+                  <p class="text-sm text-gray-500 mb-1">Email</p>
+                  <p class="font-medium" id="user-email">nguyenvana@example.com</p>
+                </div>
+                <div>
+                  <p class="text-sm text-gray-500 mb-1">Số điện thoại</p>
+                  <p class="font-medium" id="user-phone">0123456789</p>
+                </div>
+                <div>
+                  <p class="text-sm text-gray-500 mb-1">Điện thoại nhà</p>
+                  <p class="font-medium" id="user-homephone">0123456789</p>
+                </div>
+                <div>
+                  <p class="text-sm text-gray-500 mb-1">Loại người dùng</p>
+                  <p class="font-medium" id="user-type">Sinh viên</p>
+                </div>
+                <div>
+                  <p class="text-sm text-gray-500 mb-1">Account ID</p>
+                  <p class="font-medium" id="user-accountid">SV12345</p>
+                </div>
+                <div>
+                  <p class="text-sm text-gray-500 mb-1">Loại tài khoản</p>
+                  <p class="font-medium" id="user-accounttype">Local</p>
+                </div>
+                <div>
+                  <p class="text-sm text-gray-500 mb-1">Trạng thái</p>
+                  <div class="mt-1" id="user-status">
+                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
+                      <span class="h-2 w-2 rounded-full bg-green-400 mr-1.5"></span>
+                      Đang hoạt động
+                    </span>
+                  </div>
+                </div>
+                <div>
+                  <p class="text-sm text-gray-500 mb-1">Đăng nhập gần nhất</p>
+                  <p class="font-medium" id="user-lastlogin">12/06/2024 15:30</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Academic Information Tab -->
+          <div id="tab-academic-info" class="tab-content hidden">
+            <div class="bg-white rounded-lg shadow-sm p-6">
+              <h2 class="text-xl font-semibold mb-4 text-gray-800">Thông tin học thuật</h2>
+              
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
+                  <p class="text-sm text-gray-500 mb-1">Phòng/Khoa</p>
+                  <p class="font-medium" id="user-department">Khoa Công nghệ thông tin</p>
+                </div>
+                <div>
+                  <p class="text-sm text-gray-500 mb-1">Năm học</p>
+                  <p class="font-medium" id="user-academic-year">2023-2024</p>
+                </div>
+                <div>
+                  <p class="text-sm text-gray-500 mb-1">Bậc học</p>
+                  <p class="font-medium" id="user-academic-level">Đại học</p>
+                </div>
+                <div>
+                  <p class="text-sm text-gray-500 mb-1">Hệ đào tạo</p>
+                  <p class="font-medium" id="user-education-system">Chính quy</p>
+                </div>
+                <div>
+                  <p class="text-sm text-gray-500 mb-1">Ngành đào tạo</p>
+                  <p class="font-medium" id="user-major">Công nghệ thông tin</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Events Tab -->
+          <div id="tab-events" class="tab-content hidden">
+            <div class="bg-white rounded-lg shadow-sm p-6">
+              <h2 class="text-xl font-semibold mb-4 text-gray-800">Sự kiện đã tham gia</h2>
+              
+              <div class="overflow-x-auto">
+                <table class="min-w-full divide-y divide-gray-200">
+                  <thead class="bg-gray-50">
+                    <tr>
+                      <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Sự kiện</th>
+                      <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Thời gian</th>
+                      <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Check-in</th>
+                      <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Check-out</th>
+                      <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Thời gian tham gia</th>
+                      <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Hành động</th>
+                    </tr>
+                  </thead>
+                  <tbody class="bg-white divide-y divide-gray-200" id="events-list">
+                    <!-- Dữ liệu sự kiện sẽ được điền vào đây bằng JavaScript -->
+                  </tbody>
+                </table>
+              </div>
+              
+              <!-- Phân trang -->
+              <div class="flex items-center justify-between mt-4">
+                <div class="text-sm text-gray-500">Hiển thị 1 đến 5 trong tổng số 10 sự kiện</div>
+                <div class="flex space-x-2">
+                  <button class="px-3 py-1 border rounded-md text-sm">Trước</button>
+                  <button class="px-3 py-1 border rounded-md text-sm bg-primary text-white">1</button>
+                  <button class="px-3 py-1 border rounded-md text-sm">2</button>
+                  <button class="px-3 py-1 border rounded-md text-sm">Sau</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Activity Tab -->
+          <div id="tab-activity" class="tab-content hidden">
+            <div class="bg-white rounded-lg shadow-sm p-6">
+              <h2 class="text-xl font-semibold mb-4 text-gray-800">Lịch sử hoạt động</h2>
+              
+              <div class="relative">
+                <!-- Timeline -->
+                <div class="absolute left-0 top-0 w-0.5 h-full bg-gray-200 ml-6"></div>
+                
+                <div class="space-y-8" id="activity-list">
+                  <!-- Dữ liệu hoạt động sẽ được điền vào đây bằng JavaScript -->
+                </div>
+              </div>
+              
+              <!-- Load more button -->
+              <div class="mt-6 text-center">
+                <button class="btn-outline">Xem thêm</button>
               </div>
             </div>
           </div>
@@ -402,9 +459,6 @@
   </div>
 
   <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-  <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
-  <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
-  <script src="../../public/js/admin/speakers.js"></script>
+  <script src="../../public/js/admin/user-detail.js"></script>
 </body>
-
-</html>
+</html> 

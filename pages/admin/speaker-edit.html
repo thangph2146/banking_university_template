@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cập nhật Thông tin Diễn giả - HUB Admin</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet" />
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+  <link href="../../public/css/custom.css" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com/3.4.16"></script>
+  <script src="../../public/js/tailwind.config.js"></script>
+  <script src="https://cdn.tiny.cloud/1/b7whk7hw51nvscdfn62fpplvwtw6h7xavw8hk5t35l1bbrnz/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
+</head>
+
+<body class="bg-gray-50 min-h-screen">
+  <div class="flex h-screen overflow-hidden">
+    <div id="sidebar-backdrop" class="fixed inset-0 bg-black/50 z-20 hidden md:hidden transition-opacity duration-300">
+    </div>
+
+    <aside id="sidebar"
+      class="fixed md:relative z-50 bg-white w-72 max-w-[80vw] min-h-screen shadow-lg transform -translate-x-full md:translate-x-0 transition-transform duration-300 overflow-y-auto">
+      <div class="flex items-center justify-between p-4 border-b md:hidden">
+        <a href="index.html" class="text-2xl font-['Pacifico'] text-primary flex items-center">
+          <img src="../../images/logo/logo-white.png" alt="logo" class="w-8 h-8 mr-2">
+          <span>HUB Admin</span>
+        </a>
+        <button id="sidebar-close" class="text-gray-500 hover:text-gray-700 focus:outline-none">
+          <i class="ri-close-line text-2xl"></i>
+        </button>
+      </div>
+
+      <nav class="p-4">
+        <div class="space-y-4">
+          <div class="border-b pb-4">
+            <h2 class="text-xs uppercase text-gray-400 font-semibold">Quản lý chung</h2>
+            <div class="mt-3 space-y-3">
+              <a href="dashboard.html"
+                class="sidebar-link flex items-center text-gray-600 hover:text-primary p-2 rounded-md hover:bg-gray-100">
+                <i class="sidebar-icon ri-dashboard-line mr-2"></i>
+                <span class="sidebar-link-text">Tổng quan</span>
+              </a>
+              <a href="events.html"
+                class="sidebar-link flex items-center text-gray-600 hover:text-primary p-2 rounded-md hover:bg-gray-100">
+                <i class="sidebar-icon ri-calendar-event-line mr-2"></i>
+                <span class="sidebar-link-text">Sự kiện</span>
+              </a>
+              <a href="users.html"
+                class="sidebar-link flex items-center text-gray-600 hover:text-primary p-2 rounded-md hover:bg-gray-100">
+                <i class="sidebar-icon ri-user-line mr-2"></i>
+                <span class="sidebar-link-text">Người dùng</span>
+              </a>
+              <a href="speakers.html"
+                class="sidebar-link active flex items-center text-primary p-2 rounded-md bg-primary/10 font-medium">
+                <i class="sidebar-icon ri-mic-line mr-2"></i>
+                <span class="sidebar-link-text">Diễn giả</span>
+              </a>
+            </div>
+          </div>
+
+          <div class="border-b pb-4">
+            <h2 class="sidebar-section-title text-xs uppercase text-gray-400 font-semibold">Quản lý sự kiện</h2>
+            <div class="mt-3 space-y-3">
+              <a href="event-types.html"
+                class="sidebar-link flex items-center text-gray-600 hover:text-primary p-2 rounded-md hover:bg-gray-100">
+                 <i class="sidebar-icon ri-price-tag-3-line mr-2"></i>
+                 <span class="sidebar-link-text">Loại sự kiện</span>
+              </a>
+              <a href="event-speakers.html"
+                 class="sidebar-link flex items-center text-gray-600 hover:text-primary p-2 rounded-md hover:bg-gray-100">
+                 <i class="sidebar-icon ri-user-voice-line mr-2"></i>
+                 <span class="sidebar-link-text">Diễn giả Sự kiện</span>
+               </a>
+              <a href="registrations.html"
+                class="sidebar-link flex items-center text-gray-600 hover:text-primary p-2 rounded-md hover:bg-gray-100">
+                <i class="sidebar-icon ri-file-list-line mr-2"></i>
+                <span class="sidebar-link-text">Đăng ký sự kiện</span>
+              </a>
+              <a href="checkins.html"
+                class="sidebar-link flex items-center text-gray-600 hover:text-primary p-2 rounded-md hover:bg-gray-100">
+                <i class="sidebar-icon ri-login-box-line mr-2"></i>
+                <span class="sidebar-link-text">Check-in</span>
+              </a>
+              <a href="checkouts.html"
+                class="sidebar-link flex items-center text-gray-600 hover:text-primary p-2 rounded-md hover:bg-gray-100">
+                <i class="sidebar-icon ri-logout-box-line mr-2"></i>
+                <span class="sidebar-link-text">Check-out</span>
+              </a>
+              <a href="screens.html"
+                 class="sidebar-link flex items-center text-gray-600 hover:text-primary p-2 rounded-md hover:bg-gray-100">
+                 <i class="sidebar-icon ri-tv-2-line mr-2"></i>
+                 <span class="sidebar-link-text">Màn hình</span>
+               </a>
+              <a href="reports.html"
+                class="sidebar-link flex items-center text-gray-600 hover:text-primary p-2 rounded-md hover:bg-gray-100">
+                <i class="sidebar-icon ri-bar-chart-line mr-2"></i>
+                <span class="sidebar-link-text">Báo cáo</span>
+              </a>
+            </div>
+          </div>
+
+          <div>
+            <h2 class="sidebar-section-title text-xs uppercase text-gray-400 font-semibold">Cài đặt hệ thống</h2>
+            <div class="mt-3 space-y-3">
+              <a href="settings.html"
+                class="sidebar-link flex items-center text-gray-600 hover:text-primary p-2 rounded-md hover:bg-gray-100">
+                <i class="sidebar-icon ri-settings-3-line mr-2"></i>
+                <span class="sidebar-link-text">Thiết lập</span>
+              </a>
+              <a href="roles.html"
+                class="sidebar-link flex items-center text-gray-600 hover:text-primary p-2 rounded-md hover:bg-gray-100">
+                <i class="sidebar-icon ri-shield-user-line mr-2"></i>
+                <span class="sidebar-link-text">Phân quyền</span>
+              </a>
+              <a href="user-types.html"
+                class="sidebar-link flex items-center text-gray-600 hover:text-primary p-2 rounded-md hover:bg-gray-100">
+                <i class="sidebar-icon ri-group-line mr-2"></i>
+                <span class="sidebar-link-text">Loại người dùng</span>
+              </a>
+              <a href="academic-levels.html"
+                class="sidebar-link flex items-center text-gray-600 hover:text-primary p-2 rounded-md hover:bg-gray-100">
+                <i class="sidebar-icon ri-graduation-cap-line mr-2"></i>
+                <span class="sidebar-link-text">Bậc học</span>
+              </a>
+              <a href="courses.html"
+                class="sidebar-link flex items-center text-gray-600 hover:text-primary p-2 rounded-md hover:bg-gray-100">
+                <i class="sidebar-icon ri-book-open-line mr-2"></i>
+                <span class="sidebar-link-text">Khoá học</span>
+              </a>
+              <a href="majors.html"
+                class="sidebar-link flex items-center text-gray-600 hover:text-primary p-2 rounded-md hover:bg-gray-100">
+                <i class="sidebar-icon ri-book-open-line mr-2"></i>
+                <span class="sidebar-link-text">Ngành đào tạo</span>
+              </a>
+              <a href="departments.html"
+                class="sidebar-link flex items-center text-gray-600 hover:text-primary p-2 rounded-md hover:bg-gray-100">
+                <i class="sidebar-icon ri-building-line mr-2"></i>
+                <span class="sidebar-link-text">Phòng khoa</span>
+              </a>
+              <a href="academic-years.html"
+                class="sidebar-link flex items-center text-gray-600 hover:text-primary p-2 rounded-md hover:bg-gray-100">
+                <i class="sidebar-icon ri-calendar-check-line mr-2"></i>
+                <span class="sidebar-link-text">Năm học</span>
+              </a>
+              <a href="cameras.html"
+                class="sidebar-link flex items-center text-gray-600 hover:text-primary p-2 rounded-md hover:bg-gray-100">
+                <i class="sidebar-icon ri-camera-line mr-2"></i>
+                <span class="sidebar-link-text">Camera</span>
+              </a>
+              <a href="logs.html"
+                class="sidebar-link flex items-center text-gray-600 hover:text-primary p-2 rounded-md hover:bg-gray-100">
+                <i class="sidebar-icon ri-file-list-3-line mr-2"></i>
+                <span class="sidebar-link-text">Nhật ký</span>
+              </a>
+              <a href="accounts.html"
+                class="sidebar-link flex items-center text-gray-600 hover:text-primary p-2 rounded-md hover:bg-gray-100">
+                <i class="sidebar-icon ri-user-settings-line mr-2"></i>
+                <span class="sidebar-link-text">Tài khoản</span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </aside>
+
+    <main class="flex-1 overflow-auto px-6 pb-6 pt-4">
+      <header class="bg-primary shadow-md sticky top-0 z-30 animate-fade-in mb-6">
+        <div class="container mx-auto px-4 py-2 flex items-center justify-between">
+          <button id="sidebar-open" class="text-white p-2 rounded-md md:hidden focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white">
+            <i class="ri-menu-line text-2xl"></i>
+          </button>
+
+          <a href="index.html"
+            class="text-2xl font-['Pacifico'] text-white transition-all duration-300 hover:scale-105">
+            <img src="../../images/logo/logo-white.png" alt="logo" class="w-12 h-12 md:w-16 md:h-16">
+          </a>
+          <div class="flex items-center space-x-4">
+            <div class="relative">
+              <button class="text-white hover:text-gray-200 focus:outline-none">
+                <i class="ri-notification-3-line text-xl"></i>
+                <span class="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full w-4 h-4 flex items-center justify-center">3</span>
+              </button>
+            </div>
+
+            <div class="flex items-center space-x-4">
+              <div class="relative group">
+                <button class="flex items-center space-x-2 text-white">
+                  <img src="https://readdy.ai/api/search-image?query=professional%20headshot%20young%20vietnamese%20student%20minimal%20background&width=100&height=100&seq=avatar" alt="Ảnh đại diện" class="w-8 h-8 rounded-full border-2 border-white">
+                  <span class="hidden sm:block">Nguyễn Văn A</span>
+                  <i class="ri-arrow-down-s-line group-hover:rotate-180 transition-transform duration-300"></i>
+                </button>
+                <div class="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg overflow-hidden z-20 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform origin-top-right scale-95 group-hover:scale-100">
+                  <div class="py-2">
+                    <a href="profile.html"
+                      class="flex items-center px-4 py-2 text-sm text-gray-800 hover:bg-primary/10 hover:text-primary border-l-4 border-primary">
+                      <i class="ri-user-line mr-2"></i>
+                      Trang cá nhân
+                    </a>
+                    <a href="#"
+                      class="flex items-center px-4 py-2 text-sm text-gray-800 hover:bg-primary/10 hover:text-primary">
+                      <i class="ri-calendar-event-line mr-2"></i>
+                      Sự kiện của tôi
+                    </a>
+                    <a href="#"
+                      class="flex items-center px-4 py-2 text-sm text-gray-800 hover:bg-primary/10 hover:text-primary">
+                      <i class="ri-settings-4-line mr-2"></i>
+                      Cài đặt
+                    </a>
+                    <hr class="my-1 border-gray-200">
+                    <a href="login.html"
+                      class="flex items-center px-4 py-2 text-sm text-gray-800 hover:bg-primary/10 hover:text-primary">
+                      <i class="ri-logout-box-r-line mr-2"></i>
+                      Đăng xuất
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <div class="container mx-auto">
+        <nav class="flex mb-6" aria-label="Breadcrumb">
+          <ol class="inline-flex items-center space-x-1 md:space-x-3">
+            <li class="inline-flex items-center">
+              <a href="dashboard.html" class="text-gray-700 hover:text-primary">
+                <i class="ri-dashboard-line mr-2"></i>
+                Dashboard
+              </a>
+            </li>
+            <li>
+              <div class="flex items-center">
+                <i class="ri-arrow-right-s-line text-gray-400"></i>
+                <a href="speakers.html" class="ml-1 text-gray-700 hover:text-primary">
+                  Diễn giả
+                </a>
+              </div>
+            </li>
+            <li>
+              <div class="flex items-center">
+                <i class="ri-arrow-right-s-line text-gray-400"></i>
+                <span class="ml-1 text-primary font-medium">Cập nhật diễn giả</span>
+              </div>
+            </li>
+          </ol>
+        </nav>
+
+        <div class="flex flex-col md:flex-row md:items-center md:justify-between mb-6">
+          <h1 class="text-2xl font-semibold text-gray-900">Cập nhật thông tin diễn giả</h1>
+          <div class="mt-4 md:mt-0 flex space-x-3">
+            <button id="shortcuts-btn" type="button" class="text-gray-700 px-3 py-2 rounded-lg hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-300 relative group">
+              <i class="ri-keyboard-line text-lg"></i>
+              <div class="absolute right-0 mt-2 w-72 bg-white rounded-lg shadow-lg p-4 z-50 invisible opacity-0 group-hover:visible group-hover:opacity-100 transition-all duration-300 -translate-y-2 group-hover:translate-y-0">
+                <h3 class="text-sm font-medium text-gray-800 border-b pb-1 mb-2">Phím tắt hỗ trợ</h3>
+                <div class="text-xs text-gray-600 space-y-1.5">
+                  <p><span class="bg-gray-100 px-1.5 py-0.5 rounded font-mono">Alt</span> + <span class="bg-gray-100 px-1.5 py-0.5 rounded font-mono">←</span>/<span class="bg-gray-100 px-1.5 py-0.5 rounded font-mono">→</span>: Di chuyển giữa các tab</p>
+                  <p><span class="bg-gray-100 px-1.5 py-0.5 rounded font-mono">Alt</span> + <span class="bg-gray-100 px-1.5 py-0.5 rounded font-mono">1-4</span>: Chuyển đến tab tương ứng</p>
+                  <p><span class="bg-gray-100 px-1.5 py-0.5 rounded font-mono">Alt</span> + <span class="bg-gray-100 px-1.5 py-0.5 rounded font-mono">Tab</span>: Tab tiếp theo</p>
+                </div>
+              </div>
+            </button>
+            <button onclick="history.back()" class="bg-gray-100 text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-gray-300">
+              <i class="ri-arrow-left-line mr-1"></i>
+              Quay lại
+            </button>
+            <button type="submit" form="speaker-form" class="bg-primary text-white px-4 py-2 rounded-lg hover:bg-primary/90 focus:outline-none focus:ring-2 focus:ring-primary/50">
+              <i class="ri-save-line mr-1"></i>
+              Lưu thay đổi
+            </button>
+          </div>
+        </div>
+
+        <div class="border-gray-200">
+          <form id="speaker-form" class="bg-white rounded-lg shadow-sm overflow-hidden">
+            <!-- Tab Navigation -->
+            <div class="border-b border-gray-200 overflow-x-auto scrollbar-hide">
+              <nav class="flex flex-nowrap -mb-px min-w-full" aria-label="Tabs">
+                <button type="button" class="tab-button border-b-2 border-primary text-primary px-6 py-4 text-sm font-medium flex items-center whitespace-nowrap transition-all duration-200 hover:text-primary hover:border-primary/50 min-w-[150px]" data-tab="basic" aria-selected="true">
+                  <i class="ri-information-line mr-2"></i>
+                  Thông tin cơ bản
+                </button>
+                <button type="button" class="tab-button border-b-2 border-transparent text-gray-500 px-6 py-4 text-sm font-medium flex items-center whitespace-nowrap transition-all duration-200 hover:text-primary hover:border-primary/50 min-w-[150px]" data-tab="professional" aria-selected="false">
+                  <i class="ri-briefcase-line mr-2"></i>
+                  Thông tin chuyên môn
+                </button>
+                <button type="button" class="tab-button border-b-2 border-transparent text-gray-500 px-6 py-4 text-sm font-medium flex items-center whitespace-nowrap transition-all duration-200 hover:text-primary hover:border-primary/50 min-w-[150px]" data-tab="socials" aria-selected="false">
+                  <i class="ri-links-line mr-2"></i>
+                  Liên kết và mạng xã hội
+                </button>
+                <button type="button" class="tab-button border-b-2 border-transparent text-gray-500 px-6 py-4 text-sm font-medium flex items-center whitespace-nowrap transition-all duration-200 hover:text-primary hover:border-primary/50 min-w-[150px]" data-tab="avatar" aria-selected="false">
+                  <i class="ri-image-line mr-2"></i>
+                  Ảnh đại diện
+                </button>
+              </nav>
+            </div>
+
+            <div class="p-6">
+              <!-- Basic Information Tab -->
+              <div data-tab-content="basic" class="grid grid-cols-1 md:grid-cols-2 gap-4 tab-content active">
+                <div class="group">
+                  <label class="block text-sm font-medium text-gray-700 mb-1">
+                    Họ và tên <i class="ri-asterisk text-red-500 text-xs"></i>
+                  </label>
+                  <div class="relative">
+                    <i class="ri-user-line absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 group-focus-within:text-primary"></i>
+                    <input type="text" id="ten_dien_gia" name="ten_dien_gia" required placeholder="Nhập họ tên diễn giả"
+                      class="w-full pl-10 pr-4 py-2.5 rounded-md border border-gray-300 focus:ring-2 focus:ring-primary/50 focus:border-primary transition-colors duration-200">
+                  </div>
+                </div>
+
+                <div class="group">
+                  <label class="block text-sm font-medium text-gray-700 mb-1">
+                    Chức danh 
+                  </label>
+                  <div class="relative">
+                    <i class="ri-award-line absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 group-focus-within:text-primary"></i>
+                    <input type="text" id="chuc_danh" name="chuc_danh" placeholder="Tiến sĩ, Giáo sư, Thạc sĩ..."
+                      class="w-full pl-10 pr-4 py-2.5 rounded-md border border-gray-300 focus:ring-2 focus:ring-primary/50 focus:border-primary transition-colors duration-200">
+                  </div>
+                </div>
+
+                <div class="group">
+                  <label class="block text-sm font-medium text-gray-700 mb-1">
+                    Tổ chức/Công ty <i class="ri-asterisk text-red-500 text-xs"></i>
+                  </label>
+                  <div class="relative">
+                    <i class="ri-building-line absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 group-focus-within:text-primary"></i>
+                    <input type="text" id="to_chuc" name="to_chuc" required placeholder="Nhập tên tổ chức/công ty"
+                      class="w-full pl-10 pr-4 py-2.5 rounded-md border border-gray-300 focus:ring-2 focus:ring-primary/50 focus:border-primary transition-colors duration-200">
+                  </div>
+                </div>
+
+                <div class="group">
+                  <label class="block text-sm font-medium text-gray-700 mb-1">
+                    Email <i class="ri-asterisk text-red-500 text-xs"></i>
+                  </label>
+                  <div class="relative">
+                    <i class="ri-mail-line absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 group-focus-within:text-primary"></i>
+                    <input type="email" id="email" name="email" required placeholder="Nhập địa chỉ email"
+                      class="w-full pl-10 pr-4 py-2.5 rounded-md border border-gray-300 focus:ring-2 focus:ring-primary/50 focus:border-primary transition-colors duration-200">
+                  </div>
+                </div>
+
+                <div class="group">
+                  <label class="block text-sm font-medium text-gray-700 mb-1">
+                    Điện thoại
+                  </label>
+                  <div class="relative">
+                    <i class="ri-phone-line absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 group-focus-within:text-primary"></i>
+                    <input type="tel" id="dien_thoai" name="dien_thoai" placeholder="Nhập số điện thoại"
+                      class="w-full pl-10 pr-4 py-2.5 rounded-md border border-gray-300 focus:ring-2 focus:ring-primary/50 focus:border-primary transition-colors duration-200">
+                  </div>
+                </div>
+
+                <div class="group">
+                  <label class="block text-sm font-medium text-gray-700 mb-1">
+                    Website
+                  </label>
+                  <div class="relative">
+                    <i class="ri-global-line absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 group-focus-within:text-primary"></i>
+                    <input type="url" id="website" name="website" placeholder="Nhập liên kết website (nếu có)"
+                      class="w-full pl-10 pr-4 py-2.5 rounded-md border border-gray-300 focus:ring-2 focus:ring-primary/50 focus:border-primary transition-colors duration-200">
+                  </div>
+                </div>
+
+                <div class="md:col-span-2">
+                  <label class="block text-sm font-medium text-gray-700 mb-1">
+                    Giới thiệu ngắn
+                  </label>
+                  <div class="relative">
+                    <textarea id="gioi_thieu" name="gioi_thieu" rows="4" placeholder="Giới thiệu ngắn gọn về diễn giả"
+                      class="w-full px-4 py-2.5 rounded-md border border-gray-300 focus:ring-2 focus:ring-primary/50 focus:border-primary transition-colors duration-200"></textarea>
+                  </div>
+                </div>
+
+                <div>
+                  <label class="block text-sm font-medium text-gray-700 mb-1">
+                    Trạng thái
+                  </label>
+                  <div class="relative">
+                    <i class="ri-toggle-line absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 group-focus-within:text-primary"></i>
+                    <select id="status" name="status" class="w-full pl-10 pr-4 py-2.5 rounded-md border border-gray-300 focus:ring-2 focus:ring-primary/50 focus:border-primary appearance-none transition-colors duration-200">
+                      <option value="1">Hoạt động</option>
+                      <option value="0">Không hoạt động</option>
+                    </select>
+                    <i class="ri-arrow-down-s-line absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none"></i>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Professional Information Tab -->
+              <div data-tab-content="professional" class="grid grid-cols-1 md:grid-cols-2 gap-4 tab-content hidden">
+                <div class="md:col-span-2">
+                  <label class="block text-sm font-medium text-gray-700 mb-1">
+                    Lĩnh vực chuyên môn
+                  </label>
+                  <div class="relative">
+                    <i class="ri-briefcase-line absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 group-focus-within:text-primary"></i>
+                    <input type="text" id="chuyen_mon" name="chuyen_mon" placeholder="Ngân hàng, Tài chính, Kinh tế học..."
+                      class="w-full pl-10 pr-4 py-2.5 rounded-md border border-gray-300 focus:ring-2 focus:ring-primary/50 focus:border-primary transition-colors duration-200">
+                  </div>
+                  <p class="mt-1 text-sm text-gray-500">Liệt kê các lĩnh vực chuyên môn, cách nhau bởi dấu phẩy</p>
+                </div>
+
+                <div class="md:col-span-2">
+                  <label class="block text-sm font-medium text-gray-700 mb-1">
+                    Thành tựu nổi bật
+                  </label>
+                  <div class="relative">
+                    <textarea id="thanh_tuu" name="thanh_tuu" rows="4" placeholder="Liệt kê các thành tựu nổi bật của diễn giả"
+                      class="w-full px-4 py-2.5 rounded-md border border-gray-300 focus:ring-2 focus:ring-primary/50 focus:border-primary transition-colors duration-200"></textarea>
+                  </div>
+                </div>
+
+                <div>
+                  <label class="block text-sm font-medium text-gray-700 mb-1">
+                    Số sự kiện đã tham gia
+                  </label>
+                  <div class="relative">
+                    <i class="ri-calendar-event-line absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 group-focus-within:text-primary"></i>
+                    <input type="number" id="so_su_kien_tham_gia" name="so_su_kien_tham_gia" min="0" value="0"
+                      class="w-full pl-10 pr-4 py-2.5 rounded-md border border-gray-300 focus:ring-2 focus:ring-primary/50 focus:border-primary transition-colors duration-200">
+                  </div>
+                </div>
+              </div>
+
+              <!-- Social Media Tab -->
+              <div data-tab-content="socials" class="grid grid-cols-1 gap-4 tab-content hidden">
+                <h3 class="font-medium text-gray-900 mb-3">Liên kết mạng xã hội</h3>
+                <p class="text-sm text-gray-500 mb-4">Thêm các liên kết mạng xã hội giúp người dùng dễ dàng kết nối với diễn giả</p>
+                
+                <!-- LinkedIn -->
+                <div class="flex items-center space-x-2">
+                  <div class="flex-shrink-0 w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center">
+                    <i class="ri-linkedin-fill text-blue-600 text-xl"></i>
+                  </div>
+                  <div class="flex-grow">
+                    <input type="url" id="linkedin" name="linkedin" placeholder="https://linkedin.com/in/username" 
+                      class="w-full px-4 py-2.5 rounded-md border border-gray-300 focus:ring-2 focus:ring-primary/50 focus:border-primary transition-colors duration-200">
+                  </div>
+                </div>
+
+                <!-- Facebook -->
+                <div class="flex items-center space-x-2">
+                  <div class="flex-shrink-0 w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center">
+                    <i class="ri-facebook-fill text-blue-600 text-xl"></i>
+                  </div>
+                  <div class="flex-grow">
+                    <input type="url" id="facebook" name="facebook" placeholder="https://facebook.com/username" 
+                      class="w-full px-4 py-2.5 rounded-md border border-gray-300 focus:ring-2 focus:ring-primary/50 focus:border-primary transition-colors duration-200">
+                  </div>
+                </div>
+
+                <!-- Twitter (X) -->
+                <div class="flex items-center space-x-2">
+                  <div class="flex-shrink-0 w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center">
+                    <i class="ri-twitter-x-fill text-gray-800 text-xl"></i>
+                  </div>
+                  <div class="flex-grow">
+                    <input type="url" id="twitter" name="twitter" placeholder="https://twitter.com/username" 
+                      class="w-full px-4 py-2.5 rounded-md border border-gray-300 focus:ring-2 focus:ring-primary/50 focus:border-primary transition-colors duration-200">
+                  </div>
+                </div>
+
+                <!-- YouTube -->
+                <div class="flex items-center space-x-2">
+                  <div class="flex-shrink-0 w-10 h-10 rounded-full bg-red-100 flex items-center justify-center">
+                    <i class="ri-youtube-fill text-red-600 text-xl"></i>
+                  </div>
+                  <div class="flex-grow">
+                    <input type="url" id="youtube" name="youtube" placeholder="https://youtube.com/c/username" 
+                      class="w-full px-4 py-2.5 rounded-md border border-gray-300 focus:ring-2 focus:ring-primary/50 focus:border-primary transition-colors duration-200">
+                  </div>
+                </div>
+
+                <!-- Instagram -->
+                <div class="flex items-center space-x-2">
+                  <div class="flex-shrink-0 w-10 h-10 rounded-full bg-pink-100 flex items-center justify-center">
+                    <i class="ri-instagram-fill text-pink-600 text-xl"></i>
+                  </div>
+                  <div class="flex-grow">
+                    <input type="url" id="instagram" name="instagram" placeholder="https://instagram.com/username" 
+                      class="w-full px-4 py-2.5 rounded-md border border-gray-300 focus:ring-2 focus:ring-primary/50 focus:border-primary transition-colors duration-200">
+                  </div>
+                </div>
+              </div>
+
+              <!-- Avatar Tab -->
+              <div data-tab-content="avatar" class="tab-content hidden">
+                <div class="space-y-6">
+                  <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">
+                      Ảnh đại diện hiện tại
+                    </label>
+                    <div class="flex items-center space-x-4">
+                      <div id="current-avatar-container" class="w-32 h-32 rounded-full overflow-hidden bg-gray-100 flex items-center justify-center">
+                        <img id="current-avatar" src="" alt="Ảnh đại diện hiện tại" class="w-full h-full object-cover hidden">
+                        <i id="avatar-placeholder" class="ri-user-line text-4xl text-gray-400"></i>
+                      </div>
+                      <div>
+                        <p class="text-sm text-gray-500">Ảnh đại diện sẽ được hiển thị trong trang chi tiết và danh sách diễn giả</p>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="relative">
+                    <label class="block text-sm font-medium text-gray-700 mb-2">
+                      Cập nhật ảnh đại diện
+                    </label>
+                    <div class="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-md hover:border-primary/50 transition-colors duration-200">
+                      <div class="space-y-2 text-center">
+                        <i class="ri-upload-cloud-2-line text-5xl text-gray-400"></i>
+                        <div class="flex text-sm text-gray-600">
+                          <label for="avatar" class="relative cursor-pointer bg-white rounded-md font-medium text-primary hover:text-primary/80 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-primary transition-colors duration-200">
+                            <span>Tải ảnh lên</span>
+                            <input id="avatar" name="avatar" type="file" class="sr-only" accept="image/*">
+                          </label>
+                          <p class="pl-1">hoặc kéo thả vào đây</p>
+                        </div>
+                        <p class="text-xs text-gray-500">PNG, JPG, GIF tối đa 2MB</p>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="hidden" id="avatar-preview-container">
+                    <label class="block text-sm font-medium text-gray-700 mb-2">
+                      Xem trước
+                    </label>
+                    <div class="flex space-x-4">
+                      <div class="w-32 h-32 rounded-full overflow-hidden bg-gray-100">
+                        <img id="avatar-preview" src="" alt="Xem trước ảnh đại diện" class="w-full h-full object-cover">
+                      </div>
+                      <div class="flex items-center">
+                        <button type="button" id="remove-avatar" class="text-red-600 hover:text-red-800 transition-colors duration-200">
+                          <i class="ri-delete-bin-line mr-1"></i> Xóa ảnh
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+  <script src="../../public/js/admin/speaker-edit.js"></script>
+</body>
+</html> 

@@ -1,105 +1,69 @@
-// Khởi tạo AOS (Animate on Scroll)
+// ============= KHỞI TẠO BIẾN VÀ HẰNG SỐ =============
+// Khởi tạo AOS
 AOS.init();
 
-// Biến trạng thái
-let allSpeakers = []; // Tất cả diễn giả
-let filteredSpeakers = []; // Diễn giả sau khi lọc
-let currentPage = 1;
-let itemsPerPage = 10;
-let totalPages = 1;
+// Biến trạng thái dữ liệu
+const speakerState = {
+  allSpeakers: [],         // Tất cả diễn giả
+  filteredSpeakers: [],    // Diễn giả sau khi lọc
+  currentPage: 1,          // Trang hiện tại
+  itemsPerPage: 10,        // Số mục trên mỗi trang
+  totalPages: 1            // Tổng số trang
+};
 
-// Xử lý toggle sidebar
+// ============= XỬ LÝ UI CHUNG VÀ SIDEBAR =============
+// Xử lý DOM khi tải trang
 document.addEventListener('DOMContentLoaded', function () {
-  // Sự kiện mở sidebar (mobile)
+  // Khởi tạo các sự kiện UI
+  initSidebarHandlers();
+  initModalHandlers();
+  
+  // Khởi tạo dữ liệu và hiển thị
+  initSpeakersData();
+  applyFilters();
+  
+  // Thiết lập sự kiện cho filter
+  setupFilterHandlers();
+  
+  // Thiết lập sự kiện cho phân trang
+  setupPaginationHandlers();
+});
+
+// Xử lý sidebar
+function initSidebarHandlers() {
   const sidebarOpen = document.getElementById('sidebar-open');
   const sidebar = document.getElementById('sidebar');
   const sidebarBackdrop = document.getElementById('sidebar-backdrop');
   const sidebarClose = document.getElementById('sidebar-close');
 
+  // Mở sidebar trên mobile
   sidebarOpen?.addEventListener('click', function () {
     sidebar.classList.remove('-translate-x-full');
     sidebarBackdrop.classList.remove('hidden');
   });
 
-  // Sự kiện đóng sidebar (mobile)
-  function closeSidebar() {
+  // Đóng sidebar trên mobile
+  const closeSidebar = () => {
     sidebar.classList.add('-translate-x-full');
     sidebarBackdrop.classList.add('hidden');
-  }
+  };
 
   sidebarClose?.addEventListener('click', closeSidebar);
   sidebarBackdrop?.addEventListener('click', closeSidebar);
+}
 
-  // Xử lý modal diễn giả
+// ============= XỬ LÝ MODAL DIỄN GIẢ =============
+// Khởi tạo sự kiện cho modal
+function initModalHandlers() {
   const createSpeakerBtn = document.getElementById('create-speaker-btn');
-  const speakerModal = document.getElementById('speaker-modal');
   const speakerForm = document.getElementById('speaker-form');
-
-  // Mở modal khi click vào nút tạo diễn giả mới
-  createSpeakerBtn?.addEventListener('click', function () {
-    openSpeakerModal();
-  });
-
-  // Xử lý submit form diễn giả
-  speakerForm?.addEventListener('submit', function (e) {
-    e.preventDefault();
-    
-    // Giả lập thêm diễn giả mới
-    const formData = new FormData(speakerForm);
-    const newSpeaker = {
-      id: allSpeakers.length + 1,
-      ten_dien_gia: formData.get('ten_dien_gia'),
-      chuc_danh: formData.get('chuc_danh'),
-      to_chuc: formData.get('to_chuc'),
-      email: formData.get('email'),
-      dien_thoai: formData.get('dien_thoai'),
-      chuyen_mon: formData.get('chuyen_mon'),
-      gioi_thieu: formData.get('gioi_thieu'),
-      thanh_tuu: formData.get('thanh_tuu'),
-      trang_thai: formData.get('trang_thai'),
-      website: formData.get('website'),
-      facebook: formData.get('facebook'),
-      linkedin: formData.get('linkedin'),
-      twitter: formData.get('twitter'),
-      hinh_anh: 'https://i.pravatar.cc/150?img=' + (Math.floor(Math.random() * 70) + 1)
-    };
-
-    // Thêm diễn giả mới vào danh sách và hiển thị
-    allSpeakers.unshift(newSpeaker);
-    applyFilters();
-    
-    // Hiển thị thông báo thành công (có thể thay bằng toast notification)
-    alert('Đã thêm diễn giả mới thành công!');
-    
-    // Đóng modal và reset form
-    closeSpeakerModal();
-    speakerForm.reset();
-  });
-
-  // Khởi tạo dữ liệu mẫu và hiển thị danh sách diễn giả
-  initSpeakersData();
-  applyFilters();
-
-  // Xử lý sự kiện lọc diễn giả
-  const filterForm = document.getElementById('filter-form');
-  const resetFilterBtn = document.getElementById('reset-filter-btn');
-
-  filterForm?.addEventListener('submit', function (e) {
-    e.preventDefault();
-    currentPage = 1; // Reset về trang đầu tiên khi lọc
-    applyFilters();
-  });
-
-  resetFilterBtn?.addEventListener('click', function () {
-    setTimeout(() => {
-      currentPage = 1;
-      applyFilters();
-    }, 0);
-  });
-
-  // Xử lý phân trang
-  setupPagination();
-});
+  
+  // Sự kiện khi click nút thêm diễn giả
+  createSpeakerBtn?.addEventListener('click', () => openSpeakerModal());
+  
+  // Xử lý khi gửi form
+  speakerForm?.addEventListener('submit', handleSpeakerFormSubmit);
+}
 
 // Mở modal thêm/sửa diễn giả
 function openSpeakerModal(speaker = null) {
@@ -108,7 +72,7 @@ function openSpeakerModal(speaker = null) {
   const modalTitle = modal.querySelector('h3');
 
   if (speaker) {
-    // Chế độ sửa
+    // Chế độ sửa diễn giả
     modalTitle.textContent = 'Cập nhật thông tin diễn giả';
     
     // Điền dữ liệu vào form
@@ -126,7 +90,7 @@ function openSpeakerModal(speaker = null) {
     form.elements['linkedin'].value = speaker.linkedin || '';
     form.elements['twitter'].value = speaker.twitter || '';
     
-    // Thêm id cho việc cập nhật
+    // Lưu ID của diễn giả đang chỉnh sửa
     form.dataset.speakerId = speaker.id;
   } else {
     // Chế độ thêm mới
@@ -144,7 +108,56 @@ function closeSpeakerModal() {
   modal.classList.add('hidden');
 }
 
-// Tạo dữ liệu mẫu cho 20 diễn giả
+// Xử lý submit form diễn giả
+function handleSpeakerFormSubmit(e) {
+  e.preventDefault();
+  
+  const form = e.target;
+  const formData = new FormData(form);
+  const speakerId = form.dataset.speakerId;
+  
+  // Xây dựng đối tượng diễn giả từ form
+  const speakerData = {
+    id: speakerId ? parseInt(speakerId) : speakerState.allSpeakers.length + 1,
+    ten_dien_gia: formData.get('ten_dien_gia'),
+    chuc_danh: formData.get('chuc_danh'),
+    to_chuc: formData.get('to_chuc'),
+    email: formData.get('email'),
+    dien_thoai: formData.get('dien_thoai'),
+    chuyen_mon: formData.get('chuyen_mon'),
+    gioi_thieu: formData.get('gioi_thieu'),
+    thanh_tuu: formData.get('thanh_tuu'),
+    trang_thai: formData.get('trang_thai'),
+    website: formData.get('website'),
+    facebook: formData.get('facebook'),
+    linkedin: formData.get('linkedin'),
+    twitter: formData.get('twitter'),
+    hinh_anh: 'https://i.pravatar.cc/150?img=' + (Math.floor(Math.random() * 70) + 1)
+  };
+
+  if (speakerId) {
+    // Cập nhật diễn giả đã tồn tại
+    const index = speakerState.allSpeakers.findIndex(s => s.id === parseInt(speakerId));
+    if (index !== -1) {
+      speakerState.allSpeakers[index] = speakerData;
+      alert('Đã cập nhật thông tin diễn giả thành công!');
+    }
+  } else {
+    // Thêm diễn giả mới
+    speakerState.allSpeakers.unshift(speakerData);
+    alert('Đã thêm diễn giả mới thành công!');
+  }
+  
+  // Cập nhật hiển thị danh sách
+  applyFilters();
+  
+  // Đóng modal và reset form
+  closeSpeakerModal();
+  form.reset();
+}
+
+// ============= KHỞI TẠO VÀ XỬ LÝ DỮ LIỆU =============
+// Tạo dữ liệu mẫu cho diễn giả
 function initSpeakersData() {
   const organizations = [
     'Đại học Bách Khoa Hà Nội', 
@@ -190,7 +203,8 @@ function initSpeakersData() {
   const firstNames = ['Minh', 'Hùng', 'Thắng', 'Nam', 'Anh', 'Tuấn', 'Hà', 'Lan', 'Thảo', 'Linh'];
   const lastNames = ['Nguyễn', 'Trần', 'Lê', 'Phạm', 'Hoàng', 'Huỳnh', 'Vũ', 'Võ', 'Phan', 'Đặng'];
   
-  allSpeakers = Array.from({ length: 20 }, (_, i) => {
+  // Tạo mảng 20 diễn giả mẫu
+  speakerState.allSpeakers = Array.from({ length: 20 }, (_, i) => {
     const firstName = firstNames[Math.floor(Math.random() * firstNames.length)];
     const lastName = lastNames[Math.floor(Math.random() * lastNames.length)];
     const fullName = `${lastName} ${firstName}`;
@@ -221,14 +235,37 @@ function initSpeakersData() {
   });
 }
 
+// ============= XỬ LÝ BỘ LỌC VÀ TÌM KIẾM =============
+// Thiết lập sự kiện cho bộ lọc
+function setupFilterHandlers() {
+  const filterForm = document.getElementById('filter-form');
+  const resetFilterBtn = document.getElementById('reset-filter-btn');
+
+  // Sự kiện khi submit form lọc
+  filterForm?.addEventListener('submit', function (e) {
+    e.preventDefault();
+    speakerState.currentPage = 1; // Reset về trang đầu tiên khi lọc
+    applyFilters();
+  });
+
+  // Sự kiện khi reset bộ lọc
+  resetFilterBtn?.addEventListener('click', function () {
+    setTimeout(() => {
+      speakerState.currentPage = 1;
+      applyFilters();
+    }, 0);
+  });
+}
+
 // Lọc danh sách diễn giả theo bộ lọc
 function applyFilters() {
-  const nameFilter = document.getElementById('filter-name').value.toLowerCase();
-  const organizationFilter = document.getElementById('filter-organization').value;
-  const expertiseFilter = document.getElementById('filter-expertise').value.toLowerCase();
-  const statusFilter = document.getElementById('filter-status').value;
+  const nameFilter = document.getElementById('filter-name')?.value.toLowerCase() || '';
+  const organizationFilter = document.getElementById('filter-organization')?.value || '';
+  const expertiseFilter = document.getElementById('filter-expertise')?.value.toLowerCase() || '';
+  const statusFilter = document.getElementById('filter-status')?.value || '';
   
-  filteredSpeakers = allSpeakers.filter(speaker => {
+  // Áp dụng các bộ lọc lên danh sách diễn giả
+  speakerState.filteredSpeakers = speakerState.allSpeakers.filter(speaker => {
     // Lọc theo tên
     if (nameFilter && !speaker.ten_dien_gia.toLowerCase().includes(nameFilter)) {
       return false;
@@ -270,25 +307,120 @@ function applyFilters() {
   });
   
   // Cập nhật phân trang và hiển thị
-  totalPages = Math.ceil(filteredSpeakers.length / itemsPerPage);
-  if (currentPage > totalPages && totalPages > 0) {
-    currentPage = totalPages;
+  updatePagination();
+  renderSpeakers();
+}
+
+// ============= XỬ LÝ PHÂN TRANG =============
+// Cập nhật thông tin phân trang
+function updatePagination() {
+  const totalItems = speakerState.filteredSpeakers.length;
+  speakerState.totalPages = Math.max(1, Math.ceil(totalItems / speakerState.itemsPerPage));
+  
+  // Đảm bảo trang hiện tại không vượt quá tổng số trang
+  if (speakerState.currentPage > speakerState.totalPages) {
+    speakerState.currentPage = Math.max(1, speakerState.totalPages);
   }
   
-  renderSpeakers();
-  updatePagination();
+  // Cập nhật UI phân trang
+  const totalItemsElement = document.getElementById('total-items-count');
+  const totalPagesElement = document.getElementById('total-pages-count');
+  const currentPageInput = document.getElementById('current-page-input');
+  const btnFirst = document.querySelector('.btn-first');
+  const btnPrev = document.querySelector('.btn-prev');
+  const btnNext = document.querySelector('.btn-next');
+  const btnLast = document.querySelector('.btn-last');
+  
+  if (totalItemsElement) totalItemsElement.textContent = totalItems;
+  if (totalPagesElement) totalPagesElement.textContent = speakerState.totalPages;
+  if (currentPageInput) currentPageInput.value = speakerState.currentPage;
+  
+  // Cập nhật trạng thái các nút điều hướng
+  if (btnFirst) btnFirst.disabled = speakerState.currentPage === 1;
+  if (btnPrev) btnPrev.disabled = speakerState.currentPage === 1;
+  if (btnNext) btnNext.disabled = speakerState.currentPage === speakerState.totalPages || speakerState.totalPages === 0;
+  if (btnLast) btnLast.disabled = speakerState.currentPage === speakerState.totalPages || speakerState.totalPages === 0;
+}
+
+// Thiết lập các sự kiện cho phân trang
+function setupPaginationHandlers() {
+  const itemsPerPageSelect = document.getElementById('items-per-page');
+  const currentPageInput = document.getElementById('current-page-input');
+  const btnFirst = document.querySelector('.btn-first');
+  const btnPrev = document.querySelector('.btn-prev');
+  const btnNext = document.querySelector('.btn-next');
+  const btnLast = document.querySelector('.btn-last');
+  
+  // Thay đổi số lượng item trên mỗi trang
+  itemsPerPageSelect?.addEventListener('change', function () {
+    speakerState.itemsPerPage = parseInt(this.value);
+    speakerState.currentPage = 1;
+    updatePagination();
+    renderSpeakers();
+  });
+  
+  // Thay đổi trang hiện tại
+  currentPageInput?.addEventListener('change', function () {
+    let page = parseInt(this.value);
+    if (isNaN(page) || page < 1) {
+      page = 1;
+    } else if (page > speakerState.totalPages) {
+      page = speakerState.totalPages;
+    }
+    speakerState.currentPage = page;
+    this.value = page;
+    renderSpeakers();
+    updatePagination();
+  });
+  
+  // Điều hướng đến trang đầu tiên
+  btnFirst?.addEventListener('click', function () {
+    if (speakerState.currentPage !== 1) {
+      speakerState.currentPage = 1;
+      renderSpeakers();
+      updatePagination();
+    }
+  });
+  
+  // Điều hướng đến trang trước
+  btnPrev?.addEventListener('click', function () {
+    if (speakerState.currentPage > 1) {
+      speakerState.currentPage--;
+      renderSpeakers();
+      updatePagination();
+    }
+  });
+  
+  // Điều hướng đến trang tiếp theo
+  btnNext?.addEventListener('click', function () {
+    if (speakerState.currentPage < speakerState.totalPages) {
+      speakerState.currentPage++;
+      renderSpeakers();
+      updatePagination();
+    }
+  });
+  
+  // Điều hướng đến trang cuối cùng
+  btnLast?.addEventListener('click', function () {
+    if (speakerState.currentPage !== speakerState.totalPages) {
+      speakerState.currentPage = speakerState.totalPages;
+      renderSpeakers();
+      updatePagination();
+    }
+  });
 }
 
 // Hiển thị danh sách diễn giả
 function renderSpeakers() {
   const tableBody = document.getElementById('speakers-table-body');
+  if (!tableBody) return;
   
   // Tính toán chỉ mục bắt đầu và kết thúc cho trang hiện tại
-  const startIndex = (currentPage - 1) * itemsPerPage;
-  const endIndex = Math.min(startIndex + itemsPerPage, filteredSpeakers.length);
+  const startIndex = (speakerState.currentPage - 1) * speakerState.itemsPerPage;
+  const endIndex = Math.min(startIndex + speakerState.itemsPerPage, speakerState.filteredSpeakers.length);
   
-  // Nếu không có diễn giả nào
-  if (filteredSpeakers.length === 0) {
+  // Nếu không có dữ liệu
+  if (speakerState.filteredSpeakers.length === 0) {
     tableBody.innerHTML = `
       <tr>
         <td colspan="6" class="px-6 py-4 text-center text-gray-500">
@@ -299,8 +431,8 @@ function renderSpeakers() {
     return;
   }
   
-  // Tạo các hàng trong bảng
-  tableBody.innerHTML = filteredSpeakers.slice(startIndex, endIndex).map(speaker => {
+  // Render từng dòng dữ liệu
+  tableBody.innerHTML = speakerState.filteredSpeakers.slice(startIndex, endIndex).map(speaker => {
     return `
       <tr class="hover:bg-gray-50 transition-colors duration-200">
         <td class="px-6 py-4 whitespace-nowrap">
@@ -346,123 +478,31 @@ function renderSpeakers() {
       </tr>
     `;
   }).join('');
-  
-  // Cập nhật tổng số diễn giả hiển thị
-  const totalItemsCount = document.getElementById('total-items-count');
-  totalItemsCount.textContent = filteredSpeakers.length;
 }
 
-// Cập nhật các điều khiển phân trang
-function updatePagination() {
-  const totalItemsElement = document.getElementById('total-items-count');
-  const totalPagesElement = document.getElementById('total-pages-count');
-  const currentPageInput = document.getElementById('current-page-input');
-  const btnFirst = document.querySelector('.btn-first');
-  const btnPrev = document.querySelector('.btn-prev');
-  const btnNext = document.querySelector('.btn-next');
-  const btnLast = document.querySelector('.btn-last');
-  
-  // Cập nhật thông tin
-  totalItemsElement.textContent = filteredSpeakers.length;
-  totalPagesElement.textContent = totalPages;
-  currentPageInput.value = currentPage;
-  currentPageInput.max = totalPages;
-  
-  // Cập nhật trạng thái nút phân trang
-  btnFirst.disabled = currentPage === 1;
-  btnPrev.disabled = currentPage === 1;
-  btnNext.disabled = currentPage === totalPages || totalPages === 0;
-  btnLast.disabled = currentPage === totalPages || totalPages === 0;
-}
-
-// Thiết lập các sự kiện cho phân trang
-function setupPagination() {
-  const itemsPerPageSelect = document.getElementById('items-per-page');
-  const currentPageInput = document.getElementById('current-page-input');
-  const btnFirst = document.querySelector('.btn-first');
-  const btnPrev = document.querySelector('.btn-prev');
-  const btnNext = document.querySelector('.btn-next');
-  const btnLast = document.querySelector('.btn-last');
-  
-  // Thay đổi số lượng mục trên mỗi trang
-  itemsPerPageSelect?.addEventListener('change', function () {
-    itemsPerPage = parseInt(this.value);
-    currentPage = 1;
-    totalPages = Math.ceil(filteredSpeakers.length / itemsPerPage);
-    renderSpeakers();
-    updatePagination();
-  });
-  
-  // Nhập trực tiếp số trang
-  currentPageInput?.addEventListener('change', function () {
-    let page = parseInt(this.value);
-    if (isNaN(page) || page < 1) {
-      page = 1;
-    } else if (page > totalPages) {
-      page = totalPages;
-    }
-    currentPage = page;
-    this.value = page;
-    renderSpeakers();
-    updatePagination();
-  });
-  
-  // Các nút điều hướng phân trang
-  btnFirst?.addEventListener('click', function () {
-    if (currentPage !== 1) {
-      currentPage = 1;
-      renderSpeakers();
-      updatePagination();
-    }
-  });
-  
-  btnPrev?.addEventListener('click', function () {
-    if (currentPage > 1) {
-      currentPage--;
-      renderSpeakers();
-      updatePagination();
-    }
-  });
-  
-  btnNext?.addEventListener('click', function () {
-    if (currentPage < totalPages) {
-      currentPage++;
-      renderSpeakers();
-      updatePagination();
-    }
-  });
-  
-  btnLast?.addEventListener('click', function () {
-    if (currentPage !== totalPages) {
-      currentPage = totalPages;
-      renderSpeakers();
-      updatePagination();
-    }
-  });
-}
-
+// ============= CÁC HÀM TƯƠNG TÁC =============
 // Xem chi tiết diễn giả
 function viewSpeaker(id) {
-  const speaker = allSpeakers.find(s => s.id === id);
+  const speaker = speakerState.allSpeakers.find(s => s.id === id);
   if (!speaker) return;
   
-  // Hiển thị thông tin chi tiết (có thể thay bằng modal hoặc chuyển hướng trang)
-  alert(`Thông tin chi tiết diễn giả: ${speaker.ten_dien_gia}\n- Chức danh: ${speaker.chuc_danh || 'Không có'}\n- Tổ chức: ${speaker.to_chuc}\n- Email: ${speaker.email}\n- Điện thoại: ${speaker.dien_thoai || 'Không có'}\n- Chuyên môn: ${speaker.chuyen_mon}\n- Trạng thái: ${speaker.trang_thai === '1' ? 'Hoạt động' : 'Không hoạt động'}`);
+  // Chuyển tới trang chi tiết diễn giả
+  window.location.href = `speaker-detail.html?id=${id}`;
 }
 
 // Chỉnh sửa diễn giả
 function editSpeaker(id) {
-  const speaker = allSpeakers.find(s => s.id === id);
+  const speaker = speakerState.allSpeakers.find(s => s.id === id);
   if (!speaker) return;
   
-  // Mở modal chỉnh sửa
-  openSpeakerModal(speaker);
+  // Chuyển tới trang chỉnh sửa diễn giả
+  window.location.href = `speaker-edit.html?id=${id}`;
 }
 
 // Xóa diễn giả
 function deleteSpeaker(id) {
   if (confirm('Bạn có chắc chắn muốn xóa diễn giả này không?')) {
-    allSpeakers = allSpeakers.filter(s => s.id !== id);
+    speakerState.allSpeakers = speakerState.allSpeakers.filter(s => s.id !== id);
     applyFilters();
     alert('Đã xóa diễn giả thành công!');
   }
