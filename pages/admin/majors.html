@@ -4,16 +4,15 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="csrf-token" content="{{ csrf_token() }}">
-  <title>Quản lý Ngành đào tạo - HUB Admin</title>
+  <title>Quản lý Ngành Đào Tạo - HUB Admin</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet" />
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
   <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet" />
   <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+  <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
   <link href="../../public/css/custom.css" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
   <script src="https://cdn.tailwindcss.com/3.4.16"></script>
   <script src="../../public/js/tailwind.config.js"></script>
 </head>
@@ -63,6 +62,7 @@
                 <i class="sidebar-icon ri-mic-line mr-2"></i>
                 <span class="sidebar-link-text">Diễn giả</span>
               </a>
+               
             </div>
           </div>
 
@@ -160,6 +160,11 @@
                 <i class="sidebar-icon ri-file-list-3-line mr-2"></i>
                 <span class="sidebar-link-text">Nhật ký</span>
               </a>
+              <a href="accounts.html"
+                class="sidebar-link flex items-center text-gray-600 hover:text-primary p-2 rounded-md hover:bg-gray-100">
+                <i class="sidebar-icon ri-user-settings-line mr-2"></i>
+                <span class="sidebar-link-text">Tài khoản</span>
+              </a>
             </div>
           </div>
         </div>
@@ -182,7 +187,7 @@
           </a>
           <div class="flex items-center space-x-4">
             <!-- User profile dropdown menu -->
-            <div class="relative group" id="user-menu-button">
+            <div class="relative group">
               <button class="flex items-center space-x-2 text-white">
                 <img
                   src="https://readdy.ai/api/search-image?query=professional%20headshot%20young%20vietnamese%20student%20minimal%20background&width=100&height=100&seq=avatar"
@@ -190,27 +195,27 @@
                 <span class="hidden sm:block">Nguyễn Văn A</span>
                 <i class="ri-arrow-down-s-line group-hover:rotate-180 transition-transform duration-300"></i>
               </button>
-              <div id="user-menu"
+              <div
                 class="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg overflow-hidden z-20 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform origin-top-right scale-95 group-hover:scale-100">
                 <div class="py-2">
                   <a href="profile.html"
-                    class="flex items-center px-4 py-2 text-sm text-gray-800 hover:bg-primary/10 hover:text-primary border-l-4 border-transparent">
+                    class="flex items-center px-4 py-2 text-sm text-gray-800 hover:bg-primary/10 hover:text-primary border-l-4 border-primary">
                     <i class="ri-user-line mr-2"></i>
                     Trang cá nhân
                   </a>
                   <a href="registered-events.html"
-                    class="flex items-center px-4 py-2 text-sm text-gray-800 hover:bg-primary/10 hover:text-primary border-l-4 border-transparent">
+                    class="flex items-center px-4 py-2 text-sm text-gray-800 hover:bg-primary/10 hover:text-primary">
                     <i class="ri-calendar-event-line mr-2"></i>
                     Sự kiện của tôi
                   </a>
                   <a href="#"
-                    class="flex items-center px-4 py-2 text-sm text-gray-800 hover:bg-primary/10 hover:text-primary border-l-4 border-transparent">
+                    class="flex items-center px-4 py-2 text-sm text-gray-800 hover:bg-primary/10 hover:text-primary">
                     <i class="ri-settings-4-line mr-2"></i>
                     Cài đặt
                   </a>
                   <hr class="my-1 border-gray-200">
                   <a href="login.html"
-                    class="flex items-center px-4 py-2 text-sm text-gray-800 hover:bg-primary/10 hover:text-primary border-l-4 border-transparent">
+                    class="flex items-center px-4 py-2 text-sm text-gray-800 hover:bg-primary/10 hover:text-primary">
                     <i class="ri-logout-box-r-line mr-2"></i>
                     Đăng xuất
                   </a>
@@ -220,19 +225,70 @@
           </div>
         </div>
       </header>
-
-      <!-- Main Page Header -->
       <div class="bg-white rounded-lg shadow mb-6 p-4">
         <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between">
           <div>
-            <h1 class="text-2xl font-semibold text-gray-900">Quản lý Ngành đào tạo</h1>
-            <p class="mt-1 text-sm text-gray-600">Quản lý các ngành đào tạo trong hệ thống</p>
+            <h1 class="text-2xl font-semibold text-gray-900 flex items-center">
+              <i class="ri-book-mark-line text-primary mr-2"></i> Quản lý ngành đào tạo
+            </h1>
+            <p class="mt-1 text-sm text-gray-600">Quản lý tất cả ngành đào tạo trong hệ thống</p>
           </div>
           <div class="mt-4 sm:mt-0 flex gap-2">
-            <button id="addMajorBtn"
-              class="flex items-center justify-center px-4 py-2 bg-primary text-white rounded-md hover:bg-primary-dark transition-colors duration-200">
-              <i class="ri-add-line mr-1"></i> Thêm ngành mới
+            <button id="refresh-btn" 
+              class="flex items-center justify-center px-3 py-2 border border-gray-300 text-gray-700 rounded-md hover:bg-gray-50 transition-colors duration-200">
+              <i class="ri-refresh-line mr-1"></i> Làm mới
             </button>
+            <button id="create-major-btn"
+              class="flex items-center justify-center px-4 py-2 bg-primary text-white rounded-md hover:bg-primary-dark transition-colors duration-200">
+              <i class="ri-add-line mr-1"></i> Thêm ngành đào tạo mới
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Dashboard Cards -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
+        <!-- Tổng số ngành -->
+        <div class="bg-white p-4 rounded-lg shadow flex items-center" data-aos="fade-up" data-aos-delay="0">
+          <div class="p-3 rounded-full bg-blue-100 mr-4">
+            <i class="ri-book-mark-line text-blue-600 text-2xl"></i>
+          </div>
+          <div>
+            <h3 class="text-lg font-medium text-gray-700">Tổng số ngành</h3>
+            <p class="text-2xl font-semibold text-gray-900" id="total-majors-count">0</p>
+          </div>
+        </div>
+
+        <!-- Ngành đang hoạt động -->
+        <div class="bg-white p-4 rounded-lg shadow flex items-center" data-aos="fade-up" data-aos-delay="100">
+          <div class="p-3 rounded-full bg-green-100 mr-4">
+            <i class="ri-check-line text-green-600 text-2xl"></i>
+          </div>
+          <div>
+            <h3 class="text-lg font-medium text-gray-700">Đang hoạt động</h3>
+            <p class="text-2xl font-semibold text-green-600" id="active-majors-count">0</p>
+          </div>
+        </div>
+
+        <!-- Ngành ngưng hoạt động -->
+        <div class="bg-white p-4 rounded-lg shadow flex items-center" data-aos="fade-up" data-aos-delay="200">
+          <div class="p-3 rounded-full bg-red-100 mr-4">
+            <i class="ri-close-line text-red-600 text-2xl"></i>
+          </div>
+          <div>
+            <h3 class="text-lg font-medium text-gray-700">Ngưng hoạt động</h3>
+            <p class="text-2xl font-semibold text-red-600" id="inactive-majors-count">0</p>
+          </div>
+        </div>
+
+        <!-- Tổng số khoa/phòng -->
+        <div class="bg-white p-4 rounded-lg shadow flex items-center" data-aos="fade-up" data-aos-delay="300">
+          <div class="p-3 rounded-full bg-purple-100 mr-4">
+            <i class="ri-building-line text-purple-600 text-2xl"></i>
+          </div>
+          <div>
+            <h3 class="text-lg font-medium text-gray-700">Khoa/Phòng</h3>
+            <p class="text-2xl font-semibold text-purple-600" id="departments-count">0</p>
           </div>
         </div>
       </div>
@@ -246,18 +302,20 @@
             </a>
             <i class="ri-arrow-right-s-line text-gray-400 mx-2"></i>
           </li>
-          <li class="text-primary" aria-current="page">Ngành đào tạo</li>
+          <li class="flex items-center text-primary" aria-current="page">
+            <i class="ri-book-mark-line mr-1"></i> Ngành đào tạo
+          </li>
         </ol>
       </nav>
 
       <!-- Filters Section -->
       <div class="bg-white p-4 rounded-lg shadow mb-4">
         <form id="filter-form">
-          <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
+          <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
             <!-- Filter by Search Term -->
             <div>
-              <label for="search" class="block text-sm font-medium text-gray-700 mb-1">Tìm kiếm</label>
-              <input type="text" id="search" name="search" placeholder="Tên ngành, mã ngành..."
+              <label for="filter-search" class="block text-sm font-medium text-gray-700 mb-1">Tìm kiếm</label>
+              <input type="text" id="filter-search" name="filter-search" placeholder="Tên ngành, mã ngành..."
                 class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-primary focus:border-primary text-sm">
             </div>
             <!-- Filter by Department -->
@@ -266,7 +324,10 @@
               <select id="filter-department" name="filter-department"
                 class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-primary focus:border-primary text-sm">
                 <option value="">Tất cả</option>
-                <!-- Các options sẽ được thêm từ JavaScript -->
+                <option value="1">Công nghệ thông tin</option>
+                <option value="2">Kế toán - Quản trị</option>
+                <option value="3">Ngôn ngữ học</option>
+                <option value="4">Tài chính - Ngân hàng</option>
               </select>
             </div>
             <!-- Filter by Status -->
@@ -278,12 +339,6 @@
                 <option value="1">Hoạt động</option>
                 <option value="0">Không hoạt động</option>
               </select>
-            </div>
-            <!-- Filter by Date Created -->
-            <div>
-              <label for="filter-date" class="block text-sm font-medium text-gray-700 mb-1">Ngày tạo</label>
-              <input type="date" id="filter-date" name="filter-date"
-                class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-primary focus:border-primary text-sm">
             </div>
           </div>
           <div class="mt-4 flex justify-end space-x-2">
@@ -301,35 +356,23 @@
 
       <!-- Majors List Section -->
       <div class="bg-white rounded-lg shadow overflow-hidden" data-aos="fade-up" data-aos-duration="500" data-aos-delay="100">
-        <div class="p-4 border-b border-gray-200 flex justify-between items-center">
-          <h2 class="text-lg font-medium text-gray-900">Danh sách Ngành đào tạo</h2>
-          <div class="text-sm text-gray-500">Tổng số: <span id="totalCount" class="font-medium">0</span> ngành</div>
-        </div>
-        
-        <!-- Loading indicator -->
-        <div id="loading" class="w-full p-4 flex justify-center items-center hidden">
-          <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
-        </div>
-        
         <div class="overflow-x-auto">
-          <table id="majorsTable" class="min-w-full divide-y divide-gray-200">
+          <table class="min-w-full divide-y divide-gray-200">
             <thead class="bg-gray-50">
               <tr>
-                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-16">STT</th>
-                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-32">Mã ngành</th>
-                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider min-w-[200px]">Tên ngành</th>
-                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider min-w-[150px]">Khoa/Phòng</th>
-                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-32">Trạng thái</th>
-                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-36">Ngày tạo</th>
-                <th scope="col" class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider w-24">Thao tác</th>
+                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Mã ngành</th>
+                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Tên ngành</th>
+                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Khoa/Phòng</th>
+                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Trạng thái</th>
+                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Ngày tạo</th>
+                <th scope="col" class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">Thao tác</th>
               </tr>
             </thead>
-            <tbody class="bg-white divide-y divide-gray-200">
+            <tbody id="majors-table-body" class="bg-white divide-y divide-gray-200">
               <!-- JavaScript sẽ render dữ liệu ở đây -->
-              <tr id="no-data-row" class="hidden">
-                <td colspan="7" class="px-6 py-10 text-center text-gray-500">
-                  <i class="ri-inbox-line text-4xl mb-3"></i>
-                  <p>Không tìm thấy dữ liệu ngành đào tạo.</p>
+              <tr>
+                <td colspan="6" class="px-6 py-4 text-center text-gray-500">
+                  Đang tải dữ liệu...
                 </td>
               </tr>
             </tbody>
@@ -350,76 +393,95 @@
               <span class="text-sm text-gray-700">trên tổng số <span id="total-items-count">0</span> ngành</span>
             </div>
 
-            <nav class="pagination" aria-label="Pagination">
-              <ul class="flex items-center space-x-2">
-                <!-- JavaScript sẽ render phân trang ở đây -->
-              </ul>
-            </nav>
+            <div id="pagination-controls" class="flex items-center space-x-2">
+              <button class="btn-first p-1 rounded border border-gray-300 disabled:opacity-50">
+                <i class="ri-skip-back-line"></i>
+              </button>
+              <button class="btn-prev p-1 rounded border border-gray-300 disabled:opacity-50">
+                <i class="ri-arrow-left-s-line"></i>
+              </button>
+              <span class="text-sm">
+                <input id="current-page-input" type="number" min="1" class="w-12 border border-gray-300 rounded text-center p-1" value="1">
+                / <span id="total-pages-count">1</span>
+              </span>
+              <button class="btn-next p-1 rounded border border-gray-300 disabled:opacity-50">
+                <i class="ri-arrow-right-s-line"></i>
+              </button>
+              <button class="btn-last p-1 rounded border border-gray-300 disabled:opacity-50">
+                <i class="ri-skip-forward-line"></i>
+              </button>
+            </div>
           </div>
         </div>
       </div>
     </main>
   </div>
 
-  <!-- Add/Edit Modal Form -->
-  <div id="majorModal" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+  <!-- Create/Edit Major Modal -->
+  <div id="major-modal" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden">
     <div class="flex items-center justify-center min-h-screen p-4">
-      <div class="bg-white rounded-lg shadow-xl max-w-md w-full max-h-[90vh] overflow-y-auto">
+      <div class="bg-white rounded-lg shadow-xl max-w-2xl w-full max-h-[90vh] overflow-y-auto">
         <div class="flex justify-between items-center p-6 border-b">
-          <h3 class="text-xl font-semibold text-gray-900" id="modal-title">Thêm ngành mới</h3>
-          <button type="button" class="text-gray-400 hover:text-gray-500" id="close-modal">
+          <h3 class="text-xl font-semibold text-gray-900">Thêm ngành đào tạo mới</h3>
+          <button class="text-gray-400 hover:text-gray-500" onclick="closeMajorModal()">
             <i class="ri-close-line text-2xl"></i>
           </button>
         </div>
 
         <div class="p-6">
-          <form id="majorForm" data-action="add" class="space-y-4">
-            <input type="hidden" id="majorId" name="majorId">
-            
-            <div>
-              <label for="majorCode" class="block text-sm font-medium text-gray-700 mb-1">
-                Mã ngành <span class="text-red-500">*</span>
-              </label>
-              <input type="text" id="majorCode" name="majorCode" required
-                class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-primary focus:border-primary">
-            </div>
-            
-            <div>
-              <label for="majorName" class="block text-sm font-medium text-gray-700 mb-1">
-                Tên ngành <span class="text-red-500">*</span>
-              </label>
-              <input type="text" id="majorName" name="majorName" required
-                class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-primary focus:border-primary">
-            </div>
-            
-            <div>
-              <label for="department" class="block text-sm font-medium text-gray-700 mb-1">
-                Khoa/Phòng <span class="text-red-500">*</span>
-              </label>
-              <select id="department" name="department" required
-                class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-primary focus:border-primary">
-                <option value="0">-- Chọn Khoa/Phòng --</option>
-                <!-- Options will be populated by JavaScript -->
-              </select>
-            </div>
-            
-            <div>
-              <div class="flex items-center">
-                <input type="checkbox" id="status" name="status" class="h-4 w-4 text-primary focus:ring-primary border-gray-300 rounded">
-                <label for="status" class="ml-2 block text-sm text-gray-700">
-                  Hoạt động
+          <form id="major-form" class="space-y-6">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div>
+                <label class="block text-sm font-medium text-gray-700 mb-2">
+                  Tên ngành <span class="text-red-500">*</span>
                 </label>
+                <input type="text" name="ten_nganh" id="ten_nganh" required
+                  class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary">
+              </div>
+
+              <div>
+                <label class="block text-sm font-medium text-gray-700 mb-2">
+                  Mã ngành <span class="text-red-500">*</span>
+                </label>
+                <input type="text" name="ma_nganh" id="ma_nganh" required
+                  class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary">
+              </div>
+
+              <div>
+                <label class="block text-sm font-medium text-gray-700 mb-2">
+                  Phòng/Khoa <span class="text-red-500">*</span>
+                </label>
+                <select name="phong_khoa_id" id="phong_khoa_id" required
+                  class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary">
+                  <option value="">Chọn phòng/khoa</option>
+                  <option value="1">Công nghệ thông tin</option>
+                  <option value="2">Kế toán - Quản trị</option>
+                  <option value="3">Ngôn ngữ học</option>
+                  <option value="4">Tài chính - Ngân hàng</option>
+                </select>
+              </div>
+
+              <div>
+                <label class="block text-sm font-medium text-gray-700 mb-2">
+                  Trạng thái <span class="text-red-500">*</span>
+                </label>
+                <select name="status" id="status" required
+                  class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary">
+                  <option value="1">Hoạt động</option>
+                  <option value="0">Không hoạt động</option>
+                </select>
               </div>
             </div>
-            
-            <div class="pt-4 border-t flex justify-end space-x-3">
-              <button type="button" id="cancel-button"
-                class="px-4 py-2 bg-gray-200 text-gray-800 rounded-md hover:bg-gray-300 transition-colors duration-200">
+
+            <div class="flex justify-end space-x-3">
+              <button type="button"
+                class="px-4 py-2 border border-gray-300 rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-primary/50"
+                onclick="closeMajorModal()">
                 Hủy
               </button>
               <button type="submit"
-                class="px-4 py-2 bg-primary text-white rounded-md hover:bg-primary-dark transition-colors duration-200">
-                Lưu
+                class="px-4 py-2 bg-primary text-white rounded-md hover:bg-primary/90 focus:outline-none focus:ring-2 focus:ring-primary/50">
+                Lưu ngành đào tạo
               </button>
             </div>
           </form>
@@ -428,36 +490,11 @@
     </div>
   </div>
 
-  <!-- Delete Confirmation Modal -->
-  <div id="deleteModal" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden" aria-labelledby="delete-modal-title" role="dialog" aria-modal="true">
-    <div class="flex items-center justify-center min-h-screen p-4">
-      <div class="bg-white rounded-lg shadow-xl max-w-md w-full">
-        <div class="p-6">
-          <div class="text-center">
-            <i class="ri-error-warning-line text-5xl text-red-500 mb-4"></i>
-            <h3 class="text-xl font-semibold text-gray-900 mb-2" id="delete-modal-title">Xác nhận xóa</h3>
-            <p class="text-gray-600">Bạn có chắc chắn muốn xóa ngành đào tạo này? Hành động này không thể hoàn tác.</p>
-          </div>
-
-          <div class="mt-6 flex justify-center space-x-3">
-            <button type="button" id="cancel-delete"
-              class="px-4 py-2 bg-gray-200 text-gray-800 rounded-md hover:bg-gray-300 transition-colors duration-200">
-              Hủy
-            </button>
-            <button type="button" id="confirm-delete"
-              class="px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-700 transition-colors duration-200">
-              Xóa
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
   <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
   <script src="../../public/js/admin/majors.js"></script>
 </body>
 
-</html> 
+</html>
