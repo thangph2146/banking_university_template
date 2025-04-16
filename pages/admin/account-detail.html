@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Chi tiết Tài khoản Admin - HUB Admin</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet" />
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+  <link href="../../public/css/custom.css" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com/3.4.16"></script>
+  <script src="../../public/js/tailwind.config.js"></script>
+</head>
+
+<body class="bg-gray-50 min-h-screen">
+  <!-- Loading Overlay -->
+  <div id="loading-overlay" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+    <div class="bg-white p-6 rounded-lg shadow-xl">
+      <div class="flex items-center space-x-4">
+        <div class="animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-primary"></div>
+        <p class="text-gray-700">Đang tải dữ liệu...</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="flex h-screen overflow-hidden">
+    <div id="sidebar-backdrop" class="fixed inset-0 bg-black/50 z-20 hidden md:hidden transition-opacity duration-300">
+    </div>
+
+    <!-- Sidebar -->
+    <aside id="sidebar"
+      class="fixed md:relative z-50 bg-white w-72 max-w-[80vw] min-h-screen shadow-lg transform -translate-x-full md:translate-x-0 transition-transform duration-300 overflow-y-auto">
+      <!-- Logo/Brand for mobile -->
+      <div class="flex items-center justify-between p-4 border-b md:hidden">
+        <a href="index.html" class="text-2xl font-['Pacifico'] text-primary flex items-center">
+          <img src="../../images/logo/logo-white.png" alt="logo" class="w-8 h-8 mr-2">
+          <span>HUB Admin</span>
+        </a>
+        <button id="sidebar-close" class="text-gray-500 hover:text-gray-700 focus:outline-none">
+          <i class="ri-close-line text-2xl"></i>
+        </button>
+      </div>
+
+      <nav class="p-4">
+        <div class="space-y-4">
+          <div class="border-b pb-4">
+            <h2 class="text-xs uppercase text-gray-400 font-semibold">Quản lý chung</h2>
+            <div class="mt-3 space-y-3">
+              <a href="dashboard.html"
+                class="sidebar-link flex items-center text-gray-600 hover:text-primary p-2 rounded-md hover:bg-gray-100">
+                <i class="sidebar-icon ri-dashboard-line mr-2"></i>
+                <span class="sidebar-link-text">Tổng quan</span>
+              </a>
+              <a href="events.html"
+                class="sidebar-link flex items-center text-gray-600 hover:text-primary p-2 rounded-md hover:bg-gray-100">
+                <i class="sidebar-icon ri-calendar-event-line mr-2"></i>
+                <span class="sidebar-link-text">Sự kiện</span>
+              </a>
+              <a href="accounts.html"
+                class="sidebar-link active flex items-center text-primary p-2 rounded-md bg-primary/10 font-medium">
+                <i class="sidebar-icon ri-user-settings-line mr-2"></i>
+                <span class="sidebar-link-text">Tài khoản Admin</span>
+              </a>
+              <a href="users.html"
+                class="sidebar-link flex items-center text-gray-600 hover:text-primary p-2 rounded-md hover:bg-gray-100">
+                <i class="sidebar-icon ri-user-line mr-2"></i>
+                <span class="sidebar-link-text">Người dùng</span>
+              </a>
+              <a href="speakers.html"
+                class="sidebar-link flex items-center text-gray-600 hover:text-primary p-2 rounded-md hover:bg-gray-100">
+                <i class="sidebar-icon ri-mic-line mr-2"></i>
+                <span class="sidebar-link-text">Diễn giả</span>
+              </a>
+            </div>
+          </div>
+
+          <div class="border-b pb-4">
+            <h2 class="sidebar-section-title text-xs uppercase text-gray-400 font-semibold">Quản lý sự kiện</h2>
+            <div class="mt-3 space-y-3">
+              <a href="event-types.html"
+                class="sidebar-link flex items-center text-gray-600 hover:text-primary p-2 rounded-md hover:bg-gray-100">
+                <i class="sidebar-icon ri-price-tag-3-line mr-2"></i>
+                <span class="sidebar-link-text">Loại sự kiện</span>
+              </a>
+              
+              <a href="registrations.html"
+                class="sidebar-link flex items-center text-gray-600 hover:text-primary p-2 rounded-md hover:bg-gray-100">
+                <i class="sidebar-icon ri-file-list-line mr-2"></i>
+                <span class="sidebar-link-text">Đăng ký sự kiện</span>
+              </a>
+              <a href="checkins.html"
+                class="sidebar-link flex items-center text-gray-600 hover:text-primary p-2 rounded-md hover:bg-gray-100">
+                <i class="sidebar-icon ri-login-box-line mr-2"></i>
+                <span class="sidebar-link-text">Check-in</span>
+              </a>
+              <a href="checkouts.html"
+                class="sidebar-link flex items-center text-gray-600 hover:text-primary p-2 rounded-md hover:bg-gray-100">
+                <i class="sidebar-icon ri-logout-box-line mr-2"></i>
+                <span class="sidebar-link-text">Check-out</span>
+              </a>
+              <a href="screens.html"
+                 class="sidebar-link flex items-center text-gray-600 hover:text-primary p-2 rounded-md hover:bg-gray-100">
+                 <i class="sidebar-icon ri-tv-2-line mr-2"></i>
+                 <span class="sidebar-link-text">Màn hình</span>
+               </a>
+              <a href="reports.html"
+                class="sidebar-link flex items-center text-gray-600 hover:text-primary p-2 rounded-md hover:bg-gray-100">
+                <i class="sidebar-icon ri-bar-chart-line mr-2"></i>
+                <span class="sidebar-link-text">Báo cáo</span>
+              </a>
+            </div>
+          </div>
+
+          <div>
+            <h2 class="sidebar-section-title text-xs uppercase text-gray-400 font-semibold">Cài đặt hệ thống</h2>
+            <div class="mt-3 space-y-3">
+              <a href="settings.html"
+                class="sidebar-link flex items-center text-gray-600 hover:text-primary p-2 rounded-md hover:bg-gray-100">
+                <i class="sidebar-icon ri-settings-3-line mr-2"></i>
+                <span class="sidebar-link-text">Thiết lập</span>
+              </a>
+              <a href="roles.html"
+                class="sidebar-link flex items-center text-gray-600 hover:text-primary p-2 rounded-md hover:bg-gray-100">
+                <i class="sidebar-icon ri-shield-user-line mr-2"></i>
+                <span class="sidebar-link-text">Phân quyền</span>
+              </a>
+              <a href="user-types.html"
+                class="sidebar-link flex items-center text-gray-600 hover:text-primary p-2 rounded-md hover:bg-gray-100">
+                <i class="sidebar-icon ri-group-line mr-2"></i>
+                <span class="sidebar-link-text">Loại người dùng</span>
+              </a>
+              <a href="academic-levels.html"
+                class="sidebar-link flex items-center text-gray-600 hover:text-primary p-2 rounded-md hover:bg-gray-100">
+                <i class="sidebar-icon ri-graduation-cap-line mr-2"></i>
+                <span class="sidebar-link-text">Bậc học</span>
+              </a>
+              <a href="courses.html"
+                class="sidebar-link flex items-center text-gray-600 hover:text-primary p-2 rounded-md hover:bg-gray-100">
+                <i class="sidebar-icon ri-book-open-line mr-2"></i>
+                <span class="sidebar-link-text">Khoá học</span>
+              </a>
+              <a href="majors.html"
+                class="sidebar-link flex items-center text-gray-600 hover:text-primary p-2 rounded-md hover:bg-gray-100">
+                <i class="sidebar-icon ri-book-open-line mr-2"></i>
+                <span class="sidebar-link-text">Ngành đào tạo</span>
+              </a>
+              <a href="departments.html"
+                class="sidebar-link flex items-center text-gray-600 hover:text-primary p-2 rounded-md hover:bg-gray-100">
+                <i class="sidebar-icon ri-building-line mr-2"></i>
+                <span class="sidebar-link-text">Phòng khoa</span>
+              </a>
+              <a href="academic-years.html"
+                class="sidebar-link flex items-center text-gray-600 hover:text-primary p-2 rounded-md hover:bg-gray-100">
+                <i class="sidebar-icon ri-calendar-check-line mr-2"></i>
+                <span class="sidebar-link-text">Năm học</span>
+              </a>
+              <a href="cameras.html"
+                class="sidebar-link flex items-center text-gray-600 hover:text-primary p-2 rounded-md hover:bg-gray-100">
+                <i class="sidebar-icon ri-camera-line mr-2"></i>
+                <span class="sidebar-link-text">Camera</span>
+              </a>
+               
+            </div>
+          </div>
+        </div>
+      </nav>
+    </aside>
+
+    <main class="flex-1 overflow-auto px-6 pb-6 pt-4">
+      <header class="bg-primary shadow-md sticky top-0 z-30 animate-fade-in mb-6">
+        <div class="container mx-auto px-4 py-2 flex items-center justify-between">
+          <button id="sidebar-open" class="text-white p-2 rounded-md md:hidden focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white">
+            <i class="ri-menu-line text-2xl"></i>
+          </button>
+
+          <a href="index.html"
+            class="text-2xl font-['Pacifico'] text-white transition-all duration-300 hover:scale-105">
+            <img src="../../images/logo/logo-white.png" alt="logo" class="w-12 h-12 md:w-16 md:h-16">
+          </a>
+          <div class="flex items-center space-x-4">
+            <div class="relative">
+              <button class="text-white hover:text-gray-200 focus:outline-none">
+                <i class="ri-notification-3-line text-xl"></i>
+                <span class="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full w-4 h-4 flex items-center justify-center">3</span>
+              </button>
+            </div>
+
+            <div class="flex items-center space-x-4">
+              <div class="relative group">
+                <button class="flex items-center space-x-2 text-white">
+                  <img src="https://readdy.ai/api/search-image?query=professional%20headshot%20young%20vietnamese%20student%20minimal%20background&width=100&height=100&seq=avatar" alt="Ảnh đại diện" class="w-8 h-8 rounded-full border-2 border-white">
+                  <span class="hidden sm:block">Nguyễn Văn A</span>
+                  <i class="ri-arrow-down-s-line group-hover:rotate-180 transition-transform duration-300"></i>
+                </button>
+                <div class="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg overflow-hidden z-20 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform origin-top-right scale-95 group-hover:scale-100">
+                  <div class="py-2">
+                    <a href="profile.html"
+                      class="flex items-center px-4 py-2 text-sm text-gray-800 hover:bg-primary/10 hover:text-primary border-l-4 border-primary">
+                      <i class="ri-user-line mr-2"></i>
+                      Trang cá nhân
+                    </a>
+                    <a href="#"
+                      class="flex items-center px-4 py-2 text-sm text-gray-800 hover:bg-primary/10 hover:text-primary">
+                      <i class="ri-calendar-event-line mr-2"></i>
+                      Sự kiện của tôi
+                    </a>
+                    <a href="#"
+                      class="flex items-center px-4 py-2 text-sm text-gray-800 hover:bg-primary/10 hover:text-primary">
+                      <i class="ri-settings-4-line mr-2"></i>
+                      Cài đặt
+                    </a>
+                    <hr class="my-1 border-gray-200">
+                    <a href="login.html"
+                      class="flex items-center px-4 py-2 text-sm text-gray-800 hover:bg-primary/10 hover:text-primary">
+                      <i class="ri-logout-box-r-line mr-2"></i>
+                      Đăng xuất
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <div class="container mx-auto">
+        <nav class="flex mb-6" aria-label="Breadcrumb">
+          <ol class="inline-flex items-center space-x-1 md:space-x-3">
+            <li class="inline-flex items-center">
+              <a href="dashboard.html" class="text-gray-700 hover:text-primary">
+                <i class="ri-dashboard-line mr-2"></i>
+                Dashboard
+              </a>
+            </li>
+            <li>
+              <div class="flex items-center">
+                <i class="ri-arrow-right-s-line text-gray-400"></i>
+                <a href="accounts.html" class="ml-1 text-gray-700 hover:text-primary">
+                  Tài khoản Admin
+                </a>
+              </div>
+            </li>
+            <li>
+              <div class="flex items-center">
+                <i class="ri-arrow-right-s-line text-gray-400"></i>
+                <span class="ml-1 text-primary font-medium">Chi tiết tài khoản</span>
+              </div>
+            </li>
+          </ol>
+        </nav>
+
+        <div class="flex flex-col md:flex-row md:items-center md:justify-between mb-6" data-aos="fade-down">
+          <h1 class="text-2xl font-semibold text-gray-900">Chi tiết tài khoản Admin</h1>
+        </div>
+        
+        <div class="bg-white rounded-lg shadow-sm overflow-hidden mb-8" data-aos="fade-up">
+          <div class="p-6">
+            <div class="space-y-6">
+              <!-- Thông báo khi không tìm thấy dữ liệu -->
+              <div id="no-data-message" class="hidden p-4 rounded-md bg-blue-50 text-blue-700 mb-4">
+                <div class="flex items-center">
+                  <i class="ri-information-line text-xl mr-2"></i>
+                  <p>Không tìm thấy thông tin tài khoản.</p>
+                </div>
+              </div>
+              
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- ID -->
+                <div class="group">
+                  <label class="block text-sm font-medium text-gray-700 mb-1">
+                    ID
+                  </label>
+                  <div class="bg-gray-50 px-4 py-2.5 rounded-md border border-gray-200">
+                    <p id="user-id" class="text-gray-800">--</p>
+                  </div>
+                </div>
+                
+                <!-- Tên đăng nhập -->
+                <div class="group">
+                  <label class="block text-sm font-medium text-gray-700 mb-1">
+                    Tên đăng nhập
+                  </label>
+                  <div class="bg-gray-50 px-4 py-2.5 rounded-md border border-gray-200">
+                    <p id="username" class="text-gray-800">--</p>
+                  </div>
+                </div>
+                
+                <!-- Email -->
+                <div class="group">
+                  <label class="block text-sm font-medium text-gray-700 mb-1">
+                    Email
+                  </label>
+                  <div class="bg-gray-50 px-4 py-2.5 rounded-md border border-gray-200">
+                    <p id="email" class="text-gray-800">--</p>
+                  </div>
+                </div>
+                
+                <!-- Họ -->
+                <div class="group">
+                  <label class="block text-sm font-medium text-gray-700 mb-1">
+                    Họ
+                  </label>
+                  <div class="bg-gray-50 px-4 py-2.5 rounded-md border border-gray-200">
+                    <p id="lastName" class="text-gray-800">--</p>
+                  </div>
+                </div>
+                
+                <!-- Tên đệm -->
+                <div class="group">
+                  <label class="block text-sm font-medium text-gray-700 mb-1">
+                    Tên đệm
+                  </label>
+                  <div class="bg-gray-50 px-4 py-2.5 rounded-md border border-gray-200">
+                    <p id="middleName" class="text-gray-800">--</p>
+                  </div>
+                </div>
+                
+                <!-- Tên -->
+                <div class="group">
+                  <label class="block text-sm font-medium text-gray-700 mb-1">
+                    Tên
+                  </label>
+                  <div class="bg-gray-50 px-4 py-2.5 rounded-md border border-gray-200">
+                    <p id="firstName" class="text-gray-800">--</p>
+                  </div>
+                </div>
+                
+                <!-- Loại tài khoản -->
+                <div class="group">
+                  <label class="block text-sm font-medium text-gray-700 mb-1">
+                    Loại tài khoản
+                  </label>
+                  <div class="bg-gray-50 px-4 py-2.5 rounded-md border border-gray-200">
+                    <p id="type" class="text-gray-800">--</p>
+                  </div>
+                </div>
+                
+                <!-- Trạng thái -->
+                <div class="group">
+                  <label class="block text-sm font-medium text-gray-700 mb-1">
+                    Trạng thái
+                  </label>
+                  <div id="status">--</div>
+                </div>
+                
+                <!-- Thời gian -->
+                <div class="group col-span-1 md:col-span-2">
+                  <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div>
+                      <label class="block text-sm font-medium text-gray-600 mb-1">Thời gian tạo</label>
+                      <div class="text-sm text-gray-800" id="created-at">--/--/---- --:--:--</div>
+                    </div>
+                    <div>
+                      <label class="block text-sm font-medium text-gray-600 mb-1">Cập nhật lần cuối</label>
+                      <div class="text-sm text-gray-800" id="updated-at">--/--/---- --:--:--</div>
+                    </div>
+                    <div>
+                      <label class="block text-sm font-medium text-gray-600 mb-1">Xóa lúc</label>
+                      <div class="text-sm text-gray-800" id="deleted-at">--/--/---- --:--:--</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+  <script src="../../public/js/admin/account-detail.js"></script>
+</body>
+</html> 

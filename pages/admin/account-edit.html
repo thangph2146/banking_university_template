@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Quản lý Tài khoản - HUB Admin</title>
+  <title>Chỉnh sửa Tài khoản Admin - HUB Admin</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet" />
@@ -52,14 +52,14 @@
                 <span class="sidebar-link-text">Sự kiện</span>
               </a>
               <a href="accounts.html"
-              class="sidebar-link active flex items-center text-primary p-2 rounded-md bg-primary/10 font-medium">
+                class="sidebar-link active flex items-center text-primary p-2 rounded-md bg-primary/10 font-medium">
                 <i class="sidebar-icon ri-user-settings-line mr-2"></i>
                 <span class="sidebar-link-text">Tài khoản Admin</span>
               </a>
               <a href="users.html"
                 class="sidebar-link flex items-center text-gray-600 hover:text-primary p-2 rounded-md hover:bg-gray-100">
                 <i class="sidebar-icon ri-user-line mr-2"></i>
-                <span class="sidebar-link-text">Sinh viên</span>
+                <span class="sidebar-link-text">Người dùng</span>
               </a>
               <a href="speakers.html"
                 class="sidebar-link flex items-center text-gray-600 hover:text-primary p-2 rounded-md hover:bg-gray-100">
@@ -77,6 +77,7 @@
                 <i class="sidebar-icon ri-price-tag-3-line mr-2"></i>
                 <span class="sidebar-link-text">Loại sự kiện</span>
               </a>
+              
               <a href="registrations.html"
                 class="sidebar-link flex items-center text-gray-600 hover:text-primary p-2 rounded-md hover:bg-gray-100">
                 <i class="sidebar-icon ri-file-list-line mr-2"></i>
@@ -148,7 +149,6 @@
                 <i class="sidebar-icon ri-camera-line mr-2"></i>
                 <span class="sidebar-link-text">Camera</span>
               </a>
-               
             </div>
           </div>
         </div>
@@ -187,18 +187,13 @@
                     <i class="ri-user-line mr-2"></i>
                     Trang cá nhân
                   </a>
-                  <a href="registered-events.html"
-                    class="flex items-center px-4 py-2 text-sm text-gray-800 hover:bg-primary/10 hover:text-primary">
-                    <i class="ri-calendar-event-line mr-2"></i>
-                    Sự kiện của tôi
-                  </a>
-                  <a href="settings.html"
+                  <a href="#"
                     class="flex items-center px-4 py-2 text-sm text-gray-800 hover:bg-primary/10 hover:text-primary">
                     <i class="ri-settings-4-line mr-2"></i>
                     Cài đặt
                   </a>
                   <hr class="my-1 border-gray-200">
-                  <a href="../auth/login.html"
+                  <a href="login.html"
                     class="flex items-center px-4 py-2 text-sm text-gray-800 hover:bg-primary/10 hover:text-primary">
                     <i class="ri-logout-box-r-line mr-2"></i>
                     Đăng xuất
@@ -210,170 +205,214 @@
         </div>
       </header>
 
-      <div class="bg-white rounded-lg shadow mb-6 p-4">
-        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between">
-          <div>
-            <h1 class="text-2xl font-semibold text-gray-900">Quản lý Tài khoản</h1>
-            <p class="mt-1 text-sm text-gray-600">Quản lý thông tin tài khoản trong hệ thống</p>
-          </div>
-          <div class="mt-4 sm:mt-0 flex gap-2">
-            <a href="account-create.html"
-              class="flex items-center justify-center px-4 py-2 bg-primary text-white rounded-md hover:bg-primary-dark transition-colors duration-200 text-sm">
-              <i class="ri-add-line mr-1"></i> Thêm tài khoản
-            </a>
-          </div>
-        </div>
-      </div>
-
-      <!-- Breadcrumb -->
-      <nav class="text-sm font-medium mb-3" aria-label="Breadcrumb">
-        <ol class="list-none p-0 inline-flex">
-          <li class="flex items-center">
-            <a href="dashboard.html" class="text-gray-500 hover:text-primary">
-              <i class="ri-dashboard-line mr-1"></i> Dashboard
-            </a>
-            <i class="ri-arrow-right-s-line text-gray-400 mx-2"></i>
-          </li>
-          <li class="text-primary" aria-current="page">Quản lý tài khoản</li>
-        </ol>
-      </nav>
-
-      <!-- Filters Section -->
-      <div class="bg-white p-4 rounded-lg shadow mb-4">
-        <form id="filter-form">
-          <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-            <!-- Filter by Name/Email/Username -->
-            <div>
-              <label for="filter-search" class="block text-sm font-medium text-gray-700 mb-1">Tìm kiếm</label>
-              <input type="text" id="filter-search" name="filter-search" placeholder="Tên, Email, Username..."
-                class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-primary focus:border-primary text-sm">
-            </div>
-            <!-- Filter by Type -->
-            <div>
-              <label for="filter-type" class="block text-sm font-medium text-gray-700 mb-1">Loại tài khoản</label>
-              <select id="filter-type" name="filter-type"
-                class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-primary focus:border-primary text-sm">
-                <option value="">Tất cả</option>
-                <option value="admin">Admin</option>
-                <option value="manager">Manager</option>
-                <option value="user">User</option>
-              </select>
-            </div>
-            <!-- Filter by Status -->
-            <div>
-              <label for="filter-status" class="block text-sm font-medium text-gray-700 mb-1">Trạng thái</label>
-              <select id="filter-status" name="filter-status"
-                class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-primary focus:border-primary text-sm">
-                <option value="">Tất cả</option>
-                <option value="1">Hoạt động</option>
-                <option value="0">Tạm khóa</option>
-              </select>
-            </div>
-          </div>
-          <div class="mt-4 flex justify-end space-x-2">
-            <button type="reset" id="reset-filter-btn"
-              class="px-4 py-2 border border-gray-300 text-gray-700 rounded-md hover:bg-gray-50 text-sm transition-colors duration-200">
-              Đặt lại
-            </button>
-            <button type="submit" id="apply-filter-btn"
-              class="px-4 py-2 bg-primary text-white rounded-md hover:bg-primary-dark text-sm transition-colors duration-200">
-              <i class="ri-filter-line mr-1"></i> Lọc
-            </button>
-          </div>
-        </form>
-      </div>
-
-      <!-- Accounts List -->
-      <div class="bg-white rounded-lg shadow overflow-hidden">
-        <div class="p-4 border-b border-gray-200 flex justify-between items-center">
-          <h2 class="text-lg font-medium text-gray-900">Danh sách tài khoản</h2>
-        </div>
-
-        <!-- Table container -->
-        <div class="overflow-x-auto">
-          <table id="accounts-table" class="min-w-full divide-y divide-gray-200">
-            <thead class="bg-gray-50">
-              <tr>
-                <th scope="col" class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-1/6">
-                  Thông tin tài khoản
-                </th>
-                <th scope="col" class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-1/5">
-                  Thông tin cá nhân
-                </th>
-                <th scope="col" class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-1/6">
-                  Loại tài khoản
-                </th>
-                <th scope="col" class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-1/8">
-                  Trạng thái
-                </th>
-                <th scope="col" class="px-4 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider w-1/6">
-                  Hành động
-                </th>
-              </tr>
-            </thead>
-            <tbody id="accountsTableBody" class="bg-white divide-y divide-gray-200">
-              <!-- Table rows will be dynamically inserted here by JavaScript -->
-              <tr id="no-data-placeholder" class="hidden">
-                <td colspan="5" class="text-center py-10 px-4 text-gray-500">
-                  <i class="ri-information-line text-4xl mb-2"></i>
-                  <p>Không có dữ liệu tài khoản nào.</p>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-
-        <!-- Pagination -->
-        <div class="px-4 py-3 bg-gray-50 border-t border-gray-200">
-          <div class="flex flex-col sm:flex-row items-center justify-between space-y-2 sm:space-y-0">
-            <div class="flex items-center space-x-2 text-sm text-gray-500">
-              <span>Hiển thị</span>
-              <select id="items-per-page" name="items-per-page"
-                class="border border-gray-300 rounded-md px-2 py-1 focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary">
-                <option value="10" selected>10</option>
-                <option value="15">15</option>
-                <option value="20">20</option>
-                <option value="50">50</option>
-                <option value="100">100</option>
-              </select>
-              <span>mục. Tổng số: <span id="total-items-count" class="font-medium text-gray-700">0</span> tài khoản.</span>
-            </div>
-            <div class="flex items-center space-x-1" id="pagination-controls">
-              <button
-                class="btn-first p-2 rounded text-gray-500 hover:text-gray-700 hover:bg-gray-100 disabled:opacity-50 disabled:cursor-not-allowed"
-                title="Trang đầu">
-                <i class="ri-skip-left-line"></i>
-              </button>
-              <button
-                class="btn-prev p-2 rounded text-gray-500 hover:text-gray-700 hover:bg-gray-100 disabled:opacity-50 disabled:cursor-not-allowed"
-                title="Trang trước">
-                <i class="ri-arrow-left-s-line"></i>
-              </button>
-              <div class="flex items-center space-x-1 px-2">
-                <span class="text-sm text-gray-700">Trang</span>
-                <input type="number" id="current-page-input" value="1" min="1"
-                  class="w-12 border border-gray-300 rounded-md px-2 py-1 text-center text-sm focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary">
-                <span class="text-sm text-gray-500">/ <span id="total-pages-count">1</span></span>
+      <div class="container mx-auto">
+        <!-- Breadcrumb -->
+        <nav class="flex mb-6" aria-label="Breadcrumb">
+          <ol class="inline-flex items-center space-x-1 md:space-x-3">
+            <li class="inline-flex items-center">
+              <a href="dashboard.html" class="text-gray-700 hover:text-primary">
+                <i class="ri-dashboard-line mr-2"></i>
+                Dashboard
+              </a>
+            </li>
+            <li>
+              <div class="flex items-center">
+                <i class="ri-arrow-right-s-line text-gray-400"></i>
+                <a href="accounts.html" class="ml-1 text-gray-700 hover:text-primary">
+                  Tài khoản Admin
+                </a>
               </div>
-              <button
-                class="btn-next p-2 rounded text-gray-500 hover:text-gray-700 hover:bg-gray-100 disabled:opacity-50 disabled:cursor-not-allowed"
-                title="Trang sau">
-                <i class="ri-arrow-right-s-line"></i>
-              </button>
-              <button
-                class="btn-last p-2 rounded text-gray-500 hover:text-gray-700 hover:bg-gray-100 disabled:opacity-50 disabled:cursor-not-allowed"
-                title="Trang cuối">
-                <i class="ri-skip-right-line"></i>
-              </button>
-            </div>
+            </li>
+            <li>
+              <div class="flex items-center">
+                <i class="ri-arrow-right-s-line text-gray-400"></i>
+                <span class="ml-1 text-primary font-medium">Chỉnh sửa tài khoản</span>
+              </div>
+            </li>
+          </ol>
+        </nav>
+
+        <!-- Page Title & Actions -->
+        <div class="flex flex-col md:flex-row md:items-center md:justify-between mb-6" data-aos="fade-down">
+          <h1 class="text-2xl font-semibold text-gray-900">Chỉnh sửa tài khoản Admin</h1>
+          <div class="mt-4 md:mt-0 flex space-x-3">
+            <button id="back-btn" class="bg-gray-100 text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-gray-300">
+              <i class="ri-arrow-left-line mr-1"></i>
+              Quay lại
+            </button>
+            <button id="save-btn" type="submit" form="account-form" class="bg-primary text-white px-4 py-2 rounded-lg hover:bg-primary/90 focus:outline-none focus:ring-2 focus:ring-primary/50">
+              <i class="ri-save-line mr-1"></i>
+              Lưu thay đổi
+            </button>
           </div>
+        </div>
+        
+        <!-- Account Form -->
+        <div class="bg-white rounded-lg shadow-sm overflow-hidden" data-aos="fade-up">
+          <form id="account-form" class="p-6">
+            <input type="hidden" id="u_id" name="u_id">
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <!-- Thông tin cơ bản -->
+              <div class="md:col-span-2">
+                <h2 class="text-lg font-medium text-gray-800 mb-4 pb-2 border-b border-gray-200">
+                  Thông tin cơ bản
+                </h2>
+              </div>
+              
+              <!-- Họ -->
+              <div class="group">
+                <label for="u_LastName" class="block text-sm font-medium text-gray-700 mb-1">
+                  Họ
+                </label>
+                <input type="text" id="u_LastName" name="u_LastName" 
+                  class="w-full px-4 py-2.5 rounded-md border border-gray-300 focus:ring-2 focus:ring-primary/50 focus:border-primary transition-colors duration-200"
+                  placeholder="Nhập họ">
+              </div>
+              
+              <!-- Tên đệm -->
+              <div class="group">
+                <label for="u_MiddleName" class="block text-sm font-medium text-gray-700 mb-1">
+                  Tên đệm
+                </label>
+                <input type="text" id="u_MiddleName" name="u_MiddleName" 
+                  class="w-full px-4 py-2.5 rounded-md border border-gray-300 focus:ring-2 focus:ring-primary/50 focus:border-primary transition-colors duration-200"
+                  placeholder="Nhập tên đệm">
+              </div>
+              
+              <!-- Tên -->
+              <div class="group">
+                <label for="u_FirstName" class="block text-sm font-medium text-gray-700 mb-1">
+                  Tên <span class="text-red-500">*</span>
+                </label>
+                <input type="text" id="u_FirstName" name="u_FirstName" required
+                  class="w-full px-4 py-2.5 rounded-md border border-gray-300 focus:ring-2 focus:ring-primary/50 focus:border-primary transition-colors duration-200"
+                  placeholder="Nhập tên">
+              </div>
+              
+              <!-- Loại tài khoản -->
+              <div class="group">
+                <label for="u_type" class="block text-sm font-medium text-gray-700 mb-1">
+                  Loại tài khoản <span class="text-red-500">*</span>
+                </label>
+                <select id="u_type" name="u_type" required
+                  class="w-full px-4 py-2.5 rounded-md border border-gray-300 focus:ring-2 focus:ring-primary/50 focus:border-primary transition-colors duration-200">
+                  <option value="admin">Admin</option>
+                  <option value="manager">Manager</option>
+                  <option value="user">User</option>
+                </select>
+              </div>
+              
+              <!-- Thông tin đăng nhập -->
+              <div class="md:col-span-2 mt-4">
+                <h2 class="text-lg font-medium text-gray-800 mb-4 pb-2 border-b border-gray-200">
+                  Thông tin đăng nhập
+                </h2>
+              </div>
+              
+              <!-- Tên đăng nhập -->
+              <div class="group">
+                <label for="u_username" class="block text-sm font-medium text-gray-700 mb-1">
+                  Tên đăng nhập <span class="text-red-500">*</span>
+                </label>
+                <input type="text" id="u_username" name="u_username" required
+                  class="w-full px-4 py-2.5 rounded-md border border-gray-300 focus:ring-2 focus:ring-primary/50 focus:border-primary transition-colors duration-200"
+                  placeholder="Nhập tên đăng nhập">
+              </div>
+              
+              <!-- Email -->
+              <div class="group">
+                <label for="u_email" class="block text-sm font-medium text-gray-700 mb-1">
+                  Email <span class="text-red-500">*</span>
+                </label>
+                <input type="email" id="u_email" name="u_email" required
+                  class="w-full px-4 py-2.5 rounded-md border border-gray-300 focus:ring-2 focus:ring-primary/50 focus:border-primary transition-colors duration-200"
+                  placeholder="Nhập địa chỉ email">
+              </div>
+              
+              <!-- Mật khẩu -->
+              <div class="group">
+                <label for="u_password" class="block text-sm font-medium text-gray-700 mb-1">
+                  Mật khẩu <span class="text-gray-500 text-xs">(Để trống nếu không thay đổi)</span>
+                </label>
+                <div class="relative">
+                  <input type="password" id="u_password" name="u_password"
+                    class="w-full px-4 py-2.5 rounded-md border border-gray-300 focus:ring-2 focus:ring-primary/50 focus:border-primary transition-colors duration-200"
+                    placeholder="Nhập mật khẩu mới">
+                  <button type="button" id="toggle-password" class="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500 hover:text-gray-700">
+                    <i class="ri-eye-off-line"></i>
+                  </button>
+                </div>
+              </div>
+              
+              <!-- Xác nhận mật khẩu -->
+              <div class="group">
+                <label for="u_password_confirm" class="block text-sm font-medium text-gray-700 mb-1">
+                  Xác nhận mật khẩu
+                </label>
+                <div class="relative">
+                  <input type="password" id="u_password_confirm" name="u_password_confirm"
+                    class="w-full px-4 py-2.5 rounded-md border border-gray-300 focus:ring-2 focus:ring-primary/50 focus:border-primary transition-colors duration-200"
+                    placeholder="Xác nhận mật khẩu mới">
+                  <button type="button" id="toggle-password-confirm" class="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500 hover:text-gray-700">
+                    <i class="ri-eye-off-line"></i>
+                  </button>
+                </div>
+              </div>
+              
+              <!-- Trạng thái -->
+              <div class="group">
+                <label for="u_status" class="block text-sm font-medium text-gray-700 mb-1">
+                  Trạng thái <span class="text-red-500">*</span>
+                </label>
+                <select id="u_status" name="u_status" required
+                  class="w-full px-4 py-2.5 rounded-md border border-gray-300 focus:ring-2 focus:ring-primary/50 focus:border-primary transition-colors duration-200">
+                  <option value="1">Hoạt động</option>
+                  <option value="0">Không hoạt động</option>
+                </select>
+              </div>
+              
+              <!-- Thông tin cập nhật -->
+              <div class="group">
+                <label class="block text-sm font-medium text-gray-700 mb-1">
+                  Thông tin cập nhật
+                </label>
+                <div class="pl-2 border-l-2 border-gray-200">
+                  <p class="text-sm text-gray-500">Cập nhật lần cuối: <span id="updated_at" class="font-medium">-</span></p>
+                  <p class="text-sm text-gray-500">Ngày tạo: <span id="created_at" class="font-medium">-</span></p>
+                </div>
+              </div>
+            </div>
+              
+            <div class="mt-6 pt-4 border-t border-gray-200">
+              <div class="flex justify-end space-x-3">
+                <button type="button" id="cancel-btn" class="bg-gray-200 text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-gray-400">
+                  <i class="ri-close-line mr-1"></i>
+                  Hủy bỏ
+                </button>
+                <button type="submit" class="bg-primary text-white px-4 py-2 rounded-lg hover:bg-primary/90 focus:outline-none focus:ring-2 focus:ring-primary/50">
+                  <i class="ri-save-line mr-1"></i>
+                  Lưu thay đổi
+                </button>
+              </div>
+            </div>
+          </form>
         </div>
       </div>
     </main>
   </div>
 
-  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-  <script src="../../public/js/admin/accounts.js"></script>
-</body>
+  <!-- Loading overlay -->
+  <div id="loading-overlay" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
+    <div class="bg-white p-6 rounded-lg shadow-xl">
+      <div class="flex items-center space-x-4">
+        <div class="animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-primary"></div>
+        <p class="text-gray-700" id="loading-text">Đang xử lý...</p>
+      </div>
+    </div>
+  </div>
 
+  <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+  <script src="../../public/js/admin/account-edit.js"></script>
+</body>
 </html> 
