@@ -66,15 +66,65 @@ const formatDateTime = (dateTimeString) => {
 const fetchCheckins = async (currentFilters) => {
     // TODO: API call to fetch checkins based on filters and pagination settings
     console.log('Fetching checkins with filters:', currentFilters);
-    // Return sample structure for now, replace with actual API call
-    // Dữ liệu trả về nên bao gồm danh sách check-in và tổng số bản ghi
-    // Ví dụ cấu trúc dữ liệu từ checkin_sukien (phỏng đoán)
-    const sampleData = [
+    
+    // Đợi một chút để giả lập API call
+    await new Promise(resolve => setTimeout(resolve, 300));
+    
+    // Dữ liệu mẫu lớn hơn để test phân trang
+    const allSampleData = [
         { ID: 1, EventID: 1, AccountID: 'U001', DeviceID: 'DVC001', LocationID: 'LOC01', CheckInTime: '2024-07-28T10:00:00Z', HinhAnhCheckIn: 'https://picsum.photos/seed/1/300/200', User: { AccountId: 'U001', FullName: 'Nguyễn Văn An', Email: 'an.nv@example.com', Avatar: 'https://ui-avatars.com/api/?name=An+NV&background=random' }, Event: { EventID: 1, EventName: 'Hội thảo AI 2024', StartTime: '2024-09-15T09:00:00Z' }, Device: { DeviceID: 'DVC001', DeviceName: 'Thiết bị Check-in Cổng 1' }, Location: { LocationID: 'LOC01', LocationName: 'Cổng chính' } },
         { ID: 2, EventID: 2, AccountID: 'U002', DeviceID: 'DVC002', LocationID: 'LOC02', CheckInTime: '2024-07-27T14:30:00Z', HinhAnhCheckIn: 'https://picsum.photos/seed/2/300/200', User: { AccountId: 'U002', FullName: 'Trần Thị Bình', Email: 'binh.tt@example.com', Avatar: 'https://ui-avatars.com/api/?name=Binh+TT&background=random' }, Event: { EventID: 2, EventName: 'Workshop Marketing Online', StartTime: '2024-10-20T14:00:00Z' }, Device: { DeviceID: 'DVC002', DeviceName: 'Thiết bị Check-in Cổng 2' }, Location: { LocationID: 'LOC02', LocationName: 'Hội trường A' } },
-        // ... thêm dữ liệu mẫu khác nếu cần
+        { ID: 3, EventID: 3, AccountID: 'U003', DeviceID: 'DVC001', LocationID: 'LOC01', CheckInTime: '2024-07-26T09:15:00Z', HinhAnhCheckIn: 'https://picsum.photos/seed/3/300/200', User: { AccountId: 'U003', FullName: 'Lê Văn Cường', Email: 'cuong.lv@example.com', Avatar: 'https://ui-avatars.com/api/?name=Cuong+LV&background=random' }, Event: { EventID: 3, EventName: 'Khóa học Lập trình Python', StartTime: '2024-08-10T08:00:00Z' }, Device: { DeviceID: 'DVC001', DeviceName: 'Thiết bị Check-in Cổng 1' }, Location: { LocationID: 'LOC01', LocationName: 'Cổng chính' } },
+        { ID: 4, EventID: 1, AccountID: 'U004', DeviceID: 'DVC003', LocationID: 'LOC03', CheckInTime: '2024-07-28T11:45:00Z', HinhAnhCheckIn: 'https://picsum.photos/seed/4/300/200', User: { AccountId: 'U004', FullName: 'Phạm Thị Dung', Email: 'dung.pt@example.com', Avatar: 'https://ui-avatars.com/api/?name=Dung+PT&background=random' }, Event: { EventID: 1, EventName: 'Hội thảo AI 2024', StartTime: '2024-09-15T09:00:00Z' }, Device: { DeviceID: 'DVC003', DeviceName: 'Thiết bị Check-in Cổng 3' }, Location: { LocationID: 'LOC03', LocationName: 'Hội trường B' } },
+        { ID: 5, EventID: 2, AccountID: 'U005', DeviceID: 'DVC002', LocationID: 'LOC02', CheckInTime: '2024-07-27T15:00:00Z', HinhAnhCheckIn: 'https://picsum.photos/seed/5/300/200', User: { AccountId: 'U005', FullName: 'Hoàng Minh Đức', Email: 'duc.hm@example.com', Avatar: 'https://ui-avatars.com/api/?name=Duc+HM&background=random' }, Event: { EventID: 2, EventName: 'Workshop Marketing Online', StartTime: '2024-10-20T14:00:00Z' }, Device: { DeviceID: 'DVC002', DeviceName: 'Thiết bị Check-in Cổng 2' }, Location: { LocationID: 'LOC02', LocationName: 'Hội trường A' } },
+        { ID: 6, EventID: 3, AccountID: 'U006', DeviceID: 'DVC001', LocationID: 'LOC01', CheckInTime: '2024-07-26T09:30:00Z', HinhAnhCheckIn: 'https://picsum.photos/seed/6/300/200', User: { AccountId: 'U006', FullName: 'Nguyễn Thị Giang', Email: 'giang.nt@example.com', Avatar: 'https://ui-avatars.com/api/?name=Giang+NT&background=random' }, Event: { EventID: 3, EventName: 'Khóa học Lập trình Python', StartTime: '2024-08-10T08:00:00Z' }, Device: { DeviceID: 'DVC001', DeviceName: 'Thiết bị Check-in Cổng 1' }, Location: { LocationID: 'LOC01', LocationName: 'Cổng chính' } },
     ];
-    return { data: sampleData, total: sampleData.length };
+    
+    // Thực hiện filter dữ liệu dựa trên các điều kiện
+    let filteredData = [...allSampleData];
+    
+    // Filter theo search term (tìm trong tên người dùng, email, và tên sự kiện)
+    if (currentFilters.search) {
+        const searchTerm = currentFilters.search.toLowerCase();
+        filteredData = filteredData.filter(item => 
+            (item.User?.FullName && item.User.FullName.toLowerCase().includes(searchTerm)) || 
+            (item.User?.Email && item.User.Email.toLowerCase().includes(searchTerm)) ||
+            (item.Event?.EventName && item.Event.EventName.toLowerCase().includes(searchTerm))
+        );
+    }
+    
+    // Filter theo event ID
+    if (currentFilters.event) {
+        filteredData = filteredData.filter(item => 
+            item.EventID.toString() === currentFilters.event.toString()
+        );
+    }
+    
+    // Filter theo date range
+    if (currentFilters.dateRange?.startDate && currentFilters.dateRange?.endDate) {
+        const startDate = new Date(currentFilters.dateRange.startDate);
+        const endDate = new Date(currentFilters.dateRange.endDate);
+        // Đặt thời gian endDate về cuối ngày để bao gồm cả ngày cuối
+        endDate.setHours(23, 59, 59, 999);
+        
+        filteredData = filteredData.filter(item => {
+            const checkInDate = new Date(item.CheckInTime);
+            return checkInDate >= startDate && checkInDate <= endDate;
+        });
+    }
+    
+    // Tính toán phân trang
+    const totalItems = filteredData.length;
+    const page = currentFilters.page || 1;
+    const limit = currentFilters.limit || 10;
+    const startIndex = (page - 1) * limit;
+    const endIndex = Math.min(startIndex + limit, totalItems);
+    
+    // Trả về dữ liệu đã phân trang
+    return { 
+        data: filteredData.slice(startIndex, endIndex),
+        total: totalItems 
+    };
 };
 
 const fetchEventsForFilter = async () => {
@@ -97,6 +147,11 @@ const deleteCheckin = async (id) => {
 
 // Core Functions
 const applyFiltersAndLoadData = async () => {
+    console.log('===== BẮT ĐẦU LOAD DỮ LIỆU =====');
+    console.log('Trang hiện tại:', currentPage);
+    console.log('Items per page:', itemsPerPage);
+    console.log('Các filter hiện tại:', filters);
+    
     // TODO: Thêm loading indicator nếu cần
     try {
         // Lấy các filter hiện tại
@@ -112,7 +167,10 @@ const applyFiltersAndLoadData = async () => {
             // Thêm các tham số sắp xếp nếu cần
         };
 
+        console.log('Tham số gửi đi API:', apiParams);
         const response = await fetchCheckins(apiParams);
+        console.log('Kết quả trả về:', response);
+        
         allCheckins = response.data || []; // Lưu dữ liệu trả về
         const totalItems = response.total || 0;
 
@@ -120,8 +178,12 @@ const applyFiltersAndLoadData = async () => {
         totalPages = Math.max(1, Math.ceil(totalItems / itemsPerPage));
         if (currentPage > totalPages) currentPage = totalPages; // Đảm bảo trang hiện tại hợp lệ
 
+        console.log('Tổng số trang:', totalPages);
+        console.log('Tổng số items:', totalItems);
+
         renderTable();
         updatePagination(totalItems); // Cập nhật tổng số item
+        console.log('===== KẾT THÚC LOAD DỮ LIỆU =====');
 
     } catch (error) {
         console.error("Error loading checkins:", error);
@@ -138,6 +200,11 @@ const applyFiltersAndLoadData = async () => {
 const loadData = () => {
     // Reset to page 1 when applying filters manually
     currentPage = 1;
+    console.log('loadData được gọi - Filter hiện tại:', {
+        search: filterSearchInput?.value || '',
+        event: filterEventSelect?.value || '',
+        dateRange: filters.dateRange
+    });
     applyFiltersAndLoadData();
 }
 
@@ -354,10 +421,14 @@ const initializeCheckinsPage = async () => { // Chuyển thành async
 
     // Filter Event Listeners
     if (filterForm) {
-        filterForm.addEventListener('submit', (e) => {
+        console.log('Đã tìm thấy filterForm, đang đăng ký sự kiện submit');
+        filterForm.addEventListener('submit', function(e) {
             e.preventDefault();
+            console.log('Form submit được gọi');
             loadData(); // Gọi hàm loadData mới
         });
+    } else {
+        console.error('Không tìm thấy filterForm');
     }
 
     if (resetFilterBtn) {
@@ -366,22 +437,21 @@ const initializeCheckinsPage = async () => { // Chuyển thành async
             // Reset date range picker
             if(filterDateInput) $(filterDateInput).val('');
             filters = { search: '', event: '', dateRange: { startDate: null, endDate: null } };
+            console.log('Đã reset filter form');
             loadData(); // Gọi hàm loadData mới
         });
     }
 
-     // Add event listener for the refresh button
+    // Add event listener for the refresh button
     if (refreshBtn) {
         refreshBtn.addEventListener('click', async () => {
             console.log('Refreshing data...');
-            // Clear filters visually but keep the state in `filters` variable
-            // filterForm.reset(); // Không reset form để giữ lại filter hiện tại
-            // $(filterDateInput).val(''); // Không reset date
-            // filters = { search: '', event: '', dateRange: { startDate: null, endDate: null } }; // Không reset filter state
             await populateSelectOptions(); // Cập nhật lại danh sách event phòng trường hợp có thay đổi
             applyFiltersAndLoadData(); // Chỉ cần load lại data với filter hiện tại
             alert('Dữ liệu Check-in đã được làm mới.');
         });
+    } else {
+        console.error('Không tìm thấy refreshBtn');
     }
 
     // Pagination Event Listeners

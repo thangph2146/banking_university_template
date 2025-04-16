@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Chỉnh sửa Màn hình - HUB Admin</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet" />
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+  <link href="../../public/css/custom.css" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com/3.4.16"></script>
+  <script src="../../public/js/tailwind.config.js"></script>
+</head>
+
+<body class="bg-gray-50 min-h-screen">
+  <div class="flex h-screen overflow-hidden">
+    <!-- Sidebar -->
+    <aside id="sidebar"
+      class="fixed md:relative z-50 bg-white w-72 max-w-[80vw] min-h-screen shadow-lg transform -translate-x-full md:translate-x-0 transition-transform duration-300 overflow-y-auto">
+      <!-- Mobile Logo & Close Button -->
+      <div class="flex items-center justify-between p-4 border-b md:hidden">
+        <a href="index.html" class="text-2xl font-['Pacifico'] text-primary flex items-center">
+          <img src="../../images/logo/logo-white.png" alt="logo" class="w-8 h-8 mr-2">
+          <span>HUB Admin</span>
+        </a>
+        <button id="sidebar-close" class="text-gray-500 hover:text-gray-700 focus:outline-none">
+          <i class="ri-close-line text-2xl"></i>
+        </button>
+      </div>
+
+      <!-- Navigation Links (Copied from screens.html for consistency) -->
+       <nav class="p-4">
+         <div class="space-y-4">
+           <div class="border-b pb-4">
+             <h2 class="text-xs uppercase text-gray-400 font-semibold">Quản lý chung</h2>
+             <div class="mt-3 space-y-3">
+               <a href="dashboard.html"
+                 class="sidebar-link flex items-center text-gray-600 hover:text-primary p-2 rounded-md hover:bg-gray-100">
+                 <i class="sidebar-icon ri-dashboard-line mr-2"></i>
+                 <span class="sidebar-link-text">Tổng quan</span>
+               </a>
+               <a href="events.html"
+                 class="sidebar-link flex items-center text-gray-600 hover:text-primary p-2 rounded-md hover:bg-gray-100">
+                 <i class="sidebar-icon ri-calendar-event-line mr-2"></i>
+                 <span class="sidebar-link-text">Sự kiện</span>
+               </a>
+               <a href="accounts.html"
+                 class="sidebar-link flex items-center text-gray-600 hover:text-primary p-2 rounded-md hover:bg-gray-100">
+                 <i class="sidebar-icon ri-user-settings-line mr-2"></i>
+                 <span class="sidebar-link-text">Tài khoản Admin</span>
+               </a>
+               <a href="users.html"
+                 class="sidebar-link flex items-center text-gray-600 hover:text-primary p-2 rounded-md hover:bg-gray-100">
+                 <i class="sidebar-icon ri-user-line mr-2"></i>
+                 <span class="sidebar-link-text">Người dùng</span>
+               </a>
+               <a href="speakers.html"
+                 class="sidebar-link flex items-center text-gray-600 hover:text-primary p-2 rounded-md hover:bg-gray-100">
+                 <i class="sidebar-icon ri-mic-line mr-2"></i>
+                 <span class="sidebar-link-text">Diễn giả</span>
+               </a>
+             </div>
+           </div>
+ 
+           <div class="border-b pb-4">
+             <h2 class="sidebar-section-title text-xs uppercase text-gray-400 font-semibold">Quản lý sự kiện</h2>
+             <div class="mt-3 space-y-3">
+               <a href="event-types.html"
+                 class="sidebar-link flex items-center text-gray-600 hover:text-primary p-2 rounded-md hover:bg-gray-100">
+                  <i class="sidebar-icon ri-price-tag-3-line mr-2"></i>
+                  <span class="sidebar-link-text">Loại sự kiện</span>
+               </a>
+                
+               <a href="registrations.html"
+                 class="sidebar-link flex items-center text-gray-600 hover:text-primary p-2 rounded-md hover:bg-gray-100">
+                 <i class="sidebar-icon ri-file-list-line mr-2"></i>
+                 <span class="sidebar-link-text">Đăng ký sự kiện</span>
+               </a>
+               <a href="checkins.html"
+                 class="sidebar-link flex items-center text-gray-600 hover:text-primary p-2 rounded-md hover:bg-gray-100">
+                 <i class="sidebar-icon ri-login-box-line mr-2"></i>
+                 <span class="sidebar-link-text">Check-in</span>
+               </a>
+               <a href="checkouts.html"
+                 class="sidebar-link flex items-center text-gray-600 hover:text-primary p-2 rounded-md hover:bg-gray-100">
+                 <i class="sidebar-icon ri-logout-box-line mr-2"></i>
+                 <span class="sidebar-link-text">Check-out</span>
+               </a>
+               <a href="screens.html"
+                  class="sidebar-link active flex items-center text-primary p-2 rounded-md bg-primary/10 font-medium">
+                  <i class="sidebar-icon ri-tv-2-line mr-2"></i>
+                  <span class="sidebar-link-text">Màn hình</span>
+                </a>
+               <a href="reports.html"
+                 class="sidebar-link flex items-center text-gray-600 hover:text-primary p-2 rounded-md hover:bg-gray-100">
+                 <i class="sidebar-icon ri-bar-chart-line mr-2"></i>
+                 <span class="sidebar-link-text">Báo cáo</span>
+               </a>
+             </div>
+           </div>
+ 
+           <div>
+             <h2 class="sidebar-section-title text-xs uppercase text-gray-400 font-semibold">Cài đặt hệ thống</h2>
+             <div class="mt-3 space-y-3">
+               <a href="settings.html"
+                 class="sidebar-link flex items-center text-gray-600 hover:text-primary p-2 rounded-md hover:bg-gray-100">
+                 <i class="sidebar-icon ri-settings-3-line mr-2"></i>
+                 <span class="sidebar-link-text">Thiết lập</span>
+               </a>
+               <a href="roles.html"
+                 class="sidebar-link flex items-center text-gray-600 hover:text-primary p-2 rounded-md hover:bg-gray-100">
+                 <i class="sidebar-icon ri-shield-user-line mr-2"></i>
+                 <span class="sidebar-link-text">Phân quyền</span>
+               </a>
+               <a href="user-types.html"
+                 class="sidebar-link flex items-center text-gray-600 hover:text-primary p-2 rounded-md hover:bg-gray-100">
+                 <i class="sidebar-icon ri-group-line mr-2"></i>
+                 <span class="sidebar-link-text">Loại người dùng</span>
+               </a>
+               <a href="academic-levels.html"
+                 class="sidebar-link flex items-center text-gray-600 hover:text-primary p-2 rounded-md hover:bg-gray-100">
+                 <i class="sidebar-icon ri-graduation-cap-line mr-2"></i>
+                 <span class="sidebar-link-text">Bậc học</span>
+               </a>
+               <a href="courses.html"
+                 class="sidebar-link flex items-center text-gray-600 hover:text-primary p-2 rounded-md hover:bg-gray-100">
+                 <i class="sidebar-icon ri-book-open-line mr-2"></i>
+                 <span class="sidebar-link-text">Khoá học</span>
+               </a>
+               <a href="majors.html"
+                 class="sidebar-link flex items-center text-gray-600 hover:text-primary p-2 rounded-md hover:bg-gray-100">
+                 <i class="sidebar-icon ri-book-open-line mr-2"></i>
+                 <span class="sidebar-link-text">Ngành đào tạo</span>
+               </a>
+               <a href="departments.html"
+                 class="sidebar-link flex items-center text-gray-600 hover:text-primary p-2 rounded-md hover:bg-gray-100">
+                 <i class="sidebar-icon ri-building-line mr-2"></i>
+                 <span class="sidebar-link-text">Phòng khoa</span>
+               </a>
+               <a href="academic-years.html"
+                 class="sidebar-link flex items-center text-gray-600 hover:text-primary p-2 rounded-md hover:bg-gray-100">
+                 <i class="sidebar-icon ri-calendar-check-line mr-2"></i>
+                 <span class="sidebar-link-text">Năm học</span>
+               </a>
+               <a href="cameras.html"
+                 class="sidebar-link flex items-center text-gray-600 hover:text-primary p-2 rounded-md hover:bg-gray-100">
+                 <i class="sidebar-icon ri-camera-line mr-2"></i>
+                 <span class="sidebar-link-text">Camera</span>
+               </a>
+ 
+             </div>
+           </div>
+         </div>
+       </nav>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="flex-1 overflow-auto px-6 pb-6 pt-4">
+      <!-- Header -->
+      <header class="bg-primary shadow-md sticky top-0 z-30 animate-fade-in mb-6">
+           <!-- Header content copied from screen-create.html -->
+         <div class="container mx-auto px-4 py-2 flex items-center justify-between">
+           <button id="sidebar-open" class="text-white p-2 rounded-md md:hidden focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white">
+             <i class="ri-menu-line text-2xl"></i>
+           </button>
+           <a href="index.html"
+             class="text-2xl font-['Pacifico'] text-white transition-all duration-300 hover:scale-105 hidden md:block">
+             <img src="../../images/logo/logo-white.png" alt="logo" class="w-12 h-12 md:w-16 md:h-16">
+           </a>
+           <div class="flex items-center space-x-4">
+              <div class="relative group">
+               <button id="user-menu-button" class="flex items-center space-x-2 text-white">
+                 <img id="header-avatar" src="https://ui-avatars.com/api/?name=N+V+A&background=0D8ABC&color=fff" alt="Ảnh đại diện" class="w-8 h-8 rounded-full border-2 border-white">
+                 <span id="header-fullname" class="hidden sm:block">Nguyễn Văn A</span>
+                 <i class="ri-arrow-down-s-line group-hover:rotate-180 transition-transform duration-300"></i>
+               </button>
+               <div id="user-menu" class="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg overflow-hidden z-20 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform origin-top-right scale-95 group-hover:scale-100">
+                  <!-- User menu links -->
+               </div>
+             </div>
+           </div>
+         </div>
+      </header>
+
+      <!-- Page Header Section -->
+      <div class="bg-white rounded-lg shadow mb-6 p-4">
+        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between">
+          <div>
+            <h1 class="text-2xl font-semibold text-gray-900">Chỉnh sửa Màn hình</h1>
+            <p class="mt-1 text-sm text-gray-600">Cập nhật thông tin chi tiết cho màn hình</p>
+          </div>
+          <div class="mt-4 sm:mt-0">
+            <a href="screens.html"
+              class="flex items-center justify-center px-4 py-2 border border-gray-300 text-gray-700 rounded-md hover:bg-gray-50 transition-colors duration-200">
+              <i class="ri-arrow-left-line mr-1"></i> Quay lại Danh sách
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Breadcrumb -->
+      <nav class="text-sm font-medium mb-3" aria-label="Breadcrumb">
+        <ol class="list-none p-0 inline-flex">
+          <li class="flex items-center">
+            <a href="dashboard.html" class="text-gray-500 hover:text-primary">
+              <i class="ri-dashboard-line mr-1"></i> Dashboard
+            </a>
+            <i class="ri-arrow-right-s-line text-gray-400 mx-2"></i>
+          </li>
+           <li class="flex items-center">
+             <a href="screens.html" class="text-gray-500 hover:text-primary">Màn hình</a>
+             <i class="ri-arrow-right-s-line text-gray-400 mx-2"></i>
+          </li>
+          <li class="text-primary" aria-current="page">Chỉnh sửa</li>
+        </ol>
+      </nav>
+
+      <!-- Edit Screen Form -->
+      <div class="bg-white p-6 rounded-lg shadow">
+         <!-- Loading indicator -->
+         <div id="loading-indicator" class="text-center py-10">
+           <i class="ri-loader-4-line animate-spin text-4xl text-primary"></i>
+           <p class="mt-2 text-gray-600">Đang tải dữ liệu màn hình...</p>
+         </div>
+
+        <form id="edit-screen-form" class="space-y-6 hidden"> <!-- Initially hidden -->
+          <input type="hidden" id="screen-id" name="man_hinh_id"> <!-- Hidden field for ID -->
+
+          <div>
+            <label for="screen-name" class="block text-sm font-medium text-gray-700">Tên Màn hình <span class="text-red-500">*</span></label>
+            <input type="text" name="ten_man_hinh" id="screen-name" required
+              class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary focus:border-primary sm:text-sm">
+          </div>
+
+          <div>
+            <label for="screen-code" class="block text-sm font-medium text-gray-700">Mã Màn hình</label>
+            <input type="text" name="ma_man_hinh" id="screen-code"
+              class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary focus:border-primary sm:text-sm">
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+            <div>
+              <label for="camera-id" class="block text-sm font-medium text-gray-700">Camera liên kết</label>
+              <select name="camera_id" id="camera-id"
+                class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary focus:border-primary sm:text-sm">
+                <option value="">-- Chọn Camera (Tùy chọn) --</option>
+                <!-- Camera options populated by JS -->
+              </select>
+            </div>
+            <div>
+              <label for="template-id" class="block text-sm font-medium text-gray-700">Template hiển thị</label>
+              <select name="template_id" id="template-id"
+                class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary focus:border-primary sm:text-sm">
+                <option value="">-- Chọn Template (Tùy chọn) --</option>
+                 <!-- Template options populated by JS -->
+              </select>
+            </div>
+          </div>
+
+           <div>
+             <label for="screen-status" class="block text-sm font-medium text-gray-700">Trạng thái</label>
+             <select id="screen-status" name="status"
+               class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary focus:border-primary sm:text-sm">
+               <option value="1">Hoạt động</option>
+               <option value="0">Không hoạt động</option>
+             </select>
+           </div>
+
+          <div class="pt-5 border-t border-gray-200">
+            <div class="flex justify-end space-x-3">
+              <a href="screens.html"
+                class="px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500">
+                Hủy
+              </a>
+              <button type="submit"
+                class="px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-primary hover:bg-primary-dark focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary">
+                <i class="ri-save-line mr-1"></i> Lưu thay đổi
+              </button>
+            </div>
+          </div>
+        </form>
+         <!-- Error message display -->
+         <div id="error-message" class="hidden mt-4 p-4 bg-red-100 text-red-700 rounded-md"></div>
+      </div>
+    </main>
+  </div>
+
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <!-- Link to a new JS file for edit screen logic -->
+  <script src="../../public/js/admin/screen-edit.js"></script>
+</body>
+
+</html> 

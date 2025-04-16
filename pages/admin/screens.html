@@ -224,10 +224,10 @@
             <p class="mt-1 text-sm text-gray-600">Quản lý các màn hình hiển thị trong hệ thống</p>
           </div>
           <div class="mt-4 sm:mt-0 flex gap-2">
-            <button id="add-screen-btn"
+            <a href="screen-create.html" id="add-screen-btn"
               class="flex items-center justify-center px-4 py-2 bg-primary text-white rounded-md hover:bg-primary-dark transition-colors duration-200">
               <i class="ri-add-line mr-1"></i> Thêm Màn hình mới
-            </button>
+            </a>
           </div>
         </div>
       </div>
@@ -386,65 +386,6 @@
       </div>
     </main>
   </div>
-
-  <!-- Add/Edit Screen Modal -->
-  <div id="screen-modal" class="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full z-50 hidden" aria-labelledby="modal-title" role="dialog" aria-modal="true">
-    <div class="relative top-10 mx-auto p-5 border w-full max-w-lg shadow-lg rounded-md bg-white">
-      <div class="flex justify-between items-center border-b pb-3">
-        <h3 class="text-lg font-medium text-gray-900" id="modal-title">Thêm Màn hình mới</h3>
-        <button id="close-screen-modal" class="text-gray-400 hover:text-gray-600">
-          <i class="ri-close-line text-xl"></i>
-        </button>
-      </div>
-      <form id="screen-form" class="mt-4 space-y-4">
-        <input type="hidden" id="screen-id">
-        <div>
-          <label for="modal-screen-name" class="block text-sm font-medium text-gray-700">Tên Màn hình <span class="text-red-500">*</span></label>
-          <input type="text" name="modal-screen-name" id="modal-screen-name" required
-            class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary focus:border-primary sm:text-sm">
-        </div>
-        <div>
-          <label for="modal-screen-code" class="block text-sm font-medium text-gray-700">Mã Màn hình</label>
-          <input type="text" name="modal-screen-code" id="modal-screen-code"
-            class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary focus:border-primary sm:text-sm">
-        </div>
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-          <div>
-            <label for="modal-camera-id" class="block text-sm font-medium text-gray-700">ID Camera</label>
-            <input type="number" name="modal-camera-id" id="modal-camera-id" min="1" placeholder="(Tùy chọn)"
-              class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary focus:border-primary sm:text-sm">
-              <!-- Consider dropdown if camera list is available -->
-          </div>
-          <div>
-            <label for="modal-template-id" class="block text-sm font-medium text-gray-700">ID Template</label>
-            <input type="number" name="modal-template-id" id="modal-template-id" min="1" placeholder="(Tùy chọn)"
-              class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary focus:border-primary sm:text-sm">
-              <!-- Consider dropdown if template list is available -->
-          </div>
-        </div>
-        <div>
-           <label for="modal-screen-status" class="block text-sm font-medium text-gray-700">Trạng thái</label>
-           <select id="modal-screen-status" name="modal-screen-status"
-             class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary focus:border-primary sm:text-sm">
-             <option value="1">Hoạt động</option>
-             <option value="0">Không hoạt động</option>
-           </select>
-         </div>
-
-        <div class="pt-3 border-t flex justify-end space-x-2">
-          <button type="button" id="cancel-screen"
-            class="px-4 py-2 bg-gray-200 text-gray-800 rounded-md hover:bg-gray-300 transition-colors duration-200">
-            Hủy
-          </button>
-          <button type="submit" id="save-screen-btn"
-            class="px-4 py-2 bg-primary text-white rounded-md hover:bg-primary-dark transition-colors duration-200">
-            Lưu
-          </button>
-        </div>
-      </form>
-    </div>
-  </div>
-
 
   <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
   <script src="../../public/js/admin/screens.js"></script>
