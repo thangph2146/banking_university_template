@@ -78,6 +78,34 @@ const RegistrationCreateManager = (function() {
         $elements.participationType.addEventListener('change', function() {
             toggleParticipantFields();
         });
+        
+        // === BỔ SUNG CODE CHO MOBILE MENU ===
+        const sidebarOpenBtn = document.getElementById('sidebar-open');
+        const sidebarCloseBtn = document.getElementById('sidebar-close');
+        const sidebarBackdrop = document.getElementById('sidebar-backdrop');
+        const sidebar = document.getElementById('sidebar');
+
+        if (sidebarOpenBtn && sidebar && sidebarBackdrop) {
+            sidebarOpenBtn.addEventListener('click', function() {
+                sidebar.classList.remove('-translate-x-full');
+                sidebarBackdrop.classList.remove('hidden');
+            });
+        }
+
+        if (sidebarCloseBtn && sidebar && sidebarBackdrop) {
+            sidebarCloseBtn.addEventListener('click', function() {
+                sidebar.classList.add('-translate-x-full');
+                sidebarBackdrop.classList.add('hidden');
+            });
+        }
+        
+        if (sidebarBackdrop && sidebar) {
+            sidebarBackdrop.addEventListener('click', function() {
+                sidebar.classList.add('-translate-x-full');
+                sidebarBackdrop.classList.add('hidden');
+            });
+        }
+        // === KẾT THÚC BỔ SUNG CODE ===
     };
 
     /**
@@ -281,23 +309,78 @@ const RegistrationCreateManager = (function() {
      * Khởi tạo module
      */
     const init = function() {
-        // Tải danh sách sự kiện
-        loadEvents();
-        
-        // Đăng ký các sự kiện
+        cacheDOMElements();
         registerEvents();
-        
-        // Khởi tạo hiển thị các trường thông tin
-        toggleParticipantFields();
+        loadEvents();
+        toggleParticipantFields(); // Chạy lần đầu để ẩn các trường không cần thiết
+        toggleLoading(false); // Mặc định ẩn loading
     };
 
-    // API public
+    // Hàm cache DOM elements
+    const cacheDOMElements = function() {
+        $elements.form = document.getElementById('registration-form');
+        $elements.event = document.getElementById('event');
+        $elements.participationType = document.getElementById('participation-type');
+        $elements.fullname = document.getElementById('registrant-name'); // Sửa ID
+        $elements.email = document.getElementById('registrant-email'); // Sửa ID
+        $elements.phone = document.getElementById('registrant-phone'); // Sửa ID
+        $elements.gender = document.getElementById('gender'); // Thêm ID nếu cần
+        $elements.organization = document.getElementById('organization'); // Giữ nguyên nếu đúng
+        $elements.position = document.getElementById('position'); // Giữ nguyên nếu đúng
+        $elements.notes = document.getElementById('feedback'); // Sửa ID
+        $elements.status = document.getElementById('registration-status'); // Sửa ID
+        $elements.backButton = document.querySelector('a[href="registrations.html"]'); // Sửa selector
+        $elements.loadingIndicator = document.getElementById('loading-indicator'); // Thêm ID nếu cần
+        $elements.formContainer = document.querySelector('.bg-white.rounded-lg.shadow.overflow-hidden'); // Sửa selector
+        $elements.errorAlert = document.querySelector('.alert-danger'); // Thêm class nếu cần
+        $elements.errorMessage = document.getElementById('error-message'); // Thêm ID nếu cần
+        $elements.errorDetail = document.getElementById('error-detail'); // Thêm ID nếu cần
+    };
+
+    // Add event listener for DOMContentLoaded to initialize the module
+    document.addEventListener('DOMContentLoaded', init);
+
+    // Expose public methods (if any)
     return {
         init: init
     };
 })();
 
-// Khởi tạo module khi DOM đã sẵn sàng
+// Thêm xử lý cho menu mobile khi DOM đã sẵn sàng
 document.addEventListener('DOMContentLoaded', function() {
-    RegistrationCreateManager.init();
+    const sidebarOpenButton = document.getElementById('sidebar-open');
+    const sidebarCloseButton = document.getElementById('sidebar-close');
+    const sidebar = document.getElementById('sidebar');
+    const sidebarBackdrop = document.getElementById('sidebar-backdrop');
+
+    if (sidebarOpenButton && sidebar && sidebarBackdrop) {
+        sidebarOpenButton.addEventListener('click', () => {
+            sidebar.classList.remove('-translate-x-full');
+            sidebar.classList.add('translate-x-0');
+            sidebarBackdrop.classList.remove('hidden');
+            sidebarBackdrop.classList.remove('opacity-0'); // Transition effect
+            sidebarBackdrop.classList.add('opacity-100'); // Transition effect
+        });
+    }
+
+    const closeSidebar = () => {
+        if (sidebar && sidebarBackdrop) {
+           sidebar.classList.add('-translate-x-full');
+           sidebar.classList.remove('translate-x-0');
+           sidebarBackdrop.classList.remove('opacity-100'); // Transition effect
+           sidebarBackdrop.classList.add('opacity-0'); // Transition effect
+           // Wait for transition to finish before hiding
+           setTimeout(() => {
+               sidebarBackdrop.classList.add('hidden');
+           }, 300); // Match transition duration
+       }
+    };
+
+    if (sidebarCloseButton) {
+        sidebarCloseButton.addEventListener('click', closeSidebar);
+    }
+
+    if (sidebarBackdrop) {
+        sidebarBackdrop.addEventListener('click', closeSidebar);
+    }
 }); 

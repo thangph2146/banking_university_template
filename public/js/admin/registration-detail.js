@@ -16,13 +16,13 @@ const RegistrationDetailManager = (function() {
     APPROVED: 1,
     CANCELLED: -1
   };
-
+  
   const STATUS_CLASSES = {
     [STATUS.PENDING]: 'bg-yellow-100 text-yellow-800',
     [STATUS.APPROVED]: 'bg-green-100 text-green-800',
     [STATUS.CANCELLED]: 'bg-red-100 text-red-800'
   };
-
+  
   const STATUS_LABELS = {
     [STATUS.PENDING]: 'Chờ xác nhận',
     [STATUS.APPROVED]: 'Đã xác nhận',
@@ -170,32 +170,32 @@ const RegistrationDetailManager = (function() {
     getRegistrationDetail: (registrationId) => {
       // Trong môi trường thực, đây sẽ là một cuộc gọi fetch thực sự
       // Hiện tại chúng ta mô phỏng với dữ liệu giả
-      return new Promise((resolve) => {
+    return new Promise((resolve) => {
         setTimeout(() => {
-          resolve({
-            dangky_sukien_id: registrationId,
-            su_kien_id: '1',
-            email: 'nguyenvansinh@gmail.com',
-            ho_ten: 'Nguyễn Văn Sinh',
-            dien_thoai: '0912345678',
-            loai_nguoi_dang_ky: 'sinh_vien',
+      resolve({
+        dangky_sukien_id: registrationId,
+        su_kien_id: '1',
+        email: 'nguyenvansinh@gmail.com',
+        ho_ten: 'Nguyễn Văn Sinh',
+        dien_thoai: '0912345678',
+        loai_nguoi_dang_ky: 'sinh_vien',
             ngay_dang_ky: '2023-07-22T09:15:30',
-            ma_xac_nhan: 'REG' + registrationId.padStart(6, '0'),
-            status: 1, // APPROVED
+        ma_xac_nhan: 'REG' + registrationId.padStart(6, '0'),
+        status: 1, // APPROVED
             hinh_thuc_tham_gia: 'offline',
-            gop_y: 'Tôi mong rằng sự kiện sẽ có nhiều hoạt động thực hành hơn.',
+        gop_y: 'Tôi mong rằng sự kiện sẽ có nhiều hoạt động thực hành hơn.',
             nguon_gioi_thieu: 'Facebook',
-            ly_do_tham_du: 'Tôi muốn học hỏi thêm kiến thức về lĩnh vực này.',
-            don_vi: 'Khoa Ngân hàng, UEH',
+        ly_do_tham_du: 'Tôi muốn học hỏi thêm kiến thức về lĩnh vực này.',
+        don_vi: 'Khoa Ngân hàng, UEH',
             thoi_gian_checkin: '2023-07-25T08:45:22',
             thoi_gian_checkout: '2023-07-25T16:15:30',
-            checkin_status: 1,
-            checkout_status: 1,
-            face_verified: 1,
-            phuong_thuc_diem_danh: 'kiosk',
+        checkin_status: 1,
+        checkout_status: 1,
+        face_verified: 1,
+        phuong_thuc_diem_danh: 'kiosk',
             thoi_gian_duyet: '2023-07-22T10:30:15',
-            thoi_gian_tham_du: 445, // Số phút tham dự
-            ly_do_huy: null,
+        thoi_gian_tham_du: 445, // Số phút tham dự
+        ly_do_huy: null,
             thoi_gian_huy: null,
             // Thông tin bổ sung cho loại người dùng
             ma_sinh_vien: 'UEH20001234',
@@ -250,7 +250,7 @@ const RegistrationDetailManager = (function() {
      */
     updateRegistrationStatus: (registrationId, status, reason = '') => {
       // Trong môi trường thực, đây sẽ là một cuộc gọi API post
-      return new Promise((resolve) => {
+    return new Promise((resolve) => {
         setTimeout(() => {
           console.log(`Updating registration ${registrationId} status to ${status} with reason: ${reason}`);
           resolve({ success: true });
