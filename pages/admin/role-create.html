@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Quản lý Phân quyền - HUB Admin</title>
+  <title>Thêm Vai trò mới - HUB Admin</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet" />
@@ -55,11 +55,6 @@
                 <i class="sidebar-icon ri-user-settings-line mr-2"></i>
                 <span class="sidebar-link-text">Tài khoản Admin</span>
               </a>
-              <a href="accounts.html"
-                class="sidebar-link flex items-center text-gray-600 hover:text-primary p-2 rounded-md hover:bg-gray-100">
-                <i class="sidebar-icon ri-user-settings-line mr-2"></i>
-                <span class="sidebar-link-text">Tài khoản Admin</span>
-              </a>
               <a href="users.html"
                 class="sidebar-link flex items-center text-gray-600 hover:text-primary p-2 rounded-md hover:bg-gray-100">
                 <i class="sidebar-icon ri-user-line mr-2"></i>
@@ -70,7 +65,6 @@
                 <i class="sidebar-icon ri-mic-line mr-2"></i>
                 <span class="sidebar-link-text">Diễn giả</span>
               </a>
-               
             </div>
           </div>
 
@@ -82,7 +76,6 @@
                  <i class="sidebar-icon ri-price-tag-3-line mr-2"></i>
                  <span class="sidebar-link-text">Loại sự kiện</span>
               </a>
-               
               <a href="registrations.html"
                 class="sidebar-link flex items-center text-gray-600 hover:text-primary p-2 rounded-md hover:bg-gray-100">
                 <i class="sidebar-icon ri-file-list-line mr-2"></i>
@@ -159,7 +152,6 @@
                 <i class="sidebar-icon ri-camera-line mr-2"></i>
                 <span class="sidebar-link-text">Camera</span>
               </a>
-              
             </div>
           </div>
         </div>
@@ -227,18 +219,13 @@
       <div class="bg-white rounded-lg shadow mb-6 p-4">
         <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between">
           <div>
-            <h1 class="text-2xl font-semibold text-gray-900">Quản lý Phân quyền</h1>
-            <p class="mt-1 text-sm text-gray-600">Quản lý các loại tài khoản và quyền hạn trong hệ thống</p>
+            <h1 class="text-2xl font-semibold text-gray-900">Thêm Vai trò mới</h1>
+            <p class="mt-1 text-sm text-gray-600">Tạo vai trò mới và thiết lập quyền hạn</p>
           </div>
-          <div class="mt-4 sm:mt-0 flex gap-2">
-            <a href="role-create.html"
-              class="flex items-center justify-center px-4 py-2 bg-primary text-white rounded-md hover:bg-primary-dark transition-colors duration-200">
-              <i class="ri-add-line mr-1"></i> Thêm vai trò mới
+          <div class="mt-4 sm:mt-0">
+            <a href="roles.html" class="flex items-center justify-center px-4 py-2 bg-white border border-gray-300 text-gray-700 rounded-md hover:bg-gray-50 transition-colors duration-200">
+              <i class="ri-arrow-left-line mr-1"></i> Quay lại
             </a>
-            <button id="refresh-btn"
-              class="flex items-center justify-center px-4 py-2 bg-white border border-gray-300 text-gray-700 rounded-md hover:bg-gray-50 transition-colors duration-200">
-              <i class="ri-refresh-line mr-1"></i> Làm mới
-            </button>
           </div>
         </div>
       </div>
@@ -252,135 +239,152 @@
             </a>
             <i class="ri-arrow-right-s-line text-gray-400 mx-2"></i>
           </li>
-          <li class="text-primary" aria-current="page">Phân quyền</li>
+          <li class="flex items-center">
+            <a href="roles.html" class="text-gray-500 hover:text-primary">
+              Phân quyền
+            </a>
+            <i class="ri-arrow-right-s-line text-gray-400 mx-2"></i>
+          </li>
+          <li class="text-primary" aria-current="page">Thêm vai trò mới</li>
         </ol>
       </nav>
 
-      <!-- Filters Section -->
-      <div class="bg-white p-4 rounded-lg shadow mb-4">
-        <form id="filter-form">
-          <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-            <!-- Filter by Role Name -->
-            <div>
-              <label for="filter-name" class="block text-sm font-medium text-gray-700 mb-1">Tìm kiếm tên</label>
-              <input type="text" id="filter-name" name="filter-name" placeholder="Nhập tên vai trò..."
-                class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-primary focus:border-primary text-sm">
-            </div>
-            <!-- Filter by Description -->
-            <div>
-              <label for="filter-description" class="block text-sm font-medium text-gray-700 mb-1">Mô tả</label>
-              <input type="text" id="filter-description" name="filter-description" placeholder="Nhập mô tả..."
-                class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-primary focus:border-primary text-sm">
-            </div>
-            <!-- Filter by Status -->
-            <div>
-              <label for="filter-status" class="block text-sm font-medium text-gray-700 mb-1">Trạng thái</label>
-              <select id="filter-status" name="filter-status"
-                class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-primary focus:border-primary text-sm">
-                <option value="">Tất cả</option>
-                <option value="1">Hoạt động</option>
-                <option value="0">Không hoạt động</option>
-              </select>
-            </div>
-          </div>
-          <div class="mt-4 flex justify-end space-x-2">
-            <button type="reset" id="reset-filter-btn"
-              class="px-4 py-2 border border-gray-300 text-gray-700 rounded-md hover:bg-gray-50 text-sm transition-colors duration-200">
-              Đặt lại
-            </button>
-            <button type="submit" id="apply-filter-btn"
-              class="px-4 py-2 bg-primary text-white rounded-md hover:bg-primary-dark text-sm transition-colors duration-200">
-              <i class="ri-filter-line mr-1"></i> Lọc
-            </button>
-          </div>
-        </form>
-      </div>
-
-      <!-- Roles List Table -->
+      <!-- Create Role Form -->
       <div class="bg-white rounded-lg shadow overflow-hidden">
-        <div class="p-4 border-b border-gray-200 flex justify-between items-center">
-          <h2 class="text-lg font-medium text-gray-900">Danh sách vai trò</h2>
+        <div class="p-4 border-b border-gray-200">
+          <h2 class="text-lg font-medium text-gray-900">Thông tin vai trò mới</h2>
         </div>
-
-        <!-- Table container -->
-        <div class="overflow-x-auto">
-          <table id="roles-table" class="min-w-full divide-y divide-gray-200">
-            <thead class="bg-gray-50">
-              <tr>
-                <th scope="col" class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  ID</th>
-                <th scope="col" class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  Tên vai trò</th>
-                <th scope="col" class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  Mô tả</th>
-                <th scope="col" class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  Trạng thái</th>
-                <th scope="col" class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  Ngày tạo</th>
-                <th scope="col" class="px-4 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  Hành động</th>
-              </tr>
-            </thead>
-            <tbody id="rolesTableBody" class="bg-white divide-y divide-gray-200">
-              <!-- Table rows will be dynamically inserted here by JavaScript -->
-            </tbody>
-          </table>
-           <!-- Placeholder for No Data -->
-           <div id="no-data-placeholder" class="text-center py-10 text-gray-500 hidden">
-            Không có vai trò nào phù hợp.
-          </div>
-        </div>
-
-        <!-- Pagination -->
-        <div class="px-4 py-3 bg-gray-50 border-t border-gray-200">
-          <div class="flex flex-col sm:flex-row items-center justify-between space-y-2 sm:space-y-0">
-            <div class="flex items-center space-x-2 text-sm text-gray-500">
-              <span>Hiển thị</span>
-              <select id="items-per-page" name="items-per-page"
-                class="border border-gray-300 rounded-md px-2 py-1 focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary">
-                <option value="10" selected>10</option>
-                <option value="20">20</option>
-                <option value="50">50</option>
-                <option value="100">100</option>
-              </select>
-              <span>mục. Tổng số: <span id="total-items-count" class="font-medium text-gray-700">0</span> loại.</span>
-            </div>
-            <div class="flex items-center space-x-1" id="pagination-controls">
-              <button
-                class="btn-first p-2 rounded text-gray-500 hover:text-gray-700 hover:bg-gray-100 disabled:opacity-50 disabled:cursor-not-allowed"
-                title="Trang đầu">
-                <i class="ri-skip-left-line"></i>
-              </button>
-              <button
-                class="btn-prev p-2 rounded text-gray-500 hover:text-gray-700 hover:bg-gray-100 disabled:opacity-50 disabled:cursor-not-allowed"
-                title="Trang trước">
-                <i class="ri-arrow-left-s-line"></i>
-              </button>
-              <div class="flex items-center space-x-1 px-2">
-                <span class="text-sm text-gray-700">Trang</span>
-                <input type="number" id="current-page-input" value="1" min="1"
-                  class="w-12 border border-gray-300 rounded-md px-2 py-1 text-center text-sm focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary">
-                <span class="text-sm text-gray-500">/ <span id="total-pages-count">1</span></span>
+        <div class="p-6">
+          <form id="create-role-form" class="space-y-6">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <!-- Tên vai trò -->
+              <div class="col-span-1 md:col-span-2">
+                <label for="role-name" class="block text-sm font-medium text-gray-700 mb-1">Tên vai trò <span class="text-red-500">*</span></label>
+                <input type="text" id="role-name" name="r_name" required
+                  class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-primary focus:border-primary">
+                <p class="mt-1 text-sm text-gray-500">Tên vai trò trong hệ thống</p>
               </div>
-              <button
-                class="btn-next p-2 rounded text-gray-500 hover:text-gray-700 hover:bg-gray-100 disabled:opacity-50 disabled:cursor-not-allowed"
-                title="Trang sau">
-                <i class="ri-arrow-right-s-line"></i>
+              
+              <!-- Mô tả -->
+              <div class="col-span-1 md:col-span-2">
+                <label for="role-description" class="block text-sm font-medium text-gray-700 mb-1">Mô tả</label>
+                <textarea id="role-description" name="r_description" rows="3"
+                  class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-primary focus:border-primary"></textarea>
+                <p class="mt-1 text-sm text-gray-500">Mô tả chi tiết về vai trò và quyền hạn</p>
+              </div>
+              
+              <!-- Trạng thái -->
+              <div>
+                <label for="role-status" class="block text-sm font-medium text-gray-700 mb-1">Trạng thái</label>
+                <select id="role-status" name="r_status"
+                  class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-primary focus:border-primary">
+                  <option value="1" selected>Hoạt động</option>
+                  <option value="0">Không hoạt động</option>
+                </select>
+                <p class="mt-1 text-sm text-gray-500">Trạng thái hoạt động của vai trò</p>
+              </div>
+              
+              <!-- Thời gian tạo -->
+              <div>
+                <label class="block text-sm font-medium text-gray-700 mb-1">Ngày tạo</label>
+                <div class="px-3 py-2 border border-gray-300 rounded-md bg-gray-50 text-gray-500">
+                  <span id="current-date">Tự động ghi lại</span>
+                </div>
+                <p class="mt-1 text-sm text-gray-500">Thời gian tạo sẽ được tự động ghi lại</p>
+              </div>
+            </div>
+            
+            <!-- Quyền hạn -->
+            <div class="border-t border-gray-200 pt-6">
+              <h3 class="text-lg font-medium text-gray-900 mb-4">Quyền hạn và khả năng</h3>
+              <div class="space-y-3">
+                <div class="flex items-start">
+                  <div class="flex items-center h-5">
+                    <input id="perm-manage-users" type="checkbox" 
+                      class="focus:ring-primary h-4 w-4 text-primary border-gray-300 rounded">
+                  </div>
+                  <div class="ml-3 text-sm">
+                    <label for="perm-manage-users" class="font-medium text-gray-700">Quản lý người dùng</label>
+                    <p class="text-gray-500">Xem, chỉnh sửa và xóa thông tin người dùng trong hệ thống</p>
+                  </div>
+                </div>
+                
+                <div class="flex items-start">
+                  <div class="flex items-center h-5">
+                    <input id="perm-manage-events" type="checkbox" 
+                      class="focus:ring-primary h-4 w-4 text-primary border-gray-300 rounded">
+                  </div>
+                  <div class="ml-3 text-sm">
+                    <label for="perm-manage-events" class="font-medium text-gray-700">Quản lý sự kiện</label>
+                    <p class="text-gray-500">Tạo, chỉnh sửa và xóa sự kiện trong hệ thống</p>
+                  </div>
+                </div>
+                
+                <div class="flex items-start">
+                  <div class="flex items-center h-5">
+                    <input id="perm-manage-registrations" type="checkbox" 
+                      class="focus:ring-primary h-4 w-4 text-primary border-gray-300 rounded">
+                  </div>
+                  <div class="ml-3 text-sm">
+                    <label for="perm-manage-registrations" class="font-medium text-gray-700">Quản lý đăng ký</label>
+                    <p class="text-gray-500">Xem và quản lý đăng ký tham gia sự kiện</p>
+                  </div>
+                </div>
+                
+                <div class="flex items-start">
+                  <div class="flex items-center h-5">
+                    <input id="perm-manage-checkins" type="checkbox" 
+                      class="focus:ring-primary h-4 w-4 text-primary border-gray-300 rounded">
+                  </div>
+                  <div class="ml-3 text-sm">
+                    <label for="perm-manage-checkins" class="font-medium text-gray-700">Quản lý check-in/check-out</label>
+                    <p class="text-gray-500">Quản lý việc check-in và check-out người tham gia sự kiện</p>
+                  </div>
+                </div>
+                
+                <div class="flex items-start">
+                  <div class="flex items-center h-5">
+                    <input id="perm-view-reports" type="checkbox" checked
+                      class="focus:ring-primary h-4 w-4 text-primary border-gray-300 rounded">
+                  </div>
+                  <div class="ml-3 text-sm">
+                    <label for="perm-view-reports" class="font-medium text-gray-700">Xem báo cáo</label>
+                    <p class="text-gray-500">Xem các báo cáo thống kê trong hệ thống</p>
+                  </div>
+                </div>
+                
+                <div class="flex items-start">
+                  <div class="flex items-center h-5">
+                    <input id="perm-system-settings" type="checkbox" 
+                      class="focus:ring-primary h-4 w-4 text-primary border-gray-300 rounded">
+                  </div>
+                  <div class="ml-3 text-sm">
+                    <label for="perm-system-settings" class="font-medium text-gray-700">Cài đặt hệ thống</label>
+                    <p class="text-gray-500">Quản lý các cài đặt chung của hệ thống</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <!-- Form actions -->
+            <div class="flex justify-end space-x-3 pt-6 border-t border-gray-200">
+              <button type="button" id="cancel-create"
+                class="px-4 py-2 bg-white border border-gray-300 text-gray-700 rounded-md hover:bg-gray-50 transition-colors duration-200">
+                Hủy bỏ
               </button>
-              <button
-                class="btn-last p-2 rounded text-gray-500 hover:text-gray-700 hover:bg-gray-100 disabled:opacity-50 disabled:cursor-not-allowed"
-                title="Trang cuối">
-                <i class="ri-skip-right-line"></i>
+              <button type="submit"
+                class="px-4 py-2 bg-primary text-white rounded-md hover:bg-primary-dark transition-colors duration-200">
+                <i class="ri-save-line mr-1"></i> Tạo vai trò
               </button>
             </div>
-          </div>
+          </form>
         </div>
       </div>
     </main>
   </div>
 
   <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-  <script src="../../public/js/admin/roles.js"></script>
+  <script src="../../public/js/admin/role-create.js"></script>
 </body>
 
 </html> 
