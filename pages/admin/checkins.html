@@ -226,6 +226,12 @@
             <h1 class="text-2xl font-semibold text-gray-900">Quản lý Check-in</h1>
             <p class="mt-1 text-sm text-gray-600">Xem lịch sử check-in của người tham dự sự kiện</p>
           </div>
+          <div class="mt-4 sm:mt-0 flex gap-2">
+            <a href="checkin-create.html" id="create-checkin-btn"
+              class="flex items-center justify-center px-4 py-2 bg-primary text-white rounded-md hover:bg-primary-dark transition-colors duration-200">
+              <i class="ri-add-line mr-1"></i> Thêm Check-in
+            </a>
+          </div>
         </div>
       </div>
 
@@ -295,9 +301,6 @@
           <h2 class="text-lg font-medium text-gray-900">Danh sách Check-in</h2>
           <div class="flex items-center space-x-2">
              <span class="text-sm text-gray-600">Tổng số: <span id="total-items-count" class="font-medium text-gray-700">0</span> lượt check-in.</span>
-             <a href="checkin-create.html" id="add-checkin-btn" class="px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700 text-sm transition-colors duration-200 flex items-center">
-               <i class="ri-add-line mr-1"></i> Tạo mới Check-in
-             </a>
              <button id="refresh-btn" class="px-4 py-2 border border-gray-300 text-gray-700 rounded-md hover:bg-gray-50 text-sm transition-colors duration-200 flex items-center" title="Làm mới dữ liệu">
                  <i class="ri-refresh-line"></i>
              </button>

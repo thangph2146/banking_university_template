@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Chi tiết Check-out - HUB Admin</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet" />
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+  <link href="../../public/css/custom.css" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com/3.4.16"></script>
+  <script src="../../public/js/tailwind.config.js"></script>
+</head>
+
+<body class="bg-gray-50 min-h-screen">
+  <div class="flex h-screen overflow-hidden">
+    <!-- Sidebar Backdrop (mobile only) -->
+    <div id="sidebar-backdrop" class="fixed inset-0 bg-black/50 z-20 hidden md:hidden transition-opacity duration-300">
+    </div>
+
+    <!-- Sidebar (Tương tự các trang khác) -->
+    <aside id="sidebar"
+      class="fixed md:relative z-50 bg-white w-72 max-w-[80vw] min-h-screen shadow-lg transform -translate-x-full md:translate-x-0 transition-transform duration-300 overflow-y-auto">
+       <div class="flex items-center justify-between p-4 border-b md:hidden">
+        <a href="index.html" class="text-2xl font-['Pacifico'] text-primary flex items-center">
+          <img src="../../images/logo/logo-white.png" alt="logo" class="w-8 h-8 mr-2">
+          <span>HUB Admin</span>
+        </a>
+        <button id="sidebar-close" class="text-gray-500 hover:text-gray-700 focus:outline-none">
+          <i class="ri-close-line text-2xl"></i>
+        </button>
+      </div>
+      <nav class="p-4">
+         <!-- Navigation Links -->
+          <div class="space-y-4">
+          <div class="border-b pb-4">
+            <h2 class="text-xs uppercase text-gray-400 font-semibold">Quản lý chung</h2>
+            <div class="mt-3 space-y-3">
+              <a href="dashboard.html"
+                class="sidebar-link flex items-center text-gray-600 hover:text-primary p-2 rounded-md hover:bg-gray-100">
+                <i class="sidebar-icon ri-dashboard-line mr-2"></i>
+                <span class="sidebar-link-text">Tổng quan</span>
+              </a>
+              <a href="events.html"
+                class="sidebar-link flex items-center text-gray-600 hover:text-primary p-2 rounded-md hover:bg-gray-100">
+                <i class="sidebar-icon ri-calendar-event-line mr-2"></i>
+                <span class="sidebar-link-text">Sự kiện</span>
+              </a>
+              <a href="accounts.html"
+                class="sidebar-link flex items-center text-gray-600 hover:text-primary p-2 rounded-md hover:bg-gray-100">
+                <i class="sidebar-icon ri-user-settings-line mr-2"></i>
+                <span class="sidebar-link-text">Tài khoản Admin</span>
+              </a>
+              <a href="users.html"
+                class="sidebar-link flex items-center text-gray-600 hover:text-primary p-2 rounded-md hover:bg-gray-100">
+                <i class="sidebar-icon ri-user-line mr-2"></i>
+                <span class="sidebar-link-text">Người dùng</span>
+              </a>
+              <a href="speakers.html"
+                class="sidebar-link flex items-center text-gray-600 hover:text-primary p-2 rounded-md hover:bg-gray-100">
+                <i class="sidebar-icon ri-mic-line mr-2"></i>
+                <span class="sidebar-link-text">Diễn giả</span>
+              </a>
+            </div>
+          </div>
+
+          <div class="border-b pb-4">
+            <h2 class="sidebar-section-title text-xs uppercase text-gray-400 font-semibold">Quản lý sự kiện</h2>
+            <div class="mt-3 space-y-3">
+              <a href="event-types.html"
+                class="sidebar-link flex items-center text-gray-600 hover:text-primary p-2 rounded-md hover:bg-gray-100">
+                 <i class="sidebar-icon ri-price-tag-3-line mr-2"></i>
+                 <span class="sidebar-link-text">Loại sự kiện</span>
+              </a>
+
+              <a href="registrations.html"
+                class="sidebar-link flex items-center text-gray-600 hover:text-primary p-2 rounded-md hover:bg-gray-100">
+                <i class="sidebar-icon ri-file-list-line mr-2"></i>
+                <span class="sidebar-link-text">Đăng ký sự kiện</span>
+              </a>
+              <a href="checkins.html"
+                class="sidebar-link flex items-center text-gray-600 hover:text-primary p-2 rounded-md hover:bg-gray-100">
+                <i class="sidebar-icon ri-login-box-line mr-2"></i>
+                <span class="sidebar-link-text">Check-in</span>
+              </a>
+              <a href="checkouts.html"
+                class="sidebar-link active flex items-center text-primary p-2 rounded-md bg-primary/10 font-medium"> <!-- Active link -->
+                <i class="sidebar-icon ri-logout-box-line mr-2"></i>
+                <span class="sidebar-link-text">Check-out</span>
+              </a>
+              <a href="screens.html"
+                 class="sidebar-link flex items-center text-gray-600 hover:text-primary p-2 rounded-md hover:bg-gray-100">
+                 <i class="sidebar-icon ri-tv-2-line mr-2"></i>
+                 <span class="sidebar-link-text">Màn hình</span>
+               </a>
+              <a href="reports.html"
+                class="sidebar-link flex items-center text-gray-600 hover:text-primary p-2 rounded-md hover:bg-gray-100">
+                <i class="sidebar-icon ri-bar-chart-line mr-2"></i>
+                <span class="sidebar-link-text">Báo cáo</span>
+              </a>
+            </div>
+          </div>
+
+          <div>
+            <h2 class="sidebar-section-title text-xs uppercase text-gray-400 font-semibold">Cài đặt hệ thống</h2>
+            <div class="mt-3 space-y-3">
+               <a href="settings.html"
+                class="sidebar-link flex items-center text-gray-600 hover:text-primary p-2 rounded-md hover:bg-gray-100">
+                <i class="sidebar-icon ri-settings-3-line mr-2"></i>
+                <span class="sidebar-link-text">Thiết lập</span>
+              </a>
+              <a href="roles.html"
+                class="sidebar-link flex items-center text-gray-600 hover:text-primary p-2 rounded-md hover:bg-gray-100">
+                <i class="sidebar-icon ri-shield-user-line mr-2"></i>
+                <span class="sidebar-link-text">Phân quyền</span>
+              </a>
+              <a href="user-types.html"
+                class="sidebar-link flex items-center text-gray-600 hover:text-primary p-2 rounded-md hover:bg-gray-100">
+                <i class="sidebar-icon ri-group-line mr-2"></i>
+                <span class="sidebar-link-text">Loại người dùng</span>
+              </a>
+              <a href="academic-levels.html"
+                class="sidebar-link flex items-center text-gray-600 hover:text-primary p-2 rounded-md hover:bg-gray-100">
+                <i class="sidebar-icon ri-graduation-cap-line mr-2"></i>
+                <span class="sidebar-link-text">Bậc học</span>
+              </a>
+              <a href="courses.html"
+                class="sidebar-link flex items-center text-gray-600 hover:text-primary p-2 rounded-md hover:bg-gray-100">
+                <i class="sidebar-icon ri-book-open-line mr-2"></i>
+                <span class="sidebar-link-text">Khoá học</span>
+              </a>
+              <a href="majors.html"
+                class="sidebar-link flex items-center text-gray-600 hover:text-primary p-2 rounded-md hover:bg-gray-100">
+                <i class="sidebar-icon ri-book-open-line mr-2"></i>
+                <span class="sidebar-link-text">Ngành đào tạo</span>
+              </a>
+              <a href="departments.html"
+                class="sidebar-link flex items-center text-gray-600 hover:text-primary p-2 rounded-md hover:bg-gray-100">
+                <i class="sidebar-icon ri-building-line mr-2"></i>
+                <span class="sidebar-link-text">Phòng khoa</span>
+              </a>
+              <a href="academic-years.html"
+                class="sidebar-link flex items-center text-gray-600 hover:text-primary p-2 rounded-md hover:bg-gray-100">
+                <i class="sidebar-icon ri-calendar-check-line mr-2"></i>
+                <span class="sidebar-link-text">Năm học</span>
+              </a>
+              <a href="cameras.html"
+                class="sidebar-link flex items-center text-gray-600 hover:text-primary p-2 rounded-md hover:bg-gray-100">
+                <i class="sidebar-icon ri-camera-line mr-2"></i>
+                <span class="sidebar-link-text">Camera</span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="flex-1 overflow-auto px-6 pb-6 pt-4">
+      <!-- Header (Tương tự các trang khác) -->
+      <header class="bg-primary shadow-md sticky top-0 z-30 animate-fade-in mb-6">
+         <div class="container mx-auto px-4 py-2 flex items-center justify-between">
+            <button id="sidebar-open" class="text-white p-2 rounded-md md:hidden focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white">
+              <i class="ri-menu-line text-2xl"></i>
+            </button>
+            <a href="index.html"
+              class="text-2xl font-['Pacifico'] text-white transition-all duration-300 hover:scale-105 hidden md:block">
+              <img src="../../images/logo/logo-white.png" alt="logo" class="w-12 h-12 md:w-16 md:h-16">
+            </a>
+            <div class="flex items-center space-x-4">
+               <div class="relative group">
+                <button id="user-menu-button" class="flex items-center space-x-2 text-white">
+                  <img
+                    id="header-avatar"
+                    src="https://ui-avatars.com/api/?name=N+V+A&background=0D8ABC&color=fff"
+                    alt="Ảnh đại diện" class="w-8 h-8 rounded-full border-2 border-white">
+                  <span id="header-fullname" class="hidden sm:block">Nguyễn Văn A</span>
+                  <i class="ri-arrow-down-s-line group-hover:rotate-180 transition-transform duration-300"></i>
+                </button>
+                <div
+                  id="user-menu"
+                  class="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg overflow-hidden z-20 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform origin-top-right scale-95 group-hover:scale-100">
+                   <div class="py-2">
+                     <a href="profile.html"
+                      class="flex items-center px-4 py-2 text-sm text-gray-800 hover:bg-primary/10 hover:text-primary">
+                      <i class="ri-user-line mr-2"></i>
+                      Trang cá nhân
+                    </a>
+                    <a href="registered-events.html"
+                      class="flex items-center px-4 py-2 text-sm text-gray-800 hover:bg-primary/10 hover:text-primary">
+                      <i class="ri-calendar-event-line mr-2"></i>
+                      Sự kiện của tôi
+                    </a>
+                    <a href="settings.html"
+                      class="flex items-center px-4 py-2 text-sm text-gray-800 hover:bg-primary/10 hover:text-primary">
+                      <i class="ri-settings-4-line mr-2"></i>
+                      Cài đặt
+                    </a>
+                    <hr class="my-1 border-gray-200">
+                    <a href="login.html"
+                      class="flex items-center px-4 py-2 text-sm text-gray-800 hover:bg-primary/10 hover:text-primary">
+                      <i class="ri-logout-box-r-line mr-2"></i>
+                      Đăng xuất
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+      </header>
+
+      <!-- Page Header Section -->
+      <div class="bg-white rounded-lg shadow mb-6 p-4">
+        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between">
+          <div>
+            <h1 class="text-2xl font-semibold text-gray-900">Chi tiết Check-out</h1>
+            <p class="mt-1 text-sm text-gray-600">Xem thông tin chi tiết của lượt check-out <span id="checkout-id-display" class="font-medium">...</span></p>
+          </div>
+          <div class="mt-4 sm:mt-0 flex gap-2">
+             <a href="checkout-edit.html" id="edit-btn" class="flex items-center justify-center px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 transition-colors duration-200">
+              <i class="ri-pencil-line mr-1"></i> Chỉnh sửa
+            </a>
+            <a href="checkouts.html" id="back-to-list-btn" class="flex items-center justify-center px-4 py-2 border border-gray-300 text-gray-700 rounded-md hover:bg-gray-50 transition-colors duration-200">
+              <i class="ri-arrow-left-line mr-1"></i> Quay lại danh sách
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Breadcrumb -->
+      <nav class="text-sm font-medium mb-3" aria-label="Breadcrumb">
+        <ol class="list-none p-0 inline-flex">
+          <li class="flex items-center">
+            <a href="dashboard.html" class="text-gray-500 hover:text-primary">
+              <i class="ri-dashboard-line mr-1"></i> Dashboard
+            </a>
+            <i class="ri-arrow-right-s-line text-gray-400 mx-2"></i>
+          </li>
+           <li class="flex items-center">
+            <span class="text-gray-500">Quản lý sự kiện</span>
+            <i class="ri-arrow-right-s-line text-gray-400 mx-2"></i>
+          </li>
+          <li class="flex items-center">
+            <a href="checkouts.html" class="text-gray-500 hover:text-primary">Check-out</a>
+             <i class="ri-arrow-right-s-line text-gray-400 mx-2"></i>
+          </li>
+          <li class="text-primary" aria-current="page">Chi tiết Check-out</li>
+        </ol>
+      </nav>
+
+       <!-- Loading Indicator -->
+      <div id="loading-indicator" class="flex justify-center items-center py-10">
+        <i class="ri-loader-4-line animate-spin text-4xl text-primary"></i>
+        <span class="ml-2 text-gray-600">Đang tải chi tiết...</span>
+      </div>
+
+      <!-- Checkout Detail Container -->
+      <div id="detail-container" class="bg-white rounded-lg shadow overflow-hidden hidden">
+         <div class="px-4 py-5 sm:px-6 border-b border-gray-200">
+          <h3 class="text-lg leading-6 font-medium text-gray-900">Thông tin Check-out</h3>
+          <p class="mt-1 max-w-2xl text-sm text-gray-500">Chi tiết về lượt check-out này.</p>
+        </div>
+        <div class="border-t border-gray-200 px-4 py-5 sm:p-0">
+          <dl class="sm:divide-y sm:divide-gray-200">
+            <div class="detail-item">
+              <dt class="detail-label">Check-out ID</dt>
+              <dd id="detail-checkout-id" class="detail-value font-mono">-</dd>
+            </div>
+            <div class="detail-item bg-gray-50">
+              <dt class="detail-label">Sự kiện</dt>
+              <dd id="detail-event" class="detail-value">-</dd>
+            </div>
+            <div class="detail-item">
+              <dt class="detail-label">Người dùng</dt>
+              <dd id="detail-user" class="detail-value">-</dd>
+            </div>
+            <div class="detail-item bg-gray-50">
+              <dt class="detail-label">Email</dt>
+              <dd id="detail-email" class="detail-value">-</dd>
+            </div>
+             <div class="detail-item">
+              <dt class="detail-label">Check-in ID liên quan</dt>
+              <dd id="detail-checkin-id" class="detail-value font-mono">-</dd>
+            </div>
+            <div class="detail-item bg-gray-50">
+              <dt class="detail-label">Đăng ký ID liên quan</dt>
+              <dd id="detail-registration-id" class="detail-value font-mono">-</dd>
+            </div>
+            <div class="detail-item">
+              <dt class="detail-label">Thời gian Check-out</dt>
+              <dd id="detail-checkout-time" class="detail-value">-</dd>
+            </div>
+            <div class="detail-item bg-gray-50">
+              <dt class="detail-label">Loại Check-out</dt>
+              <dd id="detail-checkout-type" class="detail-value">-</dd>
+            </div>
+             <div class="detail-item">
+              <dt class="detail-label">Hình thức tham gia</dt>
+              <dd id="detail-participation-mode" class="detail-value">-</dd>
+            </div>
+            <div class="detail-item bg-gray-50">
+              <dt class="detail-label">Thiết bị</dt>
+              <dd id="detail-device-info" class="detail-value">-</dd>
+            </div>
+            <div class="detail-item">
+              <dt class="detail-label">Vị trí</dt>
+              <dd id="detail-location-data" class="detail-value">-</dd>
+            </div>
+             <div class="detail-item bg-gray-50">
+              <dt class="detail-label">Địa chỉ IP</dt>
+              <dd id="detail-ip-address" class="detail-value font-mono">-</dd>
+            </div>
+            <div class="detail-item">
+              <dt class="detail-label">Thời lượng tham dự (phút)</dt>
+              <dd id="detail-attendance-duration" class="detail-value">-</dd>
+            </div>
+             <div class="detail-item bg-gray-50">
+              <dt class="detail-label">Trạng thái</dt>
+              <dd id="detail-status" class="detail-value">-</dd>
+            </div>
+            <div class="detail-item">
+              <dt class="detail-label">Ghi chú</dt>
+              <dd id="detail-notes" class="detail-value whitespace-pre-wrap">-</dd>
+            </div>
+             <div class="detail-item bg-gray-50">
+              <dt class="detail-label">Phản hồi</dt>
+              <dd id="detail-feedback" class="detail-value whitespace-pre-wrap">-</dd>
+            </div>
+            <div class="detail-item">
+              <dt class="detail-label">Đánh giá</dt>
+              <dd id="detail-rating" class="detail-value">-</dd>
+            </div>
+             <div class="detail-item bg-gray-50">
+              <dt class="detail-label">Nội dung đánh giá</dt>
+              <dd id="detail-rating-content" class="detail-value whitespace-pre-wrap">-</dd>
+            </div>
+            <div class="detail-item">
+              <dt class="detail-label">Face ID Verified</dt>
+              <dd id="detail-face-verified" class="detail-value">-</dd>
+            </div>
+            <div class="detail-item bg-gray-50">
+              <dt class="detail-label">Face Match Score</dt>
+              <dd id="detail-face-score" class="detail-value">-</dd>
+            </div>
+             <div class="detail-item">
+              <dt class="detail-label">Hình ảnh Face ID</dt>
+              <dd id="detail-face-image" class="detail-value">
+                 <!-- Image will be loaded here -->
+                 <span class="text-gray-500 italic">Không có hình ảnh</span>
+              </dd>
+            </div>
+              <div class="detail-item bg-gray-50">
+              <dt class="detail-label">Ngày tạo</dt>
+              <dd id="detail-created-at" class="detail-value">-</dd>
+            </div>
+             <div class="detail-item">
+              <dt class="detail-label">Cập nhật lần cuối</dt>
+              <dd id="detail-updated-at" class="detail-value">-</dd>
+            </div>
+          </dl>
+        </div>
+      </div>
+
+       <!-- Error Alert -->
+      <div id="error-alert" class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mt-4 hidden" role="alert">
+        <strong class="font-bold" id="error-message">Lỗi!</strong>
+        <span class="block sm:inline" id="error-detail">Có lỗi xảy ra khi tải dữ liệu.</span>
+        <span class="absolute top-0 bottom-0 right-0 px-4 py-3 cursor-pointer" onclick="document.getElementById('error-alert').classList.add('hidden')">
+          <i class="ri-close-line text-red-500"></i>
+        </span>
+      </div>
+
+    </main>
+  </div>
+
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/moment-timezone@0.5.34/builds/moment-timezone-with-data.min.js"></script>
+  <!-- Link to the new JS file -->
+  <script src="../../public/js/admin/checkout-detail.js"></script>
+</body>
+
+</html> 

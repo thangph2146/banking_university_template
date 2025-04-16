@@ -2,82 +2,16 @@
 AOS.init();
 
 // State variables
-let allCheckouts = []; // Store all checkouts (from API or sample)
-let currentCheckouts = []; // Store checkouts for the current page
+let allCheckouts = []; // Store all checkouts
 let currentPage = 1;
 let itemsPerPage = 10;
 let totalPages = 1;
 let filters = {
     search: '',
     event: '',
-    dateRange: { startDate: null, endDate: null } // For daterangepicker
+    checkoutType: '', // Added filter for checkout type
+    dateRange: { startDate: null, endDate: null } // For daterangepicker (filtering by checkout time)
 };
-
-// Sample Data (Based on checkin_sukien with CheckOutTime)
-const generateSampleCheckouts = () => {
-    // Reuse checkin data generation but filter for those with checkout times
-    const sampleCheckins = generateSampleCheckinsBaseData(); // Use a base generator
-    return sampleCheckins.filter(c => c.CheckOutTime);
-};
-
-// Base generator function (can be shared or duplicated)
-const generateSampleCheckinsBaseData = () => {
-    const sampleUsers = [
-        { AccountId: 'U001', FullName: 'Nguyễn Văn An', Email: 'an.nv@example.com', Avatar: 'https://ui-avatars.com/api/?name=An+NV&background=random' },
-        { AccountId: 'U002', FullName: 'Trần Thị Bình', Email: 'binh.tt@example.com', Avatar: 'https://ui-avatars.com/api/?name=Binh+TT&background=random' },
-        { AccountId: 'U003', FullName: 'Lê Văn Cường', Email: 'cuong.lv@example.com', Avatar: 'https://ui-avatars.com/api/?name=Cuong+LV&background=random' },
-        { AccountId: 'U004', FullName: 'Phạm Thị Dung', Email: 'dung.pt@example.com', Avatar: 'https://ui-avatars.com/api/?name=Dung+PT&background=random' },
-        { AccountId: 'U005', FullName: 'Hoàng Văn Em', Email: 'em.hv@example.com', Avatar: 'https://ui-avatars.com/api/?name=Em+HV&background=random' },
-        { AccountId: 'U006', FullName: 'Vũ Thị Giang', Email: 'giang.vt@example.com', Avatar: 'https://ui-avatars.com/api/?name=Giang+VT&background=random' },
-        { AccountId: 'U007', FullName: 'Đỗ Văn Hùng', Email: 'hung.dv@example.com', Avatar: 'https://ui-avatars.com/api/?name=Hung+DV&background=random' },
-         { AccountId: 'U008', FullName: 'Bùi Thị Lan', Email: 'lan.bt@example.com', Avatar: 'https://ui-avatars.com/api/?name=Lan+BT&background=random' },
-        { AccountId: 'U009', FullName: 'Ngô Văn Minh', Email: 'minh.nv@example.com', Avatar: 'https://ui-avatars.com/api/?name=Minh+NV&background=random' },
-    ];
-    const sampleEvents = [
-        { EventID: 1, EventName: 'Hội thảo AI 2024', StartTime: '2024-09-15T09:00:00Z' },
-        { EventID: 2, EventName: 'Workshop Marketing Online', StartTime: '2024-10-20T14:00:00Z' },
-        { EventID: 3, EventName: 'Khóa học Lập trình Python', StartTime: '2024-11-01T18:30:00Z' },
-    ];
-    const sampleDevices = [
-        { DeviceID: 'DVC001', DeviceName: 'Thiết bị Check-in Cổng 1' },
-        { DeviceID: 'DVC002', DeviceName: 'Thiết bị Check-in Cổng 2' },
-        { DeviceID: 'SCAN01', DeviceName: 'Máy quét QR Hội trường A' },
-    ];
-    const sampleLocations = [
-        { LocationID: 'LOC01', LocationName: 'Cổng chính' },
-        { LocationID: 'LOC02', LocationName: 'Hội trường A' },
-        { LocationID: 'LOC03', LocationName: 'Sảnh B' },
-    ];
-    const checkins = [];
-    const now = Date.now();
-
-    for (let i = 1; i <= 30; i++) { // Generate more base data
-        const user = sampleUsers[Math.floor(Math.random() * sampleUsers.length)];
-        const event = sampleEvents[Math.floor(Math.random() * sampleEvents.length)];
-        const device = sampleDevices[Math.floor(Math.random() * sampleDevices.length)];
-        const location = sampleLocations[Math.floor(Math.random() * sampleLocations.length)];
-        const checkinTime = new Date(now - Math.random() * 60 * 24 * 60 * 60 * 1000);
-        const hasCheckout = Math.random() > 0.4; // ~60% chance of having checkout
-        const checkoutTime = hasCheckout ? new Date(checkinTime.getTime() + (Math.random() * 5 + 1) * 60 * 60 * 1000) : null; // Checkout 1-6 hours after checkin
-
-        checkins.push({
-            ID: i,
-            EventID: event.EventID,
-            AccountID: user.AccountId,
-            DeviceID: device.DeviceID,
-            LocationID: location.LocationID,
-            CheckInTime: checkinTime.toISOString(),
-            CheckOutTime: checkoutTime?.toISOString(), // May be null
-            HinhAnhCheckIn: `https://picsum.photos/seed/in${i}/300/200`, // Sample image URL
-            HinhAnhCheckOut: checkoutTime ? `https://picsum.photos/seed/out${i}/300/200` : null,
-            User: user,
-            Event: event,
-            Device: device,
-            Location: location,
-        });
-    }
-    return checkins;
-}
 
 // DOM Elements
 const checkoutsTableBody = document.getElementById('checkoutsTableBody');
@@ -92,27 +26,20 @@ const noDataPlaceholder = document.getElementById('no-data-placeholder');
 const filterForm = document.getElementById('filter-form');
 const filterSearchInput = document.getElementById('filter-search');
 const filterEventSelect = document.getElementById('filter-event');
-const filterDateInput = document.getElementById('filter-date'); // Daterangepicker input
+const filterCheckoutTypeSelect = document.getElementById('filter-checkout-type'); // Added
+const filterDateInput = document.getElementById('filter-date'); // Daterangepicker input (for checkout time)
 const resetFilterBtn = document.getElementById('reset-filter-btn');
-const refreshBtn = document.getElementById('refresh-btn');
+const refreshBtn = document.getElementById('refresh-btn'); // Assuming a refresh button exists like in checkins
 
-// Helper Functions
-const formatDate = (dateString) => {
-    if (!dateString) return '-';
-    try {
-        const date = new Date(dateString);
-        const day = String(date.getDate()).padStart(2, '0');
-        const month = String(date.getMonth() + 1).padStart(2, '0');
-        const year = date.getFullYear();
-        return `${day}/${month}/${year}`;
-    } catch (error) {
-        return '-';
-    }
-};
-
+// Helper Functions (assuming these are globally available or copy them here)
 const formatDateTime = (dateTimeString) => {
     if (!dateTimeString) return '-';
     try {
+        // Using moment.js for robust formatting, ensure it's loaded
+        if (typeof moment !== 'undefined') {
+            return moment(dateTimeString).format('DD/MM/YYYY HH:mm');
+        }
+        // Fallback basic formatter
         const date = new Date(dateTimeString);
         const day = String(date.getDate()).padStart(2, '0');
         const month = String(date.getMonth() + 1).padStart(2, '0');
@@ -121,87 +48,342 @@ const formatDateTime = (dateTimeString) => {
         const minutes = String(date.getMinutes()).padStart(2, '0');
         return `${day}/${month}/${year} ${hours}:${minutes}`;
     } catch (error) {
+        console.error("Error formatting date:", dateTimeString, error);
+        return 'Invalid Date';
+    }
+};
+
+// Calculates duration in minutes between two date strings
+const calculateDurationMinutes = (start, end) => {
+    if (!start || !end) return '-';
+    try {
+        const startDate = new Date(start);
+        const endDate = new Date(end);
+        if (isNaN(startDate) || isNaN(endDate) || endDate < startDate) return '-'; // Invalid dates or end before start
+        const diffMs = endDate - startDate;
+        return Math.round(diffMs / (1000 * 60)); // Difference in minutes
+    } catch (error) {
+        console.error("Error calculating duration:", start, end, error);
         return '-';
     }
 };
 
-// Core Functions
-const applyFilters = () => {
-    const searchTerm = filters.search.toLowerCase();
-    const selectedEvent = filters.event;
-    const { startDate, endDate } = filters.dateRange;
+// Maps checkout type codes to readable names
+const getCheckoutTypeName = (type) => {
+    const types = {
+        'face_id': 'Face ID',
+        'manual': 'Thủ công',
+        'qr_code': 'QR Code',
+        'auto': 'Tự động (Timeout)',
+        'online': 'Online'
+    };
+    return types[type] || type || '-'; // Return readable name or the type code itself or '-'
+};
 
-    // Start with all records that have a CheckOutTime
-    const baseCheckouts = allCheckouts.filter(c => c.CheckOutTime);
+// Gets participation type (Assuming it's stored or can be derived)
+const getParticipationType = (checkout) => {
+    // Placeholder: Derive from event type or registration data if available
+    // Example: Check if Event object has a type property
+    if (checkout?.Event?.Type === 'Online') return 'Online';
+    if (checkout?.Event?.Type === 'Offline') return 'Offline';
+    // Or based on Registration data if linked
+    if (checkout?.Registration?.ParticipationType) return checkout.Registration.ParticipationType;
+    return 'N/A'; // Default if cannot determine
+};
 
-    const filtered = baseCheckouts.filter(checkout => {
-        const userName = checkout.User?.FullName?.toLowerCase() || '';
-        const userEmail = checkout.User?.Email?.toLowerCase() || '';
-        const eventName = checkout.Event?.EventName?.toLowerCase() || '';
-        const checkoutTime = checkout.CheckOutTime ? new Date(checkout.CheckOutTime) : null;
 
-        const matchesSearch = searchTerm === '' || userName.includes(searchTerm) || userEmail.includes(searchTerm) || eventName.includes(searchTerm);
-        const matchesEvent = selectedEvent === '' || checkout.EventID === parseInt(selectedEvent);
+// API Function (Placeholder)
+const fetchCheckouts = async (currentFilters) => {
+    // TODO: Replace with actual API call to fetch checkouts
+    console.log('Fetching checkouts with filters:', currentFilters);
+    const apiUrl = '/api/admin/checkouts'; // Adjust API endpoint if needed
+    const params = new URLSearchParams();
 
-        let matchesDate = true;
-        if (startDate && endDate && checkoutTime) {
-            const checkoutDateOnly = new Date(checkoutTime.getFullYear(), checkoutTime.getMonth(), checkoutTime.getDate());
-            const filterStartDate = new Date(startDate.getFullYear(), startDate.getMonth(), startDate.getDate());
-            const filterEndDate = new Date(endDate.getFullYear(), endDate.getMonth(), endDate.getDate());
-            matchesDate = checkoutDateOnly >= filterStartDate && checkoutDateOnly <= filterEndDate;
-        }
+    params.append('page', currentFilters.page || 1);
+    params.append('limit', currentFilters.limit || 10);
+    if (currentFilters.search) params.append('search', currentFilters.search);
+    if (currentFilters.event) params.append('eventId', currentFilters.event);
+    if (currentFilters.checkoutType) params.append('checkoutType', currentFilters.checkoutType);
+    if (currentFilters.dateRange?.startDate) params.append('checkout_start_time', currentFilters.dateRange.startDate.toISOString());
+    if (currentFilters.dateRange?.endDate) params.append('checkout_end_time', currentFilters.dateRange.endDate.toISOString());
+    // Add sorting params if needed, e.g., params.append('sort', 'thoi_gian_check_out_desc');
 
-        return matchesSearch && matchesEvent && matchesDate;
+    console.log(`API Request URL (simulated): ${apiUrl}?${params.toString()}`);
+
+    // --- Sample Data Generation (Reflecting checkout_sukien + related data) ---
+    const sampleDataFromAPI = [
+        {
+            checkout_sukien_id: 101,
+            su_kien_id: 1,
+            checkin_sukien_id: 1,
+            email: 'an.nv@example.com',
+            ho_ten: 'Nguyễn Văn An',
+            thoi_gian_check_out: '2024-07-28T11:35:00Z',
+            checkout_type: 'face_id',
+            face_image_path: 'https://picsum.photos/seed/101/300/200', // Added checkout image path
+            ghi_chu: 'Checked out via Face Recognition.',
+            attendance_duration_minutes: 95,
+            hinh_thuc_tham_gia: 'offline',
+            User: { AccountId: 'U001', FullName: 'Nguyễn Văn An', Email: 'an.nv@example.com', Avatar: 'https://ui-avatars.com/api/?name=An+NV&background=random' },
+            Event: { EventID: 1, EventName: 'Hội thảo AI 2024', Type: 'Offline' },
+            CheckInTime: '2024-07-28T10:00:00Z'
+        },
+        {
+            checkout_sukien_id: 102,
+            su_kien_id: 2,
+            checkin_sukien_id: 2,
+            email: 'binh.tt@example.com',
+            ho_ten: 'Trần Thị Bình',
+            thoi_gian_check_out: '2024-07-27T16:05:00Z',
+            checkout_type: 'manual',
+            face_image_path: null, // Manual checkout might not have image
+            ghi_chu: 'Admin manually checked out user.',
+            attendance_duration_minutes: 95,
+            hinh_thuc_tham_gia: 'online',
+            User: { AccountId: 'U002', FullName: 'Trần Thị Bình', Email: 'binh.tt@example.com', Avatar: 'https://ui-avatars.com/api/?name=Binh+TT&background=random' },
+            Event: { EventID: 2, EventName: 'Workshop Marketing Online', Type: 'Online' },
+            CheckInTime: '2024-07-27T14:30:00Z'
+        },
+        {
+            checkout_sukien_id: 103,
+            su_kien_id: 1,
+            checkin_sukien_id: 3,
+            email: 'cuong.lv@example.com',
+            ho_ten: 'Lê Văn Cường',
+            thoi_gian_check_out: '2024-07-28T11:00:00Z',
+            checkout_type: 'auto',
+            face_image_path: 'https://picsum.photos/seed/103/300/200', // Auto checkout might have image
+            ghi_chu: 'User timed out or left venue area.',
+            attendance_duration_minutes: 45,
+            hinh_thuc_tham_gia: 'offline',
+            User: { AccountId: 'U003', FullName: 'Lê Văn Cường', Email: 'cuong.lv@example.com', Avatar: 'https://ui-avatars.com/api/?name=Cuong+LV&background=random' },
+            Event: { EventID: 1, EventName: 'Hội thảo AI 2024', Type: 'Offline' },
+            CheckInTime: '2024-07-28T10:15:00Z'
+        },
+        // Record for user not checked out removed as it won't appear in checkout list
+    ];
+
+    // Filter sample data based on provided filters (using API field names)
+    let filteredData = sampleDataFromAPI.filter(co => {
+         // Filter only actual checkout records for the list view
+         if (!co.checkout_sukien_id) return false;
+
+        const checkoutMoment = co.thoi_gian_check_out ? moment(co.thoi_gian_check_out) : null;
+        const nameMatch = !currentFilters.search || (co.ho_ten || '').toLowerCase().includes(currentFilters.search.toLowerCase());
+        const emailMatch = !currentFilters.search || (co.email || '').toLowerCase().includes(currentFilters.search.toLowerCase());
+        const userCodeMatch = !currentFilters.search || (co.User?.AccountId || '').toLowerCase().includes(currentFilters.search.toLowerCase()); // Use joined data if available for search
+        const eventMatch = !currentFilters.event || co.su_kien_id == currentFilters.event;
+        const typeMatch = !currentFilters.checkoutType || co.checkout_type === currentFilters.checkoutType;
+        const dateMatch = !checkoutMoment || (
+            (!currentFilters.dateRange?.startDate || checkoutMoment.isSameOrAfter(currentFilters.dateRange.startDate, 'day')) &&
+            (!currentFilters.dateRange?.endDate || checkoutMoment.isSameOrBefore(currentFilters.dateRange.endDate, 'day'))
+        );
+        return (nameMatch || emailMatch || userCodeMatch) && eventMatch && typeMatch && dateMatch;
     });
 
-    currentCheckouts = filtered;
-    totalPages = Math.ceil(currentCheckouts.length / itemsPerPage);
-    currentPage = 1; // Reset to first page after filtering
-    renderTable();
-    updatePagination();
+    // Map filtered data to the structure renderTable expects (PascalCase/camelCase)
+    // This mapping assumes the frontend JS prefers this casing.
+    // If API returns this structure directly, this map isn't needed.
+     const mappedFilteredData = filteredData.map(item => ({
+        ID: item.checkout_sukien_id,
+        CheckInID: item.checkin_sukien_id,
+        AccountID: item.User?.AccountId, // From joined data
+        EventID: item.su_kien_id,
+        CheckInTime: item.CheckInTime, // From joined data
+        CheckOutTime: item.thoi_gian_check_out,
+        CheckoutType: item.checkout_type,
+        CheckoutImagePath: item.face_image_path, // Add image path
+        Notes: item.ghi_chu,
+        User: item.User, // Pass joined User object
+        Event: item.Event, // Pass joined Event object
+        // Duration and Participation Type will be calculated/derived in renderTable
+        // Original hinh_thuc_tham_gia is available if needed: item.hinh_thuc_tham_gia
+    }));
+
+    // Simulate pagination on the mapped filtered data
+    const totalItems = mappedFilteredData.length;
+    const startIndex = (currentFilters.page - 1) * currentFilters.limit;
+    const endIndex = startIndex + currentFilters.limit;
+    const paginatedData = mappedFilteredData.slice(startIndex, endIndex);
+
+
+    return { data: paginatedData, total: totalItems }; // Return structure { data: [], total: number }
+
+    /*
+    // Actual fetch structure (assuming API returns data ready for renderTable)
+    try {
+        const response = await fetch(`${apiUrl}?${params.toString()}`);
+        if (!response.ok) {
+            throw new Error(`API error: ${response.statusText}`);
+        }
+        const result = await response.json();
+        return { data: result.data || [], total: result.total || 0 };
+    } catch (error) {
+        console.error("Error fetching checkouts:", error);
+        throw error; // Re-throw to be handled by caller
+    }
+    */
 };
+
+const fetchEventsForFilter = async () => {
+    // Reuse function from checkins.js logic if available, otherwise implement here
+    // TODO: API call to fetch list of events for filter dropdown
+    console.log('Fetching events for filter...');
+    const apiUrl = '/api/admin/events?limit=all'; // Example endpoint
+    try {
+        // Simulate API call
+        await new Promise(resolve => setTimeout(resolve, 150));
+         return [
+            { EventID: 1, EventName: 'Hội thảo AI 2024' },
+            { EventID: 2, EventName: 'Workshop Marketing Online' },
+            { EventID: 3, EventName: 'Team Building 2024' },
+        ];
+        /* // Actual fetch
+        const response = await fetch(apiUrl);
+        if (!response.ok) throw new Error(`API error: ${response.statusText}`);
+        const result = await response.json();
+        return result.data || []; // Assuming API returns { data: [...] }
+        */
+    } catch (error) {
+        console.error("Error fetching events for filter:", error);
+        return []; // Return empty array on error
+    }
+}
+
+const deleteCheckout = async (id) => {
+    // TODO: API call to delete checkout with the given ID
+    console.log(`Deleting checkout with ID: ${id}`);
+    const apiUrl = `/api/admin/checkouts/${id}`; // Adjust endpoint
+    try {
+        // Simulate API Call
+        await new Promise(resolve => setTimeout(resolve, 400));
+        // Check if ID exists in sample data (for simulation)
+        const index = allCheckouts.findIndex(co => co.ID === id);
+        if (index === -1 && !sampleData.some(co => co.ID === id)) { // Check original sample too
+            console.warn(`Checkout ID ${id} not found for deletion (simulation).`);
+            // throw new Error("Checkout not found"); // Or return false
+            return false;
+        }
+        console.log(`Checkout ${id} deleted (simulated).`);
+        return true; // Simulate success
+        /* // Actual fetch
+         const response = await fetch(apiUrl, { method: 'DELETE' });
+         if (!response.ok) {
+             if (response.status === 404) return false; // Not found
+             throw new Error(`API delete error: ${response.statusText}`);
+         }
+         return true; // Success
+        */
+    } catch (error) {
+        console.error("Error deleting checkout:", error);
+        throw error;
+    }
+}
+
+// Core Functions
+const applyFiltersAndLoadData = async () => {
+    // TODO: Add loading indicator if needed
+    checkoutsTableBody.innerHTML = '<tr><td colspan="8" class="text-center py-4 text-gray-500">Đang tải dữ liệu...</td></tr>'; // Update colspan
+    noDataPlaceholder.classList.add('hidden');
+
+    try {
+        // Get current filters
+        filters.search = filterSearchInput?.value || '';
+        filters.event = filterEventSelect?.value || '';
+        filters.checkoutType = filterCheckoutTypeSelect?.value || '';
+        // filters.dateRange is updated by daterangepicker events
+
+        const apiParams = {
+            ...filters,
+            page: currentPage,
+            limit: itemsPerPage,
+            // Add sorting params if needed
+        };
+
+        const response = await fetchCheckouts(apiParams);
+        allCheckouts = response.data || []; // Store fetched data
+        const totalItems = response.total || 0;
+
+        totalPages = Math.max(1, Math.ceil(totalItems / itemsPerPage));
+        if (currentPage > totalPages) currentPage = totalPages; // Adjust currentPage if out of bounds
+
+        renderTable();
+        updatePagination(totalItems);
+
+    } catch (error) {
+        console.error("Error loading checkouts:", error);
+        checkoutsTableBody.innerHTML = '<tr><td colspan="8" class="text-center py-4 text-red-500">Có lỗi xảy ra khi tải dữ liệu. Vui lòng thử lại.</td></tr>'; // Update colspan
+        noDataPlaceholder.classList.add('hidden');
+        updatePagination(0); // Reset pagination
+    } finally {
+        // TODO: Hide loading indicator
+    }
+};
+
+// Renamed function for clarity
+const loadData = () => {
+    currentPage = 1; // Reset to page 1 when applying filters manually
+    applyFiltersAndLoadData();
+}
 
 const renderTable = () => {
     if (!checkoutsTableBody) return;
     checkoutsTableBody.innerHTML = ''; // Clear existing rows
     noDataPlaceholder.classList.add('hidden');
 
-    const start = (currentPage - 1) * itemsPerPage;
-    const end = start + itemsPerPage;
-    const pageItems = currentCheckouts.slice(start, end);
-
-    if (pageItems.length === 0) {
+    if (allCheckouts.length === 0) {
         noDataPlaceholder.classList.remove('hidden');
+        // Update colspan to 8 based on the final table structure
+        checkoutsTableBody.innerHTML = '<tr><td colspan="8" class="text-center py-10 text-gray-500">Không có dữ liệu check-out nào phù hợp.</td></tr>';
         return;
     }
 
-    pageItems.forEach(checkout => {
+    allCheckouts.forEach(checkout => {
         const row = document.createElement('tr');
+        const duration = calculateDurationMinutes(checkout.CheckInTime, checkout.CheckOutTime);
+        const participationType = getParticipationType(checkout);
+        const checkoutImageUrl = checkout.CheckoutImagePath; // Get image URL from mapped data
+
         row.innerHTML = `
             <td class="px-4 py-4 whitespace-nowrap">
                 <div class="flex items-center">
                     <div class="flex-shrink-0 h-10 w-10">
-                        <img class="h-10 w-10 rounded-full object-cover" src="${checkout.User?.Avatar || '#'}" alt="${checkout.User?.FullName || ''}">
+                         <img class="h-10 w-10 rounded-full object-cover border" src="${checkout.User?.Avatar || 'https://ui-avatars.com/api/?name=?&background=gray&color=fff'}" alt="${checkout.User?.FullName || ''}">
                     </div>
                     <div class="ml-4">
-                        <div class="text-sm font-medium text-gray-900">${checkout.User?.FullName || 'N/A'}</div>
+                        <div class="text-sm font-medium text-gray-900">${checkout.User?.FullName || 'N/A'} (${checkout.AccountID || 'N/A'})</div>
                         <div class="text-sm text-gray-500">${checkout.User?.Email || 'N/A'}</div>
                     </div>
                 </div>
             </td>
             <td class="px-4 py-4 whitespace-nowrap">
                 <div class="text-sm text-gray-900">${checkout.Event?.EventName || 'N/A'}</div>
-                <div class="text-sm text-gray-500">Bắt đầu: ${formatDate(checkout.Event?.StartTime)}</div>
+                <div class="text-sm text-gray-500">ID: ${checkout.EventID || 'N/A'}</div>
             </td>
             <td class="px-4 py-4 whitespace-nowrap text-sm text-gray-500">${formatDateTime(checkout.CheckOutTime)}</td>
-            <td class="px-4 py-4 whitespace-nowrap text-sm text-gray-900">${checkout.Device?.DeviceName || 'N/A'}</td>
-            <td class="px-4 py-4 whitespace-nowrap text-sm text-gray-900">${checkout.Location?.LocationName || 'N/A'}</td>
+            <td class="px-4 py-4 whitespace-nowrap text-sm text-center text-gray-700">${duration !== '-' ? `${duration} phút` : '-'}</td>
+            <td class="px-4 py-4 whitespace-nowrap text-sm text-gray-700">${getCheckoutTypeName(checkout.CheckoutType)}</td>
+             <td class="px-4 py-4 whitespace-nowrap text-sm text-gray-700">
+                 <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${participationType === 'Online' ? 'bg-blue-100 text-blue-800' : (participationType === 'Offline' ? 'bg-green-100 text-green-800' : 'bg-gray-100 text-gray-800')}">
+                    ${participationType}
+                 </span>
+            </td>
+            <td class="px-4 py-4 whitespace-nowrap text-sm text-gray-500">
+                 ${checkoutImageUrl ? `
+                    <a href="${checkoutImageUrl}" target="_blank" title="Xem ảnh gốc">
+                        <img src="${checkoutImageUrl}" alt="Ảnh Check-out" class="h-10 w-auto rounded object-cover hover:opacity-80 transition-opacity">
+                    </a>
+                 ` : '-'}
+            </td>
             <td class="px-4 py-4 whitespace-nowrap text-right text-sm font-medium">
                 <div class="flex justify-end space-x-2">
-                    <button class="text-blue-600 hover:text-blue-900 action-btn" title="Xem chi tiết" data-id="${checkout.ID}" data-action="view">
+                    <a href="checkout-detail.html?id=${checkout.ID}" class="text-blue-600 hover:text-blue-900" title="Xem chi tiết">
                         <i class="ri-eye-line"></i>
-                    </button>
-                    <button class="text-gray-500 hover:text-gray-700 action-btn" title="Xóa" data-id="${checkout.ID}" data-action="delete">
+                    </a>
+                     <a href="checkout-edit.html?id=${checkout.ID}" class="text-indigo-600 hover:text-indigo-900" title="Sửa">
+                        <i class="ri-pencil-line"></i>
+                    </a>
+                    <button class="text-red-600 hover:text-red-900 action-btn" title="Xóa" data-id="${checkout.ID}" data-action="delete">
                         <i class="ri-delete-bin-line"></i>
                     </button>
                 </div>
@@ -211,22 +393,21 @@ const renderTable = () => {
     });
 
     // Add event listeners for action buttons
-    document.querySelectorAll('.action-btn').forEach(button => {
-        button.removeEventListener('click', handleActionClick);
+    document.querySelectorAll('.action-btn[data-action="delete"]').forEach(button => {
+        button.removeEventListener('click', handleActionClick); // Prevent duplicates
         button.addEventListener('click', handleActionClick);
     });
 };
 
-const updatePagination = () => {
+const updatePagination = (totalItems) => {
     if (!paginationControls) return;
-    totalPages = Math.max(1, Math.ceil(currentCheckouts.length / itemsPerPage));
+    // totalPages calculated in applyFiltersAndLoadData
     if (totalPagesCount) totalPagesCount.textContent = totalPages;
-    if (totalItemsCount) totalItemsCount.textContent = currentCheckouts.length;
+    if (totalItemsCount) totalItemsCount.textContent = totalItems;
     if (currentPageInput) {
         currentPageInput.value = currentPage;
         currentPageInput.max = totalPages;
     }
-
     const btnFirst = paginationControls.querySelector('.btn-first');
     const btnPrev = paginationControls.querySelector('.btn-prev');
     const btnNext = paginationControls.querySelector('.btn-next');
@@ -239,53 +420,65 @@ const updatePagination = () => {
 };
 
 const goToPage = (page) => {
-    currentPage = Math.max(1, Math.min(page, totalPages));
-    renderTable();
-    updatePagination();
+    const targetPage = Math.max(1, Math.min(page, totalPages));
+    if (targetPage !== currentPage) {
+        currentPage = targetPage;
+        applyFiltersAndLoadData(); // Fetch data for the new page
+    }
 };
 
 // Populate Select Options
-const populateSelectOptions = () => {
-    // Use allCheckouts (base data) to get all possible events for the filter
-    const uniqueEvents = [...new Map(allCheckouts.map(item => [item.Event?.EventID, item.Event])).values()];
-    if (filterEventSelect) {
-        const currentEventFilterValue = filterEventSelect.value;
-        filterEventSelect.innerHTML = '<option value="">Tất cả sự kiện</option>';
-        uniqueEvents.forEach(event => {
-            if (event) {
-                filterEventSelect.innerHTML += `<option value="${event.EventID}">${event.EventName}</option>`;
-            }
-        });
-        filterEventSelect.value = currentEventFilterValue;
+const populateSelectOptions = async () => {
+    try {
+        const events = await fetchEventsForFilter();
+        if (filterEventSelect) {
+            const currentEventFilterValue = filterEventSelect.value; // Preserve selection
+            filterEventSelect.innerHTML = '<option value="">Tất cả sự kiện</option>';
+            events.forEach(event => {
+                if (event && event.EventID && event.EventName) {
+                    filterEventSelect.innerHTML += `<option value="${event.EventID}">${event.EventName}</option>`;
+                }
+            });
+            filterEventSelect.value = currentEventFilterValue; // Restore selection
+        }
+        // No need to populate checkout types dynamically unless they come from API
+    } catch (error) {
+        console.error("Error populating event filter:", error);
+        if (filterEventSelect) {
+             filterEventSelect.innerHTML = '<option value="">Lỗi tải sự kiện</option>';
+        }
     }
 };
 
 // Event Handlers
-const handleActionClick = (event) => {
+const handleActionClick = async (event) => {
     const button = event.currentTarget;
     const id = parseInt(button.dataset.id);
     const action = button.dataset.action;
-    // Find in the base data (allCheckouts) as currentCheckouts is filtered
-    const checkout = allCheckouts.find(c => c.ID === id);
 
-    if (!checkout) return;
-
-    switch (action) {
-        case 'view':
-            alert(`Xem chi tiết Check-out ID: ${id}\nUser: ${checkout.User?.FullName}\nEvent: ${checkout.Event?.EventName}\nTime: ${formatDateTime(checkout.CheckOutTime)}`);
-            break;
-        case 'delete':
-            if (confirm('Bạn có chắc chắn muốn xóa lượt check-out này? (Thao tác này chỉ xóa bản ghi check-out, không xóa check-in)')) {
-                // Find the original check-in record and set CheckOutTime to null
-                const originalCheckinIndex = allCheckouts.findIndex(c => c.ID === id);
-                if (originalCheckinIndex !== -1) {
-                    allCheckouts[originalCheckinIndex].CheckOutTime = null;
-                     // TODO: API call to update CheckOutTime to null for this checkin record
+    if (action === 'delete') {
+        if (confirm(`Bạn có chắc chắn muốn xóa lượt check-out ID: ${id}?`)) {
+            button.disabled = true; // Disable button during operation
+            try {
+                const success = await deleteCheckout(id);
+                if (success) {
+                    alert('Đã xóa lượt check-out.');
+                    // Reload data on the current page. Check if page becomes empty.
+                    const remainingItems = allCheckouts.length - 1;
+                    if (remainingItems === 0 && currentPage > 1) {
+                        currentPage -= 1; // Go to previous page if current one is empty
+                    }
+                    applyFiltersAndLoadData(); // Reload data
+                } else {
+                    alert('Xóa không thành công. Lượt check-out không tồn tại hoặc có lỗi xảy ra.');
+                    button.disabled = false;
                 }
-                applyFilters(); // Re-filter and re-render
-                alert('Đã xóa lượt check-out.');
+            } catch (error) {
+                 console.error("Error deleting checkout:", error);
+                 alert('Có lỗi xảy ra khi xóa. Vui lòng thử lại.');
+                 button.disabled = false;
             }
-            break;
+        }
     }
 };
 
@@ -321,57 +514,56 @@ const setupDateRangePicker = () => {
         filters.dateRange.startDate = picker.startDate.toDate();
         filters.dateRange.endDate = picker.endDate.toDate();
         $(this).val(picker.startDate.format('DD/MM/YYYY') + ' - ' + picker.endDate.format('DD/MM/YYYY'));
-        applyFilters();
+        loadData(); // Reload data when date range changes
     });
 
     $(filterDateInput).on('cancel.daterangepicker', function(ev, picker) {
         filters.dateRange.startDate = null;
         filters.dateRange.endDate = null;
         $(this).val('');
-        applyFilters();
+        loadData(); // Reload data when date range is cleared
     });
 };
 
 // Initialize Page
-const initializeCheckoutsPage = () => {
-    setupSidebar();
-    setupUserMenu();
+const initializeCheckoutsPage = async () => {
+    // Setup common UI elements
+    setupSidebar(); // Assuming function exists
+    setupUserMenu(); // Assuming function exists
 
-    allCheckouts = generateSampleCheckinsBaseData(); // Get base data including checkouts
-    currentCheckouts = allCheckouts.filter(c => c.CheckOutTime); // Initially filter for checkouts
-
-    populateSelectOptions();
     setupDateRangePicker();
-    applyFilters(); // Initial render based on checkouts only
+
+    await populateSelectOptions(); // Populate event filter dropdown
+
+    applyFiltersAndLoadData(); // Initial data load
 
     // Filter Event Listeners
     if (filterForm) {
         filterForm.addEventListener('submit', (e) => {
             e.preventDefault();
-            filters.search = filterSearchInput?.value || '';
-            filters.event = filterEventSelect?.value || '';
-            applyFilters();
+            loadData();
         });
     }
 
     if (resetFilterBtn) {
         resetFilterBtn.addEventListener('click', () => {
             if (filterForm) filterForm.reset();
-            if(filterDateInput) $(filterDateInput).val('');
-            filters = { search: '', event: '', dateRange: { startDate: null, endDate: null } };
-            applyFilters();
+            // Reset date range picker
+            if (filterDateInput) $(filterDateInput).val('');
+            // Reset filters state object
+            filters = { search: '', event: '', checkoutType: '', dateRange: { startDate: null, endDate: null } };
+            loadData();
         });
     }
 
+    // Refresh button listener (if exists)
     if (refreshBtn) {
-        refreshBtn.addEventListener('click', () => {
-            allCheckouts = generateSampleCheckinsBaseData();
-            if (filterForm) filterForm.reset();
-            if(filterDateInput) $(filterDateInput).val('');
-            filters = { search: '', event: '', dateRange: { startDate: null, endDate: null } };
-            populateSelectOptions();
-            applyFilters();
-            alert('Dữ liệu Check-out đã được làm mới.');
+        refreshBtn.addEventListener('click', async () => {
+            console.log('Refreshing checkout data...');
+             await populateSelectOptions(); // Update event list
+            applyFiltersAndLoadData(); // Reload data with current filters
+            // Optionally show a success message
+            // alert('Dữ liệu Check-out đã được làm mới.');
         });
     }
 
@@ -379,7 +571,7 @@ const initializeCheckoutsPage = () => {
     if (itemsPerPageSelect) {
         itemsPerPageSelect.addEventListener('change', (e) => {
             itemsPerPage = parseInt(e.target.value);
-            goToPage(1);
+            goToPage(1); // Go to first page when changing items per page
         });
     }
     if (currentPageInput) {
@@ -394,7 +586,7 @@ const initializeCheckoutsPage = () => {
     }
 };
 
-// Add setupSidebar and setupUserMenu functions
+// Add setupSidebar and setupUserMenu functions (Copy or ensure they are globally available)
 const setupSidebar = () => {
     const sidebar = document.getElementById('sidebar');
     const sidebarOpen = document.getElementById('sidebar-open');
@@ -426,9 +618,10 @@ const setupUserMenu = () => {
     const headerAvatar = document.getElementById('header-avatar');
     const headerFullname = document.getElementById('header-fullname');
 
-    const currentUser = { // Replace with actual data
-        FullName: 'Admin User',
-        Avatar: 'https://ui-avatars.com/api/?name=Admin+User&background=0D8ABC&color=fff'
+    // TODO: Replace with actual user data from API or session
+    const currentUser = {
+        FullName: 'Admin User', // Placeholder
+        Avatar: 'https://ui-avatars.com/api/?name=Admin+User&background=0D8ABC&color=fff' // Placeholder
     };
 
     if (headerAvatar) {
@@ -440,18 +633,21 @@ const setupUserMenu = () => {
     }
 
     if (userMenuButton && userMenu) {
-        userMenuButton.addEventListener('click', (event) => {
+        // Toggle logic (ensure group-hover classes are handled if necessary)
+         userMenuButton.addEventListener('click', (event) => {
             event.stopPropagation();
-            userMenu.classList.toggle('opacity-0');
-            userMenu.classList.toggle('invisible');
-            userMenu.classList.toggle('group-hover:opacity-100');
-            userMenu.classList.toggle('group-hover:visible');
+            const isVisible = !userMenu.classList.contains('invisible');
+            userMenu.classList.toggle('opacity-0', !isVisible);
+            userMenu.classList.toggle('invisible', !isVisible);
+            userMenu.classList.toggle('scale-95', !isVisible);
+            userMenu.classList.toggle('scale-100', isVisible);
         });
 
+        // Click outside to close
         document.addEventListener('click', (e) => {
              if (!userMenu.classList.contains('invisible') && !userMenuButton.contains(e.target) && !userMenu.contains(e.target)) {
-                userMenu.classList.add('opacity-0', 'invisible');
-                userMenu.classList.remove('group-hover:opacity-100', 'group-hover:visible');
+                 userMenu.classList.add('opacity-0', 'invisible', 'scale-95');
+                 userMenu.classList.remove('scale-100');
             }
         });
     }
@@ -459,3 +655,6 @@ const setupUserMenu = () => {
 
 // Initialize the page
 document.addEventListener('DOMContentLoaded', initializeCheckoutsPage);
+
+// Sample data needed for simulation in fetchCheckouts (defined outside to be accessible)
+// Removed the global sampleData definition as it's now inside fetchCheckouts simulation
