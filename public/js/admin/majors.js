@@ -1,6 +1,26 @@
 // Khởi tạo AOS
 AOS.init();
 
+/**
+ * Quản lý ngành đào tạo 
+ * 
+ * File này xử lý các chức năng liên quan đến quản lý ngành đào tạo:
+ * - Hiển thị danh sách ngành đào tạo từ dữ liệu của bảng 'nganh' trong CSDL
+ * - Lọc ngành theo tên, mã ngành, phòng khoa và trạng thái
+ * - Xem chi tiết ngành (chuyển sang trang major-detail.html)
+ * - Chỉnh sửa ngành (chuyển sang trang major-edit.html)
+ * - Xóa ngành (xử lý trên trang hiện tại với modal xác nhận)
+ * - Phân trang dữ liệu
+ * 
+ * Dữ liệu được lấy từ bảng 'nganh' trong cơ sở dữ liệu, có cấu trúc:
+ * - nganh_id: ID của ngành
+ * - ten_nganh: Tên ngành đào tạo
+ * - ma_nganh: Mã ngành đào tạo
+ * - phong_khoa_id: ID của phòng khoa quản lý ngành
+ * - status: Trạng thái (1: Hoạt động, 0: Không hoạt động)
+ * - created_at: Thời gian tạo
+ */
+
 // Khởi tạo các biến trạng thái
 let allMajors = [];
 let filteredMajors = [];
@@ -57,66 +77,6 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   }
 
-  // Modal xử lý
-  const createMajorBtn = document.getElementById('create-major-btn');
-
-  function openMajorModal() {
-    const modal = document.getElementById('major-modal');
-    if (modal) {
-      modal.classList.remove('hidden');
-    }
-  }
-
-  window.closeMajorModal = function() {
-    const modal = document.getElementById('major-modal');
-    if (modal) {
-      modal.classList.add('hidden');
-      // Reset form
-      document.getElementById('major-form').reset();
-    }
-  };
-
-  if (createMajorBtn) {
-    createMajorBtn.addEventListener('click', openMajorModal);
-  }
-
-  // Form xử lý
-  const majorForm = document.getElementById('major-form');
-  if (majorForm) {
-    majorForm.addEventListener('submit', function(e) {
-      e.preventDefault();
-      
-      // Lấy dữ liệu từ form
-      const tenNganh = document.getElementById('ten_nganh').value;
-      const maNganh = document.getElementById('ma_nganh').value;
-      const phongKhoaId = document.getElementById('phong_khoa_id').value;
-      const status = document.getElementById('status').value;
-      
-      // Kiểm tra mã ngành đã tồn tại chưa
-      if (allMajors.some(m => m.ma_nganh === maNganh)) {
-        alert('Mã ngành đã tồn tại! Vui lòng chọn mã khác.');
-        return;
-      }
-      
-      // Thêm ngành mới vào danh sách
-      const newMajor = {
-        nganh_id: allMajors.length + 1,
-        ten_nganh: tenNganh,
-        ma_nganh: maNganh,
-        phong_khoa_id: phongKhoaId,
-        phong_khoa_ten: getPhongKhoaName(phongKhoaId),
-        status: status,
-        created_at: new Date().toISOString().slice(0, 19).replace('T', ' ')
-      };
-      
-      allMajors.unshift(newMajor);
-      applyFilters();
-      
-      alert('Ngành đào tạo đã được thêm thành công!');
-      closeMajorModal();
-    });
-  }
-
   // Lấy tên phòng khoa từ ID
   function getPhongKhoaName(id) {
     const phongKhoa = {
@@ -128,7 +88,7 @@ document.addEventListener('DOMContentLoaded', function() {
     return phongKhoa[id] || 'Chưa phân công';
   }
 
-  // Dữ liệu mẫu cho 20 ngành đào tạo
+  // Dữ liệu mẫu cho ngành đào tạo (dựa trên cấu trúc bảng nganh từ hanet.sql)
   allMajors = [
     {
       nganh_id: 1,
@@ -312,9 +272,14 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   ];
 
-  // Hàm lọc ngành đào tạo
+  /**
+   * Hàm lọc danh sách ngành đào tạo theo các tiêu chí
+   * - Tìm kiếm theo tên hoặc mã ngành
+   * - Lọc theo phòng khoa
+   * - Lọc theo trạng thái
+   */
   function applyFilters() {
-    const searchInput = document.getElementById('filter-search').value.toLowerCase();
+    const searchInput = document.getElementById('filter-name').value.toLowerCase();
     const departmentFilter = document.getElementById('filter-department').value;
     const statusFilter = document.getElementById('filter-status').value;
     
@@ -341,7 +306,10 @@ document.addEventListener('DOMContentLoaded', function() {
     renderTable();
   }
 
-  // Cập nhật trạng thái phân trang
+  /**
+   * Cập nhật trạng thái phân trang dựa trên số lượng dữ liệu hiển thị
+   * và số lượng mục trên mỗi trang
+   */
   function updatePagination() {
     const totalItems = filteredMajors.length;
     paginationState.totalPages = Math.max(1, Math.ceil(totalItems / paginationState.itemsPerPage));
@@ -355,10 +323,12 @@ document.addEventListener('DOMContentLoaded', function() {
     const currentPageInput = document.getElementById('current-page-input');
     const totalPagesCount = document.getElementById('total-pages-count');
     const totalItemsCount = document.getElementById('total-items-count');
-    const btnFirst = document.querySelector('.btn-first');
-    const btnPrev = document.querySelector('.btn-prev');
-    const btnNext = document.querySelector('.btn-next');
-    const btnLast = document.querySelector('.btn-last');
+    const btnFirst = document.getElementById('first-page');
+    const btnPrev = document.getElementById('prev-page');
+    const btnNext = document.getElementById('next-page');
+    const btnLast = document.getElementById('last-page');
+    const btnPrevMobile = document.getElementById('prev-page-mobile');
+    const btnNextMobile = document.getElementById('next-page-mobile');
     
     if (currentPageInput) currentPageInput.value = paginationState.currentPage;
     if (totalPagesCount) totalPagesCount.textContent = paginationState.totalPages;
@@ -369,28 +339,49 @@ document.addEventListener('DOMContentLoaded', function() {
     if (btnPrev) btnPrev.disabled = paginationState.currentPage === 1;
     if (btnNext) btnNext.disabled = paginationState.currentPage === paginationState.totalPages;
     if (btnLast) btnLast.disabled = paginationState.currentPage === paginationState.totalPages;
+    
+    // Cập nhật trạng thái nút di động
+    if (btnPrevMobile) btnPrevMobile.disabled = paginationState.currentPage === 1;
+    if (btnNextMobile) btnNextMobile.disabled = paginationState.currentPage === paginationState.totalPages;
   }
 
-  // Render dữ liệu vào bảng
+  /**
+   * Hiển thị dữ liệu ngành đào tạo vào bảng
+   * - Phân nhóm theo phòng khoa
+   * - Hiển thị phân trang
+   * - Xử lý trạng thái UI: loading, empty, error
+   */
   function renderTable() {
-    const tableBody = document.getElementById('majors-table-body');
+    const tableBody = document.getElementById('majorsTableBody');
+    const tableContainer = document.getElementById('majors-table-container');
+    const loadingIndicator = document.getElementById('loading-indicator');
+    const errorAlert = document.getElementById('error-alert');
+    const emptyState = document.getElementById('empty-state');
+    const totalMajorsBadge = document.getElementById('total-majors-badge');
+    
     if (!tableBody) return;
+    
+    // Cập nhật tổng số ngành
+    if (totalMajorsBadge) {
+      totalMajorsBadge.textContent = filteredMajors.length;
+    }
+    
+    // Hiển thị component phù hợp: loading, error, empty, hoặc table
+    loadingIndicator.classList.add('hidden');
+    errorAlert.classList.add('hidden');
+    
+    if (filteredMajors.length === 0) {
+      tableContainer.classList.add('hidden');
+      emptyState.classList.remove('hidden');
+      return;
+    } else {
+      tableContainer.classList.remove('hidden');
+      emptyState.classList.add('hidden');
+    }
     
     const startIndex = (paginationState.currentPage - 1) * paginationState.itemsPerPage;
     const endIndex = Math.min(startIndex + paginationState.itemsPerPage, filteredMajors.length);
     const displayedMajors = filteredMajors.slice(startIndex, endIndex);
-    
-    // Kiểm tra nếu không có dữ liệu
-    if (displayedMajors.length === 0) {
-      tableBody.innerHTML = `
-        <tr>
-          <td colspan="6" class="px-6 py-4 text-center text-gray-500">
-            Không tìm thấy ngành đào tạo nào phù hợp với bộ lọc
-          </td>
-        </tr>
-      `;
-      return;
-    }
     
     // Nhóm ngành theo phòng khoa
     const majorsByDepartment = {};
@@ -414,7 +405,7 @@ document.addEventListener('DOMContentLoaded', function() {
       // Header cho mỗi phòng khoa
       html += `
         <tr class="bg-gray-50">
-          <td colspan="6" class="px-6 py-3">
+          <td colspan="6" class="px-4 py-3">
             <div class="flex items-center font-semibold text-gray-700">
               <i class="ri-building-line mr-2 text-primary"></i>
               Phòng/Khoa: ${department.name}
@@ -429,33 +420,33 @@ document.addEventListener('DOMContentLoaded', function() {
       // Dữ liệu của các ngành trong phòng khoa
       department.majors.forEach(major => {
         html += `
-          <tr>
-            <td class="px-6 py-4 whitespace-nowrap">
+          <tr class="hover:bg-gray-50">
+            <td class="px-4 py-3 whitespace-nowrap">
+              <div class="text-sm font-medium text-gray-900">${major.nganh_id}</div>
+            </td>
+            <td class="px-4 py-3 whitespace-nowrap">
               <div class="text-sm font-medium text-gray-900">${major.ma_nganh}</div>
             </td>
-            <td class="px-6 py-4">
+            <td class="px-4 py-3">
               <div class="text-sm font-medium text-gray-900">${major.ten_nganh}</div>
             </td>
-            <td class="px-6 py-4">
+            <td class="px-4 py-3">
               <div class="text-sm text-gray-900">${major.phong_khoa_ten || 'Chưa phân công'}</div>
             </td>
-            <td class="px-6 py-4">
-              <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full 
+            <td class="px-4 py-3">
+              <span class="px-2 py-1 inline-flex text-xs leading-5 font-semibold rounded-full 
                 ${major.status === '1' ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'}">
                 ${major.status === '1' ? 'Hoạt động' : 'Không hoạt động'}
               </span>
             </td>
-            <td class="px-6 py-4 text-sm text-gray-500">
-              ${formatDate(major.created_at)}
-            </td>
-            <td class="px-6 py-4 text-right text-sm font-medium">
+            <td class="px-4 py-3 text-right text-sm font-medium">
               <div class="flex justify-end space-x-2">
-                <button onclick="viewMajor(${major.nganh_id})" class="text-blue-600 hover:text-blue-900" title="Xem chi tiết">
+                <a href="major-detail.html?id=${major.nganh_id}" class="text-blue-600 hover:text-blue-900" title="Xem chi tiết">
                   <i class="ri-eye-line"></i>
-                </button>
-                <button onclick="editMajor(${major.nganh_id})" class="text-green-600 hover:text-green-900" title="Chỉnh sửa">
+                </a>
+                <a href="major-edit.html?id=${major.nganh_id}" class="text-green-600 hover:text-green-900" title="Chỉnh sửa">
                   <i class="ri-edit-line"></i>
-                </button>
+                </a>
                 <button onclick="deleteMajor(${major.nganh_id})" class="text-red-600 hover:text-red-900" title="Xóa">
                   <i class="ri-delete-bin-line"></i>
                 </button>
@@ -467,88 +458,66 @@ document.addEventListener('DOMContentLoaded', function() {
     });
     
     tableBody.innerHTML = html;
+    
+    // Cập nhật UI phân trang di động
+    const currentPageMobile = document.getElementById('current-page-mobile');
+    const totalPagesMobile = document.getElementById('total-pages-mobile');
+    
+    if (currentPageMobile) currentPageMobile.textContent = paginationState.currentPage;
+    if (totalPagesMobile) totalPagesMobile.textContent = paginationState.totalPages;
+    
+    // Cập nhật trạng thái nút di động
+    const prevPageMobile = document.getElementById('prev-page-mobile');
+    const nextPageMobile = document.getElementById('next-page-mobile');
+    
+    if (prevPageMobile) prevPageMobile.disabled = paginationState.currentPage === 1;
+    if (nextPageMobile) nextPageMobile.disabled = paginationState.currentPage === paginationState.totalPages;
   }
 
-  // Định dạng ngày
+  /**
+   * Định dạng ngày giờ theo định dạng Việt Nam
+   * @param {string} dateString - Chuỗi ngày giờ cần định dạng
+   * @returns {string} Chuỗi ngày giờ đã định dạng
+   */
   function formatDate(dateString) {
     const options = { day: '2-digit', month: '2-digit', year: 'numeric' };
     return new Date(dateString).toLocaleDateString('vi-VN', options);
   }
   
-  // Các hàm xử lý ngành đào tạo
-  window.viewMajor = function(majorId) {
-    const major = allMajors.find(m => m.nganh_id === majorId);
-    if (major) {
-      alert(`Xem chi tiết ngành đào tạo: ${major.ten_nganh} (${major.ma_nganh})`);
-      // Thực hiện chuyển hướng hoặc hiển thị modal chi tiết
-    }
-  };
-  
-  window.editMajor = function(majorId) {
-    const major = allMajors.find(m => m.nganh_id === majorId);
-    if (major) {
-      // Cập nhật tiêu đề modal
-      document.querySelector('#major-modal h3').textContent = 'Cập nhật ngành đào tạo';
-      
-      // Điền dữ liệu vào form
-      document.getElementById('ten_nganh').value = major.ten_nganh;
-      document.getElementById('ma_nganh').value = major.ma_nganh;
-      document.getElementById('phong_khoa_id').value = major.phong_khoa_id;
-      document.getElementById('status').value = major.status;
-      
-      // Thêm ID ngành vào form để xác định khi submit
-      const form = document.getElementById('major-form');
-      form.dataset.majorId = majorId;
-      
-      // Mở modal
-      openMajorModal();
-      
-      // Ghi đè sự kiện submit form
-      form.onsubmit = function(e) {
-        e.preventDefault();
-        
-        // Cập nhật thông tin ngành
-        const index = allMajors.findIndex(m => m.nganh_id === majorId);
-        if (index !== -1) {
-          allMajors[index].ten_nganh = document.getElementById('ten_nganh').value;
-          allMajors[index].ma_nganh = document.getElementById('ma_nganh').value;
-          allMajors[index].phong_khoa_id = document.getElementById('phong_khoa_id').value;
-          allMajors[index].phong_khoa_ten = getPhongKhoaName(document.getElementById('phong_khoa_id').value);
-          allMajors[index].status = document.getElementById('status').value;
-          
-          // Cập nhật danh sách và đóng modal
-          applyFilters();
-          alert('Cập nhật ngành đào tạo thành công!');
-          closeMajorModal();
-          
-          // Khôi phục sự kiện mặc định
-          form.onsubmit = null;
-        }
-      };
-    }
-  };
-  
+  /**
+   * Xử lý xóa ngành đào tạo
+   * @param {number} majorId - ID của ngành cần xóa
+   */
   window.deleteMajor = function(majorId) {
     const major = allMajors.find(m => m.nganh_id === majorId);
     if (major) {
-      if (confirm(`Bạn có chắc chắn muốn xóa ngành "${major.ten_nganh}" (${major.ma_nganh})?`)) {
-        const index = allMajors.findIndex(m => m.nganh_id === majorId);
-        if (index !== -1) {
-          allMajors.splice(index, 1);
-          applyFilters();
-          alert('Đã xóa ngành đào tạo thành công!');
-        }
+      // Hiển thị modal xác nhận
+      const deleteMajorName = document.getElementById('delete-major-name');
+      if (deleteMajorName) {
+        deleteMajorName.textContent = `${major.ten_nganh} (${major.ma_nganh})`;
       }
+      
+      currentMajorIdToDelete = majorId;
+      deleteModal.classList.remove('hidden');
     }
   };
-
+  
+  // Chuyển link thêm mới đến trang create
+  const addMajorBtn = document.querySelector('a[href="major-create.html"]');
+  if (addMajorBtn) {
+    // Đảm bảo link hoạt động đúng
+    addMajorBtn.href = "major-create.html";
+  }
+  
   // Thiết lập các event listeners cho phân trang
   const itemsPerPageSelect = document.getElementById('items-per-page');
   const currentPageInput = document.getElementById('current-page-input');
-  const btnFirst = document.querySelector('.btn-first');
-  const btnPrev = document.querySelector('.btn-prev');
-  const btnNext = document.querySelector('.btn-next');
-  const btnLast = document.querySelector('.btn-last');
+  const btnFirst = document.getElementById('first-page');
+  const btnPrev = document.getElementById('prev-page');
+  const btnNext = document.getElementById('next-page');
+  const btnLast = document.getElementById('last-page');
+  const btnPrevMobile = document.getElementById('prev-page-mobile');
+  const btnNextMobile = document.getElementById('next-page-mobile');
   
   if (itemsPerPageSelect) {
     itemsPerPageSelect.addEventListener('change', function() {
@@ -571,6 +540,7 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   }
   
+  // Desktop pagination
   if (btnFirst) {
     btnFirst.addEventListener('click', function() {
       if (paginationState.currentPage > 1) {
@@ -610,11 +580,33 @@ document.addEventListener('DOMContentLoaded', function() {
       }
     });
   }
+  
+  // Mobile pagination
+  if (btnPrevMobile) {
+    btnPrevMobile.addEventListener('click', function() {
+      if (paginationState.currentPage > 1) {
+        paginationState.currentPage--;
+        updatePagination();
+        renderTable();
+      }
+    });
+  }
+  
+  if (btnNextMobile) {
+    btnNextMobile.addEventListener('click', function() {
+      if (paginationState.currentPage < paginationState.totalPages) {
+        paginationState.currentPage++;
+        updatePagination();
+        renderTable();
+      }
+    });
+  }
 
   // Thiết lập các event listeners cho bộ lọc
   const filterForm = document.getElementById('filter-form');
   const resetFilterBtn = document.getElementById('reset-filter-btn');
-  const refreshBtn = document.getElementById('refresh-btn');
+  const clearFiltersEmpty = document.getElementById('clear-filters-empty');
+  const retryBtn = document.getElementById('retry-btn');
   
   if (filterForm) {
     filterForm.addEventListener('submit', function(e) {
@@ -625,63 +617,190 @@ document.addEventListener('DOMContentLoaded', function() {
   
   if (resetFilterBtn) {
     resetFilterBtn.addEventListener('click', function() {
-      document.getElementById('filter-search').value = '';
+      document.getElementById('filter-name').value = '';
       document.getElementById('filter-department').value = '';
       document.getElementById('filter-status').value = '';
       applyFilters();
     });
   }
   
-  if (refreshBtn) {
-    refreshBtn.addEventListener('click', function() {
-      // Reset lại dữ liệu từ nguồn (trong trường hợp thực tế sẽ gọi API)
-      filteredMajors = [...allMajors];
-      document.getElementById('filter-search').value = '';
+  if (clearFiltersEmpty) {
+    clearFiltersEmpty.addEventListener('click', function() {
+      document.getElementById('filter-name').value = '';
       document.getElementById('filter-department').value = '';
       document.getElementById('filter-status').value = '';
-      paginationState.currentPage = 1;
-      updatePagination();
-      renderTable();
-      updateDashboardCards();
-      
-      // Thông báo làm mới thành công
-      const notification = document.createElement('div');
-      notification.className = 'fixed top-4 right-4 bg-green-500 text-white px-4 py-2 rounded-md shadow-lg z-50';
-      notification.innerHTML = '<i class="ri-check-line mr-2"></i> Đã làm mới dữ liệu thành công!';
-      document.body.appendChild(notification);
-      
-      // Tự động xóa thông báo sau 3 giây
-      setTimeout(() => {
-        notification.classList.add('opacity-0', 'transition-opacity', 'duration-500');
-        setTimeout(() => {
-          document.body.removeChild(notification);
-        }, 500);
-      }, 3000);
+      applyFilters();
     });
   }
 
-  // Cập nhật thông tin tổng quan
-  function updateDashboardCards() {
-    // Tổng số ngành
-    const totalMajors = allMajors.length;
-    document.getElementById('total-majors-count').textContent = totalMajors;
+  if (retryBtn) {
+    retryBtn.addEventListener('click', function() {
+      loadData();
+    });
+  }
+
+  /**
+   * Hiển thị thông báo dạng toast
+   * @param {string} message - Nội dung thông báo
+   * @param {string} type - Loại thông báo: 'success' hoặc 'error'
+   */
+  function showToast(message, type = 'success') {
+    const toastContainer = document.getElementById('toast-container');
+    const toastId = 'toast-' + Date.now();
+    const toastClasses = type === 'success' ? 'bg-green-500' : 'bg-red-500';
+    const toastIcon = type === 'success' ? '<i class="ri-check-line"></i>' : '<i class="ri-error-warning-line"></i>';
     
-    // Số ngành đang hoạt động
-    const activeMajors = allMajors.filter(major => major.status === '1').length;
-    document.getElementById('active-majors-count').textContent = activeMajors;
+    const toast = document.createElement('div');
+    toast.id = toastId;
+    toast.className = `${toastClasses} text-white px-4 py-3 rounded-lg shadow-lg mb-3 flex items-center transform transition-all duration-300 translate-y-0 opacity-100`;
+    toast.innerHTML = `
+      <div class="mr-2">${toastIcon}</div>
+      <div>${message}</div>
+      <div class="ml-auto cursor-pointer" onclick="document.getElementById('${toastId}').remove()">
+        <i class="ri-close-line"></i>
+      </div>
+    `;
     
-    // Số ngành ngưng hoạt động
-    const inactiveMajors = allMajors.filter(major => major.status === '0').length;
-    document.getElementById('inactive-majors-count').textContent = inactiveMajors;
+    toastContainer.appendChild(toast);
     
-    // Số khoa/phòng có ngành
-    const departmentsWithMajors = new Set(allMajors.map(major => major.phong_khoa_id));
-    document.getElementById('departments-count').textContent = departmentsWithMajors.size;
+    // Tự động xóa sau 5 giây
+    setTimeout(() => {
+      if (document.getElementById(toastId)) {
+        document.getElementById(toastId).classList.add('opacity-0', 'translate-y-2');
+        setTimeout(() => {
+          if (document.getElementById(toastId)) {
+            document.getElementById(toastId).remove();
+          }
+        }, 300);
+      }
+    }, 5000);
+  }
+
+  // Xử lý form xóa ngành
+  const deleteModal = document.getElementById('delete-modal');
+  const cancelDeleteBtn = document.getElementById('cancel-delete');
+  const confirmDeleteBtn = document.getElementById('confirm-delete');
+  let currentMajorIdToDelete = null;
+
+  if (cancelDeleteBtn) {
+    cancelDeleteBtn.addEventListener('click', function() {
+      deleteModal.classList.add('hidden');
+      currentMajorIdToDelete = null;
+    });
+  }
+  
+  if (confirmDeleteBtn) {
+    confirmDeleteBtn.addEventListener('click', function() {
+      try {
+        if (currentMajorIdToDelete !== null) {
+          const index = allMajors.findIndex(m => m.nganh_id === currentMajorIdToDelete);
+          if (index !== -1) {
+            const deletedMajor = allMajors[index];
+            allMajors.splice(index, 1);
+            
+            // Cập nhật UI
+            applyFilters();
+            showToast(`Đã xóa ngành đào tạo "${deletedMajor.ten_nganh}" thành công!`, 'success');
+            
+            // Đóng modal
+            deleteModal.classList.add('hidden');
+            currentMajorIdToDelete = null;
+          } else {
+            throw new Error('Không tìm thấy ngành cần xóa!');
+          }
+        }
+      } catch (error) {
+        showToast(`Lỗi khi xóa ngành: ${error.message}`, 'error');
+      }
+    });
+  }
+
+  /**
+   * Tạo danh sách phòng khoa cho bộ lọc từ dữ liệu ngành
+   */
+  function populateDepartmentFilter() {
+    const departmentFilter = document.getElementById('filter-department');
+    if (!departmentFilter) return;
+    
+    // Reset options
+    departmentFilter.innerHTML = '<option value="">Tất cả</option>';
+    
+    // Get unique departments
+    const departments = new Map();
+    
+    allMajors.forEach(major => {
+      if (!departments.has(major.phong_khoa_id)) {
+        departments.set(major.phong_khoa_id, major.phong_khoa_ten);
+      }
+    });
+    
+    // Add options
+    departments.forEach((name, id) => {
+      const option = document.createElement('option');
+      option.value = id;
+      option.textContent = name;
+      departmentFilter.appendChild(option);
+    });
+  }
+  
+  /**
+   * Lưu dữ liệu vào localStorage để các trang khác sử dụng
+   * như trang major-create.html, major-edit.html, major-detail.html
+   */
+  function saveMajorsToLocalStorage() {
+    localStorage.setItem('majorsMockData', JSON.stringify(allMajors));
+  }
+  
+  /**
+   * Tải dữ liệu ngành đào tạo
+   * Trong môi trường thực tế, hàm này sẽ gọi API để lấy dữ liệu từ server
+   */
+  function loadData() {
+    const loadingIndicator = document.getElementById('loading-indicator');
+    const errorAlert = document.getElementById('error-alert');
+    const tableContainer = document.getElementById('majors-table-container');
+    const emptyState = document.getElementById('empty-state');
+    
+    // Hiển thị loading
+    if (loadingIndicator) loadingIndicator.classList.remove('hidden');
+    if (errorAlert) errorAlert.classList.add('hidden');
+    if (tableContainer) tableContainer.classList.add('hidden');
+    if (emptyState) emptyState.classList.add('hidden');
+    
+    // Simulate API call
+    setTimeout(() => {
+      try {
+        // Lưu dữ liệu vào localStorage
+        saveMajorsToLocalStorage();
+        
+        // Populate department filter
+        populateDepartmentFilter();
+        
+        // Update UI
+        filteredMajors = [...allMajors];
+        paginationState.currentPage = 1;
+        updatePagination();
+        renderTable();
+        
+        // Ẩn loading
+        if (loadingIndicator) loadingIndicator.classList.add('hidden');
+      } catch (error) {
+        console.error('Lỗi khi tải dữ liệu:', error);
+        
+        // Hiển thị lỗi
+        if (loadingIndicator) loadingIndicator.classList.add('hidden');
+        if (errorAlert) {
+          errorAlert.classList.remove('hidden');
+          const errorMessage = document.getElementById('error-message');
+          if (errorMessage) {
+            errorMessage.textContent = error.message || 'Có lỗi xảy ra khi tải danh sách ngành đào tạo.';
+          }
+        }
+      }
+    }, 1000); // Giả lập độ trễ mạng 1 giây
   }
 
   // Khởi tạo ban đầu
-  filteredMajors = [...allMajors];
-  updatePagination();
-  renderTable();
-  updateDashboardCards();
+  loadData();
 });
+

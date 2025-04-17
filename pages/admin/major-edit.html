@@ -4,8 +4,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Quản lý Ngành đào tạo - Hệ thống quản lý sự kiện Đại học Ngân hàng TP.HCM" />
-  <title>Quản lý Ngành đào tạo - HUB Admin</title>
+  <meta name="description" content="Chỉnh sửa Ngành đào tạo - Hệ thống quản lý sự kiện Đại học Ngân hàng TP.HCM" />
+  <title>Chỉnh sửa Ngành đào tạo - HUB Admin</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet" />
@@ -226,13 +226,13 @@
       <div class="bg-white rounded-lg shadow mb-6 p-4">
         <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between">
           <div>
-            <h1 class="text-2xl font-semibold text-gray-900">Quản lý Ngành đào tạo</h1>
-            <p class="mt-1 text-sm text-gray-600">Quản lý tất cả các ngành đào tạo trong hệ thống</p>
+            <h1 class="text-2xl font-semibold text-gray-900" id="page-title">Chỉnh sửa ngành đào tạo</h1>
+            <p class="mt-1 text-sm text-gray-600">Cập nhật thông tin ngành đào tạo</p>
           </div>
           <div class="mt-4 sm:mt-0 flex gap-2">
-            <a href="major-create.html"
-              class="flex items-center justify-center px-4 py-2 bg-primary text-white rounded-md hover:bg-primary-dark transition-colors duration-200">
-              <i class="ri-add-line mr-1"></i> Thêm ngành mới
+            <a href="majors.html"
+              class="flex items-center justify-center px-4 py-2 border border-gray-300 text-gray-700 rounded-md hover:bg-gray-50 transition-colors duration-200">
+              <i class="ri-arrow-left-line mr-1"></i> Hủy
             </a>
           </div>
         </div>
@@ -247,59 +247,15 @@
             </a>
             <i class="ri-arrow-right-s-line text-gray-400 mx-2"></i>
           </li>
-          <li class="text-primary" aria-current="page">Ngành đào tạo</li>
+          <li class="flex items-center">
+            <a href="majors.html" class="text-gray-500 hover:text-primary">
+              Ngành đào tạo
+            </a>
+            <i class="ri-arrow-right-s-line text-gray-400 mx-2"></i>
+          </li>
+          <li class="text-primary" aria-current="page">Chỉnh sửa ngành</li>
         </ol>
       </nav>
-
-      <!-- Filters Section -->
-      <div class="bg-white p-4 rounded-lg shadow mb-4">
-        <form id="filter-form">
-          <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-            <!-- Filter by Name -->
-            <div>
-              <label for="filter-name" class="block text-sm font-medium text-gray-700 mb-1">Tìm kiếm</label>
-              <div class="relative">
-                <input type="text" id="filter-name" name="filter-name" placeholder="Nhập tên hoặc mã ngành..." 
-                  class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-primary focus:border-primary text-sm pl-10">
-                <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                  <i class="ri-search-line text-gray-400"></i>
-                </div>
-              </div>
-            </div>
-            
-            <!-- Filter by Department -->
-            <div>
-              <label for="filter-department" class="block text-sm font-medium text-gray-700 mb-1">Phòng/Khoa</label>
-              <select id="filter-department" name="filter-department"
-                class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-primary focus:border-primary text-sm">
-                <option value="">Tất cả</option>
-                <!-- Options will be populated by JavaScript -->
-              </select>
-            </div>
-            
-            <!-- Filter by Status -->
-            <div>
-              <label for="filter-status" class="block text-sm font-medium text-gray-700 mb-1">Trạng thái</label>
-              <select id="filter-status" name="filter-status"
-                class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-primary focus:border-primary text-sm">
-                <option value="">Tất cả</option>
-                <option value="1">Hoạt động</option>
-                <option value="0">Không hoạt động</option>
-              </select>
-            </div>
-          </div>
-          <div class="mt-4 flex justify-end space-x-2">
-            <button type="reset" id="reset-filter-btn"
-              class="px-4 py-2 border border-gray-300 text-gray-700 rounded-md hover:bg-gray-50 text-sm transition-colors duration-200">
-              Đặt lại
-            </button>
-            <button type="submit" id="apply-filter-btn"
-              class="px-4 py-2 bg-primary text-white rounded-md hover:bg-primary-dark text-sm transition-colors duration-200">
-              <i class="ri-filter-line mr-1"></i> Lọc
-            </button>
-          </div>
-        </form>
-      </div>
 
       <!-- Loading Indicator -->
       <div id="loading-indicator" class="flex flex-col items-center justify-center py-12">
@@ -308,7 +264,7 @@
       </div>
 
       <!-- Error Alert -->
-      <div id="error-alert" class="bg-red-50 border-l-4 border-red-500 p-4 mb-4 hidden" role="alert">
+      <div id="error-container" class="bg-red-50 border-l-4 border-red-500 p-4 mb-4 hidden" role="alert">
         <div class="flex">
           <div class="flex-shrink-0">
             <i class="ri-error-warning-line text-red-500 text-xl"></i>
@@ -316,147 +272,86 @@
           <div class="ml-3">
             <h3 class="text-sm font-medium text-red-800">Lỗi khi tải dữ liệu</h3>
             <div class="mt-1">
-              <p id="error-message" class="text-sm text-red-700">Có lỗi xảy ra khi tải danh sách ngành đào tạo.</p>
+              <p id="error-message" class="text-sm text-red-700">Có lỗi xảy ra khi tải thông tin ngành đào tạo.</p>
             </div>
             <div class="mt-3">
-              <button id="retry-btn" class="flex items-center text-sm font-medium text-red-700 hover:text-red-600">
-                <i class="ri-refresh-line mr-1"></i>
-                Thử lại
-              </button>
+              <a href="majors.html" class="flex items-center text-sm font-medium text-red-700 hover:text-red-600">
+                <i class="ri-arrow-left-line mr-1"></i>
+                Quay lại danh sách
+              </a>
             </div>
           </div>
         </div>
       </div>
 
-      <!-- Empty State -->
-      <div id="empty-state" class="bg-white rounded-lg shadow p-8 text-center hidden">
-        <div class="inline-block mb-4">
-          <i class="ri-graduation-cap-line text-gray-300 text-6xl"></i>
-        </div>
-        <h3 class="text-lg font-medium text-gray-900">Không tìm thấy ngành đào tạo</h3>
-        <p class="mt-1 text-sm text-gray-500">Không có ngành đào tạo nào phù hợp với điều kiện tìm kiếm</p>
-        <div class="mt-6">
-          <button id="clear-filters-empty"
-            class="inline-flex items-center px-4 py-2 text-sm text-primary bg-primary/10 rounded-md hover:bg-primary/20 mr-2">
-            <i class="ri-filter-off-line mr-2"></i> Xóa bộ lọc
-          </button>
-          <a href="major-create.html" class="inline-flex items-center px-4 py-2 text-sm text-white bg-primary rounded-md hover:bg-primary-dark">
-            <i class="ri-add-line mr-2"></i> Thêm ngành mới
-          </a>
+      <!-- Form Error Alert -->
+      <div id="form-error-alert" class="bg-red-50 border-l-4 border-red-500 p-4 mb-4 hidden" role="alert">
+        <div class="flex">
+          <div class="flex-shrink-0">
+            <i class="ri-error-warning-line text-red-500 text-xl"></i>
+          </div>
+          <div class="ml-3">
+            <h3 class="text-sm font-medium text-red-800">Lỗi khi lưu dữ liệu</h3>
+            <div class="mt-1">
+              <p id="form-error-message" class="text-sm text-red-700">Có lỗi xảy ra khi lưu thông tin ngành đào tạo.</p>
+            </div>
+          </div>
         </div>
       </div>
 
-      <!-- Majors List -->
-      <div id="majors-table-container" class="bg-white rounded-lg shadow overflow-hidden hidden">
-        <div class="p-4 border-b border-gray-200 flex justify-between items-center">
-          <h2 class="text-lg font-medium text-gray-900">Danh sách ngành đào tạo</h2>
-          <div id="majors-count" class="text-sm text-gray-600">Tổng số: <span id="total-majors-badge" class="font-medium">0</span> ngành</div>
-        </div>
+      <!-- Form Container -->
+      <div id="form-container" class="bg-white rounded-lg shadow overflow-hidden hidden">
+        <form id="major-edit-form" class="p-6 space-y-6">
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <!-- Tên ngành -->
+            <div>
+              <label for="ten_nganh" class="block text-sm font-medium text-gray-700 mb-1">Tên ngành đào tạo <span class="text-red-500">*</span></label>
+              <input type="text" id="ten_nganh" name="ten_nganh" required
+                     class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-primary focus:border-primary text-sm"
+                     placeholder="Nhập tên ngành đào tạo">
+              <p id="ten_nganh-error" class="mt-1 text-xs text-red-500 hidden"></p>
+            </div>
 
-        <!-- Table container -->
-        <div class="overflow-x-auto">
-          <table id="majors-table" class="min-w-full divide-y divide-gray-200">
-            <thead class="bg-gray-50">
-              <tr>
-                <th scope="col"
-                  class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-16">
-                  ID
-                </th>
-                <th scope="col"
-                  class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-28">
-                  Mã ngành
-                </th>
-                <th scope="col"
-                  class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  Tên ngành
-                </th>
-                <th scope="col"
-                  class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  Khoa
-                </th>
-                <th scope="col"
-                  class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  Trạng thái
-                </th>
-                <th scope="col"
-                  class="px-4 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider w-32">
-                  Hành động
-                </th>
-              </tr>
-            </thead>
-            <tbody id="majorsTableBody" class="bg-white divide-y divide-gray-200">
-              <!-- Table rows will be dynamically inserted here by JavaScript -->
-            </tbody>
-          </table>
-        </div>
+            <!-- Mã ngành -->
+            <div>
+              <label for="ma_nganh" class="block text-sm font-medium text-gray-700 mb-1">Mã ngành <span class="text-red-500">*</span></label>
+              <input type="text" id="ma_nganh" name="ma_nganh" required
+                     class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-primary focus:border-primary text-sm"
+                     placeholder="Nhập mã ngành (7 chữ số)">
+              <p id="ma_nganh-error" class="mt-1 text-xs text-red-500 hidden"></p>
+            </div>
 
-        <!-- Pagination -->
-        <div class="px-4 py-3 bg-gray-50 border-t border-gray-200">
-          <div class="flex flex-col sm:flex-row items-center justify-between space-y-2 sm:space-y-0">
-            <div class="flex items-center space-x-2 text-sm text-gray-500">
-              <span>Hiển thị</span>
-              <select id="items-per-page" name="items-per-page"
-                class="border border-gray-300 rounded-md px-2 py-1 focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary">
-                <option value="10" selected>10</option>
-                <option value="20">20</option>
-                <option value="50">50</option>
-                <option value="100">100</option>
+            <!-- Phòng/Khoa -->
+            <div>
+              <label for="phong_khoa_id" class="block text-sm font-medium text-gray-700 mb-1">Phòng/Khoa <span class="text-red-500">*</span></label>
+              <select id="phong_khoa_id" name="phong_khoa_id" required
+                      class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-primary focus:border-primary text-sm">
+                <option value="">-- Chọn Phòng/Khoa --</option>
+                <!-- Options will be populated by JavaScript -->
               </select>
-              <span>mục. Tổng số: <span id="total-items-count" class="font-medium text-gray-700">0</span> ngành.</span>
+              <p id="phong_khoa_id-error" class="mt-1 text-xs text-red-500 hidden"></p>
             </div>
-            
-            <!-- Desktop Pagination Controls -->
-            <div class="hidden md:flex items-center space-x-1" id="pagination-controls">
-              <button id="first-page"
-                class="btn-first p-2 rounded text-gray-500 hover:text-gray-700 hover:bg-gray-100 disabled:opacity-50 disabled:cursor-not-allowed transition-colors duration-200"
-                title="Trang đầu" disabled>
-                <i class="ri-skip-left-line"></i>
-              </button>
-              <button id="prev-page"
-                class="btn-prev p-2 rounded text-gray-500 hover:text-gray-700 hover:bg-gray-100 disabled:opacity-50 disabled:cursor-not-allowed transition-colors duration-200"
-                title="Trang trước" disabled>
-                <i class="ri-arrow-left-s-line"></i>
-              </button>
-              <div class="flex items-center space-x-1 px-2">
-                <span class="text-sm text-gray-700">Trang</span>
-                <input type="number" id="current-page-input" value="1" min="1"
-                  class="w-12 border border-gray-300 rounded-md px-2 py-1 text-center text-sm focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary">
-                <span class="text-sm text-gray-500">/ <span id="total-pages-count">1</span></span>
-              </div>
-              <button id="next-page"
-                class="btn-next p-2 rounded text-gray-500 hover:text-gray-700 hover:bg-gray-100 disabled:opacity-50 disabled:cursor-not-allowed transition-colors duration-200"
-                title="Trang sau" disabled>
-                <i class="ri-arrow-right-s-line"></i>
-              </button>
-              <button id="last-page"
-                class="btn-last p-2 rounded text-gray-500 hover:text-gray-700 hover:bg-gray-100 disabled:opacity-50 disabled:cursor-not-allowed transition-colors duration-200"
-                title="Trang cuối" disabled>
-                <i class="ri-skip-right-line"></i>
-              </button>
-            </div>
-            
-            <!-- Mobile Pagination -->
-            <div class="md:hidden flex items-center justify-center w-full">
-              <div class="flex items-center space-x-2">
-                <button id="prev-page-mobile"
-                  class="p-2 rounded-full bg-gray-100 text-gray-700 hover:bg-gray-200 disabled:opacity-50 disabled:cursor-not-allowed transition-colors duration-200"
-                  title="Trang trước" disabled>
-                  <i class="ri-arrow-left-s-line"></i>
-                </button>
-                <div class="text-sm text-gray-600">
-                  <span id="current-page-mobile">1</span>
-                  <span>/</span>
-                  <span id="total-pages-mobile">1</span>
-                </div>
-                <button id="next-page-mobile"
-                  class="p-2 rounded-full bg-gray-100 text-gray-700 hover:bg-gray-200 disabled:opacity-50 disabled:cursor-not-allowed transition-colors duration-200"
-                  title="Trang sau" disabled>
-                  <i class="ri-arrow-right-s-line"></i>
-                </button>
-              </div>
+
+            <!-- Trạng thái -->
+            <div>
+              <label for="status" class="block text-sm font-medium text-gray-700 mb-1">Trạng thái</label>
+              <select id="status" name="status"
+                      class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-primary focus:border-primary text-sm">
+                <option value="1">Hoạt động</option>
+                <option value="0">Không hoạt động</option>
+              </select>
             </div>
           </div>
-        </div>
+
+          <div class="border-t border-gray-200 pt-6 flex justify-end space-x-3">
+            <a href="majors.html" class="px-4 py-2 border border-gray-300 rounded-md text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 transition-colors duration-150">
+              Hủy
+            </a>
+            <button type="submit" class="px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-primary hover:bg-primary-dark transition-colors duration-150">
+              <i class="ri-save-line mr-2"></i> Lưu thay đổi
+            </button>
+          </div>
+        </form>
       </div>
 
       <!-- Toast Container -->
@@ -464,28 +359,10 @@
     </main>
   </div>
 
-  <!-- Delete Confirmation Modal -->
-  <div id="delete-modal" class="fixed inset-0 bg-black/50 z-50 flex items-center justify-center hidden">
-    <div class="bg-white rounded-lg shadow-lg max-w-md w-full p-6 transform transition-transform duration-300 ease-in-out">
-      <div class="text-center">
-        <i class="ri-error-warning-line text-red-500 text-5xl mb-4"></i>
-        <h3 class="text-lg font-semibold text-gray-900 mb-2">Xác nhận xóa</h3>
-        <p class="text-gray-600 mb-6">Bạn có chắc chắn muốn xóa ngành đào tạo "<span id="delete-major-name" class="font-semibold"></span>"? Hành động này không thể hoàn tác.</p>
-        <div class="flex justify-center space-x-4">
-          <button id="cancel-delete" class="px-4 py-2 bg-gray-100 text-gray-800 rounded-md hover:bg-gray-200 transition duration-200">
-            Hủy
-          </button>
-          <button id="confirm-delete" class="px-4 py-2 bg-red-500 text-white rounded-md hover:bg-red-600 transition duration-200">
-            Xóa
-          </button>
-        </div>
-      </div>
-    </div>
-  </div>
-
   <!-- Scripts -->
   <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
   <script src="../../public/js/admin/majors.js"></script>
+  <script src="../../public/js/admin/major-edit.js"></script>
 </body>
 
-</html>
+</html> 
