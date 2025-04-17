@@ -231,7 +231,7 @@
           <div class="mt-4 sm:mt-0 flex gap-2">
             <a href="#" id="cancel-edit-btn"
               class="flex items-center justify-center px-4 py-2 bg-gray-100 text-gray-700 rounded-md hover:bg-gray-200 transition-colors duration-200">
-              <i class="ri-arrow-left-line mr-1"></i> Hủy bỏ
+              <i class="ri-arrow-left-line mr-1"></i> Hủy bỏ & Quay lại
             </a>
           </div>
         </div>
@@ -252,29 +252,30 @@
             </a>
             <i class="ri-arrow-right-s-line text-gray-400 mx-2"></i>
           </li>
-          <li class="text-primary" aria-current="page">Chỉnh sửa camera</li>
+          <li class="text-primary" aria-current="page" id="breadcrumb-current-page">Chỉnh sửa camera</li>
         </ol>
       </nav>
 
       <!-- Edit Form -->
       <div class="bg-white rounded-lg shadow overflow-hidden">
         <div class="p-4 border-b border-gray-200">
-          <h2 class="text-lg font-medium text-gray-900" id="form-title">Chỉnh sửa camera</h2>
+          <h2 class="text-lg font-medium text-gray-900" id="form-title">Chỉnh sửa camera: <span class="font-normal text-gray-600">Đang tải...</span></h2>
         </div>
 
         <form id="edit-camera-form" class="p-6">
-           <input type="hidden" id="camera-id-hidden"> <!-- Hidden field for ID -->
+           <input type="hidden" id="camera-id-hidden" name="camera-id-hidden"> <!-- Hidden field for ID -->
           <div class="grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6">
             
             <div class="sm:col-span-3">
-              <label for="camera-id" class="block text-sm font-medium text-gray-700">Mã Camera</label>
-              <input type="text" id="camera-id" name="camera-id" disabled readonly
-                class="bg-gray-100 mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none sm:text-sm">
+              <label for="camera-id-display" class="block text-sm font-medium text-gray-700">Mã Camera</label>
+              <input type="text" id="camera-id-display" name="camera-id-display" disabled readonly
+                class="bg-gray-100 mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none sm:text-sm cursor-not-allowed">
             </div>
 
             <div class="sm:col-span-3">
               <label for="camera-name" class="block text-sm font-medium text-gray-700">Tên Camera <span class="text-red-500">*</span></label>
               <input type="text" id="camera-name" name="camera-name" required
+                placeholder="VD: Camera Hành lang A1"
                 class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary focus:border-primary sm:text-sm">
             </div>
 
@@ -284,12 +285,14 @@
                 pattern="^((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$"
                 title="Nhập địa chỉ IP hợp lệ (VD: 192.168.1.10)"
                 class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary focus:border-primary sm:text-sm">
+                 <p id="ip-validation-error" class="text-xs text-red-500 mt-1 hidden">Địa chỉ IP không hợp lệ.</p>
             </div>
 
             <div class="sm:col-span-3">
               <label for="camera-port" class="block text-sm font-medium text-gray-700">Port <span class="text-red-500">*</span></label>
               <input type="number" id="camera-port" name="camera-port" required placeholder="VD: 8080" min="1" max="65535"
                 class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary focus:border-primary sm:text-sm">
+                 <p id="port-validation-error" class="text-xs text-red-500 mt-1 hidden">Port phải từ 1 đến 65535.</p>
             </div>
             
             <div class="sm:col-span-3">
@@ -303,7 +306,7 @@
 
             <div class="sm:col-span-3">
               <label for="camera-department" class="block text-sm font-medium text-gray-700">Phòng khoa (ID)</label>
-              <input type="number" name="camera-department" id="camera-department" placeholder="Nhập Mã PK (Nếu có)" min="1"
+              <input type="number" name="camera-department" id="camera-department" placeholder="Nhập Mã PK (Để trống nếu không có)" min="1"
                 class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary focus:border-primary sm:text-sm">
               <!-- Consider replacing with a dropdown fetched from department data if available -->
             </div>
@@ -315,18 +318,22 @@
                 Hủy
               </a>
               <button type="submit" id="save-camera-btn"
-                class="px-4 py-2 bg-primary text-white rounded-md hover:bg-primary-dark transition-colors duration-200">
-                Lưu thay đổi
+                class="flex items-center justify-center px-4 py-2 bg-primary text-white rounded-md hover:bg-primary-dark transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed">
+                 <i class="ri-save-line mr-1"></i> Lưu thay đổi
               </button>
             </div>
+             <p id="form-error-message" class="text-sm text-red-600 mt-3 text-right hidden">Đã xảy ra lỗi. Vui lòng kiểm tra lại thông tin.</p>
           </div>
         </form>
       </div>
     </main>
   </div>
 
+  <!-- Scripts -->
   <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
   <script src="../../public/js/admin/camera-edit.js"></script>
+  <script src="../../public/js/admin/sidebar.js"></script> <!-- Include common sidebar script -->
+
 </body>
 
 </html> 
