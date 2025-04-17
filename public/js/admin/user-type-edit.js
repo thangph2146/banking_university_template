@@ -7,6 +7,7 @@
  * - Xử lý form chỉnh sửa loại người dùng
  * - Quản lý quyền hạn của loại người dùng
  * - Xử lý submit form và cập nhật thông tin
+ * - Xử lý xóa loại người dùng
  */
 
 // Thêm CSS animations cho toast
@@ -38,10 +39,12 @@
 (function() {
   'use strict';
   
-  // Khởi tạo các biến
+  // --------------------------------------------------
+  // Constants & Global Variables
+  // --------------------------------------------------
   let userTypeId = null; // ID của loại người dùng đang chỉnh sửa
   let originalUserTypeData = null; // Dữ liệu gốc của loại người dùng
-  let selectedPermissions = []; // Danh sách quyền đã chọn
+  let selectedPermissions = []; // Danh sách ID quyền đã chọn
   
   // Dữ liệu mẫu loại người dùng
   const userTypesMockData = [
@@ -119,7 +122,6 @@
     }
   ];
   
-  // Danh sách quyền hạn
   const permissionsList = [
     {
       id: "view_all",
@@ -219,108 +221,114 @@
     }
   ];
   
-  // Các element DOM
+  // DOM Elements Cache
   const $elements = {
-    // Form và container
     editForm: document.getElementById('user-type-edit-form'),
     editFormContainer: document.getElementById('edit-form-container'),
-    
-    // ID đối tượng
     userTypeIdInput: document.getElementById('user-type-id'),
-    
-    // Display elements
-    displayUserTypeId: document.getElementById('display-user-type-id'),
-    displayUserTypeName: document.getElementById('display-user-type-name'),
-    displayUserTypeStatus: document.getElementById('display-user-type-status'),
     userTypeNameBreadcrumb: document.getElementById('user-type-name-breadcrumb'),
-    
-    // Breadcrumb
     breadcrumbDetailLink: document.getElementById('breadcrumb-detail-link'),
     breadcrumbDetailSeparator: document.getElementById('breadcrumb-detail-separator'),
-    
-    // Back to detail link
-    backToDetailButton: document.getElementById('back-to-detail-button'),
-    
-    // Input fields
+    backToDetailButton: document.getElementById('view-detail-button'),
     nameInput: document.getElementById('name'),
     descriptionInput: document.getElementById('description'),
     statusSelect: document.getElementById('status'),
     createdAtDisplay: document.getElementById('created-at'),
     updatedAtDisplay: document.getElementById('updated-at'),
-    
-    // Loading và error
     loadingIndicator: document.getElementById('loading-indicator'),
     errorAlert: document.getElementById('error-alert'),
     errorMessage: document.getElementById('error-message'),
     errorDetail: document.getElementById('error-detail'),
-    
-    // Permissions
-    permissionsList: document.getElementById('permissions-list'),
+    permissionsGrid: document.getElementById('permissions-grid'),
+    permissionFilterButtonsContainer: document.getElementById('permission-filter-buttons'),
     selectAllPermissionsBtn: document.getElementById('select-all-permissions'),
     deselectAllPermissionsBtn: document.getElementById('deselect-all-permissions'),
-    
-    // Form buttons
+    searchPermissionsInput: document.getElementById('search-permissions'),
+    selectedPermissionsCount: document.getElementById('selected-permissions-count'),
     submitButton: document.getElementById('submit-btn'),
-    submitSpinner: document.getElementById('submit-spinner'),
     deleteButton: document.getElementById('delete-btn'),
-    
-    // Delete modal
-    deleteModal: document.getElementById('delete-modal'),
-    deleteConfirmationMessage: document.getElementById('delete-confirmation-message'),
-    confirmDeleteButton: document.getElementById('confirm-delete-btn'),
-    cancelDeleteButton: document.getElementById('cancel-delete-btn'),
-    
-    // Sidebar (mobile)
+    cancelButton: document.getElementById('cancel-btn'),
     sidebar: document.getElementById('sidebar'),
     sidebarOpen: document.getElementById('sidebar-open'),
     sidebarClose: document.getElementById('sidebar-close'),
-    sidebarBackdrop: document.getElementById('sidebar-backdrop')
+    sidebarBackdrop: document.getElementById('sidebar-backdrop'),
+    userMenuButton: document.getElementById('user-menu-button'),
+    userMenu: document.getElementById('user-menu')
   };
+  
+  // --------------------------------------------------
+  // Initialization
+  // --------------------------------------------------
   
   /**
    * Khởi tạo module khi trang đã tải xong
    */
   function initialize() {
-    // Khởi tạo animation
-    AOS.init({
-      duration: 800,
-      once: true
-    });
-    
-    // Thiết lập sự kiện cho sidebar
-    initSidebar();
-    
-    // Thiết lập sự kiện cho user menu
-    initUserMenu();
-    
-    // Thiết lập các sự kiện
-    setupEventListeners();
-    
-    // Tạo container cho toast nếu chưa tồn tại
-    if (!document.getElementById('toast-container')) {
-      const toastContainer = document.createElement('div');
-      toastContainer.id = 'toast-container';
-      toastContainer.className = 'fixed bottom-4 right-4 z-50';
-      document.body.appendChild(toastContainer);
+    // Khởi tạo AOS animation
+    if (typeof AOS !== 'undefined') {
+      AOS.init({
+        duration: 800,
+        once: true
+      });
+    } else {
+      console.warn('AOS library not found.');
     }
     
-    // Lấy userTypeId từ tham số URL
+    // Thiết lập sidebar và user menu
+    initSidebar();
+    initUserMenu();
+    
+    // Thiết lập các sự kiện khác
+    setupEventListeners();
+    
+    // Tạo container cho toast (nếu chưa có)
+    ensureToastContainerExists();
+    
+    // Lấy userTypeId từ URL
     userTypeId = getUserTypeIdFromURL();
     
     if (!userTypeId) {
-      // Nếu không có ID, hiển thị thông báo lỗi
-      showError("Không tìm thấy ID loại người dùng trong URL");
+      showError("Không tìm thấy ID loại người dùng trong URL.", "Bạn sẽ được chuyển hướng về trang danh sách.");
       setTimeout(() => {
-        // Chuyển về trang danh sách sau 2 giây
         window.location.href = "user-types.html";
-      }, 2000);
+      }, 2500);
       return;
     }
     
-    // Tải thông tin loại người dùng
+    // Cập nhật link nút Hủy và Xem chi tiết
+    if ($elements.cancelButton) {
+      $elements.cancelButton.href = `user-type-detail.html?id=${userTypeId}`;
+    }
+     if ($elements.backToDetailButton) {
+      $elements.backToDetailButton.href = `user-type-detail.html?id=${userTypeId}`;
+      $elements.backToDetailButton.classList.remove('hidden'); // Make sure it's visible
+    }
+     // Cập nhật link breadcrumb chi tiết
+     if ($elements.breadcrumbDetailLink) {
+        $elements.breadcrumbDetailLink.href = `user-type-detail.html?id=${userTypeId}`;
+        $elements.breadcrumbDetailLink.classList.remove('hidden');
+    }
+    if ($elements.breadcrumbDetailSeparator) {
+        $elements.breadcrumbDetailSeparator.classList.remove('hidden');
+    }
+
+    // Tải dữ liệu
     loadUserTypeData();
   }
-  
+
+  /**
+   * Tạo container cho toast nếu chưa tồn tại
+   */
+  function ensureToastContainerExists() {
+    if (!document.getElementById('toast-container')) {
+      const toastContainer = document.createElement('div');
+      toastContainer.id = 'toast-container';
+      // Classes for positioning and z-index should match toast function's expectations
+      toastContainer.className = 'fixed bottom-4 right-4 z-[100] space-y-2'; 
+      document.body.appendChild(toastContainer);
+    }
+  }
+
   /**
    * Lấy ID loại người dùng từ URL
    */
@@ -336,25 +344,25 @@
   function initSidebar() {
     const { sidebar, sidebarOpen, sidebarClose, sidebarBackdrop } = $elements;
     
-    if (sidebarOpen) {
-      sidebarOpen.addEventListener('click', () => {
-        sidebar.classList.remove('-translate-x-full');
-        sidebarBackdrop.classList.remove('hidden');
-      });
+    if (sidebarOpen && sidebar && sidebarBackdrop) {
+        sidebarOpen.addEventListener('click', () => {
+            sidebar.classList.remove('-translate-x-full');
+            sidebarBackdrop.classList.remove('hidden');
+        });
     }
-    
-    if (sidebarClose) {
-      sidebarClose.addEventListener('click', () => {
-        sidebar.classList.add('-translate-x-full');
-        sidebarBackdrop.classList.add('hidden');
-      });
+
+    if (sidebarClose && sidebar && sidebarBackdrop) {
+        sidebarClose.addEventListener('click', () => {
+            sidebar.classList.add('-translate-x-full');
+            sidebarBackdrop.classList.add('hidden');
+        });
     }
-    
-    if (sidebarBackdrop) {
-      sidebarBackdrop.addEventListener('click', () => {
-        sidebar.classList.add('-translate-x-full');
-        sidebarBackdrop.classList.add('hidden');
-      });
+
+    if (sidebarBackdrop && sidebar) {
+        sidebarBackdrop.addEventListener('click', () => {
+            sidebar.classList.add('-translate-x-full');
+            sidebarBackdrop.classList.add('hidden');
+        });
     }
   }
   
@@ -362,28 +370,26 @@
    * Khởi tạo menu người dùng
    */
   function initUserMenu() {
-    const userMenuButton = document.getElementById('user-menu-button');
-    const userMenu = document.getElementById('user-menu');
+    const { userMenuButton, userMenu } = $elements;
     
-    userMenuButton?.addEventListener('click', () => {
-      const isVisible = !userMenu.classList.contains('invisible');
-      
-      if (isVisible) {
-        userMenu.classList.add('invisible', 'opacity-0', 'scale-95');
-        userMenu.classList.remove('visible', 'opacity-100', 'scale-100');
-      } else {
-        userMenu.classList.remove('invisible', 'opacity-0', 'scale-95');
-        userMenu.classList.add('visible', 'opacity-100', 'scale-100');
-      }
-    });
-    
-    // Đóng menu khi click ra ngoài
-    document.addEventListener('click', (e) => {
-      if (userMenuButton && userMenu && !userMenuButton.contains(e.target) && !userMenu.contains(e.target)) {
-        userMenu.classList.add('invisible', 'opacity-0', 'scale-95');
-        userMenu.classList.remove('visible', 'opacity-100', 'scale-100');
-      }
-    });
+    if (userMenuButton && userMenu) {
+        userMenuButton.addEventListener('click', (event) => {
+            event.stopPropagation(); // Prevent click from propagating to document
+            const isVisible = !userMenu.classList.contains('hidden'); // Check hidden class
+            if (isVisible) {
+                userMenu.classList.add('hidden'); // Use hidden class like create.html
+            } else {
+                userMenu.classList.remove('hidden');
+            }
+        });
+
+        // Close menu when clicking outside
+        document.addEventListener('click', (e) => {
+          if (userMenuButton && userMenu && !userMenuButton.contains(e.target) && !userMenu.contains(e.target)) {
+             userMenu.classList.add('hidden');
+          }
+       });
+    }
   }
   
   /**
@@ -391,53 +397,32 @@
    */
   function setupEventListeners() {
     // Form submit
-    if ($elements.editForm) {
-      $elements.editForm.addEventListener('submit', handleFormSubmit);
-    }
+    $elements.editForm?.addEventListener('submit', handleFormSubmit);
     
-    // Nút chọn tất cả quyền
-    if ($elements.selectAllPermissionsBtn) {
-      $elements.selectAllPermissionsBtn.addEventListener('click', handleSelectAllPermissions);
-    }
+    // Permission buttons
+    $elements.selectAllPermissionsBtn?.addEventListener('click', () => toggleAllPermissions(true));
+    $elements.deselectAllPermissionsBtn?.addEventListener('click', () => toggleAllPermissions(false));
     
-    // Nút bỏ chọn tất cả quyền
-    if ($elements.deselectAllPermissionsBtn) {
-      $elements.deselectAllPermissionsBtn.addEventListener('click', handleDeselectAllPermissions);
-    }
+    // Permission search
+    $elements.searchPermissionsInput?.addEventListener('input', filterAndSearchPermissions);
     
-    // Tìm kiếm quyền
-    const searchInput = document.getElementById('search-permissions');
-    if (searchInput) {
-      searchInput.addEventListener('input', handleSearchPermissions);
-    }
+    // Permission filter buttons
+    const filterButtons = $elements.permissionFilterButtonsContainer?.querySelectorAll('.permission-filter-btn');
+    filterButtons?.forEach(button => {
+        button.addEventListener('click', handleFilterButtonClick);
+    });
     
-    // Lọc quyền theo nhóm
-    const groupFilter = document.getElementById('filter-permissions-group');
-    if (groupFilter) {
-      groupFilter.addEventListener('change', handleFilterPermissions);
-    }
-    
-    // Nút xem chi tiết
-    if ($elements.backToDetailButton) {
-      $elements.backToDetailButton.addEventListener('click', function() {
-        window.location.href = `user-type-detail.html?id=${userTypeId}`;
-      });
-    }
-    
-    // Nút xóa loại người dùng
-    if ($elements.deleteButton) {
-      $elements.deleteButton.addEventListener('click', showDeleteConfirmation);
-    }
-    
-    if ($elements.confirmDeleteButton) {
-      $elements.confirmDeleteButton.addEventListener('click', deleteUserType);
-    }
-    
-    if ($elements.cancelDeleteButton) {
-      $elements.cancelDeleteButton.addEventListener('click', hideDeleteConfirmation);
-    }
+    // Delete button
+    $elements.deleteButton?.addEventListener('click', handleDeleteConfirmation);
+
+    // Validate form on input
+    $elements.nameInput?.addEventListener('input', validateForm);
   }
-  
+
+  // --------------------------------------------------
+  // Data Loading & Display
+  // --------------------------------------------------
+
   /**
    * Tải thông tin loại người dùng
    */
@@ -537,77 +522,116 @@
    * Định dạng ngày giờ
    */
   function formatDateTime(dateTimeString) {
-    if (!dateTimeString) return 'N/A';
-    
-    const date = new Date(dateTimeString);
-    return new Intl.DateTimeFormat('vi-VN', {
-      day: '2-digit',
-      month: '2-digit',
-      year: 'numeric',
-      hour: '2-digit',
-      minute: '2-digit'
-    }).format(date);
+    if (!dateTimeString) return '-'; // Consistent fallback
+    try {
+        const date = new Date(dateTimeString);
+        // Kiểm tra xem date có hợp lệ không
+        if (isNaN(date.getTime())) {
+            return 'Ngày không hợp lệ';
+        }
+        return new Intl.DateTimeFormat('vi-VN', {
+          day: '2-digit',
+          month: '2-digit',
+          year: 'numeric',
+          hour: '2-digit',
+          minute: '2-digit',
+          // second: '2-digit' // Optional: include seconds
+        }).format(date);
+    } catch (error) {
+        console.error("Error formatting date:", error);
+        return 'Lỗi định dạng ngày';
+    }
   }
   
+  // --------------------------------------------------
+  // Permissions Handling
+  // --------------------------------------------------
+
   /**
-   * Tạo danh sách quyền hạn
+   * Render danh sách quyền hạn và các nút lọc
    */
   function renderPermissionsList() {
-    const permissionsContainer = $elements.permissionsList;
-    if (!permissionsContainer) return;
+    const permissionsContainer = $elements.permissionsGrid;
+    const filterContainer = $elements.permissionFilterButtonsContainer;
+
+    if (!permissionsContainer || !filterContainer) return;
     
     // Xóa nội dung cũ
-    permissionsContainer.innerHTML = '';
+    permissionsContainer.innerHTML = ''; 
+    filterContainer.innerHTML = ''; // Clear old filters
     
     // Nhóm quyền theo group
     const permissionsByGroup = groupPermissionsByCategory();
+    const groups = Object.keys(permissionsByGroup);
+
+    // Tạo nút lọc "Tất cả"
+    const allFilterButton = createFilterButton('all', 'Tất cả', true); // Active by default
+    filterContainer.appendChild(allFilterButton);
+
+    // Tạo nút lọc cho mỗi nhóm và render quyền
+    groups.forEach(group => {
+        // Tạo nút lọc cho nhóm
+        const filterButton = createFilterButton(group, group);
+        filterContainer.appendChild(filterButton);
+
+        // Render các quyền trong nhóm
+        permissionsByGroup[group].forEach(permission => {
+            const permissionItem = renderPermissionItem(permission);
+            permissionsContainer.appendChild(permissionItem);
+        });
+    });
     
-    // Tạo danh sách quyền theo nhóm
-    for (const [group, permissions] of Object.entries(permissionsByGroup)) {
-      // Tạo header nhóm
-      const groupHeader = document.createElement('div');
-      groupHeader.className = 'mb-4';
-      groupHeader.innerHTML = `
-        <h3 class="text-base font-medium text-gray-900 mb-2">${group}</h3>
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 permission-group" data-group="${group}">
-        </div>
-      `;
-      
-      permissionsContainer.appendChild(groupHeader);
-      
-      const permissionsGrid = groupHeader.querySelector('.permission-group');
-      
-      // Thêm các quyền vào nhóm
-      permissions.forEach(permission => {
-        const permissionItem = renderPermissionItem(permission);
-        permissionsGrid.appendChild(permissionItem);
-      });
-    }
-    
-    // Cập nhật số lượng quyền đã chọn
+    // Cập nhật số lượng quyền đã chọn ban đầu
     updateSelectedPermissionsCount();
     
-    // Cập nhật danh sách nhóm quyền trong select
-    updatePermissionGroupsFilter(permissionsByGroup);
+    // Áp dụng lọc/tìm kiếm ban đầu (hiển thị tất cả)
+    filterAndSearchPermissions(); 
   }
 
   /**
-   * Tạo một mục quyền
+   * Tạo nút lọc quyền
+   */
+   function createFilterButton(filterValue, text, isActive = false) {
+      const button = document.createElement('button');
+      button.type = 'button';
+      button.dataset.filter = filterValue;
+      button.className = `permission-filter-btn flex items-center px-3 py-1.5 text-sm text-gray-700 bg-gray-100 rounded-md hover:bg-gray-200 border border-gray-200`;
+      // Thêm icon nếu cần dựa trên filterValue (ví dụ)
+      let iconClass = 'ri-list-check';
+      if (filterValue === 'Sự kiện') iconClass = 'ri-calendar-event-line';
+      else if (filterValue === 'Người dùng') iconClass = 'ri-user-line';
+      else if (filterValue === 'Quản trị') iconClass = 'ri-shield-user-line'; 
+      // Thêm các nhóm khác...
+
+      button.innerHTML = `<i class="${iconClass} mr-1"></i> ${text}`;
+      
+      if (isActive) {
+          button.classList.add('active', 'bg-primary/10', 'text-primary');
+      }
+      button.addEventListener('click', handleFilterButtonClick); // Gắn listener
+      return button;
+   }
+
+  /**
+   * Tạo một mục (item) quyền trong grid
    */
   function renderPermissionItem(permission) {
     const isChecked = selectedPermissions.includes(permission.id);
     
     const permissionItem = document.createElement('div');
-    permissionItem.className = 'permission-item border border-gray-200 rounded-md p-3 hover:bg-gray-50';
+    // Assign category based on group for filtering consistency
+    permissionItem.className = 'border rounded-md p-3 permission-item hover:bg-gray-50 transition-colors duration-150';
+    permissionItem.setAttribute('data-category', permission.group); // Use group as category
     permissionItem.dataset.permissionId = permission.id;
-    permissionItem.dataset.permissionGroup = permission.group;
     
     permissionItem.innerHTML = `
-      <label class="flex items-start cursor-pointer">
-        <input type="checkbox" name="permissions[]" value="${permission.id}" class="permission-checkbox mt-1 h-4 w-4 text-primary-600 focus:ring-primary-500 border-gray-300 rounded" ${isChecked ? 'checked' : ''}>
+      <label class="flex items-start cursor-pointer group">
+        <input type="checkbox" name="permissions[]" value="${permission.id}" 
+          class="permission-checkbox mt-1 h-4 w-4 text-primary border-gray-300 rounded focus:ring-primary/50 focus:ring-offset-0" 
+          ${isChecked ? 'checked' : ''}>
         <div class="ml-2">
-          <div class="text-sm font-medium text-gray-900">${permission.name}</div>
-          <p class="text-xs text-gray-500">${permission.description}</p>
+          <span class="font-medium text-sm text-gray-800 group-hover:text-primary">${permission.name}</span>
+          <p class="text-xs text-gray-500 mt-0.5">${permission.description}</p>
         </div>
       </label>
     `;
@@ -622,7 +646,7 @@
   }
   
   /**
-   * Cập nhật lựa chọn quyền
+   * Cập nhật mảng selectedPermissions khi checkbox thay đổi
    */
   function updatePermissionSelection(permissionId, isChecked) {
     if (isChecked) {
@@ -632,190 +656,133 @@
     } else {
       selectedPermissions = selectedPermissions.filter(id => id !== permissionId);
     }
-    
     updateSelectedPermissionsCount();
   }
   
   /**
-   * Nhóm quyền theo danh mục
+   * Nhóm quyền theo thuộc tính 'group'
    */
   function groupPermissionsByCategory() {
-    const groups = {};
-    
-    permissionsList.forEach(permission => {
-      if (!groups[permission.group]) {
-        groups[permission.group] = [];
+    return permissionsList.reduce((groups, permission) => {
+      const group = permission.group || 'Khác'; // Default group
+      if (!groups[group]) {
+        groups[group] = [];
       }
-      
-      groups[permission.group].push(permission);
-    });
-    
-    return groups;
+      groups[group].push(permission);
+      return groups;
+    }, {});
   }
   
   /**
-   * Cập nhật danh sách nhóm quyền trong select
-   */
-  function updatePermissionGroupsFilter(permissionsByGroup) {
-    const groupFilter = document.getElementById('filter-permissions-group');
-    if (!groupFilter) return;
-    
-    // Thêm tùy chọn mặc định
-    groupFilter.innerHTML = '<option value="">Tất cả nhóm quyền</option>';
-    
-    // Thêm các nhóm quyền
-    for (const group of Object.keys(permissionsByGroup)) {
-      const option = document.createElement('option');
-      option.value = group;
-      option.textContent = group;
-      groupFilter.appendChild(option);
-    }
-  }
-  
-  /**
-   * Cập nhật số lượng quyền đã chọn
+   * Cập nhật số lượng quyền đã chọn hiển thị trên UI
    */
   function updateSelectedPermissionsCount() {
-    const countElement = document.getElementById('selected-permissions-count');
-    if (countElement) {
-      countElement.textContent = selectedPermissions.length;
+    if ($elements.selectedPermissionsCount) {
+      $elements.selectedPermissionsCount.textContent = selectedPermissions.length;
     }
   }
   
   /**
-   * Xử lý chọn tất cả quyền
+   * Chọn hoặc bỏ chọn tất cả quyền đang hiển thị (visible)
    */
-  function handleSelectAllPermissions(e) {
-    e.preventDefault();
-    
-    const checkboxes = document.querySelectorAll('.permission-checkbox');
-    checkboxes.forEach(checkbox => {
-      if (!checkbox.checked) {
-        checkbox.checked = true;
-        const permissionId = checkbox.value;
-        updatePermissionSelection(permissionId, true);
-      }
-    });
-  }
-  
-  /**
-   * Xử lý bỏ chọn tất cả quyền
-   */
-  function handleDeselectAllPermissions(e) {
-    e.preventDefault();
-    
-    const checkboxes = document.querySelectorAll('.permission-checkbox');
-    checkboxes.forEach(checkbox => {
-      if (checkbox.checked) {
-        checkbox.checked = false;
-        const permissionId = checkbox.value;
-        updatePermissionSelection(permissionId, false);
-      }
-    });
-  }
-  
-  /**
-   * Xử lý tìm kiếm quyền
-   */
-  function handleSearchPermissions() {
-    const searchInput = document.getElementById('search-permissions');
-    const searchValue = searchInput.value.toLowerCase();
-    
-    const permissionItems = document.querySelectorAll('.permission-item');
-    
-    permissionItems.forEach(item => {
-      const permissionName = item.querySelector('.text-sm').textContent.toLowerCase();
-      const permissionDescription = item.querySelector('.text-xs').textContent.toLowerCase();
-      
-      const isMatch = permissionName.includes(searchValue) || permissionDescription.includes(searchValue);
-      
-      if (isMatch) {
-        item.classList.remove('hidden');
-      } else {
-        item.classList.add('hidden');
-      }
-    });
-    
-    // Kiểm tra và hiển thị các header nhóm
-    updateGroupVisibility();
-  }
-  
-  /**
-   * Xử lý lọc quyền theo nhóm
-   */
-  function handleFilterPermissions() {
-    const groupFilter = document.getElementById('filter-permissions-group');
-    const selectedGroup = groupFilter.value;
-    
-    const permissionGroups = document.querySelectorAll('.permission-group');
-    
-    if (selectedGroup) {
-      // Hiển thị nhóm được chọn, ẩn các nhóm khác
-      permissionGroups.forEach(group => {
-        if (group.dataset.group === selectedGroup) {
-          group.closest('.mb-4').classList.remove('hidden');
-        } else {
-          group.closest('.mb-4').classList.add('hidden');
+  function toggleAllPermissions(checkedState) {
+    const visibleCheckboxes = $elements.permissionsGrid?.querySelectorAll('.permission-item:not([style*="display: none"]) input[type="checkbox"]');
+    visibleCheckboxes?.forEach(checkbox => {
+        if (checkbox.checked !== checkedState) {
+            checkbox.checked = checkedState;
+            // Trigger change event manually to update selectedPermissions array
+            updatePermissionSelection(checkbox.value, checkedState);
         }
-      });
-    } else {
-      // Hiển thị tất cả nhóm
-      permissionGroups.forEach(group => {
-        group.closest('.mb-4').classList.remove('hidden');
-      });
-    }
-    
-    // Áp dụng tìm kiếm kết hợp với lọc
-    handleSearchPermissions();
-  }
-  
-  /**
-   * Cập nhật hiển thị các header nhóm
-   */
-  function updateGroupVisibility() {
-    const permissionGroups = document.querySelectorAll('.permission-group');
-    
-    permissionGroups.forEach(group => {
-      const visibleItems = group.querySelectorAll('.permission-item:not(.hidden)');
-      
-      if (visibleItems.length === 0) {
-        group.closest('.mb-4').classList.add('hidden');
-      } else {
-        group.closest('.mb-4').classList.remove('hidden');
-      }
     });
   }
   
   /**
-   * Xử lý submit form
+   * Xử lý khi nhấn nút lọc quyền theo nhóm
+   */
+  function handleFilterButtonClick(event) {
+      const filterButtons = $elements.permissionFilterButtonsContainer?.querySelectorAll('.permission-filter-btn');
+      // Bỏ active tất cả nút
+      filterButtons?.forEach(btn => btn.classList.remove('active', 'bg-primary/10', 'text-primary'));
+      // Active nút được nhấn
+      event.currentTarget.classList.add('active', 'bg-primary/10', 'text-primary');
+      filterAndSearchPermissions();
+  }
+
+  /**
+   * Lọc và tìm kiếm quyền hạn dựa trên filter và search input
+   */
+   function filterAndSearchPermissions() {
+    const searchValue = $elements.searchPermissionsInput ? $elements.searchPermissionsInput.value.toLowerCase().trim() : '';
+    const activeFilterButton = $elements.permissionFilterButtonsContainer?.querySelector('.permission-filter-btn.active');
+    const filterValue = activeFilterButton ? activeFilterButton.dataset.filter : 'all'; // Use dataset
+    
+    const permissionItems = $elements.permissionsGrid?.querySelectorAll('.permission-item');
+    
+    permissionItems?.forEach(item => {
+      const permissionText = item.textContent.toLowerCase();
+      const itemGroup = item.getAttribute('data-category'); // Keep using data-category as set in renderPermissionItem
+      
+      const matchesSearch = !searchValue || permissionText.includes(searchValue);
+      const matchesFilter = filterValue === 'all' || itemGroup === filterValue;
+      
+      if (matchesSearch && matchesFilter) {
+        item.style.display = 'block';
+      } else {
+        item.style.display = 'none';
+      }
+    });
+  }
+  
+  // --------------------------------------------------
+  // Form Handling & Validation
+  // --------------------------------------------------
+
+  /**
+   * Kiểm tra hợp lệ của form (Nhất quán với create.js)
+   */
+  function validateForm() {
+    let isValid = true;
+    // Clear previous errors
+    $elements.nameInput?.classList.remove('border-red-500');
+
+    if (!$elements.nameInput?.value.trim()) {
+      console.warn("Tên loại người dùng là bắt buộc.");
+      $elements.nameInput?.classList.add('border-red-500');
+      // TODO: Display user-friendly message near the input
+      isValid = false;
+    }
+    
+    // Add other validation rules if needed
+
+    // Update submit button state
+    if ($elements.submitButton) {
+      $elements.submitButton.disabled = !isValid;
+    }
+    return isValid;
+  }
+  
+  /**
+   * Xử lý sự kiện submit form (Cập nhật)
    */
   function handleFormSubmit(e) {
     e.preventDefault();
-    
-    // Hiển thị loading
+    if (!validateForm()) return;
+
     showSubmitLoading(true);
     
-    // Lấy dữ liệu từ form
-    const formData = new FormData(e.target);
-    const name = formData.get('name');
-    const description = formData.get('description');
-    const status = formData.get('status');
+    // Lấy dữ liệu form
+    const name = $elements.nameInput.value.trim();
+    const description = $elements.descriptionInput.value.trim();
+    const status = $elements.statusSelect.value;
     
-    // Kiểm tra dữ liệu
-    if (!name) {
-      showToast("Vui lòng nhập tên loại người dùng", "error");
-      showSubmitLoading(false);
-      return;
-    }
-    
-    // Tạo đối tượng dữ liệu
+    // Tạo đối tượng dữ liệu cập nhật
     const updatedUserType = {
-      ...originalUserTypeData,
+      ...originalUserTypeData, // Giữ lại các trường không đổi như id, createdAt
       name,
       description,
       status,
       permissions: selectedPermissions,
-      updatedAt: new Date().toISOString()
+      updatedAt: new Date().toISOString() // Cập nhật thời gian
     };
     
     // Giả lập gọi API
@@ -823,20 +790,20 @@
       try {
         console.log("Đã cập nhật loại người dùng:", updatedUserType);
         
-        // Cập nhật dữ liệu gốc
+        // Cập nhật dữ liệu gốc trong mock data (ví dụ)
         const index = userTypesMockData.findIndex(type => type.id == userTypeId);
         if (index !== -1) {
           userTypesMockData[index] = updatedUserType;
         }
         
-        // Hiển thị thông báo thành công
+        // Lưu trạng thái mới vào originalUserTypeData để reflect thay đổi nếu user không rời trang
+        originalUserTypeData = updatedUserType;
+
         showToast("Cập nhật loại người dùng thành công!", "success");
         
-        // Cập nhật breadcrumb và dữ liệu gốc
-        updateBreadcrumb(name);
-        originalUserTypeData = updatedUserType;
+        // Cập nhật breadcrumb với tên mới
+        updateBreadcrumb(name); 
         
-        // Ẩn loading
         showSubmitLoading(false);
       } catch (error) {
         showToast("Lỗi khi cập nhật loại người dùng: " + error.message, "error");
@@ -846,56 +813,80 @@
   }
   
   /**
-   * Hiển thị/ẩn loading khi submit
+   * Hiển thị/ẩn loading trên nút Submit (Nhất quán với create.js)
    */
   function showSubmitLoading(show) {
-    const { submitButton, submitSpinner } = $elements;
-    
+    if (!$elements.submitButton) return;
+    const spanElement = $elements.submitButton.querySelector('span'); // Target the span for text update
+
     if (show) {
-      submitButton.disabled = true;
-      submitSpinner.classList.remove('hidden');
-      submitButton.querySelector('span').textContent = 'Đang xử lý...';
+        $elements.submitButton.disabled = true;
+        // Use innerHTML to include the icon
+        if (spanElement) {
+            spanElement.innerHTML = '<i class="ri-loader-4-line animate-spin mr-2"></i> Đang xử lý...';
+        } else { 
+             // Fallback if span is not found (should not happen with current HTML)
+            $elements.submitButton.innerHTML = '<i class="ri-loader-4-line animate-spin mr-2"></i> Đang xử lý...';
+        }
     } else {
-      submitButton.disabled = false;
-      submitSpinner.classList.add('hidden');
-      submitButton.querySelector('span').textContent = 'Lưu thay đổi';
+        $elements.submitButton.disabled = false;
+         // Restore original text in the span
+        if (spanElement) {
+            spanElement.textContent = 'Lưu thay đổi'; 
+        } else {
+            // Fallback
+            $elements.submitButton.innerHTML = '<i class="ri-save-line mr-2"></i> Lưu thay đổi';
+        }
+         // Re-validate form to potentially re-enable button if needed
+        validateForm();
+    }
+  }
+
+  // --------------------------------------------------
+  // Deletion Handling
+  // --------------------------------------------------
+
+  /**
+   * Hiển thị xác nhận xóa (sử dụng confirm() đơn giản)
+   */
+  function handleDeleteConfirmation() {
+    if (!originalUserTypeData) {
+        showToast("Không thể xóa vì dữ liệu chưa được tải.", "warning");
+        return;
+    }
+    // Sử dụng confirm() của trình duyệt cho đơn giản
+    const confirmation = confirm(
+        `Bạn có chắc chắn muốn xóa loại người dùng "${originalUserTypeData.name}" (ID: ${userTypeId}) không?
+` +
+        `Hành động này không thể hoàn tác.`
+    );
+    
+    if (confirmation) {
+        deleteUserType();
     }
   }
   
   /**
-   * Xác nhận xóa loại người dùng
-   */
-  function showDeleteConfirmation() {
-    if (originalUserTypeData) {
-      $elements.deleteConfirmationMessage.textContent = `Bạn có chắc chắn muốn xóa loại người dùng "${originalUserTypeData.name}" không? Hành động này không thể hoàn tác.`;
-      $elements.deleteModal.classList.remove('hidden');
-    }
-  }
-  
-  /**
-   * Ẩn hộp thoại xác nhận xóa
-   */
-  function hideDeleteConfirmation() {
-    $elements.deleteModal.classList.add('hidden');
-  }
-  
-  /**
-   * Xóa loại người dùng
+   * Thực hiện xóa loại người dùng
    */
   function deleteUserType() {
-    hideDeleteConfirmation();
-    showLoading(true);
-    
+    console.log(`Attempting to delete user type ID: ${userTypeId}`);
+    // Hiển thị loading trên nút xóa hoặc nút submit
+    showDeleteLoading(true); 
+
     // Giả lập gọi API
     setTimeout(() => {
       try {
-        // Xóa từ dữ liệu mẫu
+        // Xóa từ dữ liệu mẫu (ví dụ)
         const index = userTypesMockData.findIndex(type => type.id == userTypeId);
         if (index !== -1) {
           userTypesMockData.splice(index, 1);
+          console.log(`Deleted user type ID: ${userTypeId}`);
+        } else {
+           console.warn(`User type ID: ${userTypeId} not found in mock data.`);
+           throw new Error("Không tìm thấy loại người dùng để xóa.");
         }
         
-        // Hiển thị thông báo thành công
         showToast("Xóa loại người dùng thành công!", "success");
         
         // Chuyển hướng về trang danh sách sau 1 giây
@@ -904,135 +895,197 @@
         }, 1000);
       } catch (error) {
         showToast("Lỗi khi xóa loại người dùng: " + error.message, "error");
-        showLoading(false);
+        showDeleteLoading(false); // Ẩn loading nếu có lỗi
       }
     }, 500);
   }
-  
+
   /**
-   * Hiển thị hoặc ẩn trạng thái loading
+   * Hiển thị/ẩn loading trên nút Delete 
+   * (Tương tự showSubmitLoading nhưng cho nút khác)
+   */
+   function showDeleteLoading(show) {
+      if (!$elements.deleteButton) return;
+
+      if (show) {
+          $elements.deleteButton.disabled = true;
+          $elements.deleteButton.innerHTML = '<i class="ri-loader-4-line animate-spin mr-2"></i> Đang xóa...';
+          // Optionally disable submit button too during delete
+          if ($elements.submitButton) $elements.submitButton.disabled = true;
+      } else {
+          $elements.deleteButton.disabled = false;
+          $elements.deleteButton.innerHTML = '<i class="ri-delete-bin-line mr-2"></i> Xóa loại người dùng';
+          // Re-enable submit button if it was disabled
+           if ($elements.submitButton) validateForm(); // Re-check submit button state
+      }
+   }
+
+  // --------------------------------------------------
+  // UI Feedback (Loading, Error, Toast)
+  // --------------------------------------------------
+
+  /**
+   * Hiển thị hoặc ẩn trạng thái loading chính của trang
    */
   function showLoading(show) {
     const { loadingIndicator, editFormContainer } = $elements;
     
-    if (show) {
-      loadingIndicator.classList.remove('hidden');
-      if (editFormContainer) {
-        editFormContainer.classList.add('hidden');
-      }
-    } else {
-      loadingIndicator.classList.add('hidden');
-      if (editFormContainer) {
-        editFormContainer.classList.remove('hidden');
-      }
+    if (loadingIndicator) {
+        loadingIndicator.classList.toggle('hidden', !show);
+    }
+     if (editFormContainer) {
+        // Hide form when loading, show when not loading (if data fetch succeeded)
+        editFormContainer.classList.toggle('hidden', show); 
     }
   }
   
   /**
-   * Hiển thị thông báo lỗi
+   * Hiển thị thông báo lỗi chung của trang
    */
   function showError(message, detail = '') {
-    const { errorAlert, errorMessage, errorDetail, loadingIndicator } = $elements;
+    const { errorAlert, errorMessage, errorDetail, loadingIndicator, editFormContainer } = $elements;
     
-    if (errorMessage) errorMessage.textContent = message;
+    if (errorMessage) errorMessage.textContent = message || "Đã có lỗi xảy ra.";
     if (errorDetail) errorDetail.textContent = detail || 'Vui lòng thử lại hoặc liên hệ quản trị viên.';
     
     if (errorAlert) errorAlert.classList.remove('hidden');
-    if (loadingIndicator) loadingIndicator.classList.add('hidden');
+    if (loadingIndicator) loadingIndicator.classList.add('hidden'); // Hide loading if error occurs
+    if (editFormContainer) editFormContainer.classList.add('hidden'); // Hide form on error
   }
   
   /**
-   * Ẩn thông báo lỗi
+   * Ẩn thông báo lỗi chung của trang
    */
   function hideError() {
     const { errorAlert } = $elements;
     if (errorAlert) errorAlert.classList.add('hidden');
   }
   
+  
   /**
-   * Hiển thị thông báo toast
+   * Hiển thị thông báo toast (Adapt from create.js style but keep animation)
+   * Sử dụng container #toast-container được tạo bởi ensureToastContainerExists
    */
   function showToast(message, type = "info") {
-    let toastContainer = document.getElementById('toast-container');
-    
-    // Tạo container nếu chưa có
+    const toastContainer = document.getElementById('toast-container');
     if (!toastContainer) {
-      toastContainer = document.createElement('div');
-      toastContainer.id = 'toast-container';
-      toastContainer.className = 'fixed bottom-4 right-4 z-50';
-      document.body.appendChild(toastContainer);
+      console.error("Toast container not found!");
+      return;
     }
-    
-    // Tạo thông báo
+
+    const toastId = `toast-${Date.now()}`;
     const toast = document.createElement('div');
-    toast.classList.add(
-      'flex', 'items-center', 'p-4', 'mb-3', 'rounded-md', 'shadow-md', 
-      'max-w-md', 'animate-fadeIn'
-    );
-    
-    // Áp dụng màu sắc dựa trên loại thông báo
-    if (type === "success") {
-      toast.classList.add('bg-green-50', 'border-l-4', 'border-green-500');
-    } else if (type === "error") {
-      toast.classList.add('bg-red-50', 'border-l-4', 'border-red-500');
-    } else {
-      toast.classList.add('bg-blue-50', 'border-l-4', 'border-blue-500');
+    toast.id = toastId;
+    // Base classes + animation class (use create.js style directly)
+    toast.className = `flex items-center p-4 mb-3 w-full max-w-xs rounded-lg shadow ${getToastBgColor(type)}`; 
+    // Add animation class if fadeIn/fadeOut exists
+    if (typeof addAnimationStyles === 'function') {
+        toast.classList.add('animate-fadeIn');
     }
-    
-    // Nội dung thông báo
+    toast.setAttribute('role', 'alert');
+
+    // Nội dung thông báo (Sử dụng cấu trúc và icon từ create.js)
     toast.innerHTML = `
-      <div class="flex-shrink-0 mr-3">
-        ${getToastIcon(type)}
+      <div class="inline-flex items-center justify-center flex-shrink-0 w-8 h-8 ${getToastIconBgColor(type)} rounded-lg">
+        ${getToastIcon(type)} 
       </div>
-      <div class="flex-1">
-        <p class="text-sm font-medium text-gray-900">${message}</p>
+      <div class="ml-3 text-sm font-normal">
+        ${message}
       </div>
-      <div class="ml-4 flex-shrink-0 flex">
-        <button class="inline-flex text-gray-400 hover:text-gray-500 focus:outline-none">
+      <button type="button" class="ml-auto -mx-1.5 -my-1.5 rounded-lg focus:ring-2 focus:ring-gray-300 p-1.5 inline-flex h-8 w-8 ${getToastCloseButtonColor(type)}" data-dismiss-target="#${toastId}" aria-label="Close">
+          <span class="sr-only">Đóng</span>
           <i class="ri-close-line"></i>
-        </button>
-      </div>
+      </button>
     `;
     
     // Thêm vào container
-    toastContainer.appendChild(toast);
+    toastContainer.prepend(toast); // Add to top
+
+    const closeButton = toast.querySelector('button');
     
-    // Xử lý đóng thông báo
-    toast.querySelector('button').addEventListener('click', () => {
-      toast.classList.add('animate-fadeOut');
-      setTimeout(() => {
-        if (toast.parentNode) {
-          toast.remove();
-        }
-      }, 300);
-    });
+    const removeToast = () => {
+      // Add fadeOut animation if available
+      if (toast.classList.contains('animate-fadeIn')) {
+          toast.classList.remove('animate-fadeIn');
+          toast.classList.add('animate-fadeOut');
+          // Wait for fadeOut animation to complete before removing
+          setTimeout(() => {
+            if (toast.parentNode) {
+              toast.remove();
+               // Optional: Remove container if empty
+               if (toastContainer.children.length === 0) {
+                  // toastContainer.remove(); 
+               }
+            }
+          }, 300); // Match fadeOut duration
+      } else {
+          // Remove directly if no animation
+          if (toast.parentNode) {
+              toast.remove();
+              if (toastContainer.children.length === 0) {
+                  // toastContainer.remove(); 
+               }
+          }
+      }
+    };
+
+    closeButton.addEventListener('click', removeToast);
     
     // Tự động ẩn sau 5 giây
-    setTimeout(() => {
-      if (toast.parentNode) {
-        toast.classList.add('animate-fadeOut');
-        setTimeout(() => {
-          if (toast.parentNode) {
-            toast.remove();
-          }
-        }, 300);
-      }
-    }, 5000);
+    setTimeout(removeToast, 5000);
   }
   
   /**
-   * Lấy biểu tượng cho thông báo toast
+   * Lấy màu nền cho toast (nhất quán với create.js)
+   */
+  function getToastBgColor(type) {
+    switch (type) {
+      case 'success': return 'bg-green-50 text-green-800';
+      case 'error':   return 'bg-red-50 text-red-800';
+      case 'warning': return 'bg-yellow-50 text-yellow-800';
+      default:        return 'bg-blue-50 text-blue-800';
+    }
+  }
+
+  /**
+   * Lấy màu nền icon cho toast (nhất quán với create.js)
+   */
+  function getToastIconBgColor(type) {
+    switch (type) {
+      case 'success': return 'bg-green-100 text-green-500';
+      case 'error':   return 'bg-red-100 text-red-500';
+      case 'warning': return 'bg-yellow-100 text-yellow-500';
+      default:        return 'bg-blue-100 text-blue-500';
+    }
+  }
+
+  /**
+   * Lấy màu nút đóng cho toast (nhất quán với create.js)
+   */
+  function getToastCloseButtonColor(type) {
+    switch (type) {
+      case 'success': return 'bg-green-50 text-green-500 hover:bg-green-100';
+      case 'error':   return 'bg-red-50 text-red-500 hover:bg-red-100';
+      case 'warning': return 'bg-yellow-50 text-yellow-500 hover:bg-yellow-100';
+      default:        return 'bg-blue-50 text-blue-500 hover:bg-blue-100';
+    }
+  }
+
+  /**
+   * Lấy HTML string cho icon của toast (nhất quán với create.js)
    */
   function getToastIcon(type) {
-    if (type === "success") {
-      return '<i class="fas fa-check-circle text-green-500"></i>';
-    } else if (type === "error") {
-      return '<i class="fas fa-exclamation-circle text-red-500"></i>';
-    } else {
-      return '<i class="fas fa-info-circle text-blue-500"></i>';
+    switch (type) {
+      case 'success': return '<i class="ri-check-line"></i>';
+      case 'error':   return '<i class="ri-error-warning-line"></i>';
+      case 'warning': return '<i class="ri-alert-line"></i>';
+      default:        return '<i class="ri-information-line"></i>';
     }
   }
   
-  // Khởi tạo trang khi DOM đã sẵn sàng
+  // --------------------------------------------------
+  // DOM Ready - Start Initialization
+  // --------------------------------------------------
   document.addEventListener('DOMContentLoaded', initialize);
+
 })(); 

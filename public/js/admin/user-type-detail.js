@@ -8,772 +8,888 @@
  * - Xử lý chuyển hướng tới trang chỉnh sửa
  */
 
-// Biến toàn cục
-let userTypeId = null; // ID của loại người dùng đang xem
-let userTypeData = null; // Dữ liệu của loại người dùng
-let usersList = []; // Danh sách người dùng thuộc loại này
-let currentPage = 1; // Trang hiện tại của danh sách người dùng
-const itemsPerPage = 5; // Số lượng người dùng mỗi trang
+// IIFE để đóng gói module
+(function() {
+  'use strict';
 
-// Dữ liệu mẫu loại người dùng
-const userTypesMockData = [
-  {
-    id: 1,
-    name: "Quản trị viên",
-    description: "Người dùng có toàn quyền quản trị hệ thống",
-    status: "active",
-    userCount: 5,
-    activeUserCount: 5,
-    inactiveUserCount: 0,
-    permissions: ["view_all", "edit_all", "delete_all", "manage_users", "manage_events", "manage_settings"],
-    createdAt: "2023-01-15T08:30:00Z",
-    updatedAt: "2023-05-20T14:45:00Z"
-  },
-  {
-    id: 2,
-    name: "Giảng viên",
-    description: "Giảng viên của trường đại học",
-    status: "active",
-    userCount: 120,
-    activeUserCount: 98,
-    inactiveUserCount: 22,
-    permissions: ["view_events", "create_events", "edit_own_events", "view_students"],
-    createdAt: "2023-01-20T09:15:00Z",
-    updatedAt: "2023-06-12T11:30:00Z"
-  },
-  {
-    id: 3,
-    name: "Sinh viên",
-    description: "Sinh viên đang theo học tại trường",
-    status: "active",
-    userCount: 3500,
-    activeUserCount: 3200,
-    inactiveUserCount: 300,
-    permissions: ["view_events", "register_events", "view_own_profile"],
-    createdAt: "2023-01-25T10:00:00Z",
-    updatedAt: "2023-06-15T13:20:00Z"
-  },
-  {
-    id: 4,
-    name: "Cựu sinh viên",
-    description: "Sinh viên đã tốt nghiệp",
-    status: "active",
-    userCount: 870,
-    activeUserCount: 450,
-    inactiveUserCount: 420,
-    permissions: ["view_events", "register_alumni_events", "view_own_profile"],
-    createdAt: "2023-02-01T08:45:00Z",
-    updatedAt: "2023-06-20T15:10:00Z"
-  },
-  {
-    id: 5,
-    name: "Nhân viên",
-    description: "Nhân viên hành chính của trường",
-    status: "active",
-    userCount: 85,
-    activeUserCount: 82,
-    inactiveUserCount: 3,
-    permissions: ["view_events", "manage_own_department", "view_reports"],
-    createdAt: "2023-02-10T09:30:00Z",
-    updatedAt: "2023-07-05T10:45:00Z"
-  },
-  {
-    id: 6,
-    name: "Khách",
-    description: "Tài khoản khách tham quan",
-    status: "inactive",
-    userCount: 250,
-    activeUserCount: 0,
-    inactiveUserCount: 250,
-    permissions: ["view_public_events"],
-    createdAt: "2023-02-15T14:20:00Z",
-    updatedAt: "2023-07-10T16:30:00Z"
-  }
-];
+  // --------------------------------------------------
+  // Constants & Global Variables
+  // --------------------------------------------------
+  let userTypeId = null; // ID của loại người dùng đang xem
+  let userTypeData = null; // Dữ liệu của loại người dùng
+  let usersList = []; // Danh sách người dùng thuộc loại này
+  let usersCurrentPage = 1; // Trang hiện tại của danh sách người dùng
+  let usersItemsPerPage = 10; // Số lượng người dùng mỗi trang (có thể thay đổi qua select)
 
-// Danh sách người dùng mẫu
-const usersMockData = [
-  {
-    id: 1,
-    name: "Nguyễn Văn A",
-    email: "nguyenvana@example.com",
-    phone: "0901234567",
-    status: "active",
-    userTypeId: 1,
-    joinedDate: "2023-01-16T10:30:00Z"
-  },
-  {
-    id: 2,
-    name: "Trần Thị B",
-    email: "tranthib@example.com",
-    phone: "0901234568",
-    status: "active",
-    userTypeId: 1,
-    joinedDate: "2023-01-17T11:45:00Z"
-  },
-  {
-    id: 3,
-    name: "Lê Văn C",
-    email: "levanc@example.com",
-    phone: "0901234569",
-    status: "active",
-    userTypeId: 1,
-    joinedDate: "2023-01-18T09:15:00Z"
-  },
-  {
-    id: 4,
-    name: "Phạm Thị D",
-    email: "phamthid@example.com",
-    phone: "0901234570",
-    status: "inactive",
-    userTypeId: 1,
-    joinedDate: "2023-01-19T14:20:00Z"
-  },
-  {
-    id: 5,
-    name: "Hoàng Văn E",
-    email: "hoangvane@example.com",
-    phone: "0901234571",
-    status: "active",
-    userTypeId: 1,
-    joinedDate: "2023-01-20T16:10:00Z"
-  },
-  {
-    id: 6,
-    name: "Nguyễn Thị F",
-    email: "nguyenthif@example.com",
-    phone: "0901234572",
-    status: "active",
-    userTypeId: 2,
-    joinedDate: "2023-01-21T08:30:00Z"
-  },
-  {
-    id: 7,
-    name: "Trần Văn G",
-    email: "tranvang@example.com",
-    phone: "0901234573",
-    status: "active",
-    userTypeId: 2,
-    joinedDate: "2023-01-22T10:45:00Z"
-  }
-];
+  // Lấy danh sách quyền từ file khác hoặc API endpoint thực tế
+  // Tạm thời sử dụng biến từ user-type-edit.js (cần đảm bảo biến này global hoặc import)
+  // Giả sử permissionsList đã tồn tại trong scope này
+  const permissionsList = [
+    { id: "view_all", name: "Xem tất cả dữ liệu", description: "Xem tất cả dữ liệu trong hệ thống", group: "Quản trị" },
+    { id: "edit_all", name: "Chỉnh sửa dữ liệu", description: "Chỉnh sửa tất cả dữ liệu trong hệ thống", group: "Quản trị" },
+    { id: "delete_all", name: "Xóa dữ liệu", description: "Xóa tất cả dữ liệu trong hệ thống", group: "Quản trị" },
+    { id: "manage_users", name: "Quản lý người dùng", description: "Quản lý tài khoản người dùng", group: "Quản trị" },
+    { id: "manage_events", name: "Quản lý sự kiện", description: "Quản lý tất cả sự kiện", group: "Sự kiện" },
+    { id: "manage_settings", name: "Quản lý cài đặt", description: "Quản lý cài đặt hệ thống", group: "Quản trị" },
+    { id: "view_events", name: "Xem sự kiện", description: "Xem danh sách sự kiện", group: "Sự kiện" },
+    { id: "create_events", name: "Tạo sự kiện", description: "Tạo sự kiện mới", group: "Sự kiện" },
+    { id: "edit_own_events", name: "Sửa sự kiện cá nhân", description: "Chỉnh sửa sự kiện đã tạo", group: "Sự kiện" },
+    { id: "view_students", name: "Xem sinh viên", description: "Xem danh sách sinh viên", group: "Người dùng" },
+    { id: "register_events", name: "Đăng ký sự kiện", description: "Đăng ký tham gia sự kiện", group: "Sự kiện" },
+    { id: "view_own_profile", name: "Xem hồ sơ cá nhân", description: "Xem thông tin cá nhân", group: "Người dùng" },
+    { id: "register_alumni_events", name: "Đăng ký sự kiện cựu sinh viên", description: "Đăng ký sự kiện dành cho cựu sinh viên", group: "Sự kiện" },
+    { id: "manage_own_department", name: "Quản lý phòng ban", description: "Quản lý thông tin phòng ban của mình", group: "Phòng ban" },
+    { id: "view_reports", name: "Xem báo cáo", description: "Xem báo cáo thống kê", group: "Báo cáo" },
+    { id: "view_public_events", name: "Xem sự kiện công khai", description: "Xem các sự kiện công khai", group: "Sự kiện" }
+  ];
 
-// Danh sách quyền hạn
-const permissionDescriptions = {
-  "view_all": "Xem tất cả dữ liệu trong hệ thống",
-  "edit_all": "Chỉnh sửa tất cả dữ liệu trong hệ thống",
-  "delete_all": "Xóa tất cả dữ liệu trong hệ thống",
-  "manage_users": "Quản lý người dùng",
-  "manage_events": "Quản lý sự kiện",
-  "manage_settings": "Quản lý cài đặt hệ thống",
-  "view_events": "Xem danh sách sự kiện",
-  "create_events": "Tạo sự kiện mới",
-  "edit_own_events": "Chỉnh sửa sự kiện đã tạo",
-  "view_students": "Xem danh sách sinh viên",
-  "register_events": "Đăng ký tham gia sự kiện",
-  "view_own_profile": "Xem thông tin cá nhân",
-  "register_alumni_events": "Đăng ký sự kiện dành cho cựu sinh viên",
-  "manage_own_department": "Quản lý thông tin phòng ban của mình",
-  "view_reports": "Xem báo cáo thống kê",
-  "view_public_events": "Xem sự kiện công khai"
-};
+  // Dữ liệu mẫu loại người dùng
+  const userTypesMockData = [
+    {
+      id: 1,
+      name: "Quản trị viên",
+      description: "Người dùng có toàn quyền quản trị hệ thống",
+      status: "active",
+      userCount: 5,
+      activeUserCount: 5,
+      inactiveUserCount: 0,
+      permissions: ["view_all", "edit_all", "delete_all", "manage_users", "manage_events", "manage_settings"],
+      createdAt: "2023-01-15T08:30:00Z",
+      updatedAt: "2023-05-20T14:45:00Z"
+    },
+    {
+      id: 2,
+      name: "Giảng viên",
+      description: "Giảng viên của trường đại học",
+      status: "active",
+      userCount: 120,
+      activeUserCount: 98,
+      inactiveUserCount: 22,
+      permissions: ["view_events", "create_events", "edit_own_events", "view_students"],
+      createdAt: "2023-01-20T09:15:00Z",
+      updatedAt: "2023-06-12T11:30:00Z"
+    },
+    {
+      id: 3,
+      name: "Sinh viên",
+      description: "Sinh viên đang theo học tại trường",
+      status: "active",
+      userCount: 3500,
+      activeUserCount: 3200,
+      inactiveUserCount: 300,
+      permissions: ["view_events", "register_events", "view_own_profile"],
+      createdAt: "2023-01-25T10:00:00Z",
+      updatedAt: "2023-06-15T13:20:00Z"
+    },
+    {
+      id: 4,
+      name: "Cựu sinh viên",
+      description: "Sinh viên đã tốt nghiệp",
+      status: "active",
+      userCount: 870,
+      activeUserCount: 450,
+      inactiveUserCount: 420,
+      permissions: ["view_events", "register_alumni_events", "view_own_profile"],
+      createdAt: "2023-02-01T08:45:00Z",
+      updatedAt: "2023-06-20T15:10:00Z"
+    },
+    {
+      id: 5,
+      name: "Nhân viên",
+      description: "Nhân viên hành chính của trường",
+      status: "active",
+      userCount: 85,
+      activeUserCount: 82,
+      inactiveUserCount: 3,
+      permissions: ["view_events", "manage_own_department", "view_reports"],
+      createdAt: "2023-02-10T09:30:00Z",
+      updatedAt: "2023-07-05T10:45:00Z"
+    },
+    {
+      id: 6,
+      name: "Khách",
+      description: "Tài khoản khách tham quan",
+      status: "inactive",
+      userCount: 250,
+      activeUserCount: 0,
+      inactiveUserCount: 250,
+      permissions: ["view_public_events"],
+      createdAt: "2023-02-15T14:20:00Z",
+      updatedAt: "2023-07-10T16:30:00Z"
+    }
+  ];
 
-// DOM ready
-document.addEventListener('DOMContentLoaded', function() {
-  // Khởi tạo animation
-  AOS.init({
-    duration: 800,
-    once: true
-  });
-  
-  // Thiết lập sự kiện cho sidebar
-  initSidebar();
-  
-  // Thiết lập sự kiện cho user menu
-  initUserMenu();
-  
-  // Lấy userTypeId từ tham số URL
-  userTypeId = getIdFromUrl();
-  
-  if (!userTypeId) {
-    showError("Không tìm thấy ID loại người dùng trong URL");
-    return;
-  }
-  
-  // Load dữ liệu và hiển thị
-  loadUserTypeDetails();
-  
-  // Thiết lập các sự kiện
-  setupEventListeners();
-});
+  // Danh sách người dùng mẫu
+  const usersMockData = [
+    {
+      id: 1,
+      name: "Nguyễn Văn A",
+      email: "nguyenvana@example.com",
+      phone: "0901234567",
+      status: "active",
+      userTypeId: 1,
+      joinedDate: "2023-01-16T10:30:00Z"
+    },
+    {
+      id: 2,
+      name: "Trần Thị B",
+      email: "tranthib@example.com",
+      phone: "0901234568",
+      status: "active",
+      userTypeId: 1,
+      joinedDate: "2023-01-17T11:45:00Z"
+    },
+    {
+      id: 3,
+      name: "Lê Văn C",
+      email: "levanc@example.com",
+      phone: "0901234569",
+      status: "active",
+      userTypeId: 1,
+      joinedDate: "2023-01-18T09:15:00Z"
+    },
+    {
+      id: 4,
+      name: "Phạm Thị D",
+      email: "phamthid@example.com",
+      phone: "0901234570",
+      status: "inactive",
+      userTypeId: 1,
+      joinedDate: "2023-01-19T14:20:00Z"
+    },
+    {
+      id: 5,
+      name: "Hoàng Văn E",
+      email: "hoangvane@example.com",
+      phone: "0901234571",
+      status: "active",
+      userTypeId: 1,
+      joinedDate: "2023-01-20T16:10:00Z"
+    },
+    {
+      id: 6,
+      name: "Nguyễn Thị F",
+      email: "nguyenthif@example.com",
+      phone: "0901234572",
+      status: "active",
+      userTypeId: 2,
+      joinedDate: "2023-01-21T08:30:00Z"
+    },
+    {
+      id: 7,
+      name: "Trần Văn G",
+      email: "tranvang@example.com",
+      phone: "0901234573",
+      status: "active",
+      userTypeId: 2,
+      joinedDate: "2023-01-22T10:45:00Z"
+    }
+    // ... Add more user data for pagination testing
+  ];
 
-/**
- * Khởi tạo sidebar cho mobile
- */
-function initSidebar() {
-  const sidebar = document.getElementById('sidebar');
-  const sidebarBackdrop = document.getElementById('sidebar-backdrop');
-  const sidebarOpen = document.getElementById('sidebar-open');
-  const sidebarClose = document.getElementById('sidebar-close');
-  
-  sidebarOpen?.addEventListener('click', () => {
-    sidebar.classList.remove('-translate-x-full');
-    sidebarBackdrop.classList.remove('hidden');
-  });
-  
-  sidebarClose?.addEventListener('click', () => {
-    sidebar.classList.add('-translate-x-full');
-    sidebarBackdrop.classList.add('hidden');
-  });
-  
-  sidebarBackdrop?.addEventListener('click', () => {
-    sidebar.classList.add('-translate-x-full');
-    sidebarBackdrop.classList.add('hidden');
-  });
-}
+  // --------------------------------------------------
+  // DOM Elements Cache
+  // --------------------------------------------------
+  const $elements = {
+      loadingIndicator: document.getElementById('loading-indicator'),
+      errorContainer: document.getElementById('error-container'),
+      errorMessage: document.getElementById('error-message'),
+      errorDetail: document.getElementById('error-detail'),
+      retryButton: document.getElementById('retry-button'),
+      detailContainer: document.getElementById('user-type-detail'),
+      userTypeNameBreadcrumb: document.getElementById('user-type-name-breadcrumb'),
+      userTypeIdDisplay: document.getElementById('user-type-id'),
+      userTypeNameDisplay: document.getElementById('user-type-name'),
+      userTypeDescriptionDisplay: document.getElementById('user-type-description'),
+      userTypeStatusDisplay: document.getElementById('user-type-status'),
+      userTypeCreatedAtDisplay: document.getElementById('user-type-created-at'),
+      userTypeUpdatedAtDisplay: document.getElementById('user-type-updated-at'),
+      userTypeUserCountDisplay: document.getElementById('user-type-user-count'),
+      userTypeActiveUserCountDisplay: document.getElementById('user-type-active-user-count'),
+      userTypeInactiveUserCountDisplay: document.getElementById('user-type-inactive-user-count'),
+      userTypeUserCountBar: document.getElementById('user-type-user-count-bar'),
+      userTypeActiveUserCountBar: document.getElementById('user-type-active-user-count-bar'),
+      userTypeInactiveUserCountBar: document.getElementById('user-type-inactive-user-count-bar'),
+      permissionsListContainer: document.getElementById('permissions-list'),
+      permissionsCountDisplay: document.getElementById('permissions-count'),
+      editButton: document.getElementById('edit-user-type-button'),
+      usersListBody: document.getElementById('users-list'),
+      noUsersMessage: document.getElementById('no-users-message'),
+      usersPaginationContainer: document.getElementById('users-pagination'),
+      usersPerPageSelect: document.getElementById('users-per-page'),
+      usersTotalItemsDisplay: document.getElementById('users-total-items'),
+      usersPaginationControls: document.getElementById('users-pagination-controls'),
+      usersCurrentPageInput: document.getElementById('users-current-page-input'),
+      usersTotalPagesDisplay: document.getElementById('users-total-pages-count'),
+      usersBtnFirst: document.querySelector('.users-btn-first'),
+      usersBtnPrev: document.querySelector('.users-btn-prev'),
+      usersBtnNext: document.querySelector('.users-btn-next'),
+      usersBtnLast: document.querySelector('.users-btn-last'),
+      // Sidebar elements
+      sidebar: document.getElementById('sidebar'),
+      sidebarOpen: document.getElementById('sidebar-open'),
+      sidebarClose: document.getElementById('sidebar-close'),
+      sidebarBackdrop: document.getElementById('sidebar-backdrop'),
+      // User menu elements
+      userMenuButton: document.getElementById('user-menu-button'),
+      userMenu: document.getElementById('user-menu')
+  };
 
-/**
- * Khởi tạo menu người dùng
- */
-function initUserMenu() {
-  const userMenuButton = document.getElementById('user-menu-button');
-  const userMenu = document.getElementById('user-menu');
+  // --------------------------------------------------
+  // Initialization
+  // --------------------------------------------------
   
-  userMenuButton?.addEventListener('click', () => {
-    const isVisible = !userMenu.classList.contains('invisible');
-    
-    if (isVisible) {
-      userMenu.classList.add('invisible', 'opacity-0', 'scale-95');
-      userMenu.classList.remove('visible', 'opacity-100', 'scale-100');
+  /**
+   * Khởi tạo module khi trang đã tải xong
+   */
+  function initialize() {
+    // Khởi tạo animation
+    if (typeof AOS !== 'undefined') {
+        AOS.init({
+            duration: 800,
+            once: true
+        });
     } else {
-      userMenu.classList.remove('invisible', 'opacity-0', 'scale-95');
-      userMenu.classList.add('visible', 'opacity-100', 'scale-100');
+        console.warn('AOS library not found.');
     }
-  });
-  
-  // Đóng menu khi click ra ngoài
-  document.addEventListener('click', (e) => {
-    if (userMenuButton && userMenu && !userMenuButton.contains(e.target) && !userMenu.contains(e.target)) {
-      userMenu.classList.add('invisible', 'opacity-0', 'scale-95');
-      userMenu.classList.remove('visible', 'opacity-100', 'scale-100');
+    
+    // Khởi tạo sidebar và user menu
+    initSidebar();
+    initUserMenu();
+    
+    // Tạo container cho toast nếu chưa có
+    ensureToastContainerExists();
+
+    // Lấy userTypeId từ tham số URL
+    userTypeId = getIdFromUrl();
+    
+    if (!userTypeId) {
+      showError("Không tìm thấy ID loại người dùng trong URL", "Vui lòng kiểm tra lại đường dẫn.");
+      return;
     }
-  });
-}
+    
+    // Thiết lập các sự kiện
+    setupEventListeners();
 
-/**
- * Lấy ID từ tham số URL
- */
-function getIdFromUrl() {
-  const urlParams = new URLSearchParams(window.location.search);
-  return urlParams.get('id');
-}
-
-/**
- * Thiết lập các sự kiện
- */
-function setupEventListeners() {
-  // Nút chỉnh sửa loại người dùng
-  const editButton = document.getElementById('edit-user-type-button');
-  editButton?.addEventListener('click', function(e) {
-    e.preventDefault();
-    window.location.href = `user-type-edit.html?id=${userTypeId}`;
-  });
-  
-  // Nút xóa loại người dùng
-  const deleteButton = document.getElementById('delete-user-type');
-  deleteButton?.addEventListener('click', function(e) {
-    e.preventDefault();
-    confirmDeleteUserType();
-  });
-  
-  // Nút thử lại khi có lỗi
-  const retryButton = document.getElementById('retry-button');
-  retryButton?.addEventListener('click', function() {
+    // Load dữ liệu và hiển thị
     loadUserTypeDetails();
-  });
-  
-  // Phân trang trong danh sách người dùng
-  document.getElementById('users-prev-page')?.addEventListener('click', () => navigateUserListPage(currentPage - 1));
-  document.getElementById('users-next-page')?.addEventListener('click', () => navigateUserListPage(currentPage + 1));
-  document.getElementById('users-prev-page-mobile')?.addEventListener('click', () => navigateUserListPage(currentPage - 1));
-  document.getElementById('users-next-page-mobile')?.addEventListener('click', () => navigateUserListPage(currentPage + 1));
-}
+  }
 
-/**
- * Tải chi tiết loại người dùng
- */
-function loadUserTypeDetails() {
-  showLoading(true);
-  hideError();
-  
-  // Giả lập gọi API
-  setTimeout(() => {
-    try {
-      // Tìm loại người dùng theo ID
-      userTypeData = userTypesMockData.find(type => type.id == userTypeId);
+  /**
+   * Tạo container cho toast nếu chưa tồn tại (nhất quán với edit.js)
+   */
+  function ensureToastContainerExists() {
+    if (!document.getElementById('toast-container')) {
+      const toastContainer = document.createElement('div');
+      toastContainer.id = 'toast-container';
+      // Classes for positioning and z-index should match toast function's expectations
+      toastContainer.className = 'fixed bottom-4 right-4 z-[100] space-y-2'; 
+      document.body.appendChild(toastContainer);
+    }
+  }
+
+  /**
+   * Khởi tạo sidebar cho mobile (nhất quán với edit.js)
+   */
+  function initSidebar() {
+      const { sidebar, sidebarOpen, sidebarClose, sidebarBackdrop } = $elements;
       
-      if (!userTypeData) {
-        showError("Không tìm thấy loại người dùng với ID đã cung cấp");
-        return;
+      if (sidebarOpen && sidebar && sidebarBackdrop) {
+          sidebarOpen.addEventListener('click', () => {
+              sidebar.classList.remove('-translate-x-full');
+              sidebarBackdrop.classList.remove('hidden');
+          });
       }
+
+      if (sidebarClose && sidebar && sidebarBackdrop) {
+          sidebarClose.addEventListener('click', () => {
+              sidebar.classList.add('-translate-x-full');
+              sidebarBackdrop.classList.add('hidden');
+          });
+      }
+
+      if (sidebarBackdrop && sidebar) {
+          sidebarBackdrop.addEventListener('click', () => {
+              sidebar.classList.add('-translate-x-full');
+              sidebarBackdrop.classList.add('hidden');
+          });
+      }
+  }
+    
+  /**
+   * Khởi tạo menu người dùng (nhất quán với edit.js)
+   */
+  function initUserMenu() {
+      const { userMenuButton, userMenu } = $elements;
       
-      // Hiển thị thông tin loại người dùng
-      displayUserTypeInfo();
-      
-      // Tải danh sách người dùng thuộc loại này
-      loadUsersByType();
-      
-      showLoading(false);
-    } catch (error) {
-      showError("Có lỗi khi tải thông tin: " + error.message);
-    }
-  }, 500);
-}
+      if (userMenuButton && userMenu) {
+          userMenuButton.addEventListener('click', (event) => {
+              event.stopPropagation(); // Ngăn chặn sự kiện click lan ra document
+              const isVisible = !userMenu.classList.contains('hidden'); // Kiểm tra class hidden
+              if (isVisible) {
+                  userMenu.classList.add('hidden');
+              } else {
+                  userMenu.classList.remove('hidden');
+              }
+          });
 
-/**
- * Hiển thị thông tin của loại người dùng
- */
-function displayUserTypeInfo() {
-  // Cập nhật breadcrumb
-  document.getElementById('user-type-name-breadcrumb').textContent = userTypeData.name;
-  
-  // Thông tin cơ bản
-  document.getElementById('user-type-id').textContent = userTypeData.id;
-  document.getElementById('user-type-name').textContent = userTypeData.name;
-  document.getElementById('user-type-description').textContent = userTypeData.description || "Không có mô tả";
-  document.getElementById('user-type-status').innerHTML = getStatusBadge(userTypeData.status);
-  document.getElementById('user-type-created-at').textContent = formatDateTime(userTypeData.createdAt);
-  document.getElementById('user-type-updated-at').textContent = formatDateTime(userTypeData.updatedAt);
-  
-  // Thống kê
-  document.getElementById('user-type-user-count').textContent = userTypeData.userCount;
-  document.getElementById('user-type-active-user-count').textContent = userTypeData.activeUserCount;
-  document.getElementById('user-type-inactive-user-count').textContent = userTypeData.inactiveUserCount;
-  
-  // Cập nhật các thanh tiến trình
-  updateProgressBars();
-  
-  // Hiển thị danh sách quyền hạn
-  displayPermissions();
-}
-
-/**
- * Cập nhật các thanh tiến trình
- */
-function updateProgressBars() {
-  // Tính toán phần trăm người dùng hoạt động và không hoạt động
-  const userCount = userTypeData.userCount;
-  
-  if (userCount > 0) {
-    const activePercent = (userTypeData.activeUserCount / userCount) * 100;
-    const inactivePercent = (userTypeData.inactiveUserCount / userCount) * 100;
-    
-    // Cập nhật chiều rộng của các thanh tiến trình
-    document.getElementById('user-type-user-count-bar').style.width = "100%";
-    document.getElementById('user-type-active-user-count-bar').style.width = `${activePercent}%`;
-    document.getElementById('user-type-inactive-user-count-bar').style.width = `${inactivePercent}%`;
-  } else {
-    // Nếu không có người dùng, đặt tất cả về 0%
-    document.getElementById('user-type-user-count-bar').style.width = "0%";
-    document.getElementById('user-type-active-user-count-bar').style.width = "0%";
-    document.getElementById('user-type-inactive-user-count-bar').style.width = "0%";
+          // Đóng menu khi click bên ngoài
+          document.addEventListener('click', (e) => {
+            if (userMenuButton && userMenu && !userMenuButton.contains(e.target) && !userMenu.contains(e.target)) {
+               userMenu.classList.add('hidden');
+            }
+         });
+      }
   }
-}
 
-/**
- * Hiển thị danh sách quyền hạn
- */
-function displayPermissions() {
-  const permissionsList = document.getElementById('permissions-list');
-  permissionsList.innerHTML = '';
-  
-  if (!userTypeData.permissions || userTypeData.permissions.length === 0) {
-    permissionsList.innerHTML = '<p class="text-gray-500 italic">Không có quyền hạn nào được cấp</p>';
-    return;
+  /**
+   * Lấy ID từ tham số URL
+   */
+  function getIdFromUrl() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const id = urlParams.get('id');
+    return id ? parseInt(id) : null; // Parse thành số nguyên
   }
-  
-  userTypeData.permissions.forEach(permission => {
-    const permissionElement = document.createElement('div');
-    permissionElement.className = 'bg-gray-50 p-3 rounded-md border border-gray-200';
-    
-    const description = permissionDescriptions[permission] || permission;
-    
-    permissionElement.innerHTML = `
-      <div class="flex items-start">
-        <i class="fas fa-check-circle text-green-500 mt-0.5 mr-2"></i>
-        <div>
-          <p class="text-sm font-medium text-gray-900">${permission}</p>
-          <p class="text-xs text-gray-500">${description}</p>
-        </div>
-      </div>
-    `;
-    
-    permissionsList.appendChild(permissionElement);
-  });
-}
 
-/**
- * Tải danh sách người dùng thuộc loại người dùng này
- */
-function loadUsersByType() {
-  // Lọc danh sách người dùng theo loại
-  usersList = usersMockData.filter(user => user.userTypeId == userTypeId);
-  
-  // Cập nhật badge số lượng người dùng
-  document.getElementById('user-count-badge').textContent = `${usersList.length} người dùng`;
-  
-  // Hiển thị danh sách người dùng hoặc thông báo trống
-  if (usersList.length === 0) {
-    document.getElementById('no-users-message').classList.remove('hidden');
-    document.getElementById('users-pagination').classList.add('hidden');
-  } else {
-    document.getElementById('no-users-message').classList.add('hidden');
-    document.getElementById('users-pagination').classList.remove('hidden');
-    
-    // Hiển thị người dùng với phân trang
-    displayUsersList();
-  }
-}
-
-/**
- * Hiển thị danh sách người dùng với phân trang
- */
-function displayUsersList() {
-  const userListElement = document.getElementById('users-list');
-  
-  // Tính toán phân trang
-  const totalPages = Math.ceil(usersList.length / itemsPerPage);
-  const startIndex = (currentPage - 1) * itemsPerPage;
-  const endIndex = Math.min(startIndex + itemsPerPage, usersList.length);
-  const currentUsers = usersList.slice(startIndex, endIndex);
-  
-  // Xóa nội dung cũ
-  userListElement.innerHTML = '';
-  
-  // Thêm người dùng vào danh sách
-  currentUsers.forEach(user => {
-    const row = document.createElement('tr');
-    
-    row.innerHTML = `
-      <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-        ${user.id}
-      </td>
-      <td class="px-6 py-4 whitespace-nowrap">
-        <div class="flex items-center">
-          <div class="text-sm font-medium text-gray-900">${user.name}</div>
-        </div>
-      </td>
-      <td class="px-6 py-4 whitespace-nowrap">
-        <div class="text-sm text-gray-900">${user.email}</div>
-      </td>
-      <td class="px-6 py-4 whitespace-nowrap">
-        ${getStatusBadge(user.status)}
-      </td>
-      <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-        ${formatDateTime(user.joinedDate)}
-      </td>
-      <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-        <a href="user-detail.html?id=${user.id}" class="text-primary-600 hover:text-primary-900 p-1" title="Xem chi tiết">
-          <i class="fas fa-eye"></i>
-        </a>
-        <a href="user-edit.html?id=${user.id}" class="text-indigo-600 hover:text-indigo-900 p-1" title="Chỉnh sửa">
-          <i class="fas fa-edit"></i>
-        </a>
-      </td>
-    `;
-    
-    userListElement.appendChild(row);
-  });
-  
-  // Cập nhật thông tin phân trang
-  updateUsersPaginationInfo(startIndex, endIndex);
-  
-  // Tạo các nút phân trang
-  createPaginationButtons(totalPages);
-  
-  // Cập nhật trạng thái các nút điều hướng
-  updatePaginationControls(totalPages);
-}
-
-/**
- * Điều hướng đến trang được chỉ định trong danh sách người dùng
- */
-function navigateUserListPage(page) {
-  const totalPages = Math.ceil(usersList.length / itemsPerPage);
-  
-  // Đảm bảo trang hợp lệ
-  if (page < 1 || page > totalPages || page === currentPage) {
-    return;
-  }
-  
-  currentPage = page;
-  displayUsersList();
-}
-
-/**
- * Cập nhật thông tin phân trang
- */
-function updateUsersPaginationInfo(startIndex, endIndex) {
-  const startItem = usersList.length > 0 ? startIndex + 1 : 0;
-  const endItem = Math.min(usersList.length, endIndex);
-  
-  // Cập nhật cho desktop
-  document.getElementById('users-start-item').textContent = startItem;
-  document.getElementById('users-end-item').textContent = endItem;
-  document.getElementById('users-total-items').textContent = usersList.length;
-  
-  // Cập nhật cho mobile
-  const totalPages = Math.ceil(usersList.length / itemsPerPage);
-  document.getElementById('users-current-page-mobile').textContent = currentPage;
-  document.getElementById('users-total-pages-mobile').textContent = totalPages;
-}
-
-/**
- * Tạo các nút phân trang
- */
-function createPaginationButtons(totalPages) {
-  const paginationContainer = document.getElementById('users-pagination-numbers');
-  paginationContainer.innerHTML = '';
-  
-  // Giới hạn số lượng nút trang để hiển thị
-  const maxVisiblePages = 5;
-  let startPage = Math.max(1, currentPage - Math.floor(maxVisiblePages / 2));
-  let endPage = Math.min(totalPages, startPage + maxVisiblePages - 1);
-  
-  if (endPage - startPage + 1 < maxVisiblePages && startPage > 1) {
-    startPage = Math.max(1, endPage - maxVisiblePages + 1);
-  }
-  
-  // Tạo các nút phân trang
-  for (let i = startPage; i <= endPage; i++) {
-    const button = document.createElement('button');
-    button.innerText = i;
-    button.classList.add(
-      'relative', 'inline-flex', 'items-center', 'px-4', 'py-2', 'border', 
-      'text-sm', 'font-medium', 'bg-white', 'border-gray-300'
-    );
-    
-    if (i === currentPage) {
-      button.classList.add('z-10', 'bg-primary-50', 'border-primary-500', 'text-primary-600');
-    } else {
-      button.classList.add('text-gray-500', 'hover:bg-gray-50');
+  /**
+   * Thiết lập các sự kiện
+   */
+  function setupEventListeners() {
+    // Nút chỉnh sửa loại người dùng
+    if ($elements.editButton) {
+        // Cập nhật href trong loadUserTypeDetails khi có userTypeId
     }
     
-    button.addEventListener('click', () => navigateUserListPage(i));
-    paginationContainer.appendChild(button);
-  }
-}
-
-/**
- * Cập nhật trạng thái các nút điều hướng phân trang
- */
-function updatePaginationControls(totalPages) {
-  const prevButton = document.getElementById('users-prev-page');
-  const nextButton = document.getElementById('users-next-page');
-  const prevButtonMobile = document.getElementById('users-prev-page-mobile');
-  const nextButtonMobile = document.getElementById('users-next-page-mobile');
-  
-  // Vô hiệu hóa nút trước nếu đang ở trang đầu tiên
-  if (currentPage === 1) {
-    prevButton.classList.add('opacity-50', 'cursor-not-allowed');
-    prevButtonMobile.classList.add('opacity-50', 'cursor-not-allowed');
-    prevButton.disabled = true;
-    prevButtonMobile.disabled = true;
-  } else {
-    prevButton.classList.remove('opacity-50', 'cursor-not-allowed');
-    prevButtonMobile.classList.remove('opacity-50', 'cursor-not-allowed');
-    prevButton.disabled = false;
-    prevButtonMobile.disabled = false;
-  }
-  
-  // Vô hiệu hóa nút sau nếu đang ở trang cuối cùng
-  if (currentPage === totalPages || totalPages === 0) {
-    nextButton.classList.add('opacity-50', 'cursor-not-allowed');
-    nextButtonMobile.classList.add('opacity-50', 'cursor-not-allowed');
-    nextButton.disabled = true;
-    nextButtonMobile.disabled = true;
-  } else {
-    nextButton.classList.remove('opacity-50', 'cursor-not-allowed');
-    nextButtonMobile.classList.remove('opacity-50', 'cursor-not-allowed');
-    nextButton.disabled = false;
-    nextButtonMobile.disabled = false;
-  }
-}
-
-/**
- * Hiển thị hoặc ẩn trạng thái loading
- */
-function showLoading(show) {
-  const loadingIndicator = document.getElementById('loading-indicator');
-  const userTypeDetail = document.getElementById('user-type-detail');
-  
-  if (show) {
-    loadingIndicator.classList.remove('hidden');
-    userTypeDetail.classList.add('hidden');
-  } else {
-    loadingIndicator.classList.add('hidden');
-    userTypeDetail.classList.remove('hidden');
-  }
-}
-
-/**
- * Hiển thị thông báo lỗi
- */
-function showError(message) {
-  const errorContainer = document.getElementById('error-container');
-  const errorMessage = document.getElementById('error-message');
-  const loadingIndicator = document.getElementById('loading-indicator');
-  const userTypeDetail = document.getElementById('user-type-detail');
-  
-  errorMessage.textContent = message;
-  errorContainer.classList.remove('hidden');
-  loadingIndicator.classList.add('hidden');
-  userTypeDetail.classList.add('hidden');
-}
-
-/**
- * Ẩn thông báo lỗi
- */
-function hideError() {
-  const errorContainer = document.getElementById('error-container');
-  errorContainer.classList.add('hidden');
-}
-
-/**
- * Xác nhận xóa loại người dùng
- */
-function confirmDeleteUserType() {
-  if (confirm(`Bạn có chắc chắn muốn xóa loại người dùng "${userTypeData.name}" không? Hành động này không thể hoàn tác.`)) {
-    deleteUserType();
-  }
-}
-
-/**
- * Xóa loại người dùng
- */
-function deleteUserType() {
-  showLoading(true);
-  
-  // Giả lập gọi API
-  setTimeout(() => {
-    try {
-      // Hiển thị thông báo thành công
-      showToast("Xóa loại người dùng thành công!", "success");
-      
-      // Điều hướng về trang danh sách
-      setTimeout(() => {
-        window.location.href = "user-types.html";
-      }, 1000);
-    } catch (error) {
-      showToast("Lỗi khi xóa loại người dùng: " + error.message, "error");
-      showLoading(false);
+    // Nút thử lại khi có lỗi
+    if ($elements.retryButton) {
+        $elements.retryButton.addEventListener('click', loadUserTypeDetails);
     }
-  }, 500);
-}
+    
+    // Thay đổi số lượng item/trang
+    if ($elements.usersPerPageSelect) {
+        $elements.usersPerPageSelect.addEventListener('change', (e) => {
+            usersItemsPerPage = parseInt(e.target.value);
+            usersCurrentPage = 1; // Reset về trang đầu khi thay đổi số lượng
+            displayUsersList();
+        });
+    }
 
-/**
- * Tạo badge hiển thị trạng thái
- */
-function getStatusBadge(status) {
-  if (status === 'active') {
-    return `<span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
-              Đang hoạt động
-            </span>`;
-  } else {
-    return `<span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-gray-100 text-gray-800">
-              Không hoạt động
-            </span>`;
-  }
-}
+    // Input trang hiện tại
+    if ($elements.usersCurrentPageInput) {
+        $elements.usersCurrentPageInput.addEventListener('change', (e) => {
+            const targetPage = parseInt(e.target.value);
+            const totalPages = Math.ceil(usersList.length / usersItemsPerPage);
+            // Chấp nhận 0 nếu totalPages = 0
+            const maxPage = totalPages > 0 ? totalPages : 1;
+            if (targetPage >= 1 && targetPage <= maxPage) {
+                navigateUserListPage(targetPage);
+            } else {
+                // Reset input về trang hiện tại nếu nhập không hợp lệ
+                e.target.value = usersCurrentPage;
+            }
+        });
+         // Ngăn chặn việc nhập số âm hoặc 0
+         $elements.usersCurrentPageInput.addEventListener('input', (e) => {
+              if (parseInt(e.target.value) < 1) {
+                  e.target.value = 1;
+              }
+         });
+    }
 
-/**
- * Format thời gian dạng datetime
- */
-function formatDateTime(dateTimeStr) {
-  try {
-    const date = new Date(dateTimeStr);
-    return date.toLocaleString('vi-VN', {
-      day: '2-digit',
-      month: '2-digit',
-      year: 'numeric',
-      hour: '2-digit',
-      minute: '2-digit'
-    });
-  } catch (error) {
-    return dateTimeStr;
+    // Nút điều hướng phân trang
+    if ($elements.usersBtnFirst) $elements.usersBtnFirst.addEventListener('click', () => navigateUserListPage(1));
+    if ($elements.usersBtnPrev) $elements.usersBtnPrev.addEventListener('click', () => navigateUserListPage(usersCurrentPage - 1));
+    if ($elements.usersBtnNext) $elements.usersBtnNext.addEventListener('click', () => navigateUserListPage(usersCurrentPage + 1));
+    if ($elements.usersBtnLast) {
+        $elements.usersBtnLast.addEventListener('click', () => {
+            const totalPages = Math.ceil(usersList.length / usersItemsPerPage);
+            navigateUserListPage(totalPages > 0 ? totalPages : 1);
+        });
+    }
   }
-}
 
-/**
- * Hiển thị thông báo toast
- */
-function showToast(message, type = "info") {
-  const toastContainer = document.getElementById('toast-container');
-  
-  // Tạo thông báo
-  const toast = document.createElement('div');
-  toast.classList.add(
-    'flex', 'items-center', 'p-4', 'mb-3', 'rounded-md', 'shadow-md', 
-    'max-w-md', 'animate__animated', 'animate__fadeInRight'
-  );
-  
-  // Áp dụng màu sắc dựa trên loại thông báo
-  if (type === "success") {
-    toast.classList.add('bg-green-50', 'border-l-4', 'border-green-500');
-  } else if (type === "error") {
-    toast.classList.add('bg-red-50', 'border-l-4', 'border-red-500');
-  } else {
-    toast.classList.add('bg-blue-50', 'border-l-4', 'border-blue-500');
-  }
-  
-  // Nội dung thông báo
-  toast.innerHTML = `
-    <div class="flex-shrink-0 mr-3">
-      ${getToastIcon(type)}
-    </div>
-    <div class="flex-1">
-      <p class="text-sm font-medium text-gray-900">${message}</p>
-    </div>
-    <div class="ml-4 flex-shrink-0 flex">
-      <button class="inline-flex text-gray-400 hover:text-gray-500 focus:outline-none">
-        <i class="fas fa-times"></i>
-      </button>
-    </div>
-  `;
-  
-  // Thêm vào container
-  toastContainer.appendChild(toast);
-  
-  // Xử lý đóng thông báo
-  toast.querySelector('button').addEventListener('click', () => {
-    toast.classList.replace('animate__fadeInRight', 'animate__fadeOutRight');
+  // --------------------------------------------------
+  // Data Loading & Display
+  // --------------------------------------------------
+
+  /**
+   * Tải chi tiết loại người dùng
+   */
+  function loadUserTypeDetails() {
+    showLoading(true);
+    hideError();
+    
+    // Cập nhật link nút Edit ngay khi có ID
+    if ($elements.editButton && userTypeId) {
+       $elements.editButton.href = `user-type-edit.html?id=${userTypeId}`;
+    }
+
+    // Giả lập gọi API
     setTimeout(() => {
-      toast.remove();
-    }, 300);
-  });
-  
-  // Tự động ẩn sau 5 giây
-  setTimeout(() => {
-    if (toast.parentNode) {
-      toast.classList.replace('animate__fadeInRight', 'animate__fadeOutRight');
-      setTimeout(() => {
-        if (toast.parentNode) {
-          toast.remove();
+      try {
+        userTypeData = userTypesMockData.find(type => type.id == userTypeId);
+        
+        if (!userTypeData) {
+          showError("Không tìm thấy loại người dùng với ID đã cung cấp.", "Vui lòng quay lại trang danh sách.");
+          return;
         }
-      }, 300);
-    }
-  }, 5000);
-}
-
-/**
- * Lấy biểu tượng cho thông báo toast
- */
-function getToastIcon(type) {
-  if (type === "success") {
-    return '<i class="fas fa-check-circle text-green-500"></i>';
-  } else if (type === "error") {
-    return '<i class="fas fa-exclamation-circle text-red-500"></i>';
-  } else {
-    return '<i class="fas fa-info-circle text-blue-500"></i>';
+        
+        // Hiển thị thông tin loại người dùng
+        displayUserTypeInfo();
+        
+        // Tải danh sách người dùng thuộc loại này
+        loadUsersByType();
+        
+        // Hiển thị container chi tiết
+        if ($elements.detailContainer) {
+            $elements.detailContainer.classList.remove('hidden');
+        }
+        showLoading(false);
+      } catch (error) {
+        console.error("Lỗi khi tải chi tiết loại người dùng:", error);
+        showError("Có lỗi khi tải thông tin chi tiết", error.message);
+      }
+    }, 500);
   }
-} 
+
+  /**
+   * Hiển thị thông tin của loại người dùng
+   */
+  function displayUserTypeInfo() {
+    if (!userTypeData) return;
+    
+    // Cập nhật breadcrumb
+    if ($elements.userTypeNameBreadcrumb) {
+        $elements.userTypeNameBreadcrumb.textContent = `: ${userTypeData.name}`;
+    }
+    
+    // Thông tin cơ bản
+    if ($elements.userTypeIdDisplay) $elements.userTypeIdDisplay.textContent = userTypeData.id;
+    if ($elements.userTypeNameDisplay) $elements.userTypeNameDisplay.textContent = userTypeData.name;
+    if ($elements.userTypeDescriptionDisplay) $elements.userTypeDescriptionDisplay.textContent = userTypeData.description || "-";
+    if ($elements.userTypeStatusDisplay) $elements.userTypeStatusDisplay.innerHTML = getStatusBadge(userTypeData.status);
+    if ($elements.userTypeCreatedAtDisplay) $elements.userTypeCreatedAtDisplay.textContent = formatDateTime(userTypeData.createdAt);
+    if ($elements.userTypeUpdatedAtDisplay) $elements.userTypeUpdatedAtDisplay.textContent = formatDateTime(userTypeData.updatedAt);
+    
+    // Thống kê
+    if ($elements.userTypeUserCountDisplay) $elements.userTypeUserCountDisplay.textContent = userTypeData.userCount;
+    if ($elements.userTypeActiveUserCountDisplay) $elements.userTypeActiveUserCountDisplay.textContent = userTypeData.activeUserCount;
+    if ($elements.userTypeInactiveUserCountDisplay) $elements.userTypeInactiveUserCountDisplay.textContent = userTypeData.inactiveUserCount;
+    
+    // Cập nhật các thanh tiến trình
+    updateProgressBars();
+    
+    // Hiển thị danh sách quyền hạn
+    displayPermissions();
+  }
+
+  /**
+   * Cập nhật các thanh tiến trình
+   */
+  function updateProgressBars() {
+    const userCount = userTypeData?.userCount ?? 0;
+    
+    let activePercent = 0;
+    let inactivePercent = 0;
+    let totalPercent = 0;
+
+    if (userCount > 0) {
+      activePercent = (userTypeData.activeUserCount / userCount) * 100;
+      inactivePercent = (userTypeData.inactiveUserCount / userCount) * 100;
+      totalPercent = 100; // Thanh tổng luôn đầy nếu có user
+    }
+        
+    if ($elements.userTypeUserCountBar) $elements.userTypeUserCountBar.style.width = `${totalPercent}%`;
+    if ($elements.userTypeActiveUserCountBar) $elements.userTypeActiveUserCountBar.style.width = `${activePercent}%`;
+    if ($elements.userTypeInactiveUserCountBar) $elements.userTypeInactiveUserCountBar.style.width = `${inactivePercent}%`;
+  }
+
+  /**
+   * Hiển thị danh sách quyền hạn (nhất quán với edit.js)
+   */
+  function displayPermissions() {
+    const container = $elements.permissionsListContainer;
+    const countDisplay = $elements.permissionsCountDisplay;
+    if (!container || !userTypeData) return;
+    
+    container.innerHTML = ''; // Xóa nội dung cũ
+    const assignedPermissions = userTypeData.permissions || [];
+    
+    if (assignedPermissions.length === 0) {
+      container.innerHTML = '<p class="text-gray-500 italic col-span-full">Không có quyền hạn nào được cấp.</p>';
+      if (countDisplay) countDisplay.textContent = 0;
+      return;
+    }
+
+    if (countDisplay) countDisplay.textContent = assignedPermissions.length;
+    
+    assignedPermissions.forEach(permissionId => {
+      const permissionData = permissionsList.find(p => p.id === permissionId);
+      
+      const permissionElement = document.createElement('div');
+      permissionElement.className = 'border rounded-md p-3 bg-gray-50'; // Style for detail view
+      
+      const name = permissionData?.name || permissionId;
+      const description = permissionData?.description || 'Không có mô tả';
+      
+      // Sử dụng icon nhất quán hơn (ví dụ: ri-check-line)
+      permissionElement.innerHTML = `
+        <div class="flex items-start">
+          <i class="ri-checkbox-circle-fill text-primary mt-0.5 mr-2 text-base"></i> 
+          <div>
+            <p class="text-sm font-medium text-gray-800">${name}</p>
+            <p class="text-xs text-gray-500 mt-0.5">${description}</p>
+          </div>
+        </div>
+      `;
+      
+      container.appendChild(permissionElement);
+    });
+  }
+
+  // --------------------------------------------------
+  // User List Handling
+  // --------------------------------------------------
+
+  /**
+   * Tải danh sách người dùng thuộc loại người dùng này
+   */
+  function loadUsersByType() {
+    // Lọc danh sách người dùng mẫu
+    // Trong ứng dụng thực tế, đây sẽ là một API call với userTypeId
+    usersList = usersMockData.filter(user => user.userTypeId == userTypeId);
+    
+    // Cập nhật badge số lượng người dùng
+    const userCountBadge = document.getElementById('user-count-badge');
+    if (userCountBadge) {
+        userCountBadge.textContent = `${usersList.length} người dùng`;
+    }
+    
+    // Reset phân trang và hiển thị
+    usersCurrentPage = 1;
+    if ($elements.usersCurrentPageInput) $elements.usersCurrentPageInput.value = 1;
+    displayUsersList(); 
+  }
+
+  /**
+   * Hiển thị danh sách người dùng với phân trang
+   */
+  function displayUsersList() {
+    if (!$elements.usersListBody || !$elements.usersPaginationContainer || !$elements.noUsersMessage) return;
+    
+    const totalItems = usersList.length;
+    const totalPages = Math.ceil(totalItems / usersItemsPerPage);
+
+    if (totalItems === 0) {
+        $elements.usersListBody.innerHTML = ''; // Clear table body
+        $elements.noUsersMessage.classList.remove('hidden');
+        $elements.usersPaginationContainer.classList.add('hidden');
+        return;
+    }
+
+    $elements.noUsersMessage.classList.add('hidden');
+    $elements.usersPaginationContainer.classList.remove('hidden');
+
+    const startIndex = (usersCurrentPage - 1) * usersItemsPerPage;
+    const endIndex = Math.min(startIndex + usersItemsPerPage, totalItems);
+    const currentUsers = usersList.slice(startIndex, endIndex);
+    
+    // Xóa nội dung cũ
+    $elements.usersListBody.innerHTML = '';
+    
+    // Thêm người dùng vào bảng
+    currentUsers.forEach(user => {
+      const row = $elements.usersListBody.insertRow();
+      row.className = 'hover:bg-gray-50 transition-colors duration-150';
+      
+      row.innerHTML = `
+        <td class="px-6 py-3 whitespace-nowrap text-sm text-gray-500">
+          ${user.id}
+        </td>
+        <td class="px-6 py-3 whitespace-nowrap">
+          <div class="flex items-center">
+            <%-- Optional avatar --%>
+            <%-- <img class="h-8 w-8 rounded-full mr-3" src="..." alt=""> --%>
+            <div>
+              <div class="text-sm font-medium text-gray-900">${user.name}</div>
+            </div>
+          </div>
+        </td>
+        <td class="px-6 py-3 whitespace-nowrap text-sm text-gray-500">
+          ${user.email || '-'}
+        </td>
+        <td class="px-6 py-3 whitespace-nowrap">
+          ${getStatusBadge(user.status)}
+        </td>
+        <td class="px-6 py-3 whitespace-nowrap text-sm text-gray-500">
+          ${formatDateTime(user.joinedDate)}
+        </td>
+        <td class="px-6 py-3 whitespace-nowrap text-right text-sm font-medium space-x-1">
+          <a href="user-detail.html?id=${user.id}" class="text-primary hover:text-primary-dark p-1 inline-block" title="Xem chi tiết">
+            <i class="ri-eye-line text-base"></i>
+          </a>
+          <a href="user-edit.html?id=${user.id}" class="text-blue-600 hover:text-blue-800 p-1 inline-block" title="Chỉnh sửa">
+            <i class="ri-edit-line text-base"></i>
+          </a>
+          <%-- Optional: Delete button --%>
+          <%-- <button class="text-red-600 hover:text-red-800 p-1 inline-block" title="Xóa">
+            <i class="ri-delete-bin-line text-base"></i>
+          </button> --%>
+        </td>
+      `;
+    });
+    
+    // Cập nhật thông tin phân trang
+    updateUsersPaginationInfo(startIndex, endIndex, totalItems, totalPages);
+    
+    // Cập nhật trạng thái các nút điều hướng
+    updatePaginationControls(totalPages);
+  }
+
+  /**
+   * Điều hướng đến trang được chỉ định trong danh sách người dùng
+   */
+  function navigateUserListPage(page) {
+    const totalPages = Math.ceil(usersList.length / usersItemsPerPage);
+    const maxPage = totalPages > 0 ? totalPages : 1;
+    
+    // Đảm bảo trang hợp lệ
+    if (page < 1) page = 1;
+    if (page > maxPage) page = maxPage;
+
+    if (page !== usersCurrentPage) { 
+        usersCurrentPage = page;
+        if ($elements.usersCurrentPageInput) $elements.usersCurrentPageInput.value = usersCurrentPage;
+        displayUsersList();
+    }
+  }
+
+  /**
+   * Cập nhật thông tin hiển thị của phân trang
+   */
+  function updateUsersPaginationInfo(startIndex, endIndex, totalItems, totalPages) {
+    const currentPageVal = totalPages > 0 ? usersCurrentPage : 1;
+    const totalPagesVal = totalPages > 0 ? totalPages : 1;
+    
+    if ($elements.usersTotalItemsDisplay) $elements.usersTotalItemsDisplay.textContent = totalItems;
+    if ($elements.usersTotalPagesDisplay) $elements.usersTotalPagesDisplay.textContent = totalPagesVal;
+    if ($elements.usersCurrentPageInput) {
+        $elements.usersCurrentPageInput.value = currentPageVal;
+        $elements.usersCurrentPageInput.max = totalPagesVal;
+    }
+  }
+
+  /**
+   * Cập nhật trạng thái (enabled/disabled) của các nút điều hướng phân trang
+   */
+  function updatePaginationControls(totalPages) {
+      const currentPageVal = totalPages > 0 ? usersCurrentPage : 1;
+      const totalPagesVal = totalPages > 0 ? totalPages : 1;
+      const isFirstPage = currentPageVal === 1;
+      const isLastPage = currentPageVal === totalPagesVal;
+
+      [$elements.usersBtnFirst, $elements.usersBtnPrev].forEach(btn => {
+          if(btn) btn.disabled = isFirstPage;
+      });
+
+      [$elements.usersBtnNext, $elements.usersBtnLast].forEach(btn => {
+          if(btn) btn.disabled = isLastPage;
+      });
+  }
+
+  // --------------------------------------------------
+  // UI Feedback (Loading, Error, Toast)
+  // --------------------------------------------------
+
+  /**
+   * Hiển thị hoặc ẩn trạng thái loading chính
+   */
+  function showLoading(show) {
+    const { loadingIndicator, detailContainer } = $elements;
+    if (loadingIndicator) {
+        loadingIndicator.classList.toggle('hidden', !show);
+    }
+    if (detailContainer) {
+        // Hide detail container when loading, show when not loading (if data fetch succeeded)
+        detailContainer.classList.toggle('hidden', show);
+    }
+  }
+
+  /**
+   * Hiển thị thông báo lỗi chính
+   */
+  function showError(message, detail = '') {
+    const { errorContainer, errorMessage, errorDetail, loadingIndicator, detailContainer } = $elements;
+    
+    if (errorMessage) errorMessage.textContent = message || "Đã có lỗi xảy ra.";
+    if (errorDetail) errorDetail.textContent = detail || 'Vui lòng tải lại trang hoặc liên hệ quản trị viên.';
+    
+    if (errorContainer) errorContainer.classList.remove('hidden');
+    if (loadingIndicator) loadingIndicator.classList.add('hidden'); // Hide loading if error occurs
+    if (detailContainer) detailContainer.classList.add('hidden'); // Hide detail container on error
+  }
+
+  /**
+   * Ẩn thông báo lỗi chính
+   */
+  function hideError() {
+    const { errorContainer } = $elements;
+    if (errorContainer) {
+        errorContainer.classList.add('hidden');
+    }
+  }
+
+  /**
+   * Tạo badge hiển thị trạng thái (nhất quán với edit.js)
+   */
+  function getStatusBadge(status) {
+    if (status === 'active') {
+      return `<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
+                <svg class="-ml-0.5 mr-1.5 h-2 w-2 text-green-400" fill="currentColor" viewBox="0 0 8 8">
+                  <circle cx="4" cy="4" r="3" />
+                </svg>
+                Hoạt động
+              </span>`;
+    } else {
+      return `<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-red-100 text-red-800">
+                <svg class="-ml-0.5 mr-1.5 h-2 w-2 text-red-400" fill="currentColor" viewBox="0 0 8 8">
+                  <circle cx="4" cy="4" r="3" />
+                </svg>
+                Không hoạt động
+              </span>`;
+    }
+  }
+
+  /**
+   * Format thời gian dạng datetime (nhất quán với edit.js)
+   */
+  function formatDateTime(dateTimeStr) {
+    if (!dateTimeStr) return '-'; // Return dash if no date
+    try {
+      const date = new Date(dateTimeStr);
+      // Kiểm tra xem date có hợp lệ không
+      if (isNaN(date.getTime())) {
+        return 'Ngày không hợp lệ';
+      }
+      return new Intl.DateTimeFormat('vi-VN', {
+        day: '2-digit',
+        month: '2-digit',
+        year: 'numeric',
+        hour: '2-digit',
+        minute: '2-digit'
+      }).format(date);
+    } catch (error) {
+      console.error("Lỗi định dạng ngày:", error);
+      return 'Lỗi định dạng ngày';
+    }
+  }
+
+  // --------------------------------------------------
+  // Toast Notifications (Copied from create.js / edit.js)
+  // --------------------------------------------------
+
+  /**
+   * Hiển thị thông báo toast
+   */
+  function showToast(message, type = "info") {
+    const toastContainer = document.getElementById('toast-container');
+    if (!toastContainer) {
+      console.error("Toast container not found!");
+      return;
+    }
+
+    const toastId = `toast-${Date.now()}`;
+    const toast = document.createElement('div');
+    toast.id = toastId;
+    // Add animation classes if available (optional)
+    const animationClass = typeof addAnimationStyles === 'function' ? ' animate-fadeIn' : '';
+    toast.className = `flex items-center p-4 mb-3 w-full max-w-xs rounded-lg shadow ${getToastBgColor(type)}${animationClass}`;
+    toast.setAttribute('role', 'alert');
+
+    toast.innerHTML = `
+        <div class="inline-flex items-center justify-center flex-shrink-0 w-8 h-8 ${getToastIconBgColor(type)} rounded-lg">
+            ${getToastIcon(type)}
+        </div>
+        <div class="ml-3 text-sm font-normal">${message}</div>
+        <button type="button" class="ml-auto -mx-1.5 -my-1.5 rounded-lg focus:ring-2 focus:ring-gray-300 p-1.5 inline-flex h-8 w-8 ${getToastCloseButtonColor(type)}" data-dismiss-target="#${toastId}" aria-label="Close">
+            <span class="sr-only">Đóng</span>
+            <i class="ri-close-line"></i>
+        </button>
+    `;
+
+    toastContainer.prepend(toast);
+
+    const closeButton = toast.querySelector('button');
+    const removeToast = () => {
+      // Add fadeOut animation if available
+      if (toast.classList.contains('animate-fadeIn')) {
+        toast.classList.remove('animate-fadeIn');
+        toast.classList.add('animate-fadeOut');
+        setTimeout(() => {
+          if (toast.parentNode) toast.remove();
+        }, 300); // Match animation duration
+      } else {
+        if (toast.parentNode) toast.remove();
+      }
+    };
+
+    closeButton.addEventListener('click', removeToast);
+
+    // Auto dismiss
+    setTimeout(removeToast, 5000);
+  }
+
+  /**
+   * Lấy màu nền cho toast (giống create.js)
+   */
+  function getToastBgColor(type) {
+    switch (type) {
+      case 'success': return 'bg-green-50 text-green-800';
+      case 'error':   return 'bg-red-50 text-red-800';
+      case 'warning': return 'bg-yellow-50 text-yellow-800';
+      default:        return 'bg-blue-50 text-blue-800';
+    }
+  }
+
+  /**
+   * Lấy màu nền cho icon toast (giống create.js)
+   */
+  function getToastIconBgColor(type) {
+    switch (type) {
+      case 'success': return 'bg-green-100 text-green-500';
+      case 'error':   return 'bg-red-100 text-red-500';
+      case 'warning': return 'bg-yellow-100 text-yellow-500';
+      default:        return 'bg-blue-100 text-blue-500';
+    }
+  }
+
+  /**
+   * Lấy màu cho nút đóng toast (giống create.js)
+   */
+  function getToastCloseButtonColor(type) {
+    switch (type) {
+      case 'success': return 'bg-green-50 text-green-500 hover:bg-green-100';
+      case 'error':   return 'bg-red-50 text-red-500 hover:bg-red-100';
+      case 'warning': return 'bg-yellow-50 text-yellow-500 hover:bg-yellow-100';
+      default:        return 'bg-blue-50 text-blue-500 hover:bg-blue-100';
+    }
+  }
+
+  /**
+   * Lấy icon cho toast (giống create.js)
+   */
+  function getToastIcon(type) {
+    switch (type) {
+      case 'success': return '<i class="ri-check-line"></i>';
+      case 'error':   return '<i class="ri-error-warning-line"></i>';
+      case 'warning': return '<i class="ri-alert-line"></i>';
+      default:        return '<i class="ri-information-line"></i>';
+    }
+  }
+
+  // --------------------------------------------------
+  // DOM Ready - Start Initialization
+  // --------------------------------------------------
+  document.addEventListener('DOMContentLoaded', initialize);
+
+})(); // End IIFE

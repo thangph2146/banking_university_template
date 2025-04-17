@@ -18,7 +18,7 @@
 </head>
 
 <body class="bg-gray-50 min-h-screen">
-    <div class="flex h-screen overflow-hidden">
+    <div class="flex min-h-screen bg-gray-50">
         <!-- Sidebar Backdrop (mobile only) -->
         <div id="sidebar-backdrop"
             class="fixed inset-0 bg-black/50 z-20 hidden md:hidden transition-opacity duration-300">
@@ -173,52 +173,41 @@
         </aside>
 
         <!-- Main Content -->
-        <main class="flex-1 overflow-auto px-6 pb-6 pt-4">
+        <div class="flex-1 flex flex-col">
             <!-- Header -->
-            <header class="bg-primary shadow-md sticky top-0 z-30 animate-fade-in mb-6">
-                <div class="container mx-auto px-4 py-2 flex items-center justify-between">
+            <header class="bg-primary text-white py-3 px-4 shadow-md">
+                <div class="flex justify-between items-center">
                     <!-- Mobile Menu Toggle Button -->
-                    <button id="sidebar-open"
-                        class="text-white p-2 rounded-md md:hidden focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white">
-                        <i class="ri-menu-line text-2xl"></i>
+                    <button id="sidebar-open" class="md:hidden text-white p-1">
+                        <i class="ri-menu-line text-xl"></i>
                     </button>
 
-                    <a href="index.html"
-                        class="text-2xl font-['Pacifico'] text-white transition-all duration-300 hover:scale-105">
-                        <img src="../../images/logo/logo-white.png" alt="logo" class="w-12 h-12 md:w-16 md:h-16">
-                    </a>
-                    <div class="flex items-center space-x-4">
+                    <div class="md:hidden flex justify-center flex-1">
+                      <!-- Mobile logo - Optional -->
+                    </div>
+
+                    <div class="flex items-center ml-auto">
+                      <span class="mr-2 hidden md:inline-block">Nguyễn Văn A</span>
                         <!-- User profile dropdown menu -->
                         <div class="relative group">
-                            <button class="flex items-center space-x-2 text-white">
-                                <img src="https://readdy.ai/api/search-image?query=professional%20headshot%20young%20vietnamese%20student%20minimal%20background&width=100&height=100&seq=avatar"
-                                    alt="Ảnh đại diện" class="w-8 h-8 rounded-full border-2 border-white">
-                                <span class="hidden sm:block">Nguyễn Văn A</span>
-                                <i
-                                    class="ri-arrow-down-s-line group-hover:rotate-180 transition-transform duration-300"></i>
+                            <button id="user-menu-button" class="flex items-center">
+                                <img src="https://via.placeholder.com/40" alt="User" class="w-8 h-8 rounded-full border-2 border-white">
+                                <i class="ri-arrow-down-s-line ml-1"></i>
                             </button>
-                            <div
-                                class="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg overflow-hidden z-20 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform origin-top-right scale-95 group-hover:scale-100">
-                                <div class="py-2">
+                            <div id="user-menu"
+                                class="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg overflow-hidden z-20 hidden group-hover:block">
+                                <div class="py-1">
                                     <a href="profile.html"
-                                        class="flex items-center px-4 py-2 text-sm text-gray-800 hover:bg-primary/10 hover:text-primary border-l-4 border-primary">
-                                        <i class="ri-user-line mr-2"></i>
+                                        class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
                                         Trang cá nhân
                                     </a>
-                                    <a href="registered-events.html"
-                                        class="flex items-center px-4 py-2 text-sm text-gray-800 hover:bg-primary/10 hover:text-primary">
-                                        <i class="ri-calendar-event-line mr-2"></i>
-                                        Sự kiện của tôi
-                                    </a>
                                     <a href="#"
-                                        class="flex items-center px-4 py-2 text-sm text-gray-800 hover:bg-primary/10 hover:text-primary">
-                                        <i class="ri-settings-4-line mr-2"></i>
+                                       class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
                                         Cài đặt
                                     </a>
-                                    <hr class="my-1 border-gray-200">
+                                    <hr class="border-gray-200">
                                     <a href="login.html"
-                                        class="flex items-center px-4 py-2 text-sm text-gray-800 hover:bg-primary/10 hover:text-primary">
-                                        <i class="ri-logout-box-r-line mr-2"></i>
+                                        class="block px-4 py-2 text-sm text-red-600 hover:bg-gray-100">
                                         Đăng xuất
                                     </a>
                                 </div>
@@ -228,330 +217,278 @@
                 </div>
             </header>
 
-            <div class="bg-white rounded-lg shadow mb-6 p-4">
-                <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between">
-                    <div>
-                        <h1 class="text-2xl font-semibold text-gray-900">Chi tiết loại người dùng</h1>
-                        <p class="mt-1 text-sm text-gray-600">Xem và quản lý thông tin chi tiết loại người dùng</p>
+             <!-- Content -->
+             <main class="flex-1 p-4 md:p-6 overflow-y-auto">
+                <div class="flex items-center justify-between mb-4">
+                    <div class="flex items-center">
+                        <i class="ri-file-list-line text-primary text-xl mr-2"></i>
+                        <h1 class="text-xl font-semibold text-gray-800">Chi tiết loại người dùng</h1>
                     </div>
-                    <div class="mt-4 sm:mt-0 flex gap-2">
-                        <a href="user-types.html"
-                            class="flex items-center justify-center px-4 py-2 border border-gray-300 text-gray-700 rounded-md hover:bg-gray-50 transition-colors duration-200">
-                            <i class="ri-arrow-left-line mr-1"></i> Quay lại
-                        </a>
-                        <a href="#" id="edit-user-type-button"
-                            class="flex items-center justify-center px-4 py-2 bg-primary text-white rounded-md hover:bg-primary-dark transition-colors duration-200">
-                            <i class="ri-edit-line mr-1"></i> Chỉnh sửa
-                        </a>
+                    <div class="flex gap-2">
+                      <a href="user-types.html" class="flex items-center text-sm text-gray-600 hover:text-primary border border-gray-300 px-3 py-1.5 rounded-md hover:border-primary">
+                          <i class="ri-arrow-left-line mr-1"></i> Quay lại danh sách
+                      </a>
+                      <a href="#" id="edit-user-type-button" class="flex items-center text-sm text-white bg-primary hover:bg-primary-dark border border-primary px-3 py-1.5 rounded-md">
+                          <i class="ri-edit-line mr-1"></i> Chỉnh sửa
+                      </a>
                     </div>
                 </div>
-            </div>
 
-            <!-- Breadcrumb -->
-            <nav class="text-sm font-medium mb-3" aria-label="Breadcrumb">
-                <ol class="list-none p-0 inline-flex">
-                    <li class="flex items-center">
-                        <a href="dashboard.html" class="text-gray-500 hover:text-primary">
-                            <i class="ri-dashboard-line mr-1"></i> Dashboard
-                        </a>
-                        <i class="ri-arrow-right-s-line text-gray-400 mx-2"></i>
-                    </li>
-                    <li class="flex items-center">
-                        <a href="user-types.html" class="text-gray-500 hover:text-primary">
-                            Loại người dùng
-                        </a>
-                        <i class="ri-arrow-right-s-line text-gray-400 mx-2"></i>
-                    </li>
-                    <li class="text-primary" aria-current="page" id="user-type-name-breadcrumb">Chi tiết</li>
-                </ol>
-            </nav>
+                <div class="text-sm text-gray-500 mb-4">
+                  <p>Xem và quản lý thông tin chi tiết loại người dùng.</p>
+                </div>
 
-            <!-- Loading -->
-            <div id="loading-indicator" class="flex flex-col items-center justify-center py-12 hidden"
-                data-aos="fade-up">
-                <div class="animate-spin rounded-full h-16 w-16 border-t-4 border-b-4 border-primary mb-4"></div>
-                <p class="text-gray-500 text-lg">Đang tải thông tin loại người dùng...</p>
-            </div>
+                <!-- Breadcrumb -->
+                <nav class="text-sm mb-6 bg-white px-3 py-2 rounded-md shadow-sm border border-gray-200">
+                    <ol class="flex items-center text-gray-500">
+                        <li>
+                          <a href="dashboard.html" class="hover:text-primary flex items-center">
+                            <i class="ri-home-4-line mr-1"></i> Dashboard
+                          </a>
+                        </li>
+                        <li class="mx-2"><i class="ri-arrow-right-s-line"></i></li>
+                        <li>
+                          <a href="user-types.html" class="hover:text-primary">Loại người dùng</a>
+                        </li>
+                        <li class="mx-2"><i class="ri-arrow-right-s-line"></i></li>
+                        <li class="text-primary font-medium">Chi tiết <span id="user-type-name-breadcrumb"></span></li>
+                    </ol>
+                </nav>
 
-            <!-- Error Message -->
-            <div id="error-container" class="bg-red-50 border-l-4 border-red-500 p-4 hidden" data-aos="fade-up">
-                <div class="flex">
-                    <div class="flex-shrink-0">
-                        <i class="ri-error-warning-line text-red-500"></i>
-                    </div>
-                    <div class="ml-3">
-                        <p class="text-sm text-red-700" id="error-message">Có lỗi xảy ra khi tải thông tin loại người
-                            dùng</p>
-                    </div>
-                    <div class="ml-auto pl-3">
-                        <div class="-mx-1.5 -my-1.5">
-                            <button id="retry-button"
+                <!-- Loading Indicator -->
+                <div id="loading-indicator" class="text-center py-10 hidden">
+                    <div class="inline-block animate-spin rounded-full h-12 w-12 border-t-4 border-b-4 border-primary mb-4"></div>
+                    <p class="text-gray-600 text-lg">Đang tải thông tin loại người dùng...</p>
+                </div>
+
+                <!-- Error Message -->
+                <div id="error-container" class="bg-red-50 border-l-4 border-red-500 p-4 mb-6 hidden">
+                    <div class="flex">
+                        <div class="flex-shrink-0">
+                            <i class="ri-error-warning-line text-red-500 text-xl"></i>
+                        </div>
+                        <div class="ml-3 flex-1">
+                            <p class="text-sm font-medium text-red-800" id="error-message">Có lỗi xảy ra khi tải thông tin</p>
+                            <p class="text-sm text-red-700 mt-1" id="error-detail">Vui lòng thử lại hoặc liên hệ quản trị viên.</p>
+                        </div>
+                        <div class="ml-auto pl-3">
+                             <button id="retry-button"
                                 class="inline-flex bg-red-50 rounded-md p-1.5 text-red-500 hover:bg-red-100 focus:outline-none">
-                                <i class="ri-refresh-line"></i>
+                                <i class="ri-refresh-line"></i> Thử lại
                             </button>
                         </div>
                     </div>
                 </div>
-            </div>
 
-            <!-- User Type Detail -->
-            <div id="user-type-detail" class="bg-white shadow rounded-lg overflow-hidden" data-aos="fade-up">
-                <!-- Header -->
-                <div class="border-b border-gray-200 px-6 py-5">
-                    <h3 class="text-lg font-medium leading-6 text-gray-900">Thông tin Loại người dùng</h3>
-                    <p class="mt-1 text-sm text-gray-500">Thông tin chi tiết về loại người dùng và các quyền hạn.</p>
-                </div>
+                <!-- Detail Container -->
+                <div id="user-type-detail" class="bg-white rounded-md shadow-sm border border-gray-200 hidden">
+                    <!-- Detail Header -->
+                    <div class="p-4 border-b border-gray-200 bg-gradient-to-r from-primary/5 to-transparent">
+                      <h2 class="font-medium text-gray-800 flex items-center">
+                        <i class="ri-information-line text-primary mr-2"></i>
+                        Thông tin Loại người dùng
+                      </h2>
+                      <p class="text-sm text-gray-600 mt-1">Thông tin chi tiết về loại người dùng và các quyền hạn.</p>
+                    </div>
 
-                <!-- Basic Info -->
-                <div class="px-6 py-5 grid grid-cols-1 md:grid-cols-3 gap-6">
-                    <div class="col-span-1 md:col-span-2">
-                        <div class="grid grid-cols-1 gap-4">
-                            <!-- ID -->
-                            <div>
-                                <label class="block text-sm font-medium text-gray-700">ID</label>
-                                <div class="mt-1">
-                                    <div id="user-type-id" class="block w-full py-2 text-gray-900">-</div>
-                                </div>
+                    <!-- Basic Info -->
+                    <div class="p-4 md:p-6 grid grid-cols-1 md:grid-cols-3 gap-6">
+                        <div class="col-span-1 md:col-span-2 space-y-4">
+                           <!-- ID -->
+                           <div>
+                                <label class="block text-xs font-medium text-gray-500 uppercase tracking-wider">ID</label>
+                                <div id="user-type-id" class="mt-1 text-sm text-gray-900">-</div>
                             </div>
 
                             <!-- Name -->
                             <div>
-                                <label class="block text-sm font-medium text-gray-700">Tên loại người dùng</label>
-                                <div class="mt-1">
-                                    <div id="user-type-name" class="block w-full py-2 text-gray-900 font-semibold">-
-                                    </div>
-                                </div>
+                                <label class="block text-xs font-medium text-gray-500 uppercase tracking-wider">Tên loại người dùng</label>
+                                <div id="user-type-name" class="mt-1 text-sm text-gray-900 font-semibold">-</div>
                             </div>
 
                             <!-- Description -->
                             <div>
-                                <label class="block text-sm font-medium text-gray-700">Mô tả</label>
-                                <div class="mt-1">
-                                    <div id="user-type-description" class="block w-full py-2 text-gray-900">-</div>
-                                </div>
+                                <label class="block text-xs font-medium text-gray-500 uppercase tracking-wider">Mô tả</label>
+                                <div id="user-type-description" class="mt-1 text-sm text-gray-900">-</div>
                             </div>
 
                             <!-- Status -->
                             <div>
-                                <label class="block text-sm font-medium text-gray-700">Trạng thái</label>
-                                <div class="mt-1">
-                                    <div id="user-type-status" class="block w-full py-2 text-gray-900">-</div>
-                                </div>
+                                <label class="block text-xs font-medium text-gray-500 uppercase tracking-wider">Trạng thái</label>
+                                <div id="user-type-status" class="mt-1 text-sm text-gray-900">-</div>
                             </div>
 
                             <!-- Created at -->
                             <div>
-                                <label class="block text-sm font-medium text-gray-700">Ngày tạo</label>
-                                <div class="mt-1">
-                                    <div id="user-type-created-at" class="block w-full py-2 text-gray-900">-</div>
-                                </div>
+                                <label class="block text-xs font-medium text-gray-500 uppercase tracking-wider">Ngày tạo</label>
+                                <div id="user-type-created-at" class="mt-1 text-sm text-gray-900">-</div>
                             </div>
 
                             <!-- Updated at -->
                             <div>
-                                <label class="block text-sm font-medium text-gray-700">Cập nhật lần cuối</label>
-                                <div class="mt-1">
-                                    <div id="user-type-updated-at" class="block w-full py-2 text-gray-900">-</div>
-                                </div>
+                                <label class="block text-xs font-medium text-gray-500 uppercase tracking-wider">Cập nhật lần cuối</label>
+                                <div id="user-type-updated-at" class="mt-1 text-sm text-gray-900">-</div>
                             </div>
                         </div>
-                    </div>
 
-                    <!-- Stats Card -->
-                    <div class="col-span-1">
-                        <div class="bg-gray-50 rounded-lg p-5 border border-gray-200">
-                            <h4 class="text-base font-medium text-gray-900 mb-4">Thống kê</h4>
+                        <!-- Stats Card -->
+                        <div class="col-span-1">
+                            <div class="bg-gray-50 rounded-lg p-5 border border-gray-200 h-full">
+                                <h4 class="text-base font-medium text-gray-900 mb-4 flex items-center">
+                                  <i class="ri-bar-chart-box-line mr-2 text-primary"></i> Thống kê
+                                </h4>
 
-                            <!-- Total Users -->
-                            <div class="mb-4">
-                                <div class="flex items-center justify-between">
-                                    <label class="text-sm font-medium text-gray-700">Tổng số người dùng</label>
-                                    <span id="user-type-user-count" class="text-lg font-semibold text-primary">-</span>
+                                <!-- Total Users -->
+                                <div class="mb-4">
+                                    <div class="flex items-center justify-between">
+                                        <label class="text-sm font-medium text-gray-700">Tổng số người dùng</label>
+                                        <span id="user-type-user-count" class="text-lg font-semibold text-primary">-</span>
+                                    </div>
+                                    <div class="w-full bg-gray-200 rounded-full h-2 mt-1">
+                                        <div id="user-type-user-count-bar" class="bg-primary h-2 rounded-full transition-all duration-500" style="width: 0%"></div>
+                                    </div>
                                 </div>
-                                <div class="w-full bg-gray-200 rounded-full h-2.5 mt-2">
-                                    <div id="user-type-user-count-bar" class="bg-primary h-2.5 rounded-full"
-                                        style="width: 0%"></div>
+
+                                <!-- Active Users -->
+                                <div class="mb-4">
+                                    <div class="flex items-center justify-between">
+                                        <label class="text-sm font-medium text-gray-700">Đang hoạt động</label>
+                                        <span id="user-type-active-user-count" class="text-lg font-semibold text-green-600">-</span>
+                                    </div>
+                                    <div class="w-full bg-gray-200 rounded-full h-2 mt-1">
+                                        <div id="user-type-active-user-count-bar" class="bg-green-500 h-2 rounded-full transition-all duration-500" style="width: 0%"></div>
+                                    </div>
                                 </div>
-                            </div>
 
-                            <!-- Active Users -->
-                            <div class="mb-4">
-                                <div class="flex items-center justify-between">
-                                    <label class="text-sm font-medium text-gray-700">Người dùng hoạt động</label>
-                                    <span id="user-type-active-user-count"
-                                        class="text-lg font-semibold text-green-600">-</span>
-                                </div>
-                                <div class="w-full bg-gray-200 rounded-full h-2.5 mt-2">
-                                    <div id="user-type-active-user-count-bar" class="bg-green-500 h-2.5 rounded-full"
-                                        style="width: 0%"></div>
-                                </div>
-                            </div>
-
-                            <!-- Inactive Users -->
-                            <div>
-                                <div class="flex items-center justify-between">
-                                    <label class="text-sm font-medium text-gray-700">Người dùng không hoạt động</label>
-                                    <span id="user-type-inactive-user-count"
-                                        class="text-lg font-semibold text-gray-600">-</span>
-                                </div>
-                                <div class="w-full bg-gray-200 rounded-full h-2.5 mt-2">
-                                    <div id="user-type-inactive-user-count-bar" class="bg-gray-500 h-2.5 rounded-full"
-                                        style="width: 0%"></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Permissions Section -->
-                <div class="border-t border-gray-200 px-6 py-5">
-                    <h3 class="text-lg font-medium leading-6 text-gray-900 mb-4">Quyền hạn</h3>
-                    <div id="permissions-list" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                        <!-- Permissions will be loaded dynamically -->
-                    </div>
-                </div>
-            </div>
-
-            <!-- User List Section -->
-            <div class="mt-8" data-aos="fade-up" data-aos-delay="100">
-                <div class="bg-white shadow rounded-lg overflow-hidden">
-                    <div class="border-b border-gray-200 px-6 py-5 flex items-center justify-between">
-                        <div>
-                            <h3 class="text-lg font-medium leading-6 text-gray-900">Danh sách người dùng</h3>
-                            <p class="mt-1 text-sm text-gray-500">Người dùng thuộc loại này.</p>
-                        </div>
-                        <div>
-                            <span id="user-count-badge"
-                                class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-primary-100 text-primary-800">
-                                0 người dùng
-                            </span>
-                        </div>
-                    </div>
-
-                    <!-- Users Table -->
-                    <div class="overflow-x-auto">
-                        <table class="min-w-full divide-y divide-gray-200">
-                            <thead class="bg-gray-50">
-                                <tr>
-                                    <th scope="col"
-                                        class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                        ID
-                                    </th>
-                                    <th scope="col"
-                                        class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                        Họ tên
-                                    </th>
-                                    <th scope="col"
-                                        class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                        Email
-                                    </th>
-                                    <th scope="col"
-                                        class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                        Trạng thái
-                                    </th>
-                                    <th scope="col"
-                                        class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                        Ngày tham gia
-                                    </th>
-                                    <th scope="col"
-                                        class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                        Thao tác
-                                    </th>
-                                </tr>
-                            </thead>
-                            <tbody id="users-list" class="bg-white divide-y divide-gray-200">
-                                <!-- Users will be loaded dynamically -->
-                            </tbody>
-                        </table>
-                    </div>
-
-                    <!-- No Users Message -->
-                    <div id="no-users-message" class="px-6 py-12 text-center hidden">
-                        <i class="ri-user-line text-gray-300 text-5xl mb-4"></i>
-                        <h3 class="text-lg font-medium text-gray-900">Chưa có người dùng</h3>
-                        <p class="mt-1 text-sm text-gray-500">Chưa có người dùng nào thuộc loại này.</p>
-                    </div>
-
-                    <!-- Pagination -->
-                    <div id="users-pagination"
-                        class="px-6 py-4 border-t border-gray-200 flex flex-col sm:flex-row justify-between items-center">
-                        <div class="flex items-center mb-4 sm:mb-0">
-                            <span class="text-sm text-gray-700">Hiển thị</span>
-                            <select id="users-per-page" class="mx-2 border border-gray-300 rounded p-1 text-sm">
-                                <option value="10">10</option>
-                                <option value="25">25</option>
-                                <option value="50">50</option>
-                                <option value="100">100</option>
-                            </select>
-                            <span class="text-sm text-gray-700">trên tổng số <span id="users-total-items">0</span> người
-                                dùng</span>
-                        </div>
-
-                        <div id="users-pagination-controls" class="flex items-center space-x-2">
-                            <button class="users-btn-first p-1 rounded border border-gray-300 disabled:opacity-50">
-                                <i class="ri-skip-back-line"></i>
-                            </button>
-                            <button class="users-btn-prev p-1 rounded border border-gray-300 disabled:opacity-50">
-                                <i class="ri-arrow-left-s-line"></i>
-                            </button>
-                            <span class="text-sm">
-                                <input id="users-current-page-input" type="number" min="1"
-                                    class="w-12 border border-gray-300 rounded text-center p-1" value="1">
-                                / <span id="users-total-pages-count">1</span>
-                            </span>
-                            <button class="users-btn-next p-1 rounded border border-gray-300 disabled:opacity-50">
-                                <i class="ri-arrow-right-s-line"></i>
-                            </button>
-                            <button class="users-btn-last p-1 rounded border border-gray-300 disabled:opacity-50">
-                                <i class="ri-skip-forward-line"></i>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Delete Confirmation Modal -->
-            <div id="delete-modal" class="fixed inset-0 z-50 overflow-y-auto hidden">
-                <div class="flex items-center justify-center min-h-screen px-4 pt-4 pb-20 text-center">
-                    <div class="fixed inset-0 transition-opacity" aria-hidden="true">
-                        <div class="absolute inset-0 bg-gray-500 opacity-75"></div>
-                    </div>
-                    <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
-                    <div
-                        class="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
-                        <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
-                            <div class="sm:flex sm:items-start">
-                                <div
-                                    class="mx-auto flex-shrink-0 flex items-center justify-center h-12 w-12 rounded-full bg-red-100 sm:mx-0 sm:h-10 sm:w-10">
-                                    <i class="ri-error-warning-line text-red-600"></i>
-                                </div>
-                                <div class="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
-                                    <h3 class="text-lg leading-6 font-medium text-gray-900" id="modal-title">
-                                        Xóa loại người dùng
-                                    </h3>
-                                    <div class="mt-2">
-                                        <p class="text-sm text-gray-500" id="delete-message">
-                                            Bạn có chắc chắn muốn xóa loại người dùng này? Hành động này không thể hoàn
-                                            tác.
-                                        </p>
+                                <!-- Inactive Users -->
+                                <div>
+                                    <div class="flex items-center justify-between">
+                                        <label class="text-sm font-medium text-gray-700">Không hoạt động</label>
+                                        <span id="user-type-inactive-user-count" class="text-lg font-semibold text-gray-600">-</span>
+                                    </div>
+                                    <div class="w-full bg-gray-200 rounded-full h-2 mt-1">
+                                        <div id="user-type-inactive-user-count-bar" class="bg-gray-500 h-2 rounded-full transition-all duration-500" style="width: 0%"></div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
-                            <button id="confirm-delete" type="button"
-                                class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-red-600 text-base font-medium text-white hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 sm:ml-3 sm:w-auto sm:text-sm">
-                                Xóa
-                            </button>
-                            <button id="cancel-delete" type="button"
-                                class="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm">
-                                Hủy
-                            </button>
+                    </div>
+
+                    <!-- Permissions Section -->
+                    <div class="border-t border-gray-200 p-4 md:p-6">
+                         <h2 class="font-medium text-gray-800 flex items-center mb-4">
+                            <i class="ri-shield-keyhole-line text-primary mr-2"></i>
+                            Quyền hạn (<span id="permissions-count">0</span>)
+                          </h2>
+                        <div id="permissions-list" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
+                            <!-- Permissions will be loaded dynamically -->
+                            <div class="text-center text-gray-500 py-4 col-span-full">Đang tải quyền...</div>
                         </div>
                     </div>
                 </div>
-            </div>
-        </main>
+
+                <!-- User List Section -->
+                <div class="mt-6" data-aos="fade-up" data-aos-delay="100">
+                    <div class="bg-white rounded-md shadow-sm border border-gray-200 overflow-hidden">
+                        <div class="p-4 border-b border-gray-200 flex flex-col sm:flex-row sm:items-center sm:justify-between bg-gradient-to-r from-primary/5 to-transparent">
+                            <div>
+                               <h2 class="font-medium text-gray-800 flex items-center">
+                                 <i class="ri-group-line text-primary mr-2"></i>
+                                 Danh sách người dùng
+                               </h2>
+                                <p class="text-sm text-gray-600 mt-1">Những người dùng thuộc loại này.</p>
+                            </div>
+                            <div class="mt-3 sm:mt-0">
+                                <span id="user-count-badge"
+                                    class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-primary-100 text-primary-800">
+                                    0 người dùng
+                                </span>
+                            </div>
+                        </div>
+
+                        <!-- Users Table -->
+                        <div class="overflow-x-auto">
+                            <table class="min-w-full divide-y divide-gray-200">
+                                <thead class="bg-gray-50">
+                                    <tr>
+                                        <th scope="col"
+                                            class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                            ID
+                                        </th>
+                                        <th scope="col"
+                                            class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                            Họ tên
+                                        </th>
+                                        <th scope="col"
+                                            class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                            Email
+                                        </th>
+                                        <th scope="col"
+                                            class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                            Trạng thái
+                                        </th>
+                                        <th scope="col"
+                                            class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                            Ngày tham gia
+                                        </th>
+                                        <th scope="col"
+                                            class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                            Thao tác
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody id="users-list" class="bg-white divide-y divide-gray-200">
+                                    <!-- Users will be loaded dynamically -->
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <!-- No Users Message -->
+                        <div id="no-users-message" class="px-6 py-12 text-center hidden">
+                            <i class="ri-user-line text-gray-300 text-5xl mb-4"></i>
+                            <h3 class="text-lg font-medium text-gray-900">Chưa có người dùng</h3>
+                            <p class="mt-1 text-sm text-gray-500">Chưa có người dùng nào thuộc loại này.</p>
+                        </div>
+
+                        <!-- Pagination -->
+                        <div id="users-pagination"
+                            class="px-6 py-4 border-t border-gray-200 flex flex-col sm:flex-row justify-between items-center">
+                            <div class="flex items-center mb-4 sm:mb-0">
+                                <span class="text-sm text-gray-700">Hiển thị</span>
+                                <select id="users-per-page" class="mx-2 border border-gray-300 rounded p-1 text-sm">
+                                    <option value="10">10</option>
+                                    <option value="25">25</option>
+                                    <option value="50">50</option>
+                                    <option value="100">100</option>
+                                </select>
+                                <span class="text-sm text-gray-700">trên tổng số <span id="users-total-items">0</span> người
+                                    dùng</span>
+                            </div>
+
+                            <div id="users-pagination-controls" class="flex items-center space-x-2">
+                                <button class="users-btn-first p-1 rounded border border-gray-300 disabled:opacity-50">
+                                    <i class="ri-skip-back-line"></i>
+                                </button>
+                                <button class="users-btn-prev p-1 rounded border border-gray-300 disabled:opacity-50">
+                                    <i class="ri-arrow-left-s-line"></i>
+                                </button>
+                                <span class="text-sm">
+                                    <input id="users-current-page-input" type="number" min="1"
+                                        class="w-12 border border-gray-300 rounded text-center p-1" value="1">
+                                    / <span id="users-total-pages-count">1</span>
+                                </span>
+                                <button class="users-btn-next p-1 rounded border border-gray-300 disabled:opacity-50">
+                                    <i class="ri-arrow-right-s-line"></i>
+                                </button>
+                                <button class="users-btn-last p-1 rounded border border-gray-300 disabled:opacity-50">
+                                    <i class="ri-skip-forward-line"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
     </div>
 
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
