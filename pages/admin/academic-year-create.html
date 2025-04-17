@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Quản lý Năm học - HUB Admin</title>
+  <title>Thêm mới Năm học - HUB Admin</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet" />
@@ -22,24 +22,24 @@
     <div id="sidebar-backdrop" class="fixed inset-0 bg-black/50 z-20 hidden md:hidden transition-opacity duration-300">
     </div>
 
-     <!-- Sidebar -->
-     <aside id="sidebar"
-     class="fixed md:relative z-50 bg-white w-72 max-w-[80vw] min-h-screen shadow-lg transform -translate-x-full md:translate-x-0 transition-transform duration-300 overflow-y-auto">
-     <!-- Logo/Brand for mobile -->
-     <div class="flex items-center justify-between p-4 border-b md:hidden">
-       <a href="index.html" class="text-2xl font-['Pacifico'] text-primary flex items-center">
-         <img src="../../images/logo/logo-white.png" alt="logo" class="w-8 h-8 mr-2">
-         <span>HUB Admin</span>
-       </a>
-       <button id="sidebar-close" class="text-gray-500 hover:text-gray-700 focus:outline-none">
-         <i class="ri-close-line text-2xl"></i>
-       </button>
-     </div>
-     <!-- Desktop logo -->
-     <div class="p-4 border-b border-gray-200 hidden md:block">
-       <h1 class="text-xl font-semibold text-primary">HUB Admin</h1>
-     </div>
-     
+    <!-- Sidebar -->
+    <aside id="sidebar"
+      class="fixed md:relative z-50 bg-white w-72 max-w-[80vw] min-h-screen shadow-lg transform -translate-x-full md:translate-x-0 transition-transform duration-300 overflow-y-auto">
+      <!-- Logo/Brand for mobile -->
+      <div class="flex items-center justify-between p-4 border-b md:hidden">
+        <a href="index.html" class="text-2xl font-['Pacifico'] text-primary flex items-center">
+          <img src="../../images/logo/logo-white.png" alt="logo" class="w-8 h-8 mr-2">
+          <span>HUB Admin</span>
+        </a>
+        <button id="sidebar-close" class="text-gray-500 hover:text-gray-700 focus:outline-none">
+          <i class="ri-close-line text-2xl"></i>
+        </button>
+      </div>
+      <!-- Desktop logo -->
+      <div class="p-4 border-b border-gray-200 hidden md:block">
+        <h1 class="text-xl font-semibold text-primary">HUB Admin</h1>
+      </div>
+    
 
       <nav class="p-4">
         <div class="space-y-4">
@@ -225,24 +225,20 @@
       <div class="bg-white rounded-lg shadow mb-6 p-4">
         <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between">
           <div>
-            <h1 class="text-2xl font-semibold text-gray-900">Quản lý Năm học</h1>
-            <p class="mt-1 text-sm text-gray-600">Quản lý các năm học trong hệ thống</p>
+            <h1 class="text-2xl font-semibold text-gray-900">Thêm mới Năm học</h1>
+            <p class="mt-1 text-sm text-gray-600">Tạo một năm học mới trong hệ thống</p>
           </div>
           <div class="mt-4 sm:mt-0 flex gap-2">
-            <a href="academic-year-create.html" id="add-year-btn"
-              class="flex items-center justify-center px-4 py-2 bg-primary text-white rounded-md hover:bg-primary-dark transition-colors duration-200">
-              <i class="ri-add-line mr-1"></i> Tạo Năm học mới
-            </a>
-            <button id="refresh-btn"
+            <a href="academic-years.html"
               class="flex items-center justify-center px-4 py-2 bg-gray-100 text-gray-700 rounded-md hover:bg-gray-200 transition-colors duration-200">
-              <i class="ri-refresh-line mr-1"></i> Tải lại
-            </button>
+              <i class="ri-arrow-left-line mr-1"></i> Quay lại
+            </a>
           </div>
         </div>
       </div>
 
       <!-- Breadcrumb -->
-      <nav class="text-sm font-medium mb-3" aria-label="Breadcrumb">
+      <nav class="text-sm font-medium mb-4" aria-label="Breadcrumb">
         <ol class="list-none p-0 inline-flex">
           <li class="flex items-center">
             <a href="dashboard.html" class="text-gray-500 hover:text-primary">
@@ -250,147 +246,71 @@
             </a>
             <i class="ri-arrow-right-s-line text-gray-400 mx-2"></i>
           </li>
-          <li class="text-primary" aria-current="page">Năm học</li>
+          <li class="flex items-center">
+            <a href="academic-years.html" class="text-gray-500 hover:text-primary">
+              Năm học
+            </a>
+            <i class="ri-arrow-right-s-line text-gray-400 mx-2"></i>
+          </li>
+          <li class="text-primary" aria-current="page">Thêm mới năm học</li>
         </ol>
       </nav>
 
-      <!-- Filters Section -->
-      <div class="bg-white p-4 rounded-lg shadow mb-4">
-        <form id="filter-form">
-          <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
-            <!-- Filter by Name -->
-            <div>
-              <label for="filter-name" class="block text-sm font-medium text-gray-700 mb-1">Tìm kiếm tên</label>
-              <input type="text" id="filter-name" name="filter-name" placeholder="Nhập tên năm học..."
-                class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-primary focus:border-primary text-sm">
+      <!-- Create Form -->
+      <div class="bg-white rounded-lg shadow overflow-hidden">
+        <div class="p-4 border-b border-gray-200">
+          <h2 class="text-lg font-medium text-gray-900">Thông tin năm học mới</h2>
+        </div>
+
+        <form id="create-year-form" class="p-6">
+          <div class="grid grid-cols-1 gap-6">
+            <div class="col-span-1">
+              <label for="year-name" class="block text-sm font-medium text-gray-700 mb-1">Tên năm học <span class="text-red-500">*</span></label>
+              <input type="text" id="year-name" name="year-name" required placeholder="Ví dụ: Năm học 2024-2025"
+                class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary focus:border-primary sm:text-sm">
+              <p class="mt-1 text-sm text-gray-500">Nhập theo định dạng "Năm học YYYY-YYYY"</p>
             </div>
-            <!-- Filter by Start Year -->
-            <div>
-              <label for="filter-start-year" class="block text-sm font-medium text-gray-700 mb-1">Từ năm</label>
-              <input type="number" id="filter-start-year" name="filter-start-year" placeholder="Ví dụ: 2023"
-                class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-primary focus:border-primary text-sm">
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div>
+                <label for="year-start" class="block text-sm font-medium text-gray-700 mb-1">Năm bắt đầu <span class="text-red-500">*</span></label>
+                <input type="number" id="year-start" name="year-start" required min="1900" max="2100" placeholder="Ví dụ: 2024"
+                  class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary focus:border-primary sm:text-sm">
+              </div>
+
+              <div>
+                <label for="year-end" class="block text-sm font-medium text-gray-700 mb-1">Năm kết thúc <span class="text-red-500">*</span></label>
+                <input type="number" id="year-end" name="year-end" required min="1900" max="2100" placeholder="Ví dụ: 2025"
+                  class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary focus:border-primary sm:text-sm">
+              </div>
             </div>
-            <!-- Filter by End Year -->
-            <div>
-              <label for="filter-end-year" class="block text-sm font-medium text-gray-700 mb-1">Đến năm</label>
-              <input type="number" id="filter-end-year" name="filter-end-year" placeholder="Ví dụ: 2024"
-                class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-primary focus:border-primary text-sm">
-            </div>
-            <!-- Filter by Status -->
-            <div>
-              <label for="filter-status" class="block text-sm font-medium text-gray-700 mb-1">Trạng thái</label>
-              <select id="filter-status" name="filter-status"
-                class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-primary focus:border-primary text-sm">
-                <option value="">Tất cả</option>
-                <option value="current">Năm học hiện tại</option>
+
+            <div class="col-span-1">
+              <label for="year-status" class="block text-sm font-medium text-gray-700 mb-1">Trạng thái</label>
+              <select id="year-status" name="year-status"
+                class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary focus:border-primary sm:text-sm">
                 <option value="1">Hoạt động</option>
                 <option value="0">Không hoạt động</option>
               </select>
             </div>
-          </div>
-          <div class="mt-4 flex justify-end space-x-2">
-            <button type="reset" id="reset-filter-btn"
-              class="px-4 py-2 border border-gray-300 text-gray-700 rounded-md hover:bg-gray-50 text-sm transition-colors duration-200">
-              Đặt lại
-            </button>
-            <button type="submit" id="apply-filter-btn"
-              class="px-4 py-2 bg-primary text-white rounded-md hover:bg-primary-dark text-sm transition-colors duration-200">
-              <i class="ri-filter-line mr-1"></i> Lọc
-            </button>
+
+            <div class="pt-3 border-t flex justify-end space-x-2">
+              <a href="academic-years.html" class="px-4 py-2 bg-gray-200 text-gray-800 rounded-md hover:bg-gray-300 transition-colors duration-200">
+                Hủy
+              </a>
+              <button type="submit" id="save-year-btn"
+                class="px-4 py-2 bg-primary text-white rounded-md hover:bg-primary-dark transition-colors duration-200">
+                Tạo mới
+              </button>
+            </div>
           </div>
         </form>
-      </div>
-
-      <!-- Academic Years List -->
-      <div class="bg-white rounded-lg shadow overflow-hidden">
-        <div class="p-4 border-b border-gray-200 flex justify-between items-center">
-          <h2 class="text-lg font-medium text-gray-900">Danh sách Năm học</h2>
-          <!-- Total count will be updated by JS -->
-        </div>
-
-        <!-- Table container -->
-        <div class="overflow-x-auto">
-          <table id="academic-years-table" class="min-w-full divide-y divide-gray-200">
-            <thead class="bg-gray-50">
-              <tr>
-                <th scope="col"
-                  class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-16">Mã
-                </th>
-                <th scope="col" class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider min-w-[150px]">
-                  Tên Năm học</th>
-                <th scope="col" class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider min-w-[120px]">
-                  Năm bắt đầu</th>
-                <th scope="col" class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider min-w-[120px]">
-                  Năm kết thúc</th>
-                <th scope="col" class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider min-w-[100px]">
-                  Trạng thái</th>
-                <th scope="col" class="px-4 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider min-w-[120px]">
-                  Hành động</th>
-              </tr>
-            </thead>
-            <tbody id="academicYearsTableBody" class="bg-white divide-y divide-gray-200">
-               <!-- Placeholder row for no data -->
-               <tr id="no-data-placeholder" class="hidden">
-                 <td colspan="6" class="text-center py-10 text-gray-500">
-                   <i class="ri-inbox-2-line text-4xl mb-2"></i>
-                   <p>Không tìm thấy dữ liệu năm học.</p>
-                 </td>
-               </tr>
-              <!-- Table rows will be dynamically inserted here by JavaScript -->
-            </tbody>
-          </table>
-        </div>
-
-        <!-- Pagination -->
-        <div class="px-4 py-3 bg-gray-50 border-t border-gray-200">
-          <div class="flex flex-col sm:flex-row items-center justify-between space-y-2 sm:space-y-0">
-            <div class="flex items-center space-x-2 text-sm text-gray-500">
-              <span>Hiển thị</span>
-              <select id="items-per-page" name="items-per-page"
-                class="border border-gray-300 rounded-md px-2 py-1 focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary">
-                <option value="10" selected>10</option>
-                <option value="20">20</option>
-                <option value="50">50</option>
-                <option value="100">100</option>
-              </select>
-              <span>mục. Tổng số: <span id="total-items-count" class="font-medium text-gray-700">0</span> năm học.</span>
-            </div>
-            <div class="flex items-center space-x-1" id="pagination-controls">
-              <button
-                class="btn-first p-2 rounded text-gray-500 hover:text-gray-700 hover:bg-gray-100 disabled:opacity-50 disabled:cursor-not-allowed"
-                title="Trang đầu">
-                <i class="ri-skip-left-line"></i>
-              </button>
-              <button
-                class="btn-prev p-2 rounded text-gray-500 hover:text-gray-700 hover:bg-gray-100 disabled:opacity-50 disabled:cursor-not-allowed"
-                title="Trang trước">
-                <i class="ri-arrow-left-s-line"></i>
-              </button>
-              <div class="flex items-center space-x-1 px-2">
-                <span class="text-sm text-gray-700">Trang</span>
-                <input type="number" id="current-page-input" value="1" min="1"
-                  class="w-12 border border-gray-300 rounded-md px-2 py-1 text-center text-sm focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary">
-                <span class="text-sm text-gray-500">/ <span id="total-pages-count">1</span></span>
-              </div>
-              <button
-                class="btn-next p-2 rounded text-gray-500 hover:text-gray-700 hover:bg-gray-100 disabled:opacity-50 disabled:cursor-not-allowed"
-                title="Trang sau">
-                <i class="ri-arrow-right-s-line"></i>
-              </button>
-              <button
-                class="btn-last p-2 rounded text-gray-500 hover:text-gray-700 hover:bg-gray-100 disabled:opacity-50 disabled:cursor-not-allowed"
-                title="Trang cuối">
-                <i class="ri-skip-right-line"></i>
-              </button>
-            </div>
-          </div>
-        </div>
       </div>
     </main>
   </div>
 
   <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-  <script src="../../public/js/admin/academic-years.js"></script>
+  <script src="../../public/js/admin/academic-year-create.js"></script>
 </body>
 
 </html> 

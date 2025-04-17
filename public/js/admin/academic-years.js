@@ -12,20 +12,27 @@ document.addEventListener('DOMContentLoaded', function () {
   let itemsPerPage = 10;
   let totalPages = 1;
 
-  // --- Sample Data (Based on nam_hoc table structure) ---
-  allAcademicYears = [
-    { MaNH: 1, TenNH: 'Năm học 2023-2024', NamBatDau: 2023, NamKetThuc: 2024 },
-    { MaNH: 2, TenNH: 'Năm học 2022-2023', NamBatDau: 2022, NamKetThuc: 2023 },
-    { MaNH: 3, TenNH: 'Năm học 2021-2022', NamBatDau: 2021, NamKetThuc: 2022 },
-    { MaNH: 4, TenNH: 'Năm học 2020-2021', NamBatDau: 2020, NamKetThuc: 2021 },
-    { MaNH: 5, TenNH: 'Năm học 2019-2020', NamBatDau: 2019, NamKetThuc: 2020 },
-    { MaNH: 6, TenNH: 'Năm học 2018-2019', NamBatDau: 2018, NamKetThuc: 2019 },
-    { MaNH: 7, TenNH: 'Năm học 2017-2018', NamBatDau: 2017, NamKetThuc: 2018 },
-    { MaNH: 8, TenNH: 'Năm học 2016-2017', NamBatDau: 2016, NamKetThuc: 2017 },
-    { MaNH: 9, TenNH: 'Năm học 2015-2016', NamBatDau: 2015, NamKetThuc: 2016 },
-    { MaNH: 10, TenNH: 'Năm học 2014-2015', NamBatDau: 2014, NamKetThuc: 2015 }
-    // Add more sample academic years if needed
+  // --- Mock Data (Dữ liệu mẫu dựa trên bảng nam_hoc) ---
+  const academicYearsMockData = [
+    { MaNH: 1, TenNH: 'Năm học 2023-2024', NamBatDau: 2023, NamKetThuc: 2024, TrangThai: 1 },
+    { MaNH: 2, TenNH: 'Năm học 2022-2023', NamBatDau: 2022, NamKetThuc: 2023, TrangThai: 1 },
+    { MaNH: 3, TenNH: 'Năm học 2021-2022', NamBatDau: 2021, NamKetThuc: 2022, TrangThai: 1 },
+    { MaNH: 4, TenNH: 'Năm học 2020-2021', NamBatDau: 2020, NamKetThuc: 2021, TrangThai: 0 },
+    { MaNH: 5, TenNH: 'Năm học 2019-2020', NamBatDau: 2019, NamKetThuc: 2020, TrangThai: 0 },
+    { MaNH: 6, TenNH: 'Năm học 2018-2019', NamBatDau: 2018, NamKetThuc: 2019, TrangThai: 0 },
+    { MaNH: 7, TenNH: 'Năm học 2017-2018', NamBatDau: 2017, NamKetThuc: 2018, TrangThai: 0 },
+    { MaNH: 8, TenNH: 'Năm học 2016-2017', NamBatDau: 2016, NamKetThuc: 2017, TrangThai: 0 },
+    { MaNH: 9, TenNH: 'Năm học 2015-2016', NamBatDau: 2015, NamKetThuc: 2016, TrangThai: 0 },
+    { MaNH: 10, TenNH: 'Năm học 2014-2015', NamBatDau: 2014, NamKetThuc: 2015, TrangThai: 0 },
+    { MaNH: 11, TenNH: 'Năm học 2013-2014', NamBatDau: 2013, NamKetThuc: 2014, TrangThai: 0 },
+    { MaNH: 12, TenNH: 'Năm học 2012-2013', NamBatDau: 2012, NamKetThuc: 2013, TrangThai: 0 },
+    { MaNH: 13, TenNH: 'Năm học 2011-2012', NamBatDau: 2011, NamKetThuc: 2012, TrangThai: 0 },
+    { MaNH: 14, TenNH: 'Năm học 2010-2011', NamBatDau: 2010, NamKetThuc: 2011, TrangThai: 0 },
+    { MaNH: 15, TenNH: 'Năm học 2009-2010', NamBatDau: 2009, NamKetThuc: 2010, TrangThai: 0 }
   ];
+  
+  // Sử dụng dữ liệu mẫu
+  allAcademicYears = [...academicYearsMockData];
 
   // DOM Elements
   const sidebar = document.getElementById('sidebar');
@@ -44,19 +51,10 @@ document.addEventListener('DOMContentLoaded', function () {
   const filterNameInput = document.getElementById('filter-name');
   const filterStartYearInput = document.getElementById('filter-start-year');
   const filterEndYearInput = document.getElementById('filter-end-year');
+  const filterStatusSelect = document.getElementById('filter-status');
   const noDataPlaceholder = document.getElementById('no-data-placeholder');
-
-  // Modal elements
-  const yearModal = document.getElementById('year-modal');
   const addYearBtn = document.getElementById('add-year-btn');
-  const closeYearModalBtn = document.getElementById('close-year-modal');
-  const cancelYearBtn = document.getElementById('cancel-year');
-  const yearForm = document.getElementById('year-form');
-  const modalTitle = document.getElementById('modal-title');
-  const yearIdInput = document.getElementById('year-id');
-  const modalYearNameInput = document.getElementById('modal-year-name');
-  const modalStartYearInput = document.getElementById('modal-start-year');
-  const modalEndYearInput = document.getElementById('modal-end-year');
+  const refreshBtn = document.getElementById('refresh-btn');
 
   // --- UI Interactions ---
 
@@ -100,49 +98,10 @@ document.addEventListener('DOMContentLoaded', function () {
       });
   }
 
-  // --- Modal Handling ---
-  function openModal(year = null) {
-    yearForm.reset();
-    if (year) {
-      // Edit mode
-      modalTitle.textContent = 'Chỉnh sửa Năm học';
-      yearIdInput.value = year.MaNH;
-      modalYearNameInput.value = year.TenNH;
-      modalStartYearInput.value = year.NamBatDau;
-      modalEndYearInput.value = year.NamKetThuc;
-    } else {
-      // Add mode
-      modalTitle.textContent = 'Thêm Năm học mới';
-      yearIdInput.value = '';
-    }
-    yearModal.classList.remove('hidden');
-  }
-
-  function closeModal() {
-    yearModal.classList.add('hidden');
-    yearForm.reset();
-  }
-
-  if (addYearBtn) {
-    addYearBtn.addEventListener('click', () => openModal());
-  }
-  if (closeYearModalBtn) {
-    closeYearModalBtn.addEventListener('click', closeModal);
-  }
-  if (cancelYearBtn) {
-    cancelYearBtn.addEventListener('click', closeModal);
-  }
-  if (yearModal) {
-    yearModal.addEventListener('click', (event) => {
-      if (event.target === yearModal) {
-        closeModal();
-      }
-    });
-  }
-
   // --- Data Handling & Rendering ---
 
-  function renderTable() {
+  // Hàm hiển thị dữ liệu trong bảng
+  const renderTable = () => {
     academicYearsTableBody.innerHTML = '';
     noDataPlaceholder.classList.add('hidden');
 
@@ -163,15 +122,31 @@ document.addEventListener('DOMContentLoaded', function () {
       const row = document.createElement('tr');
       row.className = 'hover:bg-gray-50 transition-colors duration-150';
 
+      // Định dạng trạng thái
+      const statusClass = year.TrangThai === 1 
+        ? 'bg-green-100 text-green-800' 
+        : 'bg-gray-100 text-gray-800';
+      const statusText = year.TrangThai === 1 
+        ? 'Hoạt động' 
+        : 'Không hoạt động';
+
       row.innerHTML = `
         <td class="px-4 py-3 text-sm text-gray-700">${year.MaNH}</td>
         <td class="px-4 py-3 text-sm font-medium text-gray-900">${year.TenNH}</td>
         <td class="px-4 py-3 text-sm text-gray-600">${year.NamBatDau}</td>
         <td class="px-4 py-3 text-sm text-gray-600">${year.NamKetThuc}</td>
+        <td class="px-4 py-3 text-sm">
+          <span class="px-2 py-1 rounded-full text-xs font-medium ${statusClass}">
+            ${statusText}
+          </span>
+        </td>
         <td class="px-4 py-3 text-right text-sm font-medium space-x-2">
-          <button class="text-blue-600 hover:text-blue-800 edit-year-btn" data-id="${year.MaNH}" title="Sửa">
+          <a href="academic-year-detail.html?id=${year.MaNH}" class="text-blue-600 hover:text-blue-800" title="Chi tiết">
+            <i class="ri-eye-line"></i>
+          </a>
+          <a href="academic-year-edit.html?id=${year.MaNH}" class="text-blue-600 hover:text-blue-800" title="Sửa">
             <i class="ri-pencil-line"></i>
-          </button>
+          </a>
           <button class="text-red-600 hover:text-red-800 delete-year-btn" data-id="${year.MaNH}" title="Xóa">
             <i class="ri-delete-bin-line"></i>
           </button>
@@ -180,17 +155,15 @@ document.addEventListener('DOMContentLoaded', function () {
       academicYearsTableBody.appendChild(row);
     });
 
-    academicYearsTableBody.querySelectorAll('.edit-year-btn').forEach(button => {
-      button.addEventListener('click', handleEditYear);
-    });
     academicYearsTableBody.querySelectorAll('.delete-year-btn').forEach(button => {
       button.addEventListener('click', handleDeleteYear);
     });
 
     updatePaginationInfo();
-  }
+  };
 
-  function updatePaginationInfo() {
+  // Hàm cập nhật thông tin phân trang
+  const updatePaginationInfo = () => {
     totalPages = Math.ceil(currentAcademicYears.length / itemsPerPage);
     if (totalPages < 1) totalPages = 1;
 
@@ -200,9 +173,10 @@ document.addEventListener('DOMContentLoaded', function () {
     currentPageInput.value = currentPage;
 
     updatePaginationButtons();
-  }
+  };
 
-  function updatePaginationButtons() {
+  // Hàm cập nhật trạng thái các nút phân trang
+  const updatePaginationButtons = () => {
     const isFirstPage = currentPage === 1;
     const isLastPage = currentPage === totalPages;
 
@@ -210,24 +184,64 @@ document.addEventListener('DOMContentLoaded', function () {
     paginationControls.querySelector('.btn-prev').disabled = isFirstPage;
     paginationControls.querySelector('.btn-next').disabled = isLastPage;
     paginationControls.querySelector('.btn-last').disabled = isLastPage;
-  }
+  };
 
-  function applyFilters() {
+  // Hàm áp dụng bộ lọc
+  const applyFilters = () => {
     const nameFilter = filterNameInput.value.toLowerCase().trim();
     const startYearFilter = filterStartYearInput.value ? parseInt(filterStartYearInput.value, 10) : null;
     const endYearFilter = filterEndYearInput.value ? parseInt(filterEndYearInput.value, 10) : null;
+    const statusFilter = filterStatusSelect.value;
 
     currentAcademicYears = allAcademicYears.filter(year => {
       const nameMatch = !nameFilter || year.TenNH.toLowerCase().includes(nameFilter);
       const startYearMatch = !startYearFilter || year.NamBatDau === startYearFilter;
       const endYearMatch = !endYearFilter || year.NamKetThuc === endYearFilter;
+      
+      // Xử lý lọc theo trạng thái
+      let statusMatch = true;
+      if (statusFilter === '1') {
+        statusMatch = year.TrangThai === 1;
+      } else if (statusFilter === '0') {
+        statusMatch = year.TrangThai === 0;
+      } else if (statusFilter === 'current') {
+        // Giả định năm học hiện tại là năm học hoạt động gần đây nhất
+        const currentYear = new Date().getFullYear();
+        statusMatch = year.NamBatDau <= currentYear && year.NamKetThuc >= currentYear;
+      }
 
-      return nameMatch && startYearMatch && endYearMatch;
+      return nameMatch && startYearMatch && endYearMatch && statusMatch;
     });
 
     currentPage = 1;
     renderTable();
-  }
+  };
+
+  // Hàm xử lý xóa năm học
+  const handleDeleteYear = (event) => {
+    const button = event.target.closest('.delete-year-btn');
+    const yearId = parseInt(button.dataset.id, 10);
+    const yearToDelete = allAcademicYears.find(year => year.MaNH === yearId);
+
+    if (!yearToDelete) {
+        console.error('Năm học không tồn tại:', yearId);
+        alert('Lỗi: Không tìm thấy năm học để xóa.');
+        return;
+    }
+
+    if (confirm(`Bạn có chắc chắn muốn xóa năm học "${yearToDelete.TenNH}" (ID: ${yearId}) không?`)) {
+      const index = allAcademicYears.findIndex(y => y.MaNH === yearId);
+      if (index !== -1) {
+        allAcademicYears.splice(index, 1);
+        console.log('Đã xóa năm học ID:', yearId);
+        alert('Xóa năm học thành công!');
+        applyFilters();
+      } else {
+        console.error('Không tìm thấy năm học để xóa sau khi xác nhận:', yearId);
+        alert('Lỗi: Không thể xóa năm học.');
+      }
+    }
+  };
 
   // --- Event Listeners ---
 
@@ -236,6 +250,7 @@ document.addEventListener('DOMContentLoaded', function () {
       e.preventDefault();
       applyFilters();
     });
+    
     const resetFilterBtn = document.getElementById('reset-filter-btn');
     if (resetFilterBtn) {
       resetFilterBtn.addEventListener('click', () => {
@@ -263,6 +278,7 @@ document.addEventListener('DOMContentLoaded', function () {
       else if (button.classList.contains('btn-last')) currentPage = totalPages;
       renderTable();
     });
+    
     currentPageInput.addEventListener('change', (e) => {
       let newPage = parseInt(e.target.value, 10);
       if (isNaN(newPage) || newPage < 1) newPage = 1;
@@ -270,101 +286,24 @@ document.addEventListener('DOMContentLoaded', function () {
       currentPage = newPage;
       renderTable();
     });
+    
     currentPageInput.addEventListener('keypress', (e) => {
-        if (e.key === 'Enter') {
-            let newPage = parseInt(e.target.value, 10);
-            if (isNaN(newPage) || newPage < 1) newPage = 1;
-            else if (newPage > totalPages) newPage = totalPages;
-            currentPage = newPage;
-            renderTable();
-        }
+      if (e.key === 'Enter') {
+        let newPage = parseInt(e.target.value, 10);
+        if (isNaN(newPage) || newPage < 1) newPage = 1;
+        else if (newPage > totalPages) newPage = totalPages;
+        currentPage = newPage;
+        renderTable();
+      }
     });
   }
 
-  if (yearForm) {
-    yearForm.addEventListener('submit', (e) => {
-      e.preventDefault();
-      const id = yearIdInput.value;
-      const name = modalYearNameInput.value.trim();
-      const startYear = modalStartYearInput.value ? parseInt(modalStartYearInput.value, 10) : null;
-      const endYear = modalEndYearInput.value ? parseInt(modalEndYearInput.value, 10) : null;
-
-      if (!name || !startYear || !endYear) {
-        alert('Vui lòng nhập đầy đủ Tên Năm học, Năm bắt đầu và Năm kết thúc.');
-        return;
-      }
-      if (startYear >= endYear) {
-        alert('Năm bắt đầu phải nhỏ hơn Năm kết thúc.');
-        return;
-      }
-
-      const yearData = {
-        TenNH: name,
-        NamBatDau: startYear,
-        NamKetThuc: endYear,
-      };
-
-      if (id) {
-        yearData.MaNH = parseInt(id, 10);
-        const index = allAcademicYears.findIndex(y => y.MaNH === yearData.MaNH);
-        if (index !== -1) {
-          allAcademicYears[index] = { ...allAcademicYears[index], ...yearData };
-          console.log('Updated year:', allAcademicYears[index]);
-          alert('Cập nhật năm học thành công!');
-        } else {
-            console.error('Year not found for editing');
-            alert('Lỗi: Không tìm thấy năm học để cập nhật.');
-            return;
-        }
-      } else {
-        yearData.MaNH = allAcademicYears.length > 0 ? Math.max(...allAcademicYears.map(y => y.MaNH)) + 1 : 1;
-        allAcademicYears.push(yearData);
-        console.log('Added year:', yearData);
-        alert('Thêm năm học thành công!');
-      }
-      closeModal();
-      applyFilters();
+  if (addYearBtn) {
+    addYearBtn.addEventListener('click', () => {
+      window.location.href = 'academic-year-create.html';
     });
   }
 
-  function handleEditYear(event) {
-    const button = event.target.closest('.edit-year-btn');
-    const yearId = parseInt(button.dataset.id, 10);
-    const yearToEdit = allAcademicYears.find(year => year.MaNH === yearId);
-    if (yearToEdit) {
-      openModal(yearToEdit);
-    } else {
-      console.error('Year not found for editing:', yearId);
-      alert('Lỗi: Không tìm thấy năm học để chỉnh sửa.');
-    }
-  }
-
-  function handleDeleteYear(event) {
-    const button = event.target.closest('.delete-year-btn');
-    const yearId = parseInt(button.dataset.id, 10);
-    const yearToDelete = allAcademicYears.find(year => year.MaNH === yearId);
-
-    if (!yearToDelete) {
-        console.error('Year not found for deletion:', yearId);
-        alert('Lỗi: Không tìm thấy năm học để xóa.');
-        return;
-    }
-
-    if (confirm(`Bạn có chắc chắn muốn xóa năm học "${yearToDelete.TenNH}" (ID: ${yearId}) không?`)) {
-      const index = allAcademicYears.findIndex(y => y.MaNH === yearId);
-      if (index !== -1) {
-        allAcademicYears.splice(index, 1);
-        console.log('Deleted year ID:', yearId);
-        alert('Xóa năm học thành công!');
-        applyFilters();
-      } else {
-        console.error('Year index not found for deletion after confirmation:', yearId);
-        alert('Lỗi: Không thể xóa năm học.');
-      }
-    }
-  }
-
-  const refreshBtn = document.getElementById('refresh-btn');
   if (refreshBtn) {
     refreshBtn.addEventListener('click', () => {
       filterForm.reset();
@@ -374,6 +313,8 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   // --- Initial Load ---
-  itemsPerPage = parseInt(itemsPerPageSelect.value, 10);
-  applyFilters(); // Apply default filters (none) and render initial data
+  if (itemsPerPageSelect) {
+    itemsPerPage = parseInt(itemsPerPageSelect.value, 10);
+  }
+  applyFilters(); // Áp dụng bộ lọc mặc định (không có) và hiển thị dữ liệu ban đầu
 }); 
