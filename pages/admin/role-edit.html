@@ -26,7 +26,7 @@
       class="fixed md:relative z-50 bg-white w-72 max-w-[80vw] min-h-screen shadow-lg transform -translate-x-full md:translate-x-0 transition-transform duration-300 overflow-y-auto">
       <!-- Logo/Brand for mobile -->
       <div class="flex items-center justify-between p-4 border-b md:hidden">
-        <a href="index.html" class="text-2xl font-[\'Pacifico\'] text-primary flex items-center">
+        <a href="index.html" class="text-2xl font-['Pacifico'] text-primary flex items-center">
           <img src="../../images/logo/logo-white.png" alt="logo" class="w-8 h-8 mr-2">
           <span>HUB Admin</span>
         </a>
@@ -34,6 +34,11 @@
           <i class="ri-close-line text-2xl"></i>
         </button>
       </div>
+      <!-- Desktop logo -->
+      <div class="p-4 border-b border-gray-200 hidden md:block">
+        <h1 class="text-xl font-semibold text-primary">HUB Admin</h1>
+      </div>
+
 
       <nav class="p-4">
         <div class="space-y-4">
@@ -73,8 +78,8 @@
             <div class="mt-3 space-y-3">
               <a href="event-types.html"
                 class="sidebar-link flex items-center text-gray-600 hover:text-primary p-2 rounded-md hover:bg-gray-100">
-                 <i class="sidebar-icon ri-price-tag-3-line mr-2"></i>
-                 <span class="sidebar-link-text">Loại sự kiện</span>
+                <i class="sidebar-icon ri-price-tag-3-line mr-2"></i>
+                <span class="sidebar-link-text">Loại sự kiện</span>
               </a>
               <a href="registrations.html"
                 class="sidebar-link flex items-center text-gray-600 hover:text-primary p-2 rounded-md hover:bg-gray-100">
@@ -92,10 +97,10 @@
                 <span class="sidebar-link-text">Check-out</span>
               </a>
               <a href="screens.html"
-                 class="sidebar-link flex items-center text-gray-600 hover:text-primary p-2 rounded-md hover:bg-gray-100">
-                 <i class="sidebar-icon ri-tv-2-line mr-2"></i>
-                 <span class="sidebar-link-text">Màn hình</span>
-               </a>
+                class="sidebar-link flex items-center text-gray-600 hover:text-primary p-2 rounded-md hover:bg-gray-100">
+                <i class="sidebar-icon ri-tv-2-line mr-2"></i>
+                <span class="sidebar-link-text">Màn hình</span>
+              </a>
               <a href="reports.html"
                 class="sidebar-link flex items-center text-gray-600 hover:text-primary p-2 rounded-md hover:bg-gray-100">
                 <i class="sidebar-icon ri-bar-chart-line mr-2"></i>
@@ -113,7 +118,8 @@
                 <span class="sidebar-link-text">Thiết lập</span>
               </a>
               <a href="roles.html"
-                class="sidebar-link active flex items-center text-primary p-2 rounded-md bg-primary/10 font-medium"> <!-- Active link -->
+                class="sidebar-link active flex items-center text-primary p-2 rounded-md bg-primary/10 font-medium">
+                <!-- Active link -->
                 <i class="sidebar-icon ri-shield-user-line mr-2"></i>
                 <span class="sidebar-link-text">Phân quyền</span>
               </a>
@@ -164,7 +170,8 @@
       <header class="bg-primary shadow-md sticky top-0 z-30 animate-fade-in mb-6">
         <div class="container mx-auto px-4 py-2 flex items-center justify-between">
           <!-- Mobile Menu Toggle Button -->
-          <button id="sidebar-open" class="text-white p-2 rounded-md md:hidden focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white">
+          <button id="sidebar-open"
+            class="text-white p-2 rounded-md md:hidden focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white">
             <i class="ri-menu-line text-2xl"></i>
           </button>
 
@@ -173,18 +180,15 @@
             <img src="../../images/logo/logo-white.png" alt="logo" class="w-12 h-12 md:w-16 md:h-16">
           </a>
           <div class="flex items-center space-x-4">
-             <!-- User profile dropdown menu -->
-             <div class="relative group">
+            <!-- User profile dropdown menu -->
+            <div class="relative group">
               <button id="user-menu-button" class="flex items-center space-x-2 text-white">
-                <img
-                  id="header-avatar"
-                  src="https://ui-avatars.com/api/?name=N+V+A&background=0D8ABC&color=fff"
+                <img id="header-avatar" src="https://ui-avatars.com/api/?name=N+V+A&background=0D8ABC&color=fff"
                   alt="Ảnh đại diện" class="w-8 h-8 rounded-full border-2 border-white">
                 <span id="header-fullname" class="hidden sm:block">Nguyễn Văn A</span>
                 <i class="ri-arrow-down-s-line group-hover:rotate-180 transition-transform duration-300"></i>
               </button>
-              <div
-                id="user-menu"
+              <div id="user-menu"
                 class="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg overflow-hidden z-20 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform origin-top-right scale-95 group-hover:scale-100">
                 <div class="py-2">
                   <a href="profile.html"
@@ -223,10 +227,12 @@
             <p class="mt-1 text-sm text-gray-600">Cập nhật thông tin chi tiết vai trò</p>
           </div>
           <div class="mt-4 sm:mt-0 flex gap-2">
-            <a href="#" id="view-role-btn" class="flex items-center justify-center px-4 py-2 bg-gray-100 text-gray-700 rounded-md hover:bg-gray-200 transition-colors duration-200">
+            <a href="#" id="view-role-btn"
+              class="flex items-center justify-center px-4 py-2 bg-gray-100 text-gray-700 rounded-md hover:bg-gray-200 transition-colors duration-200">
               <i class="ri-eye-line mr-1"></i> Xem chi tiết
             </a>
-            <a href="roles.html" class="flex items-center justify-center px-4 py-2 bg-white border border-gray-300 text-gray-700 rounded-md hover:bg-gray-50 transition-colors duration-200">
+            <a href="roles.html"
+              class="flex items-center justify-center px-4 py-2 bg-white border border-gray-300 text-gray-700 rounded-md hover:bg-gray-50 transition-colors duration-200">
               <i class="ri-arrow-left-line mr-1"></i> Quay lại
             </a>
           </div>
@@ -260,16 +266,17 @@
         <div class="p-6">
           <form id="edit-role-form" class="space-y-6">
             <input type="hidden" id="role-id">
-            
+
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
               <!-- Tên vai trò -->
               <div class="col-span-1 md:col-span-2">
-                <label for="role-name" class="block text-sm font-medium text-gray-700 mb-1">Tên vai trò <span class="text-red-500">*</span></label>
+                <label for="role-name" class="block text-sm font-medium text-gray-700 mb-1">Tên vai trò <span
+                    class="text-red-500">*</span></label>
                 <input type="text" id="role-name" name="r_name" required
                   class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-primary focus:border-primary">
                 <p class="mt-1 text-sm text-gray-500">Tên vai trò trong hệ thống</p>
               </div>
-              
+
               <!-- Mô tả -->
               <div class="col-span-1 md:col-span-2">
                 <label for="role-description" class="block text-sm font-medium text-gray-700 mb-1">Mô tả</label>
@@ -277,7 +284,7 @@
                   class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-primary focus:border-primary"></textarea>
                 <p class="mt-1 text-sm text-gray-500">Mô tả chi tiết về vai trò và quyền hạn</p>
               </div>
-              
+
               <!-- Trạng thái -->
               <div>
                 <label for="role-status" class="block text-sm font-medium text-gray-700 mb-1">Trạng thái</label>
@@ -288,7 +295,7 @@
                 </select>
                 <p class="mt-1 text-sm text-gray-500">Trạng thái hoạt động của vai trò</p>
               </div>
-              
+
               <!-- Thời gian cập nhật -->
               <div>
                 <label class="block text-sm font-medium text-gray-700 mb-1">Ngày cập nhật</label>
@@ -298,14 +305,14 @@
                 <p class="mt-1 text-sm text-gray-500">Thời gian cập nhật sẽ được tự động ghi lại</p>
               </div>
             </div>
-            
+
             <!-- Quyền hạn -->
             <div class="border-t border-gray-200 pt-6">
               <h3 class="text-lg font-medium text-gray-900 mb-4">Quyền hạn và khả năng</h3>
               <div class="space-y-3">
                 <div class="flex items-start">
                   <div class="flex items-center h-5">
-                    <input id="perm-manage-users" type="checkbox" 
+                    <input id="perm-manage-users" type="checkbox"
                       class="focus:ring-primary h-4 w-4 text-primary border-gray-300 rounded">
                   </div>
                   <div class="ml-3 text-sm">
@@ -313,10 +320,10 @@
                     <p class="text-gray-500">Xem, chỉnh sửa và xóa thông tin người dùng trong hệ thống</p>
                   </div>
                 </div>
-                
+
                 <div class="flex items-start">
                   <div class="flex items-center h-5">
-                    <input id="perm-manage-events" type="checkbox" 
+                    <input id="perm-manage-events" type="checkbox"
                       class="focus:ring-primary h-4 w-4 text-primary border-gray-300 rounded">
                   </div>
                   <div class="ml-3 text-sm">
@@ -324,10 +331,10 @@
                     <p class="text-gray-500">Tạo, chỉnh sửa và xóa sự kiện trong hệ thống</p>
                   </div>
                 </div>
-                
+
                 <div class="flex items-start">
                   <div class="flex items-center h-5">
-                    <input id="perm-manage-registrations" type="checkbox" 
+                    <input id="perm-manage-registrations" type="checkbox"
                       class="focus:ring-primary h-4 w-4 text-primary border-gray-300 rounded">
                   </div>
                   <div class="ml-3 text-sm">
@@ -335,21 +342,22 @@
                     <p class="text-gray-500">Xem và quản lý đăng ký tham gia sự kiện</p>
                   </div>
                 </div>
-                
+
                 <div class="flex items-start">
                   <div class="flex items-center h-5">
-                    <input id="perm-manage-checkins" type="checkbox" 
+                    <input id="perm-manage-checkins" type="checkbox"
                       class="focus:ring-primary h-4 w-4 text-primary border-gray-300 rounded">
                   </div>
                   <div class="ml-3 text-sm">
-                    <label for="perm-manage-checkins" class="font-medium text-gray-700">Quản lý check-in/check-out</label>
+                    <label for="perm-manage-checkins" class="font-medium text-gray-700">Quản lý
+                      check-in/check-out</label>
                     <p class="text-gray-500">Quản lý việc check-in và check-out người tham gia sự kiện</p>
                   </div>
                 </div>
-                
+
                 <div class="flex items-start">
                   <div class="flex items-center h-5">
-                    <input id="perm-view-reports" type="checkbox" 
+                    <input id="perm-view-reports" type="checkbox"
                       class="focus:ring-primary h-4 w-4 text-primary border-gray-300 rounded">
                   </div>
                   <div class="ml-3 text-sm">
@@ -357,10 +365,10 @@
                     <p class="text-gray-500">Xem các báo cáo thống kê trong hệ thống</p>
                   </div>
                 </div>
-                
+
                 <div class="flex items-start">
                   <div class="flex items-center h-5">
-                    <input id="perm-system-settings" type="checkbox" 
+                    <input id="perm-system-settings" type="checkbox"
                       class="focus:ring-primary h-4 w-4 text-primary border-gray-300 rounded">
                   </div>
                   <div class="ml-3 text-sm">
@@ -370,7 +378,7 @@
                 </div>
               </div>
             </div>
-            
+
             <!-- Form actions -->
             <div class="flex justify-end space-x-3 pt-6 border-t border-gray-200">
               <button type="button" id="cancel-edit"
@@ -392,4 +400,4 @@
   <script src="../../public/js/admin/role-edit.js"></script>
 </body>
 
-</html> 
+</html>

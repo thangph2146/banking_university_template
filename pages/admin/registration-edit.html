@@ -36,6 +36,11 @@
           <i class="ri-close-line text-2xl"></i>
         </button>
       </div>
+      <!-- Desktop logo -->
+      <div class="p-4 border-b border-gray-200 hidden md:block">
+        <h1 class="text-xl font-semibold text-primary">HUB Admin</h1>
+      </div>
+
 
       <nav class="p-4">
         <div class="space-y-4">
@@ -75,10 +80,10 @@
             <div class="mt-3 space-y-3">
               <a href="event-types.html"
                 class="sidebar-link flex items-center text-gray-600 hover:text-primary p-2 rounded-md hover:bg-gray-100">
-                 <i class="sidebar-icon ri-price-tag-3-line mr-2"></i>
-                 <span class="sidebar-link-text">Loại sự kiện</span>
+                <i class="sidebar-icon ri-price-tag-3-line mr-2"></i>
+                <span class="sidebar-link-text">Loại sự kiện</span>
               </a>
-               
+
               <a href="registrations.html"
                 class="sidebar-link active flex items-center text-primary p-2 rounded-md bg-primary/10 font-medium">
                 <i class="sidebar-icon ri-file-list-line mr-2"></i>
@@ -95,10 +100,10 @@
                 <span class="sidebar-link-text">Check-out</span>
               </a>
               <a href="screens.html"
-                 class="sidebar-link flex items-center text-gray-600 hover:text-primary p-2 rounded-md hover:bg-gray-100">
-                 <i class="sidebar-icon ri-tv-2-line mr-2"></i>
-                 <span class="sidebar-link-text">Màn hình</span>
-               </a>
+                class="sidebar-link flex items-center text-gray-600 hover:text-primary p-2 rounded-md hover:bg-gray-100">
+                <i class="sidebar-icon ri-tv-2-line mr-2"></i>
+                <span class="sidebar-link-text">Màn hình</span>
+              </a>
               <a href="reports.html"
                 class="sidebar-link flex items-center text-gray-600 hover:text-primary p-2 rounded-md hover:bg-gray-100">
                 <i class="sidebar-icon ri-bar-chart-line mr-2"></i>
@@ -167,7 +172,8 @@
       <header class="bg-primary shadow-md sticky top-0 z-30 animate-fade-in mb-6">
         <div class="container mx-auto px-4 py-2 flex items-center justify-between">
           <!-- Mobile Menu Toggle Button -->
-          <button id="sidebar-open" class="text-white p-2 rounded-md md:hidden focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white">
+          <button id="sidebar-open"
+            class="text-white p-2 rounded-md md:hidden focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white">
             <i class="ri-menu-line text-2xl"></i>
           </button>
 
@@ -176,18 +182,15 @@
             <img src="../../images/logo/logo-white.png" alt="logo" class="w-12 h-12 md:w-16 md:h-16">
           </a>
           <div class="flex items-center space-x-4">
-             <!-- User profile dropdown menu -->
-             <div class="relative group">
+            <!-- User profile dropdown menu -->
+            <div class="relative group">
               <button id="user-menu-button" class="flex items-center space-x-2 text-white">
-                <img
-                  id="header-avatar"
-                  src="https://ui-avatars.com/api/?name=N+V+A&background=0D8ABC&color=fff"
+                <img id="header-avatar" src="https://ui-avatars.com/api/?name=N+V+A&background=0D8ABC&color=fff"
                   alt="Ảnh đại diện" class="w-8 h-8 rounded-full border-2 border-white">
                 <span id="header-fullname" class="hidden sm:block">Nguyễn Văn A</span>
                 <i class="ri-arrow-down-s-line group-hover:rotate-180 transition-transform duration-300"></i>
               </button>
-              <div
-                id="user-menu"
+              <div id="user-menu"
                 class="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg overflow-hidden z-20 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform origin-top-right scale-95 group-hover:scale-100">
                 <div class="py-2">
                   <a href="profile.html"
@@ -226,10 +229,12 @@
             <p class="mt-1 text-sm text-gray-600">Chỉnh sửa thông tin đăng ký sự kiện</p>
           </div>
           <div class="mt-4 sm:mt-0 flex gap-2">
-            <a href="registration-detail.html" id="view-detail-btn" class="flex items-center justify-center px-4 py-2 border border-gray-300 text-gray-700 rounded-md hover:bg-gray-50 transition-colors duration-200">
+            <a href="registration-detail.html" id="view-detail-btn"
+              class="flex items-center justify-center px-4 py-2 border border-gray-300 text-gray-700 rounded-md hover:bg-gray-50 transition-colors duration-200">
               <i class="ri-eye-line mr-1"></i> Xem chi tiết
             </a>
-            <a href="registrations.html" class="flex items-center justify-center px-4 py-2 border border-gray-300 text-gray-700 rounded-md hover:bg-gray-50 transition-colors duration-200">
+            <a href="registrations.html"
+              class="flex items-center justify-center px-4 py-2 border border-gray-300 text-gray-700 rounded-md hover:bg-gray-50 transition-colors duration-200">
               <i class="ri-arrow-left-line mr-1"></i> Quay lại
             </a>
           </div>
@@ -259,7 +264,9 @@
 
       <!-- Loading Indicator -->
       <div id="loading-indicator" class="bg-white rounded-lg shadow overflow-hidden mb-6 p-8 text-center">
-        <div class="animate-spin inline-block w-8 h-8 border-4 border-current border-t-transparent text-primary rounded-full" role="status" aria-label="loading">
+        <div
+          class="animate-spin inline-block w-8 h-8 border-4 border-current border-t-transparent text-primary rounded-full"
+          role="status" aria-label="loading">
           <span class="sr-only">Đang tải...</span>
         </div>
         <p class="mt-2 text-gray-600">Đang tải thông tin đăng ký...</p>
@@ -279,7 +286,8 @@
                 <h3 class="text-md font-medium text-gray-700 mb-4">Thông tin sự kiện</h3>
                 <div class="space-y-4">
                   <div>
-                    <label for="event" class="block text-sm font-medium text-gray-700 mb-1">Sự kiện <span class="text-red-500">*</span></label>
+                    <label for="event" class="block text-sm font-medium text-gray-700 mb-1">Sự kiện <span
+                        class="text-red-500">*</span></label>
                     <select id="event" name="event" required
                       class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-primary focus:border-primary">
                       <option value="">Chọn sự kiện</option>
@@ -287,7 +295,8 @@
                     </select>
                   </div>
                   <div>
-                    <label for="participation-type" class="block text-sm font-medium text-gray-700 mb-1">Hình thức tham gia <span class="text-red-500">*</span></label>
+                    <label for="participation-type" class="block text-sm font-medium text-gray-700 mb-1">Hình thức tham
+                      gia <span class="text-red-500">*</span></label>
                     <select id="participation-type" name="participation-type" required
                       class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-primary focus:border-primary">
                       <option value="offline">Trực tiếp</option>
@@ -295,7 +304,8 @@
                     </select>
                   </div>
                   <div>
-                    <label for="registration-source" class="block text-sm font-medium text-gray-700 mb-1">Nguồn giới thiệu</label>
+                    <label for="registration-source" class="block text-sm font-medium text-gray-700 mb-1">Nguồn giới
+                      thiệu</label>
                     <select id="registration-source" name="registration-source"
                       class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-primary focus:border-primary">
                       <option value="">Chọn nguồn giới thiệu</option>
@@ -308,7 +318,8 @@
                     </select>
                   </div>
                   <div>
-                    <label for="organization-unit" class="block text-sm font-medium text-gray-700 mb-1">Đơn vị tổ chức</label>
+                    <label for="organization-unit" class="block text-sm font-medium text-gray-700 mb-1">Đơn vị tổ
+                      chức</label>
                     <input type="text" id="organization-unit" name="organization-unit"
                       class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-primary focus:border-primary">
                   </div>
@@ -319,22 +330,26 @@
                 <h3 class="text-md font-medium text-gray-700 mb-4">Thông tin người đăng ký</h3>
                 <div class="space-y-4">
                   <div>
-                    <label for="registrant-name" class="block text-sm font-medium text-gray-700 mb-1">Họ và tên <span class="text-red-500">*</span></label>
+                    <label for="registrant-name" class="block text-sm font-medium text-gray-700 mb-1">Họ và tên <span
+                        class="text-red-500">*</span></label>
                     <input type="text" id="registrant-name" name="registrant-name" required
                       class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-primary focus:border-primary">
                   </div>
                   <div>
-                    <label for="registrant-email" class="block text-sm font-medium text-gray-700 mb-1">Email <span class="text-red-500">*</span></label>
+                    <label for="registrant-email" class="block text-sm font-medium text-gray-700 mb-1">Email <span
+                        class="text-red-500">*</span></label>
                     <input type="email" id="registrant-email" name="registrant-email" required
                       class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-primary focus:border-primary">
                   </div>
                   <div>
-                    <label for="registrant-phone" class="block text-sm font-medium text-gray-700 mb-1">Số điện thoại <span class="text-red-500">*</span></label>
+                    <label for="registrant-phone" class="block text-sm font-medium text-gray-700 mb-1">Số điện thoại
+                      <span class="text-red-500">*</span></label>
                     <input type="tel" id="registrant-phone" name="registrant-phone" required
                       class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-primary focus:border-primary">
                   </div>
                   <div>
-                    <label for="registrant-type" class="block text-sm font-medium text-gray-700 mb-1">Loại người đăng ký <span class="text-red-500">*</span></label>
+                    <label for="registrant-type" class="block text-sm font-medium text-gray-700 mb-1">Loại người đăng ký
+                      <span class="text-red-500">*</span></label>
                     <select id="registrant-type" name="registrant-type" required
                       class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-primary focus:border-primary">
                       <option value="">Chọn loại người đăng ký</option>
@@ -387,7 +402,8 @@
                       class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-primary focus:border-primary">
                   </div>
                   <div class="guest-field hidden">
-                    <label for="organization" class="block text-sm font-medium text-gray-700 mb-1">Tổ chức/Công ty</label>
+                    <label for="organization" class="block text-sm font-medium text-gray-700 mb-1">Tổ chức/Công
+                      ty</label>
                     <input type="text" id="organization" name="organization"
                       class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-primary focus:border-primary">
                   </div>
@@ -403,7 +419,8 @@
                 <h3 class="text-md font-medium text-gray-700 mb-4">Lý do tham dự và góp ý</h3>
                 <div class="space-y-4">
                   <div>
-                    <label for="participation-reason" class="block text-sm font-medium text-gray-700 mb-1">Lý do tham dự</label>
+                    <label for="participation-reason" class="block text-sm font-medium text-gray-700 mb-1">Lý do tham
+                      dự</label>
                     <textarea id="participation-reason" name="participation-reason" rows="3"
                       class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-primary focus:border-primary"></textarea>
                   </div>
@@ -413,7 +430,8 @@
                       class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-primary focus:border-primary"></textarea>
                   </div>
                   <div>
-                    <label for="registration-status" class="block text-sm font-medium text-gray-700 mb-1">Trạng thái</label>
+                    <label for="registration-status" class="block text-sm font-medium text-gray-700 mb-1">Trạng
+                      thái</label>
                     <select id="registration-status" name="registration-status"
                       class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-primary focus:border-primary">
                       <option value="0">Chờ xác nhận</option>
@@ -447,7 +465,8 @@
         <h2 class="text-xl font-medium text-gray-900 mb-2">Đã xảy ra lỗi</h2>
         <p class="text-gray-600 mb-4" id="error-detail">Không thể tải thông tin đăng ký. Vui lòng thử lại sau.</p>
         <div class="flex justify-center">
-          <a href="registrations.html" class="px-4 py-2 bg-primary text-white rounded-md hover:bg-primary-dark transition-colors duration-200">
+          <a href="registrations.html"
+            class="px-4 py-2 bg-primary text-white rounded-md hover:bg-primary-dark transition-colors duration-200">
             Quay lại danh sách
           </a>
         </div>
@@ -461,4 +480,4 @@
   <script src="../../public/js/admin/registration-edit.js"></script>
 </body>
 
-</html> 
+</html>

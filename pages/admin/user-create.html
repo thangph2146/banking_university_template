@@ -14,26 +14,6 @@
   <link href="../../public/css/custom.css" rel="stylesheet">
   <script src="https://cdn.tailwindcss.com/3.4.16"></script>
   <script src="../../public/js/tailwind.config.js"></script>
-  <style>
-    /* Animation cho toast notifications */
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-    
-    @keyframes fadeOut {
-      from { opacity: 1; transform: translateY(0); }
-      to { opacity: 0; transform: translateY(20px); }
-    }
-    
-    .animate-fade-in {
-      animation: fadeIn 0.3s ease-out forwards;
-    }
-    
-    .animate-fade-out {
-      animation: fadeOut 0.3s ease-out forwards;
-    }
-  </style>
 </head>
 
 <body class="bg-gray-50 min-h-screen">
@@ -41,8 +21,10 @@
     <div id="sidebar-backdrop" class="fixed inset-0 bg-black/50 z-20 hidden md:hidden transition-opacity duration-300">
     </div>
 
+    <!-- Sidebar -->
     <aside id="sidebar"
       class="fixed md:relative z-50 bg-white w-72 max-w-[80vw] min-h-screen shadow-lg transform -translate-x-full md:translate-x-0 transition-transform duration-300 overflow-y-auto">
+      <!-- Logo/Brand for mobile -->
       <div class="flex items-center justify-between p-4 border-b md:hidden">
         <a href="index.html" class="text-2xl font-['Pacifico'] text-primary flex items-center">
           <img src="../../images/logo/logo-white.png" alt="logo" class="w-8 h-8 mr-2">
@@ -52,6 +34,11 @@
           <i class="ri-close-line text-2xl"></i>
         </button>
       </div>
+      <!-- Desktop logo -->
+      <div class="p-4 border-b border-gray-200 hidden md:block">
+        <h1 class="text-xl font-semibold text-primary">HUB Admin</h1>
+      </div>
+
 
       <nav class="p-4">
         <div class="space-y-4">
@@ -91,10 +78,10 @@
             <div class="mt-3 space-y-3">
               <a href="event-types.html"
                 class="sidebar-link flex items-center text-gray-600 hover:text-primary p-2 rounded-md hover:bg-gray-100">
-                 <i class="sidebar-icon ri-price-tag-3-line mr-2"></i>
-                 <span class="sidebar-link-text">Loại sự kiện</span>
+                <i class="sidebar-icon ri-price-tag-3-line mr-2"></i>
+                <span class="sidebar-link-text">Loại sự kiện</span>
               </a>
-               
+
               <a href="registrations.html"
                 class="sidebar-link flex items-center text-gray-600 hover:text-primary p-2 rounded-md hover:bg-gray-100">
                 <i class="sidebar-icon ri-file-list-line mr-2"></i>
@@ -111,10 +98,10 @@
                 <span class="sidebar-link-text">Check-out</span>
               </a>
               <a href="screens.html"
-                 class="sidebar-link flex items-center text-gray-600 hover:text-primary p-2 rounded-md hover:bg-gray-100">
-                 <i class="sidebar-icon ri-tv-2-line mr-2"></i>
-                 <span class="sidebar-link-text">Màn hình</span>
-               </a>
+                class="sidebar-link flex items-center text-gray-600 hover:text-primary p-2 rounded-md hover:bg-gray-100">
+                <i class="sidebar-icon ri-tv-2-line mr-2"></i>
+                <span class="sidebar-link-text">Màn hình</span>
+              </a>
               <a href="reports.html"
                 class="sidebar-link flex items-center text-gray-600 hover:text-primary p-2 rounded-md hover:bg-gray-100">
                 <i class="sidebar-icon ri-bar-chart-line mr-2"></i>
@@ -171,8 +158,8 @@
                 <i class="sidebar-icon ri-camera-line mr-2"></i>
                 <span class="sidebar-link-text">Camera</span>
               </a>
-               
-               
+
+
             </div>
           </div>
         </div>
@@ -185,7 +172,8 @@
       <header class="bg-primary shadow-md sticky top-0 z-30 animate-fade-in mb-6">
         <div class="container mx-auto px-4 py-2 flex items-center justify-between">
           <!-- Mobile Menu Toggle Button -->
-          <button id="sidebar-open" class="text-white p-2 rounded-md md:hidden focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white">
+          <button id="sidebar-open"
+            class="text-white p-2 rounded-md md:hidden focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white">
             <i class="ri-menu-line text-2xl"></i>
           </button>
 
@@ -264,13 +252,16 @@
             <!-- Tab Navigation -->
             <div class="border-b mb-6">
               <div class="flex space-x-4">
-                <button type="button" class="tab-button border-b-2 px-4 py-2 font-medium text-primary border-primary" data-tab="tab-basic" aria-selected="true">
+                <button type="button" class="tab-button border-b-2 px-4 py-2 font-medium text-primary border-primary"
+                  data-tab="tab-basic" aria-selected="true">
                   Thông tin cơ bản
                 </button>
-                <button type="button" class="tab-button border-b-2 border-transparent px-4 py-2 text-gray-500" data-tab="tab-academic" aria-selected="false">
+                <button type="button" class="tab-button border-b-2 border-transparent px-4 py-2 text-gray-500"
+                  data-tab="tab-academic" aria-selected="false">
                   Thông tin học thuật
                 </button>
-                <button type="button" class="tab-button border-b-2 border-transparent px-4 py-2 text-gray-500" data-tab="tab-account" aria-selected="false">
+                <button type="button" class="tab-button border-b-2 border-transparent px-4 py-2 text-gray-500"
+                  data-tab="tab-account" aria-selected="false">
                   Tài khoản
                 </button>
               </div>
@@ -283,45 +274,64 @@
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div>
                     <label for="ho" class="block text-sm font-medium text-gray-700 mb-1">Họ</label>
-                    <input type="text" id="ho" name="ho" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-primary focus:border-primary">
+                    <input type="text" id="ho" name="ho"
+                      class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-primary focus:border-primary">
                   </div>
                   <div>
                     <label for="ten_dem" class="block text-sm font-medium text-gray-700 mb-1">Tên đệm</label>
-                    <input type="text" id="ten_dem" name="ten_dem" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-primary focus:border-primary">
+                    <input type="text" id="ten_dem" name="ten_dem"
+                      class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-primary focus:border-primary">
                   </div>
                   <div>
                     <label for="ten" class="block text-sm font-medium text-gray-700 mb-1">Tên</label>
-                    <input type="text" id="ten" name="ten" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-primary focus:border-primary" required>
+                    <input type="text" id="ten" name="ten"
+                      class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-primary focus:border-primary"
+                      required>
                   </div>
                   <div>
-                    <label for="ho_ten_day_du" class="block text-sm font-medium text-gray-700 mb-1">Họ tên đầy đủ</label>
-                    <input type="text" id="ho_ten_day_du" name="ho_ten_day_du" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-primary focus:border-primary" required>
+                    <label for="ho_ten_day_du" class="block text-sm font-medium text-gray-700 mb-1">Họ tên đầy
+                      đủ</label>
+                    <input type="text" id="ho_ten_day_du" name="ho_ten_day_du"
+                      class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-primary focus:border-primary"
+                      required>
                   </div>
                   <div>
                     <label for="email" class="block text-sm font-medium text-gray-700 mb-1">Email</label>
-                    <input type="email" id="email" name="email" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-primary focus:border-primary" required>
+                    <input type="email" id="email" name="email"
+                      class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-primary focus:border-primary"
+                      required>
                   </div>
                   <div>
-                    <label for="dien_thoai" class="block text-sm font-medium text-gray-700 mb-1">Điện thoại di động</label>
-                    <input type="tel" id="dien_thoai" name="dien_thoai" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-primary focus:border-primary">
+                    <label for="dien_thoai" class="block text-sm font-medium text-gray-700 mb-1">Điện thoại di
+                      động</label>
+                    <input type="tel" id="dien_thoai" name="dien_thoai"
+                      class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-primary focus:border-primary">
                   </div>
                   <div>
-                    <label for="dien_thoai_nha" class="block text-sm font-medium text-gray-700 mb-1">Điện thoại nhà</label>
-                    <input type="tel" id="dien_thoai_nha" name="dien_thoai_nha" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-primary focus:border-primary">
+                    <label for="dien_thoai_nha" class="block text-sm font-medium text-gray-700 mb-1">Điện thoại
+                      nhà</label>
+                    <input type="tel" id="dien_thoai_nha" name="dien_thoai_nha"
+                      class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-primary focus:border-primary">
                   </div>
                   <div>
-                    <label for="loai_nguoi_dung" class="block text-sm font-medium text-gray-700 mb-1">Loại người dùng</label>
-                    <select id="loai_nguoi_dung" name="loai_nguoi_dung" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-primary focus:border-primary" required>
+                    <label for="loai_nguoi_dung" class="block text-sm font-medium text-gray-700 mb-1">Loại người
+                      dùng</label>
+                    <select id="loai_nguoi_dung" name="loai_nguoi_dung"
+                      class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-primary focus:border-primary"
+                      required>
                       <option value="">-- Chọn loại người dùng --</option>
                     </select>
                   </div>
                   <div>
                     <label for="account_id" class="block text-sm font-medium text-gray-700 mb-1">Account ID</label>
-                    <input type="text" id="account_id" name="account_id" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-primary focus:border-primary">
+                    <input type="text" id="account_id" name="account_id"
+                      class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-primary focus:border-primary">
                   </div>
                   <div>
-                    <label for="account_type" class="block text-sm font-medium text-gray-700 mb-1">Loại tài khoản</label>
-                    <select id="account_type" name="account_type" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-primary focus:border-primary">
+                    <label for="account_type" class="block text-sm font-medium text-gray-700 mb-1">Loại tài
+                      khoản</label>
+                    <select id="account_type" name="account_type"
+                      class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-primary focus:border-primary">
                       <option value="">-- Chọn loại tài khoản --</option>
                       <option value="local">Nội bộ</option>
                       <option value="google">Google</option>
@@ -349,31 +359,36 @@
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div>
                     <label for="phong_khoa" class="block text-sm font-medium text-gray-700 mb-1">Phòng/Khoa</label>
-                    <select id="phong_khoa" name="phong_khoa" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-primary focus:border-primary">
+                    <select id="phong_khoa" name="phong_khoa"
+                      class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-primary focus:border-primary">
                       <option value="">-- Chọn phòng/khoa --</option>
                     </select>
                   </div>
                   <div>
                     <label for="nam_hoc" class="block text-sm font-medium text-gray-700 mb-1">Năm học</label>
-                    <select id="nam_hoc" name="nam_hoc" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-primary focus:border-primary">
+                    <select id="nam_hoc" name="nam_hoc"
+                      class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-primary focus:border-primary">
                       <option value="">-- Chọn năm học --</option>
                     </select>
                   </div>
                   <div>
                     <label for="bac_hoc" class="block text-sm font-medium text-gray-700 mb-1">Bậc học</label>
-                    <select id="bac_hoc" name="bac_hoc" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-primary focus:border-primary">
+                    <select id="bac_hoc" name="bac_hoc"
+                      class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-primary focus:border-primary">
                       <option value="">-- Chọn bậc học --</option>
                     </select>
                   </div>
                   <div>
                     <label for="he_dao_tao" class="block text-sm font-medium text-gray-700 mb-1">Hệ đào tạo</label>
-                    <select id="he_dao_tao" name="he_dao_tao" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-primary focus:border-primary">
+                    <select id="he_dao_tao" name="he_dao_tao"
+                      class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-primary focus:border-primary">
                       <option value="">-- Chọn hệ đào tạo --</option>
                     </select>
                   </div>
                   <div>
                     <label for="nganh" class="block text-sm font-medium text-gray-700 mb-1">Ngành đào tạo</label>
-                    <select id="nganh" name="nganh" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-primary focus:border-primary">
+                    <select id="nganh" name="nganh"
+                      class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-primary focus:border-primary">
                       <option value="">-- Chọn ngành đào tạo --</option>
                     </select>
                   </div>
@@ -386,24 +401,30 @@
                   <div>
                     <label for="mat_khau" class="block text-sm font-medium text-gray-700 mb-1">Mật khẩu</label>
                     <div class="relative">
-                      <input type="password" id="mat_khau" name="mat_khau" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-primary focus:border-primary">
-                      <button type="button" class="toggle-password absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500">
+                      <input type="password" id="mat_khau" name="mat_khau"
+                        class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-primary focus:border-primary">
+                      <button type="button"
+                        class="toggle-password absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500">
                         <i class="ri-eye-off-line"></i>
                       </button>
                     </div>
                   </div>
                   <div>
-                    <label for="nhap_lai_mat_khau" class="block text-sm font-medium text-gray-700 mb-1">Nhập lại mật khẩu</label>
+                    <label for="nhap_lai_mat_khau" class="block text-sm font-medium text-gray-700 mb-1">Nhập lại mật
+                      khẩu</label>
                     <div class="relative">
-                      <input type="password" id="nhap_lai_mat_khau" name="nhap_lai_mat_khau" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-primary focus:border-primary">
-                      <button type="button" class="toggle-password absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500">
+                      <input type="password" id="nhap_lai_mat_khau" name="nhap_lai_mat_khau"
+                        class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-primary focus:border-primary">
+                      <button type="button"
+                        class="toggle-password absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500">
                         <i class="ri-eye-off-line"></i>
                       </button>
                     </div>
                   </div>
                   <div class="md:col-span-2">
                     <div class="flex items-center">
-                      <input type="checkbox" id="auto_generate_password" name="auto_generate_password" class="text-primary focus:ring-primary h-4 w-4">
+                      <input type="checkbox" id="auto_generate_password" name="auto_generate_password"
+                        class="text-primary focus:ring-primary h-4 w-4">
                       <label for="auto_generate_password" class="ml-2 block text-sm text-gray-700">
                         Tạo mật khẩu ngẫu nhiên và gửi email thông báo
                       </label>
@@ -416,10 +437,12 @@
             <!-- Form Footer -->
             <div class="mt-8 pt-5 border-t border-gray-200">
               <div class="flex justify-end space-x-3">
-                <button type="button" id="btn-cancel" class="px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary">
+                <button type="button" id="btn-cancel"
+                  class="px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary">
                   Hủy bỏ
                 </button>
-                <button type="submit" class="px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-primary hover:bg-primary-dark focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary">
+                <button type="submit"
+                  class="px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-primary hover:bg-primary-dark focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary">
                   <i class="ri-save-line mr-1"></i>
                   Lưu người dùng
                 </button>
@@ -434,4 +457,5 @@
   <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
   <script src="../../public/js/admin/user-create.js"></script>
 </body>
-</html> 
+
+</html>

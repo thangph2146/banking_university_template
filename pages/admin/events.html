@@ -37,6 +37,11 @@
           <i class="ri-close-line text-2xl"></i>
         </button>
       </div>
+      <!-- Desktop logo -->
+      <div class="p-4 border-b border-gray-200 hidden md:block">
+        <h1 class="text-xl font-semibold text-primary">HUB Admin</h1>
+      </div>
+
 
       <nav class="p-4">
         <div class="space-y-4">
@@ -63,7 +68,7 @@
                 <i class="sidebar-icon ri-mic-line mr-2"></i>
                 <span class="sidebar-link-text">Diễn giả</span>
               </a>
-               
+
             </div>
           </div>
 
@@ -72,10 +77,10 @@
             <div class="mt-3 space-y-3">
               <a href="event-types.html"
                 class="sidebar-link flex items-center text-gray-600 hover:text-primary p-2 rounded-md hover:bg-gray-100">
-                 <i class="sidebar-icon ri-price-tag-3-line mr-2"></i>
-                 <span class="sidebar-link-text">Loại sự kiện</span>
+                <i class="sidebar-icon ri-price-tag-3-line mr-2"></i>
+                <span class="sidebar-link-text">Loại sự kiện</span>
               </a>
-               
+
               <a href="registrations.html"
                 class="sidebar-link flex items-center text-gray-600 hover:text-primary p-2 rounded-md hover:bg-gray-100">
                 <i class="sidebar-icon ri-file-list-line mr-2"></i>
@@ -92,10 +97,10 @@
                 <span class="sidebar-link-text">Check-out</span>
               </a>
               <a href="screens.html"
-                 class="sidebar-link flex items-center text-gray-600 hover:text-primary p-2 rounded-md hover:bg-gray-100">
-                 <i class="sidebar-icon ri-tv-2-line mr-2"></i>
-                 <span class="sidebar-link-text">Màn hình</span>
-               </a>
+                class="sidebar-link flex items-center text-gray-600 hover:text-primary p-2 rounded-md hover:bg-gray-100">
+                <i class="sidebar-icon ri-tv-2-line mr-2"></i>
+                <span class="sidebar-link-text">Màn hình</span>
+              </a>
               <a href="reports.html"
                 class="sidebar-link flex items-center text-gray-600 hover:text-primary p-2 rounded-md hover:bg-gray-100">
                 <i class="sidebar-icon ri-bar-chart-line mr-2"></i>
@@ -152,8 +157,8 @@
                 <i class="sidebar-icon ri-camera-line mr-2"></i>
                 <span class="sidebar-link-text">Camera</span>
               </a>
-               
-               
+
+
             </div>
           </div>
         </div>
@@ -166,7 +171,8 @@
       <header class="bg-primary shadow-md sticky top-0 z-30 animate-fade-in mb-6">
         <div class="container mx-auto px-4 py-2 flex items-center justify-between">
           <!-- Mobile Menu Toggle Button -->
-          <button id="sidebar-open" class="text-white p-2 rounded-md md:hidden focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white">
+          <button id="sidebar-open"
+            class="text-white p-2 rounded-md md:hidden focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white">
             <i class="ri-menu-line text-2xl"></i>
           </button>
 
@@ -279,18 +285,19 @@
             </div>
             <!-- Filter by Format (Hình thức) -->
             <div>
-                <label for="filter-format" class="block text-sm font-medium text-gray-700 mb-1">Hình thức</label>
-                <select id="filter-format" name="filter-format"
-                  class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-primary focus:border-primary text-sm">
-                  <option value="">Tất cả</option>
-                  <option value="offline">Offline</option>
-                  <option value="online">Online</option>
-                  <option value="hybrid">Hybrid</option>
-                </select>
+              <label for="filter-format" class="block text-sm font-medium text-gray-700 mb-1">Hình thức</label>
+              <select id="filter-format" name="filter-format"
+                class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-primary focus:border-primary text-sm">
+                <option value="">Tất cả</option>
+                <option value="offline">Offline</option>
+                <option value="online">Online</option>
+                <option value="hybrid">Hybrid</option>
+              </select>
             </div>
             <!-- Filter by Date Range -->
             <div>
-              <label for="filter-date" class="block text-sm font-medium text-gray-700 mb-1">Thời gian (Bắt đầu SK)</label>
+              <label for="filter-date" class="block text-sm font-medium text-gray-700 mb-1">Thời gian (Bắt đầu
+                SK)</label>
               <div class="relative">
                 <input type="text" id="filter-date" name="filter-date" placeholder="Chọn khoảng thời gian"
                   class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-primary focus:border-primary text-sm pl-10"
@@ -327,19 +334,26 @@
             <thead class="bg-gray-50">
               <tr>
                 <th scope="col"
-                  class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-2/5 min-w-[150px]">Sự kiện
+                  class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-2/5 min-w-[150px]">
+                  Sự kiện
                 </th>
-                <th scope="col" class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider min-w-[150px]">
+                <th scope="col"
+                  class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider min-w-[150px]">
                   Hình thức</th>
-                <th scope="col" class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider min-w-[150px]">
+                <th scope="col"
+                  class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider min-w-[150px]">
                   Loại SK</th>
-                <th scope="col" class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider min-w-[150px]">
+                <th scope="col"
+                  class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider min-w-[150px]">
                   Địa điểm</th>
-                <th scope="col" class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider min-w-[150px]">
+                <th scope="col"
+                  class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider min-w-[150px]">
                   ĐK / SL</th>
-                <th scope="col" class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider min-w-[150px]">
+                <th scope="col"
+                  class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider min-w-[150px]">
                   Trạng thái</th>
-                <th scope="col" class="px-4 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider min-w-[150px]">
+                <th scope="col"
+                  class="px-4 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider min-w-[150px]">
                   Hành động</th>
               </tr>
             </thead>

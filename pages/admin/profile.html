@@ -27,7 +27,7 @@
       class="fixed md:relative z-50 bg-white w-72 max-w-[80vw] min-h-screen shadow-lg transform -translate-x-full md:translate-x-0 transition-transform duration-300 overflow-y-auto">
       <!-- Logo/Brand for mobile -->
       <div class="flex items-center justify-between p-4 border-b md:hidden">
-        <a href="index.html" class="text-2xl font-[\'Pacifico\'] text-primary flex items-center">
+        <a href="index.html" class="text-2xl font-['Pacifico'] text-primary flex items-center">
           <img src="../../images/logo/logo-white.png" alt="logo" class="w-8 h-8 mr-2">
           <span>HUB Admin</span>
         </a>
@@ -35,6 +35,11 @@
           <i class="ri-close-line text-2xl"></i>
         </button>
       </div>
+      <!-- Desktop logo -->
+      <div class="p-4 border-b border-gray-200 hidden md:block">
+        <h1 class="text-xl font-semibold text-primary">HUB Admin</h1>
+      </div>
+
 
       <nav class="p-4">
         <div class="space-y-4">
@@ -74,10 +79,10 @@
             <div class="mt-3 space-y-3">
               <a href="event-types.html"
                 class="sidebar-link flex items-center text-gray-600 hover:text-primary p-2 rounded-md hover:bg-gray-100">
-                 <i class="sidebar-icon ri-price-tag-3-line mr-2"></i>
-                 <span class="sidebar-link-text">Loại sự kiện</span>
+                <i class="sidebar-icon ri-price-tag-3-line mr-2"></i>
+                <span class="sidebar-link-text">Loại sự kiện</span>
               </a>
-               
+
               <a href="registrations.html"
                 class="sidebar-link flex items-center text-gray-600 hover:text-primary p-2 rounded-md hover:bg-gray-100">
                 <i class="sidebar-icon ri-file-list-line mr-2"></i>
@@ -94,10 +99,10 @@
                 <span class="sidebar-link-text">Check-out</span>
               </a>
               <a href="screens.html"
-                 class="sidebar-link flex items-center text-gray-600 hover:text-primary p-2 rounded-md hover:bg-gray-100">
-                 <i class="sidebar-icon ri-tv-2-line mr-2"></i>
-                 <span class="sidebar-link-text">Màn hình</span>
-               </a>
+                class="sidebar-link flex items-center text-gray-600 hover:text-primary p-2 rounded-md hover:bg-gray-100">
+                <i class="sidebar-icon ri-tv-2-line mr-2"></i>
+                <span class="sidebar-link-text">Màn hình</span>
+              </a>
               <a href="reports.html"
                 class="sidebar-link flex items-center text-gray-600 hover:text-primary p-2 rounded-md hover:bg-gray-100">
                 <i class="sidebar-icon ri-bar-chart-line mr-2"></i>
@@ -154,7 +159,7 @@
                 <i class="sidebar-icon ri-camera-line mr-2"></i>
                 <span class="sidebar-link-text">Camera</span>
               </a>
-               
+
             </div>
           </div>
         </div>
@@ -167,7 +172,8 @@
       <header class="bg-primary shadow-md sticky top-0 z-30 animate-fade-in mb-6">
         <div class="container mx-auto px-4 py-2 flex items-center justify-between">
           <!-- Mobile Menu Toggle Button -->
-          <button id="sidebar-open" class="text-white p-2 rounded-md md:hidden focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white">
+          <button id="sidebar-open"
+            class="text-white p-2 rounded-md md:hidden focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white">
             <i class="ri-menu-line text-2xl"></i>
           </button>
 
@@ -179,15 +185,12 @@
             <!-- User profile dropdown menu -->
             <div class="relative group">
               <button id="user-menu-button" class="flex items-center space-x-2 text-white">
-                <img
-                  id="header-avatar"
-                  src="https://ui-avatars.com/api/?name=N+V+A&background=0D8ABC&color=fff"
+                <img id="header-avatar" src="https://ui-avatars.com/api/?name=N+V+A&background=0D8ABC&color=fff"
                   alt="Ảnh đại diện" class="w-8 h-8 rounded-full border-2 border-white">
                 <span id="header-fullname" class="hidden sm:block">Nguyễn Văn A</span>
                 <i class="ri-arrow-down-s-line group-hover:rotate-180 transition-transform duration-300"></i>
               </button>
-              <div
-                id="user-menu"
+              <div id="user-menu"
                 class="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg overflow-hidden z-20 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform origin-top-right scale-95 group-hover:scale-100">
                 <div class="py-2">
                   <a href="profile.html"
@@ -245,10 +248,12 @@
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
           <!-- Avatar Section -->
           <div class="flex flex-col items-center justify-center">
-            <img id="profile-avatar" class="h-40 w-40 rounded-full object-cover mb-4" src="https://ui-avatars.com/api/?name=Nguyen+Van+A&background=0D8ABC&color=fff" alt="User Avatar">
+            <img id="profile-avatar" class="h-40 w-40 rounded-full object-cover mb-4"
+              src="https://ui-avatars.com/api/?name=Nguyen+Van+A&background=0D8ABC&color=fff" alt="User Avatar">
             <h3 id="profile-fullname" class="text-lg font-semibold">Nguyễn Văn A</h3>
             <p id="profile-username" class="text-gray-500">nguyen.van.a</p>
-            <button id="edit-profile-btn" class="mt-4 bg-primary hover:bg-primary-dark text-white py-2 px-4 rounded-lg transition-colors">
+            <button id="edit-profile-btn"
+              class="mt-4 bg-primary hover:bg-primary-dark text-white py-2 px-4 rounded-lg transition-colors">
               <i class="ri-edit-line mr-2"></i>Chỉnh sửa thông tin
             </button>
           </div>
@@ -309,7 +314,8 @@
                 <span id="profile-created-at" class="font-medium">15/01/2023</span>
               </div>
               <div class="mt-4">
-                <button id="change-password-btn" class="bg-yellow-600 hover:bg-yellow-700 text-white py-2 px-4 rounded-lg transition-colors">
+                <button id="change-password-btn"
+                  class="bg-yellow-600 hover:bg-yellow-700 text-white py-2 px-4 rounded-lg transition-colors">
                   <i class="ri-key-line mr-2"></i>Đổi mật khẩu
                 </button>
               </div>
@@ -334,27 +340,38 @@
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div>
             <label for="edit-LastName" class="block text-sm font-medium text-gray-700 mb-1">Họ</label>
-            <input type="text" id="edit-LastName" name="LastName" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary" required>
+            <input type="text" id="edit-LastName" name="LastName"
+              class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary"
+              required>
           </div>
           <div>
             <label for="edit-MiddleName" class="block text-sm font-medium text-gray-700 mb-1">Tên đệm</label>
-            <input type="text" id="edit-MiddleName" name="MiddleName" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary">
+            <input type="text" id="edit-MiddleName" name="MiddleName"
+              class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary">
           </div>
           <div>
             <label for="edit-FirstName" class="block text-sm font-medium text-gray-700 mb-1">Tên</label>
-            <input type="text" id="edit-FirstName" name="FirstName" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary" required>
+            <input type="text" id="edit-FirstName" name="FirstName"
+              class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary"
+              required>
           </div>
           <div>
             <label for="edit-Email" class="block text-sm font-medium text-gray-700 mb-1">Email</label>
-            <input type="email" id="edit-Email" name="Email" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary" required>
+            <input type="email" id="edit-Email" name="Email"
+              class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary"
+              required>
           </div>
           <div>
             <label for="edit-MobilePhone" class="block text-sm font-medium text-gray-700 mb-1">Số điện thoại</label>
-            <input type="tel" id="edit-MobilePhone" name="MobilePhone" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary" required>
+            <input type="tel" id="edit-MobilePhone" name="MobilePhone"
+              class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary"
+              required>
           </div>
           <div>
             <label for="edit-phong_khoa_id" class="block text-sm font-medium text-gray-700 mb-1">Đơn vị</label>
-            <select id="edit-phong_khoa_id" name="phong_khoa_id" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary" required>
+            <select id="edit-phong_khoa_id" name="phong_khoa_id"
+              class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary"
+              required>
               <option value="1">Phòng Đào tạo</option>
               <option value="2">Khoa Công nghệ thông tin</option>
               <option value="3">Khoa Kinh tế</option>
@@ -363,7 +380,9 @@
           </div>
           <div>
             <label for="edit-nganh_id" class="block text-sm font-medium text-gray-700 mb-1">Ngành</label>
-            <select id="edit-nganh_id" name="nganh_id" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary" required>
+            <select id="edit-nganh_id" name="nganh_id"
+              class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary"
+              required>
               <option value="1">Công nghệ thông tin</option>
               <option value="2">Quản trị kinh doanh</option>
               <option value="3">Kế toán</option>
@@ -372,7 +391,9 @@
           </div>
           <div>
             <label for="edit-bac_hoc_id" class="block text-sm font-medium text-gray-700 mb-1">Bậc học</label>
-            <select id="edit-bac_hoc_id" name="bac_hoc_id" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary" required>
+            <select id="edit-bac_hoc_id" name="bac_hoc_id"
+              class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary"
+              required>
               <option value="1">Đại học</option>
               <option value="2">Cao đẳng</option>
               <option value="3">Thạc sĩ</option>
@@ -381,7 +402,9 @@
           </div>
           <div>
             <label for="edit-he_dao_tao_id" class="block text-sm font-medium text-gray-700 mb-1">Hệ đào tạo</label>
-            <select id="edit-he_dao_tao_id" name="he_dao_tao_id" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary" required>
+            <select id="edit-he_dao_tao_id" name="he_dao_tao_id"
+              class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary"
+              required>
               <option value="1">Chính quy</option>
               <option value="2">Liên thông</option>
               <option value="3">Vừa làm vừa học</option>
@@ -389,7 +412,9 @@
           </div>
           <div>
             <label for="edit-nam_hoc_id" class="block text-sm font-medium text-gray-700 mb-1">Năm học</label>
-            <select id="edit-nam_hoc_id" name="nam_hoc_id" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary" required>
+            <select id="edit-nam_hoc_id" name="nam_hoc_id"
+              class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary"
+              required>
               <option value="1">2023-2024</option>
               <option value="2">2022-2023</option>
               <option value="3">2021-2022</option>
@@ -397,8 +422,10 @@
           </div>
         </div>
         <div class="flex justify-end gap-2 mt-6">
-          <button type="button" id="cancel-edit-profile" class="px-4 py-2 bg-gray-300 text-gray-700 rounded-md hover:bg-gray-400">Hủy</button>
-          <button type="submit" class="px-4 py-2 bg-primary text-white rounded-md hover:bg-primary-dark">Lưu thay đổi</button>
+          <button type="button" id="cancel-edit-profile"
+            class="px-4 py-2 bg-gray-300 text-gray-700 rounded-md hover:bg-gray-400">Hủy</button>
+          <button type="submit" class="px-4 py-2 bg-primary text-white rounded-md hover:bg-primary-dark">Lưu thay
+            đổi</button>
         </div>
       </form>
     </div>
@@ -411,27 +438,36 @@
       <div class="flex items-center justify-between p-4 border-b">
         <h3 class="text-xl font-semibold text-gray-800">Đổi mật khẩu</h3>
         <button id="close-change-password-modal" class="text-gray-500 hover:text-gray-700">
-           <i class="ri-close-line text-2xl"></i>
+          <i class="ri-close-line text-2xl"></i>
         </button>
       </div>
       <form id="change-password-form" class="p-4">
         <div class="space-y-4">
           <div>
             <label for="current-password" class="block text-sm font-medium text-gray-700 mb-1">Mật khẩu hiện tại</label>
-            <input type="password" id="current-password" name="current-password" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary" required>
+            <input type="password" id="current-password" name="current-password"
+              class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary"
+              required>
           </div>
           <div>
             <label for="new-password" class="block text-sm font-medium text-gray-700 mb-1">Mật khẩu mới</label>
-            <input type="password" id="new-password" name="new-password" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary" required>
+            <input type="password" id="new-password" name="new-password"
+              class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary"
+              required>
           </div>
           <div>
-            <label for="confirm-password" class="block text-sm font-medium text-gray-700 mb-1">Xác nhận mật khẩu mới</label>
-            <input type="password" id="confirm-password" name="confirm-password" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary" required>
+            <label for="confirm-password" class="block text-sm font-medium text-gray-700 mb-1">Xác nhận mật khẩu
+              mới</label>
+            <input type="password" id="confirm-password" name="confirm-password"
+              class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary"
+              required>
           </div>
         </div>
         <div class="flex justify-end gap-2 mt-6">
-          <button type="button" id="cancel-change-password" class="px-4 py-2 bg-gray-300 text-gray-700 rounded-md hover:bg-gray-400">Hủy</button>
-          <button type="submit" class="px-4 py-2 bg-yellow-600 text-white rounded-md hover:bg-yellow-700">Đổi mật khẩu</button>
+          <button type="button" id="cancel-change-password"
+            class="px-4 py-2 bg-gray-300 text-gray-700 rounded-md hover:bg-gray-400">Hủy</button>
+          <button type="submit" class="px-4 py-2 bg-yellow-600 text-white rounded-md hover:bg-yellow-700">Đổi mật
+            khẩu</button>
         </div>
       </form>
     </div>
@@ -441,4 +477,4 @@
   <script src="../../public/js/admin/profile.js"></script>
 </body>
 
-</html> 
+</html>

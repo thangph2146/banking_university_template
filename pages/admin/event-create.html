@@ -15,42 +15,6 @@
   <script src="https://cdn.tailwindcss.com/3.4.16"></script>
   <script src="../../public/js/tailwind.config.js"></script>
   <script src="https://cdn.tiny.cloud/1/b7whk7hw51nvscdfn62fpplvwtw6h7xavw8hk5t35l1bbrnz/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
-  <style>
-    /* Animation cho toast notifications */
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-    
-    @keyframes fadeOut {
-      from { opacity: 1; transform: translateY(0); }
-      to { opacity: 0; transform: translateY(20px); }
-    }
-    
-    .animate-fade-in {
-      animation: fadeIn 0.3s ease-out forwards;
-    }
-    
-    .animate-fade-out {
-      animation: fadeOut 0.3s ease-out forwards;
-    }
-    
-    /* Animation cho tab content */
-    .tab-content {
-      transition: opacity 0.3s ease, transform 0.3s ease;
-    }
-    
-    /* Animation pulse cho tab highlight */
-    @keyframes pulse {
-      0% { opacity: 0.8; }
-      50% { opacity: 0.4; }
-      100% { opacity: 0.8; }
-    }
-    
-    .animate-pulse {
-      animation: pulse 1s ease-in-out infinite;
-    }
-  </style>
 </head>
 
 <body class="bg-gray-50 min-h-screen">
@@ -58,17 +22,24 @@
     <div id="sidebar-backdrop" class="fixed inset-0 bg-black/50 z-20 hidden md:hidden transition-opacity duration-300">
     </div>
 
-    <aside id="sidebar"
-      class="fixed md:relative z-50 bg-white w-72 max-w-[80vw] min-h-screen shadow-lg transform -translate-x-full md:translate-x-0 transition-transform duration-300 overflow-y-auto">
-      <div class="flex items-center justify-between p-4 border-b md:hidden">
-        <a href="index.html" class="text-2xl font-['Pacifico'] text-primary flex items-center">
-          <img src="../../images/logo/logo-white.png" alt="logo" class="w-8 h-8 mr-2">
-          <span>HUB Admin</span>
-        </a>
-        <button id="sidebar-close" class="text-gray-500 hover:text-gray-700 focus:outline-none">
-          <i class="ri-close-line text-2xl"></i>
-        </button>
-      </div>
+     <!-- Sidebar -->
+     <aside id="sidebar"
+     class="fixed md:relative z-50 bg-white w-72 max-w-[80vw] min-h-screen shadow-lg transform -translate-x-full md:translate-x-0 transition-transform duration-300 overflow-y-auto">
+     <!-- Logo/Brand for mobile -->
+     <div class="flex items-center justify-between p-4 border-b md:hidden">
+       <a href="index.html" class="text-2xl font-['Pacifico'] text-primary flex items-center">
+         <img src="../../images/logo/logo-white.png" alt="logo" class="w-8 h-8 mr-2">
+         <span>HUB Admin</span>
+       </a>
+       <button id="sidebar-close" class="text-gray-500 hover:text-gray-700 focus:outline-none">
+         <i class="ri-close-line text-2xl"></i>
+       </button>
+     </div>
+     <!-- Desktop logo -->
+     <div class="p-4 border-b border-gray-200 hidden md:block">
+       <h1 class="text-xl font-semibold text-primary">HUB Admin</h1>
+     </div>
+     
 
       <nav class="p-4">
         <div class="space-y-4">

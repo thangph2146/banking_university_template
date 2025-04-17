@@ -2,627 +2,664 @@
 <html lang="vi">
 
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Tạo Diễn giả mới - HUB Admin</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet" />
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
-  <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet" />
-  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-  <link href="../../public/css/custom.css" rel="stylesheet">
-  <script src="https://cdn.tailwindcss.com/3.4.16"></script>
-  <script src="../../public/js/tailwind.config.js"></script>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tạo Diễn giả mới - HUB Admin</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet" />
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link href="../../public/css/custom.css" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com/3.4.16"></script>
+    <script src="../../public/js/tailwind.config.js"></script>
 </head>
 
 <body class="bg-gray-50 min-h-screen">
-  <div class="flex h-screen overflow-hidden">
-    <div id="sidebar-backdrop" class="fixed inset-0 bg-black/50 z-20 hidden md:hidden transition-opacity duration-300">
-    </div>
-
-    <aside id="sidebar"
-      class="fixed md:relative z-50 bg-white w-72 max-w-[80vw] min-h-screen shadow-lg transform -translate-x-full md:translate-x-0 transition-transform duration-300 overflow-y-auto">
-      <div class="flex items-center justify-between p-4 border-b md:hidden">
-        <a href="index.html" class="text-2xl font-['Pacifico'] text-primary flex items-center">
-          <img src="../../images/logo/logo-white.png" alt="logo" class="w-8 h-8 mr-2">
-          <span>HUB Admin</span>
-        </a>
-        <button id="sidebar-close" class="text-gray-500 hover:text-gray-700 focus:outline-none">
-          <i class="ri-close-line text-2xl"></i>
-        </button>
-      </div>
-
-      <nav class="p-4">
-        <div class="space-y-4">
-          <div class="border-b pb-4">
-            <h2 class="text-xs uppercase text-gray-400 font-semibold">Quản lý chung</h2>
-            <div class="mt-3 space-y-3">
-              <a href="dashboard.html"
-                class="sidebar-link flex items-center text-gray-600 hover:text-primary p-2 rounded-md hover:bg-gray-100">
-                <i class="sidebar-icon ri-dashboard-line mr-2"></i>
-                <span class="sidebar-link-text">Tổng quan</span>
-              </a>
-              <a href="events.html"
-                class="sidebar-link flex items-center text-gray-600 hover:text-primary p-2 rounded-md hover:bg-gray-100">
-                <i class="sidebar-icon ri-calendar-event-line mr-2"></i>
-                <span class="sidebar-link-text">Sự kiện</span>
-              </a>
-              <a href="accounts.html"
-                class="sidebar-link flex items-center text-gray-600 hover:text-primary p-2 rounded-md hover:bg-gray-100">
-                <i class="sidebar-icon ri-user-settings-line mr-2"></i>
-                <span class="sidebar-link-text">Tài khoản Admin</span>
-              </a>
-              <a href="users.html"
-                class="sidebar-link flex items-center text-gray-600 hover:text-primary p-2 rounded-md hover:bg-gray-100">
-                <i class="sidebar-icon ri-user-line mr-2"></i>
-                <span class="sidebar-link-text">Người dùng</span>
-              </a>
-              <a href="speakers.html"
-                class="sidebar-link active flex items-center text-primary p-2 rounded-md bg-primary/10 font-medium">
-                <i class="sidebar-icon ri-mic-line mr-2"></i>
-                <span class="sidebar-link-text">Diễn giả</span>
-              </a>
-            </div>
-          </div>
-
-          <div class="border-b pb-4">
-            <h2 class="sidebar-section-title text-xs uppercase text-gray-400 font-semibold">Quản lý sự kiện</h2>
-            <div class="mt-3 space-y-3">
-              <a href="event-types.html"
-                class="sidebar-link flex items-center text-gray-600 hover:text-primary p-2 rounded-md hover:bg-gray-100">
-                 <i class="sidebar-icon ri-price-tag-3-line mr-2"></i>
-                 <span class="sidebar-link-text">Loại sự kiện</span>
-              </a>
-               
-              <a href="registrations.html"
-                class="sidebar-link flex items-center text-gray-600 hover:text-primary p-2 rounded-md hover:bg-gray-100">
-                <i class="sidebar-icon ri-file-list-line mr-2"></i>
-                <span class="sidebar-link-text">Đăng ký sự kiện</span>
-              </a>
-              <a href="checkins.html"
-                class="sidebar-link flex items-center text-gray-600 hover:text-primary p-2 rounded-md hover:bg-gray-100">
-                <i class="sidebar-icon ri-login-box-line mr-2"></i>
-                <span class="sidebar-link-text">Check-in</span>
-              </a>
-              <a href="checkouts.html"
-                class="sidebar-link flex items-center text-gray-600 hover:text-primary p-2 rounded-md hover:bg-gray-100">
-                <i class="sidebar-icon ri-logout-box-line mr-2"></i>
-                <span class="sidebar-link-text">Check-out</span>
-              </a>
-              <a href="screens.html"
-                 class="sidebar-link flex items-center text-gray-600 hover:text-primary p-2 rounded-md hover:bg-gray-100">
-                 <i class="sidebar-icon ri-tv-2-line mr-2"></i>
-                 <span class="sidebar-link-text">Màn hình</span>
-               </a>
-              <a href="reports.html"
-                class="sidebar-link flex items-center text-gray-600 hover:text-primary p-2 rounded-md hover:bg-gray-100">
-                <i class="sidebar-icon ri-bar-chart-line mr-2"></i>
-                <span class="sidebar-link-text">Báo cáo</span>
-              </a>
-            </div>
-          </div>
-
-          <div>
-            <h2 class="sidebar-section-title text-xs uppercase text-gray-400 font-semibold">Cài đặt hệ thống</h2>
-            <div class="mt-3 space-y-3">
-              <a href="settings.html"
-                class="sidebar-link flex items-center text-gray-600 hover:text-primary p-2 rounded-md hover:bg-gray-100">
-                <i class="sidebar-icon ri-settings-3-line mr-2"></i>
-                <span class="sidebar-link-text">Thiết lập</span>
-              </a>
-              <a href="roles.html"
-                class="sidebar-link flex items-center text-gray-600 hover:text-primary p-2 rounded-md hover:bg-gray-100">
-                <i class="sidebar-icon ri-shield-user-line mr-2"></i>
-                <span class="sidebar-link-text">Phân quyền</span>
-              </a>
-              <a href="user-types.html"
-                class="sidebar-link flex items-center text-gray-600 hover:text-primary p-2 rounded-md hover:bg-gray-100">
-                <i class="sidebar-icon ri-group-line mr-2"></i>
-                <span class="sidebar-link-text">Loại người dùng</span>
-              </a>
-              <a href="academic-levels.html"
-                class="sidebar-link flex items-center text-gray-600 hover:text-primary p-2 rounded-md hover:bg-gray-100">
-                <i class="sidebar-icon ri-graduation-cap-line mr-2"></i>
-                <span class="sidebar-link-text">Bậc học</span>
-              </a>
-              <a href="courses.html"
-                class="sidebar-link flex items-center text-gray-600 hover:text-primary p-2 rounded-md hover:bg-gray-100">
-                <i class="sidebar-icon ri-book-open-line mr-2"></i>
-                <span class="sidebar-link-text">Khoá học</span>
-              </a>
-              <a href="majors.html"
-                class="sidebar-link flex items-center text-gray-600 hover:text-primary p-2 rounded-md hover:bg-gray-100">
-                <i class="sidebar-icon ri-book-open-line mr-2"></i>
-                <span class="sidebar-link-text">Ngành đào tạo</span>
-              </a>
-              <a href="departments.html"
-                class="sidebar-link flex items-center text-gray-600 hover:text-primary p-2 rounded-md hover:bg-gray-100">
-                <i class="sidebar-icon ri-building-line mr-2"></i>
-                <span class="sidebar-link-text">Phòng khoa</span>
-              </a>
-              <a href="academic-years.html"
-                class="sidebar-link flex items-center text-gray-600 hover:text-primary p-2 rounded-md hover:bg-gray-100">
-                <i class="sidebar-icon ri-calendar-check-line mr-2"></i>
-                <span class="sidebar-link-text">Năm học</span>
-              </a>
-              <a href="cameras.html"
-                class="sidebar-link flex items-center text-gray-600 hover:text-primary p-2 rounded-md hover:bg-gray-100">
-                <i class="sidebar-icon ri-camera-line mr-2"></i>
-                <span class="sidebar-link-text">Camera</span>
-              </a>
-               
-               
-            </div>
-          </div>
+    <div class="flex h-screen overflow-hidden">
+        <div id="sidebar-backdrop"
+            class="fixed inset-0 bg-black/50 z-20 hidden md:hidden transition-opacity duration-300">
         </div>
-      </nav>
-    </aside>
-    
-    <!-- Main Content -->
-    <main class="flex-1 overflow-auto px-6 pb-6 pt-4">
-        <!-- Header -->
-        <header class="bg-primary shadow-md sticky top-0 z-30 animate-fade-in mb-6">
-            <div class="container mx-auto px-4 py-2 flex items-center justify-between">
-              <button id="sidebar-open" class="text-white p-2 rounded-md md:hidden focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white">
-                <i class="ri-menu-line text-2xl"></i>
-              </button>
-    
-              <a href="index.html"
-                class="text-2xl font-['Pacifico'] text-white transition-all duration-300 hover:scale-105">
-                <img src="../../images/logo/logo-white.png" alt="logo" class="w-12 h-12 md:w-16 md:h-16">
-              </a>
-              <div class="flex items-center space-x-4">
-                <div class="relative">
-                  <button class="text-white hover:text-gray-200 focus:outline-none">
-                    <i class="ri-notification-3-line text-xl"></i>
-                    <span class="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full w-4 h-4 flex items-center justify-center">3</span>
-                  </button>
-                </div>
-    
-                <div class="flex items-center space-x-4">
-                  <div class="relative group">
-                    <button class="flex items-center space-x-2 text-white">
-                      <img src="https://readdy.ai/api/search-image?query=professional%20headshot%20young%20vietnamese%20student%20minimal%20background&width=100&height=100&seq=avatar" alt="Ảnh đại diện" class="w-8 h-8 rounded-full border-2 border-white">
-                      <span class="hidden sm:block">Nguyễn Văn A</span>
-                      <i class="ri-arrow-down-s-line group-hover:rotate-180 transition-transform duration-300"></i>
-                    </button>
-                    <div class="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg overflow-hidden z-20 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform origin-top-right scale-95 group-hover:scale-100">
-                      <div class="py-2">
-                        <a href="profile.html"
-                          class="flex items-center px-4 py-2 text-sm text-gray-800 hover:bg-primary/10 hover:text-primary border-l-4 border-primary">
-                          <i class="ri-user-line mr-2"></i>
-                          Trang cá nhân
-                        </a>
-                        <a href="#"
-                          class="flex items-center px-4 py-2 text-sm text-gray-800 hover:bg-primary/10 hover:text-primary">
-                          <i class="ri-calendar-event-line mr-2"></i>
-                          Sự kiện của tôi
-                        </a>
-                        <a href="#"
-                          class="flex items-center px-4 py-2 text-sm text-gray-800 hover:bg-primary/10 hover:text-primary">
-                          <i class="ri-settings-4-line mr-2"></i>
-                          Cài đặt
-                        </a>
-                        <hr class="my-1 border-gray-200">
-                        <a href="login.html"
-                          class="flex items-center px-4 py-2 text-sm text-gray-800 hover:bg-primary/10 hover:text-primary">
-                          <i class="ri-logout-box-r-line mr-2"></i>
-                          Đăng xuất
-                        </a>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
+
+        <!-- Sidebar -->
+        <aside id="sidebar"
+            class="fixed md:relative z-50 bg-white w-72 max-w-[80vw] min-h-screen shadow-lg transform -translate-x-full md:translate-x-0 transition-transform duration-300 overflow-y-auto">
+            <!-- Logo/Brand for mobile -->
+            <div class="flex items-center justify-between p-4 border-b md:hidden">
+                <a href="index.html" class="text-2xl font-['Pacifico'] text-primary flex items-center">
+                    <img src="../../images/logo/logo-white.png" alt="logo" class="w-8 h-8 mr-2">
+                    <span>HUB Admin</span>
+                </a>
+                <button id="sidebar-close" class="text-gray-500 hover:text-gray-700 focus:outline-none">
+                    <i class="ri-close-line text-2xl"></i>
+                </button>
             </div>
-          </header>
-        
-        <div class="container mx-auto">
-            <nav class="flex mb-6" aria-label="Breadcrumb">
-                <ol class="inline-flex items-center space-x-1 md:space-x-3">
-                    <li class="inline-flex items-center">
-                        <a href="dashboard.html" class="text-gray-700 hover:text-primary">
-                            <i class="ri-dashboard-line mr-2"></i>
-                            Dashboard
-                        </a>
-                    </li>
-                    <li>
-                        <div class="flex items-center">
-                            <i class="ri-arrow-right-s-line text-gray-400"></i>
-                            <a href="speakers.html" class="ml-1 text-gray-700 hover:text-primary">
-                                Diễn giả
+            <!-- Desktop logo -->
+            <div class="p-4 border-b border-gray-200 hidden md:block">
+                <h1 class="text-xl font-semibold text-primary">HUB Admin</h1>
+            </div>
+
+
+            <nav class="p-4">
+                <div class="space-y-4">
+                    <div class="border-b pb-4">
+                        <h2 class="text-xs uppercase text-gray-400 font-semibold">Quản lý chung</h2>
+                        <div class="mt-3 space-y-3">
+                            <a href="dashboard.html"
+                                class="sidebar-link flex items-center text-gray-600 hover:text-primary p-2 rounded-md hover:bg-gray-100">
+                                <i class="sidebar-icon ri-dashboard-line mr-2"></i>
+                                <span class="sidebar-link-text">Tổng quan</span>
+                            </a>
+                            <a href="events.html"
+                                class="sidebar-link flex items-center text-gray-600 hover:text-primary p-2 rounded-md hover:bg-gray-100">
+                                <i class="sidebar-icon ri-calendar-event-line mr-2"></i>
+                                <span class="sidebar-link-text">Sự kiện</span>
+                            </a>
+                            <a href="accounts.html"
+                                class="sidebar-link flex items-center text-gray-600 hover:text-primary p-2 rounded-md hover:bg-gray-100">
+                                <i class="sidebar-icon ri-user-settings-line mr-2"></i>
+                                <span class="sidebar-link-text">Tài khoản Admin</span>
+                            </a>
+                            <a href="users.html"
+                                class="sidebar-link flex items-center text-gray-600 hover:text-primary p-2 rounded-md hover:bg-gray-100">
+                                <i class="sidebar-icon ri-user-line mr-2"></i>
+                                <span class="sidebar-link-text">Người dùng</span>
+                            </a>
+                            <a href="speakers.html"
+                                class="sidebar-link active flex items-center text-primary p-2 rounded-md bg-primary/10 font-medium">
+                                <i class="sidebar-icon ri-mic-line mr-2"></i>
+                                <span class="sidebar-link-text">Diễn giả</span>
                             </a>
                         </div>
-                    </li>
-                    <li>
-                        <div class="flex items-center">
-                            <i class="ri-arrow-right-s-line text-gray-400"></i>
-                            <span class="ml-1 text-primary font-medium" id="speaker-name-breadcrumb">Chi tiết diễn giả</span>
+                    </div>
+
+                    <div class="border-b pb-4">
+                        <h2 class="sidebar-section-title text-xs uppercase text-gray-400 font-semibold">Quản lý sự kiện
+                        </h2>
+                        <div class="mt-3 space-y-3">
+                            <a href="event-types.html"
+                                class="sidebar-link flex items-center text-gray-600 hover:text-primary p-2 rounded-md hover:bg-gray-100">
+                                <i class="sidebar-icon ri-price-tag-3-line mr-2"></i>
+                                <span class="sidebar-link-text">Loại sự kiện</span>
+                            </a>
+
+                            <a href="registrations.html"
+                                class="sidebar-link flex items-center text-gray-600 hover:text-primary p-2 rounded-md hover:bg-gray-100">
+                                <i class="sidebar-icon ri-file-list-line mr-2"></i>
+                                <span class="sidebar-link-text">Đăng ký sự kiện</span>
+                            </a>
+                            <a href="checkins.html"
+                                class="sidebar-link flex items-center text-gray-600 hover:text-primary p-2 rounded-md hover:bg-gray-100">
+                                <i class="sidebar-icon ri-login-box-line mr-2"></i>
+                                <span class="sidebar-link-text">Check-in</span>
+                            </a>
+                            <a href="checkouts.html"
+                                class="sidebar-link flex items-center text-gray-600 hover:text-primary p-2 rounded-md hover:bg-gray-100">
+                                <i class="sidebar-icon ri-logout-box-line mr-2"></i>
+                                <span class="sidebar-link-text">Check-out</span>
+                            </a>
+                            <a href="screens.html"
+                                class="sidebar-link flex items-center text-gray-600 hover:text-primary p-2 rounded-md hover:bg-gray-100">
+                                <i class="sidebar-icon ri-tv-2-line mr-2"></i>
+                                <span class="sidebar-link-text">Màn hình</span>
+                            </a>
+                            <a href="reports.html"
+                                class="sidebar-link flex items-center text-gray-600 hover:text-primary p-2 rounded-md hover:bg-gray-100">
+                                <i class="sidebar-icon ri-bar-chart-line mr-2"></i>
+                                <span class="sidebar-link-text">Báo cáo</span>
+                            </a>
                         </div>
-                    </li>
-                </ol>
+                    </div>
+
+                    <div>
+                        <h2 class="sidebar-section-title text-xs uppercase text-gray-400 font-semibold">Cài đặt hệ thống
+                        </h2>
+                        <div class="mt-3 space-y-3">
+                            <a href="settings.html"
+                                class="sidebar-link flex items-center text-gray-600 hover:text-primary p-2 rounded-md hover:bg-gray-100">
+                                <i class="sidebar-icon ri-settings-3-line mr-2"></i>
+                                <span class="sidebar-link-text">Thiết lập</span>
+                            </a>
+                            <a href="roles.html"
+                                class="sidebar-link flex items-center text-gray-600 hover:text-primary p-2 rounded-md hover:bg-gray-100">
+                                <i class="sidebar-icon ri-shield-user-line mr-2"></i>
+                                <span class="sidebar-link-text">Phân quyền</span>
+                            </a>
+                            <a href="user-types.html"
+                                class="sidebar-link flex items-center text-gray-600 hover:text-primary p-2 rounded-md hover:bg-gray-100">
+                                <i class="sidebar-icon ri-group-line mr-2"></i>
+                                <span class="sidebar-link-text">Loại người dùng</span>
+                            </a>
+                            <a href="academic-levels.html"
+                                class="sidebar-link flex items-center text-gray-600 hover:text-primary p-2 rounded-md hover:bg-gray-100">
+                                <i class="sidebar-icon ri-graduation-cap-line mr-2"></i>
+                                <span class="sidebar-link-text">Bậc học</span>
+                            </a>
+                            <a href="courses.html"
+                                class="sidebar-link flex items-center text-gray-600 hover:text-primary p-2 rounded-md hover:bg-gray-100">
+                                <i class="sidebar-icon ri-book-open-line mr-2"></i>
+                                <span class="sidebar-link-text">Khoá học</span>
+                            </a>
+                            <a href="majors.html"
+                                class="sidebar-link flex items-center text-gray-600 hover:text-primary p-2 rounded-md hover:bg-gray-100">
+                                <i class="sidebar-icon ri-book-open-line mr-2"></i>
+                                <span class="sidebar-link-text">Ngành đào tạo</span>
+                            </a>
+                            <a href="departments.html"
+                                class="sidebar-link flex items-center text-gray-600 hover:text-primary p-2 rounded-md hover:bg-gray-100">
+                                <i class="sidebar-icon ri-building-line mr-2"></i>
+                                <span class="sidebar-link-text">Phòng khoa</span>
+                            </a>
+                            <a href="academic-years.html"
+                                class="sidebar-link flex items-center text-gray-600 hover:text-primary p-2 rounded-md hover:bg-gray-100">
+                                <i class="sidebar-icon ri-calendar-check-line mr-2"></i>
+                                <span class="sidebar-link-text">Năm học</span>
+                            </a>
+                            <a href="cameras.html"
+                                class="sidebar-link flex items-center text-gray-600 hover:text-primary p-2 rounded-md hover:bg-gray-100">
+                                <i class="sidebar-icon ri-camera-line mr-2"></i>
+                                <span class="sidebar-link-text">Camera</span>
+                            </a>
+
+
+                        </div>
+                    </div>
+                </div>
             </nav>
-            
-            <!-- Main content grid -->
-            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
-                <!-- Left column (2/3 width on large screens) -->
-                <div class="lg:col-span-2 space-y-6">
-                    <!-- Speaker profile card -->
-                    <div class="bg-white rounded-lg shadow-sm overflow-hidden">
-                        <div class="p-6">
-                            <div class="flex flex-col md:flex-row md:items-center gap-6">
-                                <div class="w-40 h-40 rounded-full overflow-hidden border-4 border-white shadow-lg mx-auto md:mx-0">
-                                    <img id="avatar-display" src="https://i.pravatar.cc/300?img=8" alt="Ảnh diễn giả" class="w-full h-full object-cover">
-                                </div>
-                                <div class="flex-1 text-center md:text-left">
-                                    <h1 id="ten-dien-gia" class="text-2xl font-bold text-gray-900 mb-2">GS.TS. Nguyễn Văn A</h1>
-                                    <p id="to-chuc" class="text-lg text-gray-700 mb-2">Đại học Ngân hàng TP.HCM</p>
-                                    <div class="flex items-center flex-wrap gap-2 justify-center md:justify-start mb-4">
-                                        <p id="chuyen-mon" class="text-sm text-gray-600">Chuyên gia Tài chính - Ngân hàng</p>
-                                        <span id="status-badge" class="px-2 py-1 text-xs rounded-full bg-green-100 text-green-800">Hoạt động</span>
-                                    </div>
-                                    
-                                    <div class="flex flex-wrap gap-3 justify-center md:justify-start">
-                                        <a id="email-link" href="mailto:example@email.com" class="inline-flex items-center gap-1 text-sm text-gray-700 hover:text-primary px-3 py-1 rounded-full bg-gray-100 hover:bg-gray-200 transition-colors">
-                                            <i class="ri-mail-line"></i>
-                                            <span id="email-display">example@email.com</span>
-                                        </a>
-                                        <a id="phone-link" href="tel:0123456789" class="inline-flex items-center gap-1 text-sm text-gray-700 hover:text-primary px-3 py-1 rounded-full bg-gray-100 hover:bg-gray-200 transition-colors">
-                                            <i class="ri-phone-line"></i>
-                                            <span id="phone-display">0123456789</span>
-                                        </a>
-                                        <a id="website-link" href="#" target="_blank" class="inline-flex items-center gap-1 text-sm text-gray-700 hover:text-primary px-3 py-1 rounded-full bg-gray-100 hover:bg-gray-200 transition-colors">
-                                            <i class="ri-global-line"></i>
-                                            <span id="website-display">Website</span>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                            
-                            <div class="flex justify-center md:justify-end mt-6 gap-2">
-                                <a href="speaker-edit.html" id="edit-button" class="inline-flex items-center gap-1 px-4 py-2 text-sm font-medium rounded-button bg-primary text-white hover:bg-primary/90 transition-colors">
-                                    <i class="ri-edit-line"></i>
-                                    <span>Chỉnh sửa</span>
-                                </a>
-                                <button id="delete-button" class="inline-flex items-center gap-1 px-4 py-2 text-sm font-medium rounded-button bg-white border border-red-500 text-red-500 hover:bg-red-50 transition-colors">
-                                    <i class="ri-delete-bin-line"></i>
-                                    <span>Xóa</span>
-                                </button>
-                            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="flex-1 overflow-auto px-6 pb-6 pt-4">
+            <!-- Header -->
+            <header class="bg-primary shadow-md sticky top-0 z-30 animate-fade-in mb-6">
+                <div class="container mx-auto px-4 py-2 flex items-center justify-between">
+                    <button id="sidebar-open"
+                        class="text-white p-2 rounded-md md:hidden focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white">
+                        <i class="ri-menu-line text-2xl"></i>
+                    </button>
+
+                    <a href="index.html"
+                        class="text-2xl font-['Pacifico'] text-white transition-all duration-300 hover:scale-105">
+                        <img src="../../images/logo/logo-white.png" alt="logo" class="w-12 h-12 md:w-16 md:h-16">
+                    </a>
+                    <div class="flex items-center space-x-4">
+                        <div class="relative">
+                            <button class="text-white hover:text-gray-200 focus:outline-none">
+                                <i class="ri-notification-3-line text-xl"></i>
+                                <span
+                                    class="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full w-4 h-4 flex items-center justify-center">3</span>
+                            </button>
                         </div>
-                    </div>
-                    
-                    <!-- Tabs Navigation -->
-                    <div class="bg-white rounded-lg shadow-sm overflow-hidden">
-                        <div class="border-b border-gray-200">
-                            <div class="flex overflow-x-auto scrollbar-hide">
-                                <button 
-                                    class="px-6 py-3 font-medium text-primary border-b-2 border-primary tab-btn relative focus:outline-none" 
-                                    data-tab="basic-info"
-                                    role="tab"
-                                    aria-selected="true"
-                                    aria-controls="tab-basic-info"
-                                >
-                                    <span>Thông tin cơ bản</span>
+
+                        <div class="flex items-center space-x-4">
+                            <div class="relative group">
+                                <button class="flex items-center space-x-2 text-white">
+                                    <img src="https://readdy.ai/api/search-image?query=professional%20headshot%20young%20vietnamese%20student%20minimal%20background&width=100&height=100&seq=avatar"
+                                        alt="Ảnh đại diện" class="w-8 h-8 rounded-full border-2 border-white">
+                                    <span class="hidden sm:block">Nguyễn Văn A</span>
+                                    <i
+                                        class="ri-arrow-down-s-line group-hover:rotate-180 transition-transform duration-300"></i>
                                 </button>
-                                <button 
-                                    class="px-6 py-3 font-medium text-gray-500 border-b-2 border-transparent hover:text-gray-700 tab-btn relative focus:outline-none" 
-                                    data-tab="achievements"
-                                    role="tab"
-                                    aria-selected="false"
-                                    aria-controls="tab-achievements"
-                                >
-                                    <span>Thành tựu</span>
-                                </button>
-                                <button 
-                                    class="px-6 py-3 font-medium text-gray-500 border-b-2 border-transparent hover:text-gray-700 tab-btn relative focus:outline-none" 
-                                    data-tab="events"
-                                    role="tab"
-                                    aria-selected="false"
-                                    aria-controls="tab-events"
-                                >
-                                    <span>Sự kiện đã tham gia</span>
-                                </button>
-                            </div>
-                        </div>
-                        
-                        <!-- Tab content -->
-                        <div class="p-6">
-                            <!-- Basic Info Tab -->
-                            <div 
-                                id="tab-basic-info" 
-                                class="tab-content transition-opacity duration-300 ease-in-out"
-                                role="tabpanel"
-                                aria-hidden="false"
-                            >
-                                <h2 class="text-xl font-bold text-gray-900 mb-4">Thông tin diễn giả</h2>
-                                
-                                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
-                                    <div>
-                                        <label class="block text-sm font-medium text-gray-700">Tên diễn giả</label>
-                                        <p id="ten_dien_gia" class="mt-1 text-gray-900">GS.TS. Nguyễn Văn A</p>
-                                    </div>
-                                    <div>
-                                        <label class="block text-sm font-medium text-gray-700">Chức danh</label>
-                                        <p id="chuc_danh" class="mt-1 text-gray-900">Giáo sư, Tiến sĩ</p>
-                                    </div>
-                                    <div>
-                                        <label class="block text-sm font-medium text-gray-700">Tổ chức</label>
-                                        <p id="to_chuc" class="mt-1 text-gray-900">Đại học Ngân hàng TP.HCM</p>
-                                    </div>
-                                    <div>
-                                        <label class="block text-sm font-medium text-gray-700">Email</label>
-                                        <p id="email" class="mt-1 text-gray-900">example@email.com</p>
-                                    </div>
-                                    <div>
-                                        <label class="block text-sm font-medium text-gray-700">Điện thoại</label>
-                                        <p id="dien_thoai" class="mt-1 text-gray-900">0123456789</p>
-                                    </div>
-                                    <div>
-                                        <label class="block text-sm font-medium text-gray-700">Website</label>
-                                        <p id="website" class="mt-1 text-gray-900">example.com</p>
-                                    </div>
-                                </div>
-                                
-                                <div class="mb-6">
-                                    <label class="block text-sm font-medium text-gray-700">Giới thiệu</label>
-                                    <div id="gioi_thieu" class="mt-1 text-gray-900 prose prose-sm max-w-none">
-                                        <p>Chuyên gia hàng đầu trong lĩnh vực tài chính ngân hàng với hơn 20 năm kinh nghiệm trong ngành.</p>
-                                    </div>
-                                </div>
-                                
-                                <div class="mb-6">
-                                    <label class="block text-sm font-medium text-gray-700">Chuyên môn</label>
-                                    <p id="chuyen_mon" class="mt-1 text-gray-900">Tài chính - Ngân hàng, Blockchain, Fintech</p>
-                                </div>
-                                
-                                <div>
-                                    <label class="block text-sm font-medium text-gray-700 mb-2">Mạng xã hội</label>
-                                    <div class="flex flex-wrap gap-3">
-                                        <a id="facebook-link" href="#" target="_blank" class="inline-flex items-center gap-2 px-3 py-2 rounded-md bg-gray-100 text-gray-700 hover:bg-gray-200 transition-colors">
-                                            <i class="ri-facebook-fill text-blue-600"></i>
-                                            <span>Facebook</span>
+                                <div
+                                    class="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg overflow-hidden z-20 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform origin-top-right scale-95 group-hover:scale-100">
+                                    <div class="py-2">
+                                        <a href="profile.html"
+                                            class="flex items-center px-4 py-2 text-sm text-gray-800 hover:bg-primary/10 hover:text-primary border-l-4 border-primary">
+                                            <i class="ri-user-line mr-2"></i>
+                                            Trang cá nhân
                                         </a>
-                                        <a id="linkedin-link" href="#" target="_blank" class="inline-flex items-center gap-2 px-3 py-2 rounded-md bg-gray-100 text-gray-700 hover:bg-gray-200 transition-colors">
-                                            <i class="ri-linkedin-fill text-blue-700"></i>
-                                            <span>LinkedIn</span>
+                                        <a href="#"
+                                            class="flex items-center px-4 py-2 text-sm text-gray-800 hover:bg-primary/10 hover:text-primary">
+                                            <i class="ri-calendar-event-line mr-2"></i>
+                                            Sự kiện của tôi
                                         </a>
-                                        <a id="twitter-link" href="#" target="_blank" class="inline-flex items-center gap-2 px-3 py-2 rounded-md bg-gray-100 text-gray-700 hover:bg-gray-200 transition-colors">
-                                            <i class="ri-twitter-x-fill"></i>
-                                            <span>Twitter</span>
+                                        <a href="#"
+                                            class="flex items-center px-4 py-2 text-sm text-gray-800 hover:bg-primary/10 hover:text-primary">
+                                            <i class="ri-settings-4-line mr-2"></i>
+                                            Cài đặt
                                         </a>
-                                        <a id="youtube-link" href="#" target="_blank" class="inline-flex items-center gap-2 px-3 py-2 rounded-md bg-gray-100 text-gray-700 hover:bg-gray-200 transition-colors">
-                                            <i class="ri-youtube-fill text-red-600"></i>
-                                            <span>YouTube</span>
+                                        <hr class="my-1 border-gray-200">
+                                        <a href="login.html"
+                                            class="flex items-center px-4 py-2 text-sm text-gray-800 hover:bg-primary/10 hover:text-primary">
+                                            <i class="ri-logout-box-r-line mr-2"></i>
+                                            Đăng xuất
                                         </a>
-                                    </div>
-                                </div>
-                            </div>
-                            
-                            <!-- Achievements Tab -->
-                            <div 
-                                id="tab-achievements" 
-                                class="tab-content hidden transition-opacity duration-300 ease-in-out"
-                                role="tabpanel"
-                                aria-hidden="true"
-                            >
-                                <h2 class="text-xl font-bold text-gray-900 mb-4">Thành tựu nổi bật</h2>
-                                
-                                <div id="thanh_tuu" class="prose prose-sm max-w-none">
-                                    <ul>
-                                        <li>Giáo sư xuất sắc tại Đại học Ngân hàng TP.HCM từ năm 2015</li>
-                                        <li>Tác giả của 5 cuốn sách chuyên ngành về Tài chính Ngân hàng</li>
-                                        <li>Hơn 30 bài báo nghiên cứu trên các tạp chí quốc tế</li>
-                                        <li>Giải thưởng Nhà nghiên cứu xuất sắc năm 2020</li>
-                                        <li>Thành viên Hội đồng Khoa học và Công nghệ quốc gia</li>
-                                        <li>Tư vấn cho nhiều tổ chức tài chính lớn trong và ngoài nước</li>
-                                        <li>Diễn giả tại hơn 50 hội nghị và hội thảo quốc tế</li>
-                                    </ul>
-                                </div>
-                            </div>
-                            
-                            <!-- Events Tab -->
-                            <div 
-                                id="tab-events" 
-                                class="tab-content hidden transition-opacity duration-300 ease-in-out"
-                                role="tabpanel"
-                                aria-hidden="true"
-                            >
-                                <h2 class="text-xl font-bold text-gray-900 mb-4">Sự kiện đã tham gia</h2>
-                                
-                                <div class="space-y-4" id="event-list">
-                                    <!-- Event items will be dynamically added here -->
-                                    <div class="border rounded-lg p-4 hover:bg-gray-50 transition-colors">
-                                        <div class="flex justify-between items-start">
-                                            <div>
-                                                <h3 class="font-medium text-gray-900">Hội thảo Fintech và Tương lai ngành Ngân hàng</h3>
-                                                <p class="text-sm text-gray-600 mt-1">15/03/2023</p>
-                                            </div>
-                                            <span class="px-2 py-1 text-xs rounded-full bg-green-100 text-green-800">Đã diễn ra</span>
-                                        </div>
-                                        <p class="text-sm text-gray-600 mt-2">Diễn giả chính</p>
-                                        <div class="mt-2 flex justify-end">
-                                            <a href="event-detail.html" class="text-sm text-primary hover:underline">Xem chi tiết</a>
-                                        </div>
-                                    </div>
-                                    
-                                    <div class="border rounded-lg p-4 hover:bg-gray-50 transition-colors">
-                                        <div class="flex justify-between items-start">
-                                            <div>
-                                                <h3 class="font-medium text-gray-900">Tọa đàm Blockchain và Ứng dụng trong Ngân hàng</h3>
-                                                <p class="text-sm text-gray-600 mt-1">22/05/2023</p>
-                                            </div>
-                                            <span class="px-2 py-1 text-xs rounded-full bg-green-100 text-green-800">Đã diễn ra</span>
-                                        </div>
-                                        <p class="text-sm text-gray-600 mt-2">Diễn giả chính</p>
-                                        <div class="mt-2 flex justify-end">
-                                            <a href="event-detail.html" class="text-sm text-primary hover:underline">Xem chi tiết</a>
-                                        </div>
-                                    </div>
-                                    
-                                    <div class="border rounded-lg p-4 hover:bg-gray-50 transition-colors">
-                                        <div class="flex justify-between items-start">
-                                            <div>
-                                                <h3 class="font-medium text-gray-900">Hội nghị Khoa học Quốc tế về Tài chính Bền vững</h3>
-                                                <p class="text-sm text-gray-600 mt-1">10/11/2023</p>
-                                            </div>
-                                            <span class="px-2 py-1 text-xs rounded-full bg-yellow-100 text-yellow-800">Sắp diễn ra</span>
-                                        </div>
-                                        <p class="text-sm text-gray-600 mt-2">Khách mời</p>
-                                        <div class="mt-2 flex justify-end">
-                                            <a href="event-detail.html" class="text-sm text-primary hover:underline">Xem chi tiết</a>
-                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                
-                <!-- Right column (1/3 width on large screens) -->
-                <div class="lg:col-span-1 space-y-6">
-                    <!-- Speaker stats card -->
-                    <div class="bg-white rounded-lg shadow-sm overflow-hidden hover:shadow-md transition-shadow">
-                        <div class="p-6">
-                            <h3 class="text-lg font-bold text-gray-900 mb-4 flex items-center">
-                                <span class="w-5 h-5 flex items-center justify-center mr-2 text-primary">
-                                    <i class="ri-information-line"></i>
-                                </span>
-                                Thông tin diễn giả
-                            </h3>
-                            <ul class="space-y-3">
-                                <li class="flex items-start hover:bg-gray-50 p-2 -mx-2 rounded-md transition-colors">
-                                    <div class="w-5 h-5 flex items-center justify-center mt-0.5 mr-3 text-primary">
-                                        <i class="ri-calendar-line"></i>
-                                    </div>
-                                    <div>
-                                        <span class="text-sm font-medium text-gray-900">Sự kiện đã tham gia</span>
-                                        <p id="so-su-kien" class="text-sm text-gray-600">3 sự kiện</p>
-                                    </div>
-                                </li>
-                                <li class="flex items-start hover:bg-gray-50 p-2 -mx-2 rounded-md transition-colors">
-                                    <div class="w-5 h-5 flex items-center justify-center mt-0.5 mr-3 text-primary">
-                                        <i class="ri-user-star-line"></i>
-                                    </div>
-                                    <div>
-                                        <span class="text-sm font-medium text-gray-900">Chức danh</span>
-                                        <p id="display-chuc-danh" class="text-sm text-gray-600">Giáo sư, Tiến sĩ</p>
-                                    </div>
-                                </li>
-                                <li class="flex items-start hover:bg-gray-50 p-2 -mx-2 rounded-md transition-colors">
-                                    <div class="w-5 h-5 flex items-center justify-center mt-0.5 mr-3 text-primary">
-                                        <i class="ri-building-line"></i>
-                                    </div>
-                                    <div>
-                                        <span class="text-sm font-medium text-gray-900">Đơn vị công tác</span>
-                                        <p id="display-to-chuc" class="text-sm text-gray-600">Đại học Ngân hàng TP.HCM</p>
-                                    </div>
-                                </li>
-                                <li class="flex items-start hover:bg-gray-50 p-2 -mx-2 rounded-md transition-colors">
-                                    <div class="w-5 h-5 flex items-center justify-center mt-0.5 mr-3 text-primary">
-                                        <i class="ri-book-mark-line"></i>
-                                    </div>
-                                    <div>
-                                        <span class="text-sm font-medium text-gray-900">Lĩnh vực chuyên môn</span>
-                                        <p id="display-chuyen-mon" class="text-sm text-gray-600">Tài chính - Ngân hàng</p>
-                                    </div>
-                                </li>
-                                <li class="flex items-start hover:bg-gray-50 p-2 -mx-2 rounded-md transition-colors">
-                                    <div class="w-5 h-5 flex items-center justify-center mt-0.5 mr-3 text-primary">
-                                        <i class="ri-calendar-check-line"></i>
-                                    </div>
-                                    <div>
-                                        <span class="text-sm font-medium text-gray-900">Ngày cập nhật</span>
-                                        <p id="display-updated-at" class="text-sm text-gray-600">15/03/2023</p>
-                                    </div>
-                                </li>
-                                <li class="flex items-start hover:bg-gray-50 p-2 -mx-2 rounded-md transition-colors">
-                                    <div class="w-5 h-5 flex items-center justify-center mt-0.5 mr-3 text-primary">
-                                        <i class="ri-checkbox-circle-line"></i>
-                                    </div>
-                                    <div>
-                                        <span class="text-sm font-medium text-gray-900">Trạng thái</span>
-                                        <p class="text-sm">
-                                            <span id="sidebar-status" class="px-2 py-0.5 rounded-full text-xs bg-green-100 text-green-800">Hoạt động</span>
-                                        </p>
-                                    </div>
-                                </li>
-                            </ul>
-                            <div class="mt-6">
-                                <a 
-                                    href="speaker-edit.html" 
-                                    id="edit-button-sidebar" 
-                                    class="w-full bg-primary text-white py-3 font-medium rounded-button hover:bg-primary/90 transition-all shadow-sm hover:shadow flex items-center justify-center"
-                                >
-                                    <i class="ri-edit-line mr-2"></i>
-                                    Chỉnh sửa diễn giả
+            </header>
+
+            <div class="container mx-auto">
+                <nav class="flex mb-6" aria-label="Breadcrumb">
+                    <ol class="inline-flex items-center space-x-1 md:space-x-3">
+                        <li class="inline-flex items-center">
+                            <a href="dashboard.html" class="text-gray-700 hover:text-primary">
+                                <i class="ri-dashboard-line mr-2"></i>
+                                Dashboard
+                            </a>
+                        </li>
+                        <li>
+                            <div class="flex items-center">
+                                <i class="ri-arrow-right-s-line text-gray-400"></i>
+                                <a href="speakers.html" class="ml-1 text-gray-700 hover:text-primary">
+                                    Diễn giả
                                 </a>
                             </div>
-                            
-                            <div class="mt-4">
-                                <button id="add-to-event-button" class="w-full flex items-center justify-center gap-2 py-2 text-sm text-gray-500 hover:text-primary transition-colors">
-                                    <i class="ri-add-line"></i>
-                                    <span>Thêm vào sự kiện mới</span>
-                                </button>
+                        </li>
+                        <li>
+                            <div class="flex items-center">
+                                <i class="ri-arrow-right-s-line text-gray-400"></i>
+                                <span class="ml-1 text-primary font-medium" id="speaker-name-breadcrumb">Chi tiết diễn
+                                    giả</span>
+                            </div>
+                        </li>
+                    </ol>
+                </nav>
+
+                <!-- Main content grid -->
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
+                    <!-- Left column (2/3 width on large screens) -->
+                    <div class="lg:col-span-2 space-y-6">
+                        <!-- Speaker profile card -->
+                        <div class="bg-white rounded-lg shadow-sm overflow-hidden">
+                            <div class="p-6">
+                                <div class="flex flex-col md:flex-row md:items-center gap-6">
+                                    <div
+                                        class="w-40 h-40 rounded-full overflow-hidden border-4 border-white shadow-lg mx-auto md:mx-0">
+                                        <img id="avatar-display" src="https://i.pravatar.cc/300?img=8"
+                                            alt="Ảnh diễn giả" class="w-full h-full object-cover">
+                                    </div>
+                                    <div class="flex-1 text-center md:text-left">
+                                        <h1 id="ten-dien-gia" class="text-2xl font-bold text-gray-900 mb-2">GS.TS.
+                                            Nguyễn Văn A</h1>
+                                        <p id="to-chuc" class="text-lg text-gray-700 mb-2">Đại học Ngân hàng TP.HCM</p>
+                                        <div
+                                            class="flex items-center flex-wrap gap-2 justify-center md:justify-start mb-4">
+                                            <p id="chuyen-mon" class="text-sm text-gray-600">Chuyên gia Tài chính - Ngân
+                                                hàng</p>
+                                            <span id="status-badge"
+                                                class="px-2 py-1 text-xs rounded-full bg-green-100 text-green-800">Hoạt
+                                                động</span>
+                                        </div>
+
+                                        <div class="flex flex-wrap gap-3 justify-center md:justify-start">
+                                            <a id="email-link" href="mailto:example@email.com"
+                                                class="inline-flex items-center gap-1 text-sm text-gray-700 hover:text-primary px-3 py-1 rounded-full bg-gray-100 hover:bg-gray-200 transition-colors">
+                                                <i class="ri-mail-line"></i>
+                                                <span id="email-display">example@email.com</span>
+                                            </a>
+                                            <a id="phone-link" href="tel:0123456789"
+                                                class="inline-flex items-center gap-1 text-sm text-gray-700 hover:text-primary px-3 py-1 rounded-full bg-gray-100 hover:bg-gray-200 transition-colors">
+                                                <i class="ri-phone-line"></i>
+                                                <span id="phone-display">0123456789</span>
+                                            </a>
+                                            <a id="website-link" href="#" target="_blank"
+                                                class="inline-flex items-center gap-1 text-sm text-gray-700 hover:text-primary px-3 py-1 rounded-full bg-gray-100 hover:bg-gray-200 transition-colors">
+                                                <i class="ri-global-line"></i>
+                                                <span id="website-display">Website</span>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="flex justify-center md:justify-end mt-6 gap-2">
+                                    <a href="speaker-edit.html" id="edit-button"
+                                        class="inline-flex items-center gap-1 px-4 py-2 text-sm font-medium rounded-button bg-primary text-white hover:bg-primary/90 transition-colors">
+                                        <i class="ri-edit-line"></i>
+                                        <span>Chỉnh sửa</span>
+                                    </a>
+                                    <button id="delete-button"
+                                        class="inline-flex items-center gap-1 px-4 py-2 text-sm font-medium rounded-button bg-white border border-red-500 text-red-500 hover:bg-red-50 transition-colors">
+                                        <i class="ri-delete-bin-line"></i>
+                                        <span>Xóa</span>
+                                    </button>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    
-                    <!-- Upcoming events card -->
-                    <div class="bg-white rounded-lg shadow-sm overflow-hidden hover:shadow-md transition-shadow">
-                        <div class="p-6">
-                            <h3 class="text-lg font-bold text-gray-900 mb-4 flex items-center">
-                                <span class="w-5 h-5 flex items-center justify-center mr-2 text-primary">
-                                    <i class="ri-calendar-event-line"></i>
-                                </span>
-                                Sắp tham gia
-                            </h3>
-                            
-                            <div class="space-y-4">
-                                <div class="border rounded-lg p-3 hover:bg-gray-50 transition-colors">
-                                    <h4 class="font-medium text-gray-900">Hội nghị Khoa học Quốc tế về Tài chính Bền vững</h4>
-                                    <div class="flex items-center text-xs text-gray-600 mt-1">
-                                        <i class="ri-calendar-line mr-1"></i>
-                                        <span>10/11/2023</span>
-                                        <span class="mx-2">•</span>
-                                        <i class="ri-time-line mr-1"></i>
-                                        <span>08:30 - 16:30</span>
+
+                        <!-- Tabs Navigation -->
+                        <div class="bg-white rounded-lg shadow-sm overflow-hidden">
+                            <div class="border-b border-gray-200">
+                                <div class="flex overflow-x-auto scrollbar-hide">
+                                    <button
+                                        class="px-6 py-3 font-medium text-primary border-b-2 border-primary tab-btn relative focus:outline-none"
+                                        data-tab="basic-info" role="tab" aria-selected="true"
+                                        aria-controls="tab-basic-info">
+                                        <span>Thông tin cơ bản</span>
+                                    </button>
+                                    <button
+                                        class="px-6 py-3 font-medium text-gray-500 border-b-2 border-transparent hover:text-gray-700 tab-btn relative focus:outline-none"
+                                        data-tab="achievements" role="tab" aria-selected="false"
+                                        aria-controls="tab-achievements">
+                                        <span>Thành tựu</span>
+                                    </button>
+                                    <button
+                                        class="px-6 py-3 font-medium text-gray-500 border-b-2 border-transparent hover:text-gray-700 tab-btn relative focus:outline-none"
+                                        data-tab="events" role="tab" aria-selected="false" aria-controls="tab-events">
+                                        <span>Sự kiện đã tham gia</span>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- Tab content -->
+                            <div class="p-6">
+                                <!-- Basic Info Tab -->
+                                <div id="tab-basic-info" class="tab-content transition-opacity duration-300 ease-in-out"
+                                    role="tabpanel" aria-hidden="false">
+                                    <h2 class="text-xl font-bold text-gray-900 mb-4">Thông tin diễn giả</h2>
+
+                                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+                                        <div>
+                                            <label class="block text-sm font-medium text-gray-700">Tên diễn giả</label>
+                                            <p id="ten_dien_gia" class="mt-1 text-gray-900">GS.TS. Nguyễn Văn A</p>
+                                        </div>
+                                        <div>
+                                            <label class="block text-sm font-medium text-gray-700">Chức danh</label>
+                                            <p id="chuc_danh" class="mt-1 text-gray-900">Giáo sư, Tiến sĩ</p>
+                                        </div>
+                                        <div>
+                                            <label class="block text-sm font-medium text-gray-700">Tổ chức</label>
+                                            <p id="to_chuc" class="mt-1 text-gray-900">Đại học Ngân hàng TP.HCM</p>
+                                        </div>
+                                        <div>
+                                            <label class="block text-sm font-medium text-gray-700">Email</label>
+                                            <p id="email" class="mt-1 text-gray-900">example@email.com</p>
+                                        </div>
+                                        <div>
+                                            <label class="block text-sm font-medium text-gray-700">Điện thoại</label>
+                                            <p id="dien_thoai" class="mt-1 text-gray-900">0123456789</p>
+                                        </div>
+                                        <div>
+                                            <label class="block text-sm font-medium text-gray-700">Website</label>
+                                            <p id="website" class="mt-1 text-gray-900">example.com</p>
+                                        </div>
                                     </div>
-                                    <div class="flex items-center text-xs text-gray-600 mt-1">
-                                        <i class="ri-map-pin-line mr-1"></i>
-                                        <span>Hội trường A, Đại học Ngân hàng TP.HCM</span>
+
+                                    <div class="mb-6">
+                                        <label class="block text-sm font-medium text-gray-700">Giới thiệu</label>
+                                        <div id="gioi_thieu" class="mt-1 text-gray-900 prose prose-sm max-w-none">
+                                            <p>Chuyên gia hàng đầu trong lĩnh vực tài chính ngân hàng với hơn 20 năm
+                                                kinh nghiệm trong ngành.</p>
+                                        </div>
                                     </div>
-                                    <div class="mt-2 flex justify-end">
-                                        <a href="event-detail.html" class="text-xs text-primary hover:underline">Chi tiết</a>
+
+                                    <div class="mb-6">
+                                        <label class="block text-sm font-medium text-gray-700">Chuyên môn</label>
+                                        <p id="chuyen_mon" class="mt-1 text-gray-900">Tài chính - Ngân hàng, Blockchain,
+                                            Fintech</p>
+                                    </div>
+
+                                    <div>
+                                        <label class="block text-sm font-medium text-gray-700 mb-2">Mạng xã hội</label>
+                                        <div class="flex flex-wrap gap-3">
+                                            <a id="facebook-link" href="#" target="_blank"
+                                                class="inline-flex items-center gap-2 px-3 py-2 rounded-md bg-gray-100 text-gray-700 hover:bg-gray-200 transition-colors">
+                                                <i class="ri-facebook-fill text-blue-600"></i>
+                                                <span>Facebook</span>
+                                            </a>
+                                            <a id="linkedin-link" href="#" target="_blank"
+                                                class="inline-flex items-center gap-2 px-3 py-2 rounded-md bg-gray-100 text-gray-700 hover:bg-gray-200 transition-colors">
+                                                <i class="ri-linkedin-fill text-blue-700"></i>
+                                                <span>LinkedIn</span>
+                                            </a>
+                                            <a id="twitter-link" href="#" target="_blank"
+                                                class="inline-flex items-center gap-2 px-3 py-2 rounded-md bg-gray-100 text-gray-700 hover:bg-gray-200 transition-colors">
+                                                <i class="ri-twitter-x-fill"></i>
+                                                <span>Twitter</span>
+                                            </a>
+                                            <a id="youtube-link" href="#" target="_blank"
+                                                class="inline-flex items-center gap-2 px-3 py-2 rounded-md bg-gray-100 text-gray-700 hover:bg-gray-200 transition-colors">
+                                                <i class="ri-youtube-fill text-red-600"></i>
+                                                <span>YouTube</span>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Achievements Tab -->
+                                <div id="tab-achievements"
+                                    class="tab-content hidden transition-opacity duration-300 ease-in-out"
+                                    role="tabpanel" aria-hidden="true">
+                                    <h2 class="text-xl font-bold text-gray-900 mb-4">Thành tựu nổi bật</h2>
+
+                                    <div id="thanh_tuu" class="prose prose-sm max-w-none">
+                                        <ul>
+                                            <li>Giáo sư xuất sắc tại Đại học Ngân hàng TP.HCM từ năm 2015</li>
+                                            <li>Tác giả của 5 cuốn sách chuyên ngành về Tài chính Ngân hàng</li>
+                                            <li>Hơn 30 bài báo nghiên cứu trên các tạp chí quốc tế</li>
+                                            <li>Giải thưởng Nhà nghiên cứu xuất sắc năm 2020</li>
+                                            <li>Thành viên Hội đồng Khoa học và Công nghệ quốc gia</li>
+                                            <li>Tư vấn cho nhiều tổ chức tài chính lớn trong và ngoài nước</li>
+                                            <li>Diễn giả tại hơn 50 hội nghị và hội thảo quốc tế</li>
+                                        </ul>
+                                    </div>
+                                </div>
+
+                                <!-- Events Tab -->
+                                <div id="tab-events"
+                                    class="tab-content hidden transition-opacity duration-300 ease-in-out"
+                                    role="tabpanel" aria-hidden="true">
+                                    <h2 class="text-xl font-bold text-gray-900 mb-4">Sự kiện đã tham gia</h2>
+
+                                    <div class="space-y-4" id="event-list">
+                                        <!-- Event items will be dynamically added here -->
+                                        <div class="border rounded-lg p-4 hover:bg-gray-50 transition-colors">
+                                            <div class="flex justify-between items-start">
+                                                <div>
+                                                    <h3 class="font-medium text-gray-900">Hội thảo Fintech và Tương lai
+                                                        ngành Ngân hàng</h3>
+                                                    <p class="text-sm text-gray-600 mt-1">15/03/2023</p>
+                                                </div>
+                                                <span
+                                                    class="px-2 py-1 text-xs rounded-full bg-green-100 text-green-800">Đã
+                                                    diễn ra</span>
+                                            </div>
+                                            <p class="text-sm text-gray-600 mt-2">Diễn giả chính</p>
+                                            <div class="mt-2 flex justify-end">
+                                                <a href="event-detail.html"
+                                                    class="text-sm text-primary hover:underline">Xem chi tiết</a>
+                                            </div>
+                                        </div>
+
+                                        <div class="border rounded-lg p-4 hover:bg-gray-50 transition-colors">
+                                            <div class="flex justify-between items-start">
+                                                <div>
+                                                    <h3 class="font-medium text-gray-900">Tọa đàm Blockchain và Ứng dụng
+                                                        trong Ngân hàng</h3>
+                                                    <p class="text-sm text-gray-600 mt-1">22/05/2023</p>
+                                                </div>
+                                                <span
+                                                    class="px-2 py-1 text-xs rounded-full bg-green-100 text-green-800">Đã
+                                                    diễn ra</span>
+                                            </div>
+                                            <p class="text-sm text-gray-600 mt-2">Diễn giả chính</p>
+                                            <div class="mt-2 flex justify-end">
+                                                <a href="event-detail.html"
+                                                    class="text-sm text-primary hover:underline">Xem chi tiết</a>
+                                            </div>
+                                        </div>
+
+                                        <div class="border rounded-lg p-4 hover:bg-gray-50 transition-colors">
+                                            <div class="flex justify-between items-start">
+                                                <div>
+                                                    <h3 class="font-medium text-gray-900">Hội nghị Khoa học Quốc tế về
+                                                        Tài chính Bền vững</h3>
+                                                    <p class="text-sm text-gray-600 mt-1">10/11/2023</p>
+                                                </div>
+                                                <span
+                                                    class="px-2 py-1 text-xs rounded-full bg-yellow-100 text-yellow-800">Sắp
+                                                    diễn ra</span>
+                                            </div>
+                                            <p class="text-sm text-gray-600 mt-2">Khách mời</p>
+                                            <div class="mt-2 flex justify-end">
+                                                <a href="event-detail.html"
+                                                    class="text-sm text-primary hover:underline">Xem chi tiết</a>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                            
-                            <div class="mt-4 text-center">
-                                <a href="events.html" id="view-all-events" class="text-sm text-primary hover:underline">Xem tất cả sự kiện</a>
+                        </div>
+                    </div>
+
+                    <!-- Right column (1/3 width on large screens) -->
+                    <div class="lg:col-span-1 space-y-6">
+                        <!-- Speaker stats card -->
+                        <div class="bg-white rounded-lg shadow-sm overflow-hidden hover:shadow-md transition-shadow">
+                            <div class="p-6">
+                                <h3 class="text-lg font-bold text-gray-900 mb-4 flex items-center">
+                                    <span class="w-5 h-5 flex items-center justify-center mr-2 text-primary">
+                                        <i class="ri-information-line"></i>
+                                    </span>
+                                    Thông tin diễn giả
+                                </h3>
+                                <ul class="space-y-3">
+                                    <li
+                                        class="flex items-start hover:bg-gray-50 p-2 -mx-2 rounded-md transition-colors">
+                                        <div class="w-5 h-5 flex items-center justify-center mt-0.5 mr-3 text-primary">
+                                            <i class="ri-calendar-line"></i>
+                                        </div>
+                                        <div>
+                                            <span class="text-sm font-medium text-gray-900">Sự kiện đã tham gia</span>
+                                            <p id="so-su-kien" class="text-sm text-gray-600">3 sự kiện</p>
+                                        </div>
+                                    </li>
+                                    <li
+                                        class="flex items-start hover:bg-gray-50 p-2 -mx-2 rounded-md transition-colors">
+                                        <div class="w-5 h-5 flex items-center justify-center mt-0.5 mr-3 text-primary">
+                                            <i class="ri-user-star-line"></i>
+                                        </div>
+                                        <div>
+                                            <span class="text-sm font-medium text-gray-900">Chức danh</span>
+                                            <p id="display-chuc-danh" class="text-sm text-gray-600">Giáo sư, Tiến sĩ</p>
+                                        </div>
+                                    </li>
+                                    <li
+                                        class="flex items-start hover:bg-gray-50 p-2 -mx-2 rounded-md transition-colors">
+                                        <div class="w-5 h-5 flex items-center justify-center mt-0.5 mr-3 text-primary">
+                                            <i class="ri-building-line"></i>
+                                        </div>
+                                        <div>
+                                            <span class="text-sm font-medium text-gray-900">Đơn vị công tác</span>
+                                            <p id="display-to-chuc" class="text-sm text-gray-600">Đại học Ngân hàng
+                                                TP.HCM</p>
+                                        </div>
+                                    </li>
+                                    <li
+                                        class="flex items-start hover:bg-gray-50 p-2 -mx-2 rounded-md transition-colors">
+                                        <div class="w-5 h-5 flex items-center justify-center mt-0.5 mr-3 text-primary">
+                                            <i class="ri-book-mark-line"></i>
+                                        </div>
+                                        <div>
+                                            <span class="text-sm font-medium text-gray-900">Lĩnh vực chuyên môn</span>
+                                            <p id="display-chuyen-mon" class="text-sm text-gray-600">Tài chính - Ngân
+                                                hàng</p>
+                                        </div>
+                                    </li>
+                                    <li
+                                        class="flex items-start hover:bg-gray-50 p-2 -mx-2 rounded-md transition-colors">
+                                        <div class="w-5 h-5 flex items-center justify-center mt-0.5 mr-3 text-primary">
+                                            <i class="ri-calendar-check-line"></i>
+                                        </div>
+                                        <div>
+                                            <span class="text-sm font-medium text-gray-900">Ngày cập nhật</span>
+                                            <p id="display-updated-at" class="text-sm text-gray-600">15/03/2023</p>
+                                        </div>
+                                    </li>
+                                    <li
+                                        class="flex items-start hover:bg-gray-50 p-2 -mx-2 rounded-md transition-colors">
+                                        <div class="w-5 h-5 flex items-center justify-center mt-0.5 mr-3 text-primary">
+                                            <i class="ri-checkbox-circle-line"></i>
+                                        </div>
+                                        <div>
+                                            <span class="text-sm font-medium text-gray-900">Trạng thái</span>
+                                            <p class="text-sm">
+                                                <span id="sidebar-status"
+                                                    class="px-2 py-0.5 rounded-full text-xs bg-green-100 text-green-800">Hoạt
+                                                    động</span>
+                                            </p>
+                                        </div>
+                                    </li>
+                                </ul>
+                                <div class="mt-6">
+                                    <a href="speaker-edit.html" id="edit-button-sidebar"
+                                        class="w-full bg-primary text-white py-3 font-medium rounded-button hover:bg-primary/90 transition-all shadow-sm hover:shadow flex items-center justify-center">
+                                        <i class="ri-edit-line mr-2"></i>
+                                        Chỉnh sửa diễn giả
+                                    </a>
+                                </div>
+
+                                <div class="mt-4">
+                                    <button id="add-to-event-button"
+                                        class="w-full flex items-center justify-center gap-2 py-2 text-sm text-gray-500 hover:text-primary transition-colors">
+                                        <i class="ri-add-line"></i>
+                                        <span>Thêm vào sự kiện mới</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Upcoming events card -->
+                        <div class="bg-white rounded-lg shadow-sm overflow-hidden hover:shadow-md transition-shadow">
+                            <div class="p-6">
+                                <h3 class="text-lg font-bold text-gray-900 mb-4 flex items-center">
+                                    <span class="w-5 h-5 flex items-center justify-center mr-2 text-primary">
+                                        <i class="ri-calendar-event-line"></i>
+                                    </span>
+                                    Sắp tham gia
+                                </h3>
+
+                                <div class="space-y-4">
+                                    <div class="border rounded-lg p-3 hover:bg-gray-50 transition-colors">
+                                        <h4 class="font-medium text-gray-900">Hội nghị Khoa học Quốc tế về Tài chính Bền
+                                            vững</h4>
+                                        <div class="flex items-center text-xs text-gray-600 mt-1">
+                                            <i class="ri-calendar-line mr-1"></i>
+                                            <span>10/11/2023</span>
+                                            <span class="mx-2">•</span>
+                                            <i class="ri-time-line mr-1"></i>
+                                            <span>08:30 - 16:30</span>
+                                        </div>
+                                        <div class="flex items-center text-xs text-gray-600 mt-1">
+                                            <i class="ri-map-pin-line mr-1"></i>
+                                            <span>Hội trường A, Đại học Ngân hàng TP.HCM</span>
+                                        </div>
+                                        <div class="mt-2 flex justify-end">
+                                            <a href="event-detail.html" class="text-xs text-primary hover:underline">Chi
+                                                tiết</a>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="mt-4 text-center">
+                                    <a href="events.html" id="view-all-events"
+                                        class="text-sm text-primary hover:underline">Xem tất cả sự kiện</a>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-        
-        <!-- Footer -->
-        <footer class="bg-white py-4 border-t mt-auto">
-            <div class="container mx-auto px-4">
-                <div class="flex flex-col md:flex-row justify-between items-center">
-                    <div class="text-sm text-gray-600">
-                        &copy; 2023 Đại học Ngân hàng TP.HCM. Tất cả quyền được bảo lưu.
-                    </div>
-                    <div class="mt-2 md:mt-0">
-                        <span class="text-sm text-gray-600">Phiên bản 1.0.0</span>
+
+            <!-- Footer -->
+            <footer class="bg-white py-4 border-t mt-auto">
+                <div class="container mx-auto px-4">
+                    <div class="flex flex-col md:flex-row justify-between items-center">
+                        <div class="text-sm text-gray-600">
+                            &copy; 2023 Đại học Ngân hàng TP.HCM. Tất cả quyền được bảo lưu.
+                        </div>
+                        <div class="mt-2 md:mt-0">
+                            <span class="text-sm text-gray-600">Phiên bản 1.0.0</span>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </footer>
+            </footer>
     </div>
-    
+
     <!-- Delete confirmation modal -->
     <div id="delete-modal" class="fixed inset-0 z-50 hidden flex items-center justify-center p-4">
         <div class="absolute inset-0 bg-black/50"></div>
@@ -630,26 +667,30 @@
             <h3 class="text-lg font-bold text-gray-900 mb-2">Xác nhận xóa</h3>
             <p class="text-gray-600 mb-4">Bạn có chắc chắn muốn xóa diễn giả này? Hành động này không thể hoàn tác.</p>
             <div class="flex justify-end gap-2">
-                <button id="cancel-delete" class="px-4 py-2 text-sm font-medium text-gray-700 bg-gray-100 rounded-button hover:bg-gray-200 transition-colors">
+                <button id="cancel-delete"
+                    class="px-4 py-2 text-sm font-medium text-gray-700 bg-gray-100 rounded-button hover:bg-gray-200 transition-colors">
                     Hủy
                 </button>
-                <button id="confirm-delete" class="px-4 py-2 text-sm font-medium text-white bg-red-500 rounded-button hover:bg-red-600 transition-colors">
+                <button id="confirm-delete"
+                    class="px-4 py-2 text-sm font-medium text-white bg-red-500 rounded-button hover:bg-red-600 transition-colors">
                     Xóa
                 </button>
             </div>
         </div>
     </div>
-    
+
     <!-- Success notification -->
-    <div id="notification" class="fixed top-4 right-4 z-50 bg-green-500 text-white px-4 py-3 rounded-lg shadow-lg transform translate-x-full transition-transform duration-300">
+    <div id="notification"
+        class="fixed top-4 right-4 z-50 bg-green-500 text-white px-4 py-3 rounded-lg shadow-lg transform translate-x-full transition-transform duration-300">
         <div class="flex items-center gap-2">
             <i class="ri-check-line text-lg"></i>
             <p id="notification-message">Thao tác thành công!</p>
         </div>
     </div>
-    
+
     <!-- Scripts -->
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script src="../../public/js/admin/speaker-detail.js"></script>
 </body>
-</html> 
+
+</html>

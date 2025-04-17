@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="vi">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -14,10 +15,12 @@
     <script src="https://cdn.tailwindcss.com/3.4.16"></script>
     <script src="../../public/js/tailwind.config.js"></script>
 </head>
+
 <body class="bg-gray-50 min-h-screen">
     <div class="flex h-screen overflow-hidden">
         <!-- Sidebar Backdrop (mobile only) -->
-        <div id="sidebar-backdrop" class="fixed inset-0 bg-black/50 z-20 hidden md:hidden transition-opacity duration-300">
+        <div id="sidebar-backdrop"
+            class="fixed inset-0 bg-black/50 z-20 hidden md:hidden transition-opacity duration-300">
         </div>
 
         <!-- Sidebar -->
@@ -25,7 +28,7 @@
             class="fixed md:relative z-50 bg-white w-72 max-w-[80vw] min-h-screen shadow-lg transform -translate-x-full md:translate-x-0 transition-transform duration-300 overflow-y-auto">
             <!-- Logo/Brand for mobile -->
             <div class="flex items-center justify-between p-4 border-b md:hidden">
-                <a href="index.html" class="text-2xl font-[\'Pacifico\'] text-primary flex items-center">
+                <a href="index.html" class="text-2xl font-['Pacifico'] text-primary flex items-center">
                     <img src="../../images/logo/logo-white.png" alt="logo" class="w-8 h-8 mr-2">
                     <span>HUB Admin</span>
                 </a>
@@ -33,6 +36,11 @@
                     <i class="ri-close-line text-2xl"></i>
                 </button>
             </div>
+            <!-- Desktop logo -->
+            <div class="p-4 border-b border-gray-200 hidden md:block">
+                <h1 class="text-xl font-semibold text-primary">HUB Admin</h1>
+            </div>
+
 
             <nav class="p-4">
                 <div class="space-y-4">
@@ -68,7 +76,8 @@
                     </div>
 
                     <div class="border-b pb-4">
-                        <h2 class="sidebar-section-title text-xs uppercase text-gray-400 font-semibold">Quản lý sự kiện</h2>
+                        <h2 class="sidebar-section-title text-xs uppercase text-gray-400 font-semibold">Quản lý sự kiện
+                        </h2>
                         <div class="mt-3 space-y-3">
                             <a href="event-types.html"
                                 class="sidebar-link flex items-center text-gray-600 hover:text-primary p-2 rounded-md hover:bg-gray-100">
@@ -104,7 +113,8 @@
                     </div>
 
                     <div>
-                        <h2 class="sidebar-section-title text-xs uppercase text-gray-400 font-semibold">Cài đặt hệ thống</h2>
+                        <h2 class="sidebar-section-title text-xs uppercase text-gray-400 font-semibold">Cài đặt hệ thống
+                        </h2>
                         <div class="mt-3 space-y-3">
                             <a href="settings.html"
                                 class="sidebar-link active flex items-center text-primary p-2 rounded-md bg-primary/10 font-medium">
@@ -163,7 +173,8 @@
             <header class="bg-primary shadow-md sticky top-0 z-30 animate-fade-in mb-6">
                 <div class="container mx-auto px-4 py-2 flex items-center justify-between">
                     <!-- Mobile Menu Toggle Button -->
-                    <button id="sidebar-open" class="text-white p-2 rounded-md md:hidden focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white">
+                    <button id="sidebar-open"
+                        class="text-white p-2 rounded-md md:hidden focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white">
                         <i class="ri-menu-line text-2xl"></i>
                     </button>
 
@@ -175,15 +186,14 @@
                         <!-- User profile dropdown menu -->
                         <div class="relative group">
                             <button id="user-menu-button" class="flex items-center space-x-2 text-white">
-                                <img
-                                    id="header-avatar"
+                                <img id="header-avatar"
                                     src="https://ui-avatars.com/api/?name=N+V+A&background=0D8ABC&color=fff"
                                     alt="Ảnh đại diện" class="w-8 h-8 rounded-full border-2 border-white">
                                 <span id="header-fullname" class="hidden sm:block">Nguyễn Văn A</span>
-                                <i class="ri-arrow-down-s-line group-hover:rotate-180 transition-transform duration-300"></i>
+                                <i
+                                    class="ri-arrow-down-s-line group-hover:rotate-180 transition-transform duration-300"></i>
                             </button>
-                            <div
-                                id="user-menu"
+                            <div id="user-menu"
                                 class="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg overflow-hidden z-20 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform origin-top-right scale-95 group-hover:scale-100">
                                 <div class="py-2">
                                     <a href="profile.html"
@@ -265,7 +275,8 @@
                                 <i class="ri-arrow-left-line mr-1"></i> Quay lại danh sách
                             </a>
                             <span class="mx-2 text-green-700">|</span>
-                            <a href="#" id="view-detail-link" class="text-sm font-medium text-green-700 hover:text-green-600">
+                            <a href="#" id="view-detail-link"
+                                class="text-sm font-medium text-green-700 hover:text-green-600">
                                 <i class="ri-eye-line mr-1"></i> Xem chi tiết
                             </a>
                         </div>
@@ -295,15 +306,18 @@
                         <!-- Basic Info Section -->
                         <div class="space-y-6">
                             <div>
-                                <label for="setting-key" class="block text-sm font-medium text-gray-700 required">Khóa cài đặt <span class="text-red-500">*</span></label>
+                                <label for="setting-key" class="block text-sm font-medium text-gray-700 required">Khóa
+                                    cài đặt <span class="text-red-500">*</span></label>
                                 <input type="text" id="setting-key" name="key" required
                                     class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary focus:border-primary sm:text-sm"
                                     placeholder="site_name">
-                                <p class="mt-1 text-xs text-gray-500">Khóa cài đặt dùng để tham chiếu đến giá trị cài đặt trong code</p>
+                                <p class="mt-1 text-xs text-gray-500">Khóa cài đặt dùng để tham chiếu đến giá trị cài
+                                    đặt trong code</p>
                             </div>
 
                             <div>
-                                <label for="setting-class" class="block text-sm font-medium text-gray-700 required">Nhóm <span class="text-red-500">*</span></label>
+                                <label for="setting-class" class="block text-sm font-medium text-gray-700 required">Nhóm
+                                    <span class="text-red-500">*</span></label>
                                 <select id="setting-class" name="class" required
                                     class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary focus:border-primary sm:text-sm">
                                     <option value="" disabled selected>Chọn nhóm cài đặt</option>
@@ -320,7 +334,8 @@
                             </div>
 
                             <div>
-                                <label for="setting-type" class="block text-sm font-medium text-gray-700 required">Loại dữ liệu <span class="text-red-500">*</span></label>
+                                <label for="setting-type" class="block text-sm font-medium text-gray-700 required">Loại
+                                    dữ liệu <span class="text-red-500">*</span></label>
                                 <select id="setting-type" name="type" required
                                     class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary focus:border-primary sm:text-sm">
                                     <option value="" disabled selected>Chọn loại dữ liệu</option>
@@ -333,17 +348,20 @@
                             </div>
 
                             <div>
-                                <label for="setting-status" class="block text-sm font-medium text-gray-700">Trạng thái</label>
+                                <label for="setting-status" class="block text-sm font-medium text-gray-700">Trạng
+                                    thái</label>
                                 <div class="mt-1 flex items-center space-x-3">
                                     <div class="flex items-center">
                                         <input type="radio" id="status-active" name="status" value="1" checked
                                             class="h-4 w-4 text-primary focus:ring-primary border-gray-300">
-                                        <label for="status-active" class="ml-2 block text-sm text-gray-700">Kích hoạt</label>
+                                        <label for="status-active" class="ml-2 block text-sm text-gray-700">Kích
+                                            hoạt</label>
                                     </div>
                                     <div class="flex items-center">
                                         <input type="radio" id="status-inactive" name="status" value="0"
                                             class="h-4 w-4 text-primary focus:ring-primary border-gray-300">
-                                        <label for="status-inactive" class="ml-2 block text-sm text-gray-700">Vô hiệu hóa</label>
+                                        <label for="status-inactive" class="ml-2 block text-sm text-gray-700">Vô hiệu
+                                            hóa</label>
                                     </div>
                                 </div>
                             </div>
@@ -352,44 +370,49 @@
                         <!-- Value and Description Section -->
                         <div class="space-y-6">
                             <div>
-                                <label for="setting-value" class="block text-sm font-medium text-gray-700 required">Giá trị <span class="text-red-500">*</span></label>
+                                <label for="setting-value" class="block text-sm font-medium text-gray-700 required">Giá
+                                    trị <span class="text-red-500">*</span></label>
                                 <div class="value-input-container mt-1">
                                     <!-- String input (default) -->
                                     <input type="text" id="setting-value-string" name="value"
                                         class="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary focus:border-primary sm:text-sm"
                                         placeholder="Giá trị cài đặt">
-                                    
+
                                     <!-- Number input -->
-                                    <input type="number" id="setting-value-number" name="value" min="0" step="any" 
+                                    <input type="number" id="setting-value-number" name="value" min="0" step="any"
                                         class="hidden block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary focus:border-primary sm:text-sm"
                                         placeholder="0">
-                                    
+
                                     <!-- Boolean input -->
                                     <div id="setting-value-boolean" class="hidden">
                                         <div class="flex items-center space-x-3">
                                             <div class="flex items-center">
                                                 <input type="radio" id="value-true" name="boolean_value" value="true"
                                                     class="h-4 w-4 text-primary focus:ring-primary border-gray-300">
-                                                <label for="value-true" class="ml-2 block text-sm text-gray-700">True</label>
+                                                <label for="value-true"
+                                                    class="ml-2 block text-sm text-gray-700">True</label>
                                             </div>
                                             <div class="flex items-center">
                                                 <input type="radio" id="value-false" name="boolean_value" value="false"
                                                     class="h-4 w-4 text-primary focus:ring-primary border-gray-300">
-                                                <label for="value-false" class="ml-2 block text-sm text-gray-700">False</label>
+                                                <label for="value-false"
+                                                    class="ml-2 block text-sm text-gray-700">False</label>
                                             </div>
                                         </div>
                                     </div>
-                                    
+
                                     <!-- JSON/Array input -->
-                                    <textarea id="setting-value-json" name="value" rows="6" 
+                                    <textarea id="setting-value-json" name="value" rows="6"
                                         class="hidden block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary focus:border-primary sm:text-sm font-mono"
                                         placeholder='{"key": "value"}'></textarea>
                                 </div>
-                                <p class="mt-1 text-xs text-gray-500" id="value-help-text">Nhập giá trị cài đặt phù hợp với loại dữ liệu đã chọn</p>
+                                <p class="mt-1 text-xs text-gray-500" id="value-help-text">Nhập giá trị cài đặt phù hợp
+                                    với loại dữ liệu đã chọn</p>
                             </div>
 
                             <div>
-                                <label for="setting-description" class="block text-sm font-medium text-gray-700">Mô tả</label>
+                                <label for="setting-description" class="block text-sm font-medium text-gray-700">Mô
+                                    tả</label>
                                 <textarea id="setting-description" name="description" rows="3"
                                     class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary focus:border-primary sm:text-sm"
                                     placeholder="Mô tả về cài đặt này"></textarea>
@@ -416,4 +439,5 @@
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script src="../../public/js/admin/setting-create.js"></script>
 </body>
-</html> 
+
+</html>

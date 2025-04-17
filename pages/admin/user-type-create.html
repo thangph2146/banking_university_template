@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tạo mới Loại người dùng - HUB Admin</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet" />
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+  <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+  <link href="../../public/css/custom.css" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com/3.4.16"></script>
+  <script src="../../public/js/tailwind.config.js"></script>
+</head>
+
+<body>
+  <div class="flex min-h-screen bg-gray-50">
+    <!-- Sidebar -->
+    <aside id="sidebar"
+      class="fixed md:relative z-50 bg-white w-72 max-w-[80vw] min-h-screen shadow-lg transform -translate-x-full md:translate-x-0 transition-transform duration-300 overflow-y-auto">
+      <!-- Logo/Brand for mobile -->
+      <div class="flex items-center justify-between p-4 border-b md:hidden">
+        <a href="index.html" class="text-2xl font-['Pacifico'] text-primary flex items-center">
+          <img src="../../images/logo/logo-white.png" alt="logo" class="w-8 h-8 mr-2">
+          <span>HUB Admin</span>
+        </a>
+        <button id="sidebar-close" class="text-gray-500 hover:text-gray-700 focus:outline-none">
+          <i class="ri-close-line text-2xl"></i>
+        </button>
+      </div>
+      <!-- Desktop logo -->
+      <div class="p-4 border-b border-gray-200 hidden md:block">
+        <h1 class="text-xl font-semibold text-primary">HUB Admin</h1>
+      </div>
+      
+      <nav class="p-4">
+        <div class="space-y-4">
+          <div class="border-b pb-4">
+            <h2 class="text-xs uppercase text-gray-400 font-semibold">Quản lý chung</h2>
+            <div class="mt-3 space-y-3">
+              <a href="dashboard.html"
+                class="sidebar-link flex items-center text-sm text-gray-700 py-2 px-3 rounded-md hover:bg-gray-100">
+                <i class="ri-dashboard-line mr-2"></i>
+                Tổng quan
+              </a>
+              <a href="events.html"
+                class="sidebar-link flex items-center text-sm text-gray-700 py-2 px-3 rounded-md hover:bg-gray-100">
+                <i class="ri-calendar-event-line mr-2"></i>
+                Sự kiện
+              </a>
+              <a href="accounts.html"
+                class="sidebar-link flex items-center text-sm text-gray-700 py-2 px-3 rounded-md hover:bg-gray-100">
+                <i class="ri-user-settings-line mr-2"></i>
+                Tài khoản Admin
+              </a>
+              <a href="users.html"
+                class="sidebar-link flex items-center text-sm text-gray-700 py-2 px-3 rounded-md hover:bg-gray-100">
+                <i class="ri-user-line mr-2"></i>
+                Người dùng
+              </a>
+              <a href="speakers.html"
+                class="sidebar-link flex items-center text-sm text-gray-700 py-2 px-3 rounded-md hover:bg-gray-100">
+                <i class="ri-mic-line mr-2"></i>
+                Diễn giả
+              </a>
+            </div>
+          </div>
+          
+          <div class="border-b pb-4">
+            <h2 class="sidebar-section-title text-xs uppercase text-gray-400 font-semibold">Quản lý sự kiện</h2>
+            <div class="mt-3 space-y-3">
+              <a href="event-types.html"
+                class="sidebar-link flex items-center text-sm text-gray-700 py-2 px-3 rounded-md hover:bg-gray-100">
+                 <i class="ri-price-tag-3-line mr-2"></i>
+                 Loại sự kiện
+              </a>
+              <a href="registrations.html"
+                class="sidebar-link flex items-center text-sm text-gray-700 py-2 px-3 rounded-md hover:bg-gray-100">
+                <i class="ri-file-list-line mr-2"></i>
+                Đăng ký sự kiện
+              </a>
+              <a href="checkins.html"
+                class="sidebar-link flex items-center text-sm text-gray-700 py-2 px-3 rounded-md hover:bg-gray-100">
+                <i class="ri-login-box-line mr-2"></i>
+                Check-in
+              </a>
+              <a href="checkouts.html"
+                class="sidebar-link flex items-center text-sm text-gray-700 py-2 px-3 rounded-md hover:bg-gray-100">
+                <i class="ri-logout-box-line mr-2"></i>
+                Check-out
+              </a>
+              <a href="screens.html"
+                 class="sidebar-link flex items-center text-sm text-gray-700 py-2 px-3 rounded-md hover:bg-gray-100">
+                 <i class="ri-tv-2-line mr-2"></i>
+                 Màn hình
+               </a>
+              <a href="reports.html"
+                class="sidebar-link flex items-center text-sm text-gray-700 py-2 px-3 rounded-md hover:bg-gray-100">
+                <i class="ri-bar-chart-line mr-2"></i>
+                Báo cáo
+              </a>
+            </div>
+          </div>
+          
+          <div>
+            <h2 class="sidebar-section-title text-xs uppercase text-gray-400 font-semibold">Cài đặt hệ thống</h2>
+            <div class="mt-3 space-y-3">
+              <a href="settings.html"
+                class="sidebar-link flex items-center text-sm text-gray-700 py-2 px-3 rounded-md hover:bg-gray-100">
+                <i class="ri-settings-3-line mr-2"></i>
+                Thiết lập
+              </a>
+              <a href="roles.html"
+                class="sidebar-link flex items-center text-sm text-gray-700 py-2 px-3 rounded-md hover:bg-gray-100">
+                <i class="ri-shield-user-line mr-2"></i>
+                Phân quyền
+              </a>
+              <a href="user-types.html"
+                class="sidebar-link flex items-center text-sm text-primary bg-primary/10 py-2 px-3 rounded-md font-medium">
+                <i class="ri-group-line mr-2"></i>
+                Loại người dùng
+              </a>
+              <a href="academic-levels.html"
+                class="sidebar-link flex items-center text-sm text-gray-700 py-2 px-3 rounded-md hover:bg-gray-100">
+                <i class="ri-graduation-cap-line mr-2"></i>
+                Bậc học
+              </a>
+              <a href="courses.html"
+                class="sidebar-link flex items-center text-sm text-gray-700 py-2 px-3 rounded-md hover:bg-gray-100">
+                <i class="ri-book-open-line mr-2"></i>
+                Khoá học
+              </a>
+              <a href="courses.html"
+                class="sidebar-link flex items-center text-sm text-gray-700 py-2 px-3 rounded-md hover:bg-gray-100">
+                <i class="ri-book-open-line mr-2"></i>
+                Ngành đào tạo
+              </a>
+              <a href="departments.html"
+                class="sidebar-link flex items-center text-sm text-gray-700 py-2 px-3 rounded-md hover:bg-gray-100">
+                <i class="ri-building-line mr-2"></i>
+                Phòng khoa
+              </a>
+              <a href="academic-years.html"
+                class="sidebar-link flex items-center text-sm text-gray-700 py-2 px-3 rounded-md hover:bg-gray-100">
+                <i class="ri-calendar-check-line mr-2"></i>
+                Năm học
+              </a>
+              <a href="cameras.html"
+                class="sidebar-link flex items-center text-sm text-gray-700 py-2 px-3 rounded-md hover:bg-gray-100">
+                <i class="ri-camera-line mr-2"></i>
+                Camera
+              </a>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </aside>
+
+    <!-- Main Content -->
+    <div class="flex-1 flex flex-col">
+      <!-- Header -->
+      <header class="bg-primary text-white py-3 px-4 shadow-md">
+        <div class="flex justify-between items-center">
+          <!-- Mobile Menu Toggle Button -->
+          <button id="sidebar-open" class="md:hidden text-white p-1">
+            <i class="ri-menu-line text-xl"></i>
+          </button>
+          
+          <div class="md:hidden flex justify-center flex-1">
+            <!-- Mobile logo - Optional -->
+          </div>
+          
+          <div class="flex items-center ml-auto">
+            <span class="mr-2 hidden md:inline-block">Nguyễn Văn A</span>
+            <div class="relative group">
+               <button class="flex items-center">
+                 <img src="https://via.placeholder.com/40" alt="User" class="w-8 h-8 rounded-full border-2 border-white">
+                 <i class="ri-arrow-down-s-line ml-1"></i>
+               </button>
+               <!-- Dropdown Menu -->
+               <div class="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg overflow-hidden z-20 hidden group-hover:block">
+                 <div class="py-1">
+                   <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Trang cá nhân</a>
+                   <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Cài đặt</a>
+                   <hr class="border-gray-200">
+                   <a href="#" class="block px-4 py-2 text-sm text-red-600 hover:bg-gray-100">Đăng xuất</a>
+                 </div>
+               </div>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <!-- Content -->
+      <main class="flex-1 p-4 md:p-6 overflow-y-auto">
+        <div class="flex items-center justify-between mb-4">
+          <div class="flex items-center">
+            <i class="ri-user-add-line text-primary text-xl mr-2"></i>
+            <h1 class="text-xl font-semibold text-gray-800">Tạo mới loại người dùng</h1>
+          </div>
+          <a href="user-types.html" class="flex items-center text-sm text-gray-600 hover:text-primary border border-gray-300 px-3 py-1.5 rounded-md hover:border-primary">
+            <i class="ri-arrow-left-line mr-1"></i> Quay lại danh sách
+          </a>
+        </div>
+        
+        <div class="text-sm text-gray-500 mb-4">
+          <p>Tạo và cấu hình loại người dùng mới trong hệ thống</p>
+        </div>
+        
+        <!-- Breadcrumb -->
+        <nav class="text-sm mb-6 bg-white px-3 py-2 rounded-md shadow-sm border border-gray-200">
+          <ol class="flex items-center text-gray-500">
+            <li>
+              <a href="dashboard.html" class="hover:text-primary flex items-center">
+                <i class="ri-home-4-line mr-1"></i> Dashboard
+              </a>
+            </li>
+            <li class="mx-2"><i class="ri-arrow-right-s-line"></i></li>
+            <li>
+              <a href="user-types.html" class="hover:text-primary">Loại người dùng</a>
+            </li>
+            <li class="mx-2"><i class="ri-arrow-right-s-line"></i></li>
+            <li class="text-primary font-medium">Tạo mới</li>
+          </ol>
+        </nav>
+
+        <!-- Form Container -->
+        <div class="bg-white rounded-md shadow-sm border border-gray-200">
+          <!-- Form Header -->
+          <div class="p-4 border-b border-gray-200 bg-gradient-to-r from-primary/5 to-transparent">
+            <h2 class="font-medium text-gray-800 flex items-center">
+              <i class="ri-information-line text-primary mr-2"></i>
+              Thông tin loại người dùng
+            </h2>
+            <p class="text-sm text-gray-600 mt-1">Nhập thông tin chi tiết cho loại người dùng mới.</p>
+          </div>
+          
+          <form id="user-type-create-form">
+            <!-- Basic Information -->
+            <div class="p-4 md:p-6 grid grid-cols-1 md:grid-cols-2 gap-6">
+              <!-- User Type Name -->
+              <div>
+                <label for="name" class="block text-sm font-medium text-gray-700 mb-1">
+                  Tên loại người dùng <span class="text-red-500">*</span>
+                </label>
+                <div class="relative mt-1">
+                  <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-gray-400">
+                    <i class="ri-user-smile-line"></i>
+                  </div>
+                  <input type="text" id="name" name="name" required
+                    placeholder="Ví dụ: Sinh viên, Giảng viên,..."
+                    class="w-full pl-10 pr-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none form-input"
+                  />
+                </div>
+                <p class="mt-1 text-xs text-gray-500">Tên loại người dùng phải rõ ràng và dễ hiểu.</p>
+              </div>
+              
+              <!-- Status -->
+              <div>
+                <label for="status" class="block text-sm font-medium text-gray-700 mb-1">
+                  Trạng thái <span class="text-red-500">*</span>
+                </label>
+                <div class="relative mt-1">
+                   <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-gray-400">
+                    <i class="ri-toggle-line"></i>
+                  </div>
+                  <select id="status" name="status" required
+                    class="w-full pl-10 pr-8 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none form-select appearance-none">
+                    <option value="active" selected>Hoạt động</option>
+                    <option value="inactive">Không hoạt động</option>
+                  </select>
+                  <div class="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none text-gray-400">
+                    <i class="ri-arrow-down-s-line"></i>
+                  </div>
+                </div>
+                <p class="mt-1 text-xs text-gray-500">Trạng thái hoạt động của loại người dùng này.</p>
+              </div>
+              
+              <!-- Description -->
+              <div class="md:col-span-2">
+                <label for="description" class="block text-sm font-medium text-gray-700 mb-1">Mô tả</label>
+                <div class="relative mt-1">
+                  <div class="absolute top-2 left-0 pl-3 flex items-start pointer-events-none text-gray-400">
+                    <i class="ri-file-text-line"></i>
+                  </div>
+                  <textarea id="description" name="description" rows="3" 
+                    placeholder="Nhập mô tả về loại người dùng này"
+                    class="w-full pl-10 pr-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none form-textarea"></textarea>
+                </div>
+                <p class="mt-1 text-xs text-gray-500">Mô tả chi tiết về vai trò và chức năng của loại người dùng này.</p>
+              </div>
+            </div>
+            
+            <!-- Permissions Section -->
+            <div class="border-t border-gray-200 p-4 md:p-6">
+              <h2 class="font-medium text-gray-800 flex items-center mb-4">
+                <i class="ri-shield-keyhole-line text-primary mr-2"></i>
+                Quyền hạn
+              </h2>
+              <p class="text-sm text-gray-600 mb-4">Chọn các quyền hạn cho loại người dùng này. Quyền hạn sẽ xác định những gì người dùng này có thể làm trong hệ thống.</p>
+              
+              <!-- Permission Filters & Controls -->
+              <div class="flex flex-col md:flex-row md:items-center gap-3 mb-4">
+                <!-- Left Controls -->
+                <div class="flex gap-2 flex-wrap">
+                  <button type="button" id="select-all-permissions" 
+                    class="flex items-center px-3 py-1.5 text-sm text-gray-700 bg-gray-100 rounded-md hover:bg-gray-200 border border-gray-200">
+                    <i class="ri-checkbox-multiple-line mr-1"></i> Chọn tất cả
+                  </button>
+                  <button type="button" id="deselect-all-permissions" 
+                    class="flex items-center px-3 py-1.5 text-sm text-gray-700 bg-gray-100 rounded-md hover:bg-gray-200 border border-gray-200">
+                    <i class="ri-checkbox-multiple-blank-line mr-1"></i> Bỏ chọn tất cả
+                  </button>
+                </div>
+                
+                <!-- Right Controls -->
+                <div class="flex flex-col md:flex-row md:items-center md:ml-auto gap-3">
+                  <!-- Filter Buttons -->
+                  <div class="flex gap-1 flex-wrap">
+                     <button type="button" data-filter="all" 
+                      class="permission-filter-btn flex items-center px-3 py-1.5 text-sm text-gray-700 bg-gray-100 rounded-md hover:bg-gray-200 border border-gray-200 active">
+                      <i class="ri-list-check mr-1"></i> Tất cả
+                    </button>
+                    <button type="button" data-filter="event" 
+                      class="permission-filter-btn flex items-center px-3 py-1.5 text-sm text-gray-700 bg-gray-100 rounded-md hover:bg-gray-200 border border-gray-200">
+                      <i class="ri-calendar-event-line mr-1"></i> Sự kiện
+                    </button>
+                    <button type="button" data-filter="user" 
+                      class="permission-filter-btn flex items-center px-3 py-1.5 text-sm text-gray-700 bg-gray-100 rounded-md hover:bg-gray-200 border border-gray-200">
+                      <i class="ri-user-line mr-1"></i> Người dùng
+                    </button>
+                    <button type="button" data-filter="system" 
+                      class="permission-filter-btn flex items-center px-3 py-1.5 text-sm text-gray-700 bg-gray-100 rounded-md hover:bg-gray-200 border border-gray-200">
+                      <i class="ri-settings-3-line mr-1"></i> Hệ thống
+                    </button>
+                  </div>
+                   <!-- Search Permissions -->
+                  <div class="relative md:w-64">
+                    <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-gray-400">
+                      <i class="ri-search-line"></i>
+                    </div>
+                    <input type="text" id="search-permissions" 
+                      placeholder="Tìm kiếm quyền hạn..."
+                      class="w-full pl-10 pr-3 py-1.5 border border-gray-300 rounded-md shadow-sm focus:outline-none form-input text-sm"
+                    />
+                  </div>
+                </div>
+              </div>
+              
+              <!-- Permission Checkboxes -->
+              <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3" id="permissions-grid">
+                <!-- Permissions will be loaded here by JS -->
+                <div class="text-center text-gray-500 py-4 col-span-full">Đang tải quyền...</div>
+              </div>
+            </div>
+            
+            <!-- Form Actions -->
+            <div class="border-t border-gray-200 p-4 flex justify-end bg-gray-50">
+              <div class="flex space-x-3">
+                <button type="button" id="reset-btn" class="flex items-center px-4 py-2 border border-gray-300 text-gray-700 rounded-md hover:bg-gray-100 shadow-sm">
+                  <i class="ri-refresh-line mr-2"></i>
+                  Làm mới
+                </button>
+                <a href="user-types.html" class="flex items-center px-4 py-2 border border-gray-300 text-gray-700 rounded-md hover:bg-gray-100 shadow-sm">
+                  <i class="ri-close-line mr-2"></i>
+                  Hủy
+                </a>
+                <button type="submit" id="submit-btn" class="flex items-center px-4 py-2 bg-primary text-white rounded-md hover:bg-primary-dark shadow-sm">
+                  <i class="ri-save-line mr-2"></i>
+                  <span>Tạo loại người dùng</span>
+                </button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+  <script src="../../public/js/admin/user-type-create.js"></script>
+</body>
+
+</html> 

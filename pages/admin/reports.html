@@ -26,7 +26,7 @@
       class="fixed md:relative z-50 bg-white w-72 max-w-[80vw] min-h-screen shadow-lg transform -translate-x-full md:translate-x-0 transition-transform duration-300 overflow-y-auto">
       <!-- Logo/Brand for mobile -->
       <div class="flex items-center justify-between p-4 border-b md:hidden">
-        <a href="index.html" class="text-2xl font-[\'Pacifico\'] text-primary flex items-center">
+        <a href="index.html" class="text-2xl font-['Pacifico'] text-primary flex items-center">
           <img src="../../images/logo/logo-white.png" alt="logo" class="w-8 h-8 mr-2">
           <span>HUB Admin</span>
         </a>
@@ -34,6 +34,11 @@
           <i class="ri-close-line text-2xl"></i>
         </button>
       </div>
+      <!-- Desktop logo -->
+      <div class="p-4 border-b border-gray-200 hidden md:block">
+        <h1 class="text-xl font-semibold text-primary">HUB Admin</h1>
+      </div>
+
 
       <nav class="p-4">
         <div class="space-y-4">
@@ -65,7 +70,7 @@
                 <i class="sidebar-icon ri-mic-line mr-2"></i>
                 <span class="sidebar-link-text">Diễn giả</span>
               </a>
-               
+
             </div>
           </div>
 
@@ -74,10 +79,10 @@
             <div class="mt-3 space-y-3">
               <a href="event-types.html"
                 class="sidebar-link flex items-center text-gray-600 hover:text-primary p-2 rounded-md hover:bg-gray-100">
-                 <i class="sidebar-icon ri-price-tag-3-line mr-2"></i>
-                 <span class="sidebar-link-text">Loại sự kiện</span>
+                <i class="sidebar-icon ri-price-tag-3-line mr-2"></i>
+                <span class="sidebar-link-text">Loại sự kiện</span>
               </a>
-               
+
               <a href="registrations.html"
                 class="sidebar-link flex items-center text-gray-600 hover:text-primary p-2 rounded-md hover:bg-gray-100">
                 <i class="sidebar-icon ri-file-list-line mr-2"></i>
@@ -94,10 +99,10 @@
                 <span class="sidebar-link-text">Check-out</span>
               </a>
               <a href="screens.html"
-                 class="sidebar-link flex items-center text-gray-600 hover:text-primary p-2 rounded-md hover:bg-gray-100">
-                 <i class="sidebar-icon ri-tv-2-line mr-2"></i>
-                 <span class="sidebar-link-text">Màn hình</span>
-               </a>
+                class="sidebar-link flex items-center text-gray-600 hover:text-primary p-2 rounded-md hover:bg-gray-100">
+                <i class="sidebar-icon ri-tv-2-line mr-2"></i>
+                <span class="sidebar-link-text">Màn hình</span>
+              </a>
               <a href="reports.html"
                 class="sidebar-link active flex items-center text-primary p-2 rounded-md bg-primary/10 font-medium">
                 <i class="sidebar-icon ri-bar-chart-line mr-2"></i>
@@ -154,8 +159,8 @@
                 <i class="sidebar-icon ri-camera-line mr-2"></i>
                 <span class="sidebar-link-text">Camera</span>
               </a>
-               
-               
+
+
             </div>
           </div>
         </div>
@@ -168,7 +173,8 @@
       <header class="bg-primary shadow-md sticky top-0 z-30 animate-fade-in mb-6">
         <div class="container mx-auto px-4 py-2 flex items-center justify-between">
           <!-- Mobile Menu Toggle Button -->
-          <button id="sidebar-open" class="text-white p-2 rounded-md md:hidden focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white">
+          <button id="sidebar-open"
+            class="text-white p-2 rounded-md md:hidden focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white">
             <i class="ri-menu-line text-2xl"></i>
           </button>
 
@@ -177,18 +183,15 @@
             <img src="../../images/logo/logo-white.png" alt="logo" class="w-12 h-12 md:w-16 md:h-16">
           </a>
           <div class="flex items-center space-x-4">
-             <!-- User profile dropdown menu -->
-             <div class="relative group">
+            <!-- User profile dropdown menu -->
+            <div class="relative group">
               <button id="user-menu-button" class="flex items-center space-x-2 text-white">
-                <img
-                  id="header-avatar"
-                  src="https://ui-avatars.com/api/?name=N+V+A&background=0D8ABC&color=fff"
+                <img id="header-avatar" src="https://ui-avatars.com/api/?name=N+V+A&background=0D8ABC&color=fff"
                   alt="Ảnh đại diện" class="w-8 h-8 rounded-full border-2 border-white">
                 <span id="header-fullname" class="hidden sm:block">Nguyễn Văn A</span>
                 <i class="ri-arrow-down-s-line group-hover:rotate-180 transition-transform duration-300"></i>
               </button>
-              <div
-                id="user-menu"
+              <div id="user-menu"
                 class="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg overflow-hidden z-20 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform origin-top-right scale-95 group-hover:scale-100">
                 <div class="py-2">
                   <a href="profile.html"
@@ -258,7 +261,7 @@
           <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
             <div>
               <label for="report-type" class="block text-sm font-medium text-gray-700 mb-1">Loại báo cáo</label>
-              <select id="report-type" name="report-type" 
+              <select id="report-type" name="report-type"
                 class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-primary focus:border-primary text-sm">
                 <option value="attendance">Báo cáo tham dự</option>
                 <option value="events">Báo cáo sự kiện</option>
@@ -268,7 +271,7 @@
             </div>
             <div>
               <label for="date-range" class="block text-sm font-medium text-gray-700 mb-1">Khoảng thời gian</label>
-              <select id="date-range" name="date-range" 
+              <select id="date-range" name="date-range"
                 class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-primary focus:border-primary text-sm">
                 <option value="today">Hôm nay</option>
                 <option value="week">Tuần này</option>
@@ -376,7 +379,8 @@
                 <option value="50">50</option>
                 <option value="100">100</option>
               </select>
-              <span>mục. Tổng số: <span id="total-items-count" class="font-medium text-gray-700">3</span> sự kiện.</span>
+              <span>mục. Tổng số: <span id="total-items-count" class="font-medium text-gray-700">3</span> sự
+                kiện.</span>
             </div>
             <div class="flex items-center space-x-1" id="pagination-controls">
               <button
@@ -416,4 +420,4 @@
   <script src="../../public/js/admin/reports.js"></script>
 </body>
 
-</html> 
+</html>

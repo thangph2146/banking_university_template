@@ -14,30 +14,6 @@
   <link href="../../public/css/custom.css" rel="stylesheet">
   <script src="https://cdn.tailwindcss.com/3.4.16"></script>
   <script src="../../public/js/tailwind.config.js"></script>
-  <style>
-    /* Animation cho toast notifications */
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-    
-    @keyframes fadeOut {
-      from { opacity: 1; transform: translateY(0); }
-      to { opacity: 0; transform: translateY(20px); }
-    }
-    
-    .animate-fade-in {
-      animation: fadeIn 0.3s ease-out forwards;
-    }
-    
-    .animate-fade-out {
-      animation: fadeOut 0.3s ease-out forwards;
-    }
-
-    .tab-content {
-      transition: opacity 0.2s ease-in-out;
-    }
-  </style>
 </head>
 
 <body class="bg-gray-50 min-h-screen">
@@ -53,8 +29,10 @@
     <div id="sidebar-backdrop" class="fixed inset-0 bg-black/50 z-20 hidden md:hidden transition-opacity duration-300">
     </div>
 
+    <!-- Sidebar -->
     <aside id="sidebar"
       class="fixed md:relative z-50 bg-white w-72 max-w-[80vw] min-h-screen shadow-lg transform -translate-x-full md:translate-x-0 transition-transform duration-300 overflow-y-auto">
+      <!-- Logo/Brand for mobile -->
       <div class="flex items-center justify-between p-4 border-b md:hidden">
         <a href="index.html" class="text-2xl font-['Pacifico'] text-primary flex items-center">
           <img src="../../images/logo/logo-white.png" alt="logo" class="w-8 h-8 mr-2">
@@ -64,6 +42,11 @@
           <i class="ri-close-line text-2xl"></i>
         </button>
       </div>
+      <!-- Desktop logo -->
+      <div class="p-4 border-b border-gray-200 hidden md:block">
+        <h1 class="text-xl font-semibold text-primary">HUB Admin</h1>
+      </div>
+
 
       <nav class="p-4">
         <div class="space-y-4">
@@ -103,10 +86,10 @@
             <div class="mt-3 space-y-3">
               <a href="event-types.html"
                 class="sidebar-link flex items-center text-gray-600 hover:text-primary p-2 rounded-md hover:bg-gray-100">
-                 <i class="sidebar-icon ri-price-tag-3-line mr-2"></i>
-                 <span class="sidebar-link-text">Loại sự kiện</span>
+                <i class="sidebar-icon ri-price-tag-3-line mr-2"></i>
+                <span class="sidebar-link-text">Loại sự kiện</span>
               </a>
-               
+
               <a href="registrations.html"
                 class="sidebar-link flex items-center text-gray-600 hover:text-primary p-2 rounded-md hover:bg-gray-100">
                 <i class="sidebar-icon ri-file-list-line mr-2"></i>
@@ -123,10 +106,10 @@
                 <span class="sidebar-link-text">Check-out</span>
               </a>
               <a href="screens.html"
-                 class="sidebar-link flex items-center text-gray-600 hover:text-primary p-2 rounded-md hover:bg-gray-100">
-                 <i class="sidebar-icon ri-tv-2-line mr-2"></i>
-                 <span class="sidebar-link-text">Màn hình</span>
-               </a>
+                class="sidebar-link flex items-center text-gray-600 hover:text-primary p-2 rounded-md hover:bg-gray-100">
+                <i class="sidebar-icon ri-tv-2-line mr-2"></i>
+                <span class="sidebar-link-text">Màn hình</span>
+              </a>
               <a href="reports.html"
                 class="sidebar-link flex items-center text-gray-600 hover:text-primary p-2 rounded-md hover:bg-gray-100">
                 <i class="sidebar-icon ri-bar-chart-line mr-2"></i>
@@ -183,8 +166,8 @@
                 <i class="sidebar-icon ri-camera-line mr-2"></i>
                 <span class="sidebar-link-text">Camera</span>
               </a>
-               
-               
+
+
             </div>
           </div>
         </div>
@@ -197,7 +180,8 @@
       <header class="bg-primary shadow-md sticky top-0 z-30 animate-fade-in">
         <div class="container mx-auto px-4 py-2 flex items-center justify-between">
           <!-- Mobile Menu Toggle Button -->
-          <button id="sidebar-open" class="text-white p-2 rounded-md md:hidden focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white">
+          <button id="sidebar-open"
+            class="text-white p-2 rounded-md md:hidden focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white">
             <i class="ri-menu-line text-2xl"></i>
           </button>
 
@@ -280,16 +264,24 @@
         <!-- Tabs Navigation -->
         <div class="border-b mb-6">
           <div class="flex flex-wrap -mb-px">
-            <button type="button" class="tab-btn px-6 py-3 border-b-2 border-transparent text-gray-500 hover:text-primary hover:border-primary" data-tab="basic-info">
+            <button type="button"
+              class="tab-btn px-6 py-3 border-b-2 border-transparent text-gray-500 hover:text-primary hover:border-primary"
+              data-tab="basic-info">
               Thông tin cơ bản
             </button>
-            <button type="button" class="tab-btn px-6 py-3 border-b-2 border-transparent text-gray-500 hover:text-primary hover:border-primary" data-tab="academic-info">
+            <button type="button"
+              class="tab-btn px-6 py-3 border-b-2 border-transparent text-gray-500 hover:text-primary hover:border-primary"
+              data-tab="academic-info">
               Thông tin học thuật
             </button>
-            <button type="button" class="tab-btn px-6 py-3 border-b-2 border-transparent text-gray-500 hover:text-primary hover:border-primary" data-tab="events">
+            <button type="button"
+              class="tab-btn px-6 py-3 border-b-2 border-transparent text-gray-500 hover:text-primary hover:border-primary"
+              data-tab="events">
               Sự kiện đã tham gia
             </button>
-            <button type="button" class="tab-btn px-6 py-3 border-b-2 border-transparent text-gray-500 hover:text-primary hover:border-primary" data-tab="activity">
+            <button type="button"
+              class="tab-btn px-6 py-3 border-b-2 border-transparent text-gray-500 hover:text-primary hover:border-primary"
+              data-tab="activity">
               Lịch sử hoạt động
             </button>
           </div>
@@ -301,7 +293,7 @@
           <div id="tab-basic-info" class="tab-content">
             <div class="bg-white rounded-lg shadow-sm p-6">
               <h2 class="text-xl font-semibold mb-4 text-gray-800">Thông tin cá nhân</h2>
-              
+
               <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
                   <p class="text-sm text-gray-500 mb-1">Họ</p>
@@ -346,7 +338,8 @@
                 <div>
                   <p class="text-sm text-gray-500 mb-1">Trạng thái</p>
                   <div class="mt-1" id="user-status">
-                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
+                    <span
+                      class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
                       <span class="h-2 w-2 rounded-full bg-green-400 mr-1.5"></span>
                       Đang hoạt động
                     </span>
@@ -364,7 +357,7 @@
           <div id="tab-academic-info" class="tab-content hidden">
             <div class="bg-white rounded-lg shadow-sm p-6">
               <h2 class="text-xl font-semibold mb-4 text-gray-800">Thông tin học thuật</h2>
-              
+
               <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
                   <p class="text-sm text-gray-500 mb-1">Phòng/Khoa</p>
@@ -394,17 +387,29 @@
           <div id="tab-events" class="tab-content hidden">
             <div class="bg-white rounded-lg shadow-sm p-6">
               <h2 class="text-xl font-semibold mb-4 text-gray-800">Sự kiện đã tham gia</h2>
-              
+
               <div class="overflow-x-auto">
                 <table class="min-w-full divide-y divide-gray-200">
                   <thead class="bg-gray-50">
                     <tr>
-                      <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Sự kiện</th>
-                      <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Thời gian</th>
-                      <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Check-in</th>
-                      <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Check-out</th>
-                      <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Thời gian tham gia</th>
-                      <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Hành động</th>
+                      <th scope="col"
+                        class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Sự kiện
+                      </th>
+                      <th scope="col"
+                        class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Thời gian
+                      </th>
+                      <th scope="col"
+                        class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Check-in
+                      </th>
+                      <th scope="col"
+                        class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Check-out
+                      </th>
+                      <th scope="col"
+                        class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Thời gian
+                        tham gia</th>
+                      <th scope="col"
+                        class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Hành động
+                      </th>
                     </tr>
                   </thead>
                   <tbody class="bg-white divide-y divide-gray-200" id="events-list">
@@ -412,7 +417,7 @@
                   </tbody>
                 </table>
               </div>
-              
+
               <!-- Phân trang -->
               <div class="flex items-center justify-between mt-4">
                 <div class="text-sm text-gray-500">Hiển thị 1 đến 5 trong tổng số 10 sự kiện</div>
@@ -430,16 +435,16 @@
           <div id="tab-activity" class="tab-content hidden">
             <div class="bg-white rounded-lg shadow-sm p-6">
               <h2 class="text-xl font-semibold mb-4 text-gray-800">Lịch sử hoạt động</h2>
-              
+
               <div class="relative">
                 <!-- Timeline -->
                 <div class="absolute left-0 top-0 w-0.5 h-full bg-gray-200 ml-6"></div>
-                
+
                 <div class="space-y-8" id="activity-list">
                   <!-- Dữ liệu hoạt động sẽ được điền vào đây bằng JavaScript -->
                 </div>
               </div>
-              
+
               <!-- Load more button -->
               <div class="mt-6 text-center">
                 <button class="btn-outline">Xem thêm</button>
@@ -454,4 +459,5 @@
   <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
   <script src="../../public/js/admin/user-detail.js"></script>
 </body>
-</html> 
+
+</html>

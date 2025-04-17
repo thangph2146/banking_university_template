@@ -36,6 +36,11 @@
           <i class="ri-close-line text-2xl"></i>
         </button>
       </div>
+      <!-- Desktop logo -->
+      <div class="p-4 border-b border-gray-200 hidden md:block">
+        <h1 class="text-xl font-semibold text-primary">HUB Admin</h1>
+      </div>
+
 
       <nav class="p-4">
         <div class="space-y-4">
@@ -67,7 +72,7 @@
                 <i class="sidebar-icon ri-mic-line mr-2"></i>
                 <span class="sidebar-link-text">Diễn giả</span>
               </a>
-               
+
             </div>
           </div>
 
@@ -76,10 +81,10 @@
             <div class="mt-3 space-y-3">
               <a href="event-types.html"
                 class="sidebar-link flex items-center text-gray-600 hover:text-primary p-2 rounded-md hover:bg-gray-100">
-                 <i class="sidebar-icon ri-price-tag-3-line mr-2"></i>
-                 <span class="sidebar-link-text">Loại sự kiện</span>
+                <i class="sidebar-icon ri-price-tag-3-line mr-2"></i>
+                <span class="sidebar-link-text">Loại sự kiện</span>
               </a>
-               
+
               <a href="registrations.html"
                 class="sidebar-link flex items-center text-gray-600 hover:text-primary p-2 rounded-md hover:bg-gray-100">
                 <i class="sidebar-icon ri-file-list-line mr-2"></i>
@@ -96,10 +101,10 @@
                 <span class="sidebar-link-text">Check-out</span>
               </a>
               <a href="screens.html"
-                 class="sidebar-link flex items-center text-gray-600 hover:text-primary p-2 rounded-md hover:bg-gray-100">
-                 <i class="sidebar-icon ri-tv-2-line mr-2"></i>
-                 <span class="sidebar-link-text">Màn hình</span>
-               </a>
+                class="sidebar-link flex items-center text-gray-600 hover:text-primary p-2 rounded-md hover:bg-gray-100">
+                <i class="sidebar-icon ri-tv-2-line mr-2"></i>
+                <span class="sidebar-link-text">Màn hình</span>
+              </a>
               <a href="reports.html"
                 class="sidebar-link flex items-center text-gray-600 hover:text-primary p-2 rounded-md hover:bg-gray-100">
                 <i class="sidebar-icon ri-bar-chart-line mr-2"></i>
@@ -156,8 +161,8 @@
                 <i class="sidebar-icon ri-camera-line mr-2"></i>
                 <span class="sidebar-link-text">Camera</span>
               </a>
-               
-               
+
+
             </div>
           </div>
         </div>
@@ -170,7 +175,8 @@
       <header class="bg-primary shadow-md sticky top-0 z-30 animate-fade-in mb-6">
         <div class="container mx-auto px-4 py-2 flex items-center justify-between">
           <!-- Mobile Menu Toggle Button -->
-          <button id="sidebar-open" class="text-white p-2 rounded-md md:hidden focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white">
+          <button id="sidebar-open"
+            class="text-white p-2 rounded-md md:hidden focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white">
             <i class="ri-menu-line text-2xl"></i>
           </button>
 
@@ -218,7 +224,7 @@
           </div>
         </div>
       </header>
-      
+
       <div class="bg-white rounded-lg shadow mb-6 p-4">
         <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between">
           <div>
@@ -247,151 +253,151 @@
         </ol>
       </nav>
 
-        <!-- Filters -->
-        <div class="bg-white p-4 rounded-lg shadow mb-4">
-          <form id="filter-form">
-            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
-              <!-- Tìm kiếm tên diễn giả -->
-              <div>
-                <label for="filter-name" class="block text-sm font-medium text-gray-700 mb-1">Tìm kiếm</label>
-                <input type="text" id="filter-name" name="filter-name" placeholder="Nhập tên diễn giả..."
-                  class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-primary focus:border-primary text-sm">
-              </div>
-              <!-- Lọc theo tổ chức -->
-              <div>
-                <label for="filter-organization" class="block text-sm font-medium text-gray-700 mb-1">Tổ chức</label>
-                <select id="filter-organization" name="filter-organization"
-                  class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-primary focus:border-primary text-sm">
-                  <option value="">Tất cả</option>
-                  <option value="university">Trường đại học</option>
-                  <option value="company">Doanh nghiệp</option>
-                  <option value="institute">Viện nghiên cứu</option>
-                </select>
-              </div>
-              <!-- Lọc theo chuyên môn -->
-              <div>
-                <label for="filter-expertise" class="block text-sm font-medium text-gray-700 mb-1">Chuyên môn</label>
-                <input type="text" id="filter-expertise" name="filter-expertise" placeholder="Nhập lĩnh vực chuyên môn..."
-                  class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-primary focus:border-primary text-sm">
-              </div>
-              <!-- Lọc theo trạng thái -->
-              <div>
-                <label for="filter-status" class="block text-sm font-medium text-gray-700 mb-1">Trạng thái</label>
-                <select id="filter-status" name="filter-status"
-                  class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-primary focus:border-primary text-sm">
-                  <option value="">Tất cả</option>
-                  <option value="1">Hoạt động</option>
-                  <option value="0">Không hoạt động</option>
-                </select>
-              </div>
+      <!-- Filters -->
+      <div class="bg-white p-4 rounded-lg shadow mb-4">
+        <form id="filter-form">
+          <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
+            <!-- Tìm kiếm tên diễn giả -->
+            <div>
+              <label for="filter-name" class="block text-sm font-medium text-gray-700 mb-1">Tìm kiếm</label>
+              <input type="text" id="filter-name" name="filter-name" placeholder="Nhập tên diễn giả..."
+                class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-primary focus:border-primary text-sm">
             </div>
-            <div class="mt-4 flex justify-end space-x-2">
-              <button type="reset" id="reset-filter-btn"
-                class="px-4 py-2 border border-gray-300 text-gray-700 rounded-md hover:bg-gray-50 text-sm transition-colors duration-200">
-                Đặt lại
-              </button>
-              <button type="submit" id="apply-filter-btn"
-                class="px-4 py-2 bg-primary text-white rounded-md hover:bg-primary-dark text-sm transition-colors duration-200">
-                <i class="ri-filter-line mr-1"></i> Lọc
-              </button>
+            <!-- Lọc theo tổ chức -->
+            <div>
+              <label for="filter-organization" class="block text-sm font-medium text-gray-700 mb-1">Tổ chức</label>
+              <select id="filter-organization" name="filter-organization"
+                class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-primary focus:border-primary text-sm">
+                <option value="">Tất cả</option>
+                <option value="university">Trường đại học</option>
+                <option value="company">Doanh nghiệp</option>
+                <option value="institute">Viện nghiên cứu</option>
+              </select>
             </div>
-          </form>
+            <!-- Lọc theo chuyên môn -->
+            <div>
+              <label for="filter-expertise" class="block text-sm font-medium text-gray-700 mb-1">Chuyên môn</label>
+              <input type="text" id="filter-expertise" name="filter-expertise" placeholder="Nhập lĩnh vực chuyên môn..."
+                class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-primary focus:border-primary text-sm">
+            </div>
+            <!-- Lọc theo trạng thái -->
+            <div>
+              <label for="filter-status" class="block text-sm font-medium text-gray-700 mb-1">Trạng thái</label>
+              <select id="filter-status" name="filter-status"
+                class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-primary focus:border-primary text-sm">
+                <option value="">Tất cả</option>
+                <option value="1">Hoạt động</option>
+                <option value="0">Không hoạt động</option>
+              </select>
+            </div>
+          </div>
+          <div class="mt-4 flex justify-end space-x-2">
+            <button type="reset" id="reset-filter-btn"
+              class="px-4 py-2 border border-gray-300 text-gray-700 rounded-md hover:bg-gray-50 text-sm transition-colors duration-200">
+              Đặt lại
+            </button>
+            <button type="submit" id="apply-filter-btn"
+              class="px-4 py-2 bg-primary text-white rounded-md hover:bg-primary-dark text-sm transition-colors duration-200">
+              <i class="ri-filter-line mr-1"></i> Lọc
+            </button>
+          </div>
+        </form>
+      </div>
+
+      <!-- Speakers Table -->
+      <div class="bg-white rounded-lg shadow overflow-hidden">
+        <div class="p-4 border-b border-gray-200 flex justify-between items-center">
+          <h2 class="text-lg font-medium text-gray-900">Danh sách diễn giả</h2>
+        </div>
+        <div class="overflow-x-auto">
+          <table class="min-w-full divide-y divide-gray-200">
+            <thead class="bg-gray-50">
+              <tr>
+                <th scope="col"
+                  class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider min-w-[200px]">
+                  Diễn giả
+                </th>
+                <th scope="col"
+                  class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider min-w-[150px]">
+                  Thông tin liên hệ
+                </th>
+                <th scope="col"
+                  class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider min-w-[200px]">
+                  Chuyên môn
+                </th>
+                <th scope="col"
+                  class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider min-w-[100px]">
+                  Tổ chức
+                </th>
+                <th scope="col"
+                  class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider min-w-[100px]">
+                  Trạng thái
+                </th>
+                <th scope="col"
+                  class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider min-w-[120px]">
+                  Thao tác
+                </th>
+              </tr>
+            </thead>
+            <tbody id="speakers-table-body" class="bg-white divide-y divide-gray-200">
+              <!-- Rows will be inserted here by JavaScript -->
+              <tr>
+                <td colspan="6" class="px-6 py-4 text-center text-gray-500">
+                  Đang tải dữ liệu...
+                </td>
+              </tr>
+            </tbody>
+          </table>
         </div>
 
-        <!-- Speakers Table -->
-        <div class="bg-white rounded-lg shadow overflow-hidden">
-          <div class="p-4 border-b border-gray-200 flex justify-between items-center">
-            <h2 class="text-lg font-medium text-gray-900">Danh sách diễn giả</h2>
-          </div>
-          <div class="overflow-x-auto">
-            <table class="min-w-full divide-y divide-gray-200">
-              <thead class="bg-gray-50">
-                <tr>
-                  <th scope="col"
-                    class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider min-w-[200px]">
-                    Diễn giả
-                  </th>
-                  <th scope="col"
-                    class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider min-w-[150px]">
-                    Thông tin liên hệ
-                  </th>
-                  <th scope="col"
-                    class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider min-w-[200px]">
-                    Chuyên môn
-                  </th>
-                  <th scope="col"
-                    class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider min-w-[100px]">
-                    Tổ chức
-                  </th>
-                  <th scope="col"
-                    class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider min-w-[100px]">
-                    Trạng thái
-                  </th>
-                  <th scope="col"
-                    class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider min-w-[120px]">
-                    Thao tác
-                  </th>
-                </tr>
-              </thead>
-              <tbody id="speakers-table-body" class="bg-white divide-y divide-gray-200">
-                <!-- Rows will be inserted here by JavaScript -->
-                <tr>
-                  <td colspan="6" class="px-6 py-4 text-center text-gray-500">
-                    Đang tải dữ liệu...
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-
-          <!-- Pagination -->
-          <div class="px-4 py-3 bg-gray-50 border-t border-gray-200">
-            <div class="flex flex-col sm:flex-row items-center justify-between space-y-2 sm:space-y-0">
-              <div class="flex items-center space-x-2 text-sm text-gray-500">
-                <span>Hiển thị</span>
-                <select id="items-per-page" name="items-per-page"
-                  class="border border-gray-300 rounded-md px-2 py-1 focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary">
-                  <option value="10" selected>10</option>
-                  <option value="20">20</option>
-                  <option value="50">50</option>
-                  <option value="100">100</option>
-                </select>
-                <span>mục. Tổng số: <span id="total-items-count" class="font-medium text-gray-700">0</span> diễn
-                  giả.</span>
+        <!-- Pagination -->
+        <div class="px-4 py-3 bg-gray-50 border-t border-gray-200">
+          <div class="flex flex-col sm:flex-row items-center justify-between space-y-2 sm:space-y-0">
+            <div class="flex items-center space-x-2 text-sm text-gray-500">
+              <span>Hiển thị</span>
+              <select id="items-per-page" name="items-per-page"
+                class="border border-gray-300 rounded-md px-2 py-1 focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary">
+                <option value="10" selected>10</option>
+                <option value="20">20</option>
+                <option value="50">50</option>
+                <option value="100">100</option>
+              </select>
+              <span>mục. Tổng số: <span id="total-items-count" class="font-medium text-gray-700">0</span> diễn
+                giả.</span>
+            </div>
+            <div class="flex items-center space-x-1" id="pagination-controls">
+              <button
+                class="btn-first p-2 rounded text-gray-500 hover:text-gray-700 hover:bg-gray-100 disabled:opacity-50 disabled:cursor-not-allowed"
+                title="Trang đầu">
+                <i class="ri-skip-left-line"></i>
+              </button>
+              <button
+                class="btn-prev p-2 rounded text-gray-500 hover:text-gray-700 hover:bg-gray-100 disabled:opacity-50 disabled:cursor-not-allowed"
+                title="Trang trước">
+                <i class="ri-arrow-left-s-line"></i>
+              </button>
+              <div class="flex items-center space-x-1 px-2">
+                <span class="text-sm text-gray-700">Trang</span>
+                <input type="number" id="current-page-input" value="1" min="1"
+                  class="w-12 border border-gray-300 rounded-md px-2 py-1 text-center text-sm focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary">
+                <span class="text-sm text-gray-500">/ <span id="total-pages-count">1</span></span>
               </div>
-              <div class="flex items-center space-x-1" id="pagination-controls">
-                <button
-                  class="btn-first p-2 rounded text-gray-500 hover:text-gray-700 hover:bg-gray-100 disabled:opacity-50 disabled:cursor-not-allowed"
-                  title="Trang đầu">
-                  <i class="ri-skip-left-line"></i>
-                </button>
-                <button
-                  class="btn-prev p-2 rounded text-gray-500 hover:text-gray-700 hover:bg-gray-100 disabled:opacity-50 disabled:cursor-not-allowed"
-                  title="Trang trước">
-                  <i class="ri-arrow-left-s-line"></i>
-                </button>
-                <div class="flex items-center space-x-1 px-2">
-                  <span class="text-sm text-gray-700">Trang</span>
-                  <input type="number" id="current-page-input" value="1" min="1"
-                    class="w-12 border border-gray-300 rounded-md px-2 py-1 text-center text-sm focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary">
-                  <span class="text-sm text-gray-500">/ <span id="total-pages-count">1</span></span>
-                </div>
-                <button
-                  class="btn-next p-2 rounded text-gray-500 hover:text-gray-700 hover:bg-gray-100 disabled:opacity-50 disabled:cursor-not-allowed"
-                  title="Trang sau">
-                  <i class="ri-arrow-right-s-line"></i>
-                </button>
-                <button
-                  class="btn-last p-2 rounded text-gray-500 hover:text-gray-700 hover:bg-gray-100 disabled:opacity-50 disabled:cursor-not-allowed"
-                  title="Trang cuối">
-                  <i class="ri-skip-right-line"></i>
-                </button>
-              </div>
+              <button
+                class="btn-next p-2 rounded text-gray-500 hover:text-gray-700 hover:bg-gray-100 disabled:opacity-50 disabled:cursor-not-allowed"
+                title="Trang sau">
+                <i class="ri-arrow-right-s-line"></i>
+              </button>
+              <button
+                class="btn-last p-2 rounded text-gray-500 hover:text-gray-700 hover:bg-gray-100 disabled:opacity-50 disabled:cursor-not-allowed"
+                title="Trang cuối">
+                <i class="ri-skip-right-line"></i>
+              </button>
             </div>
           </div>
         </div>
       </div>
-    </main>
+  </div>
+  </main>
   </div>
 
   <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>

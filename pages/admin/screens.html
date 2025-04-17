@@ -27,7 +27,7 @@
       class="fixed md:relative z-50 bg-white w-72 max-w-[80vw] min-h-screen shadow-lg transform -translate-x-full md:translate-x-0 transition-transform duration-300 overflow-y-auto">
       <!-- Logo/Brand for mobile -->
       <div class="flex items-center justify-between p-4 border-b md:hidden">
-        <a href="index.html" class="text-2xl font-[\'Pacifico\'] text-primary flex items-center">
+        <a href="index.html" class="text-2xl font-['Pacifico'] text-primary flex items-center">
           <img src="../../images/logo/logo-white.png" alt="logo" class="w-8 h-8 mr-2">
           <span>HUB Admin</span>
         </a>
@@ -35,6 +35,11 @@
           <i class="ri-close-line text-2xl"></i>
         </button>
       </div>
+      <!-- Desktop logo -->
+      <div class="p-4 border-b border-gray-200 hidden md:block">
+        <h1 class="text-xl font-semibold text-primary">HUB Admin</h1>
+      </div>
+
 
       <nav class="p-4">
         <div class="space-y-4">
@@ -74,10 +79,10 @@
             <div class="mt-3 space-y-3">
               <a href="event-types.html"
                 class="sidebar-link flex items-center text-gray-600 hover:text-primary p-2 rounded-md hover:bg-gray-100">
-                 <i class="sidebar-icon ri-price-tag-3-line mr-2"></i>
-                 <span class="sidebar-link-text">Loại sự kiện</span>
+                <i class="sidebar-icon ri-price-tag-3-line mr-2"></i>
+                <span class="sidebar-link-text">Loại sự kiện</span>
               </a>
-               
+
               <a href="registrations.html"
                 class="sidebar-link flex items-center text-gray-600 hover:text-primary p-2 rounded-md hover:bg-gray-100">
                 <i class="sidebar-icon ri-file-list-line mr-2"></i>
@@ -94,10 +99,10 @@
                 <span class="sidebar-link-text">Check-out</span>
               </a>
               <a href="screens.html"
-                 class="sidebar-link active flex items-center text-primary p-2 rounded-md bg-primary/10 font-medium">
-                 <i class="sidebar-icon ri-tv-2-line mr-2"></i>
-                 <span class="sidebar-link-text">Màn hình</span>
-               </a>
+                class="sidebar-link active flex items-center text-primary p-2 rounded-md bg-primary/10 font-medium">
+                <i class="sidebar-icon ri-tv-2-line mr-2"></i>
+                <span class="sidebar-link-text">Màn hình</span>
+              </a>
               <a href="reports.html"
                 class="sidebar-link flex items-center text-gray-600 hover:text-primary p-2 rounded-md hover:bg-gray-100">
                 <i class="sidebar-icon ri-bar-chart-line mr-2"></i>
@@ -154,7 +159,7 @@
                 <i class="sidebar-icon ri-camera-line mr-2"></i>
                 <span class="sidebar-link-text">Camera</span>
               </a>
-               
+
             </div>
           </div>
         </div>
@@ -167,7 +172,8 @@
       <header class="bg-primary shadow-md sticky top-0 z-30 animate-fade-in mb-6">
         <div class="container mx-auto px-4 py-2 flex items-center justify-between">
           <!-- Mobile Menu Toggle Button -->
-          <button id="sidebar-open" class="text-white p-2 rounded-md md:hidden focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white">
+          <button id="sidebar-open"
+            class="text-white p-2 rounded-md md:hidden focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white">
             <i class="ri-menu-line text-2xl"></i>
           </button>
 
@@ -187,29 +193,29 @@
               </button>
               <div id="user-menu"
                 class="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg overflow-hidden z-20 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform origin-top-right scale-95 group-hover:scale-100">
-                 <div class="py-2">
-                   <a href="profile.html"
-                     class="flex items-center px-4 py-2 text-sm text-gray-800 hover:bg-primary/10 hover:text-primary border-l-4 border-transparent">
-                     <i class="ri-user-line mr-2"></i>
-                     Trang cá nhân
-                   </a>
-                   <a href="registered-events.html"
-                     class="flex items-center px-4 py-2 text-sm text-gray-800 hover:bg-primary/10 hover:text-primary border-l-4 border-transparent">
-                     <i class="ri-calendar-event-line mr-2"></i>
-                     Sự kiện của tôi
-                   </a>
-                   <a href="#"
-                     class="flex items-center px-4 py-2 text-sm text-gray-800 hover:bg-primary/10 hover:text-primary border-l-4 border-transparent">
-                     <i class="ri-settings-4-line mr-2"></i>
-                     Cài đặt
-                   </a>
-                   <hr class="my-1 border-gray-200">
-                   <a href="login.html"
-                     class="flex items-center px-4 py-2 text-sm text-gray-800 hover:bg-primary/10 hover:text-primary border-l-4 border-transparent">
-                     <i class="ri-logout-box-r-line mr-2"></i>
-                     Đăng xuất
-                   </a>
-                 </div>
+                <div class="py-2">
+                  <a href="profile.html"
+                    class="flex items-center px-4 py-2 text-sm text-gray-800 hover:bg-primary/10 hover:text-primary border-l-4 border-transparent">
+                    <i class="ri-user-line mr-2"></i>
+                    Trang cá nhân
+                  </a>
+                  <a href="registered-events.html"
+                    class="flex items-center px-4 py-2 text-sm text-gray-800 hover:bg-primary/10 hover:text-primary border-l-4 border-transparent">
+                    <i class="ri-calendar-event-line mr-2"></i>
+                    Sự kiện của tôi
+                  </a>
+                  <a href="#"
+                    class="flex items-center px-4 py-2 text-sm text-gray-800 hover:bg-primary/10 hover:text-primary border-l-4 border-transparent">
+                    <i class="ri-settings-4-line mr-2"></i>
+                    Cài đặt
+                  </a>
+                  <hr class="my-1 border-gray-200">
+                  <a href="login.html"
+                    class="flex items-center px-4 py-2 text-sm text-gray-800 hover:bg-primary/10 hover:text-primary border-l-4 border-transparent">
+                    <i class="ri-logout-box-r-line mr-2"></i>
+                    Đăng xuất
+                  </a>
+                </div>
               </div>
             </div>
           </div>
@@ -251,7 +257,8 @@
           <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
             <!-- Filter by Name -->
             <div>
-              <label for="filter-name" class="block text-sm font-medium text-gray-700 mb-1">Tìm theo Tên Màn hình</label>
+              <label for="filter-name" class="block text-sm font-medium text-gray-700 mb-1">Tìm theo Tên Màn
+                hình</label>
               <input type="text" id="filter-name" name="filter-name" placeholder="Nhập tên màn hình..."
                 class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-primary focus:border-primary text-sm">
             </div>
@@ -312,28 +319,34 @@
                 <th scope="col"
                   class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-16">ID
                 </th>
-                <th scope="col" class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider min-w-[200px]">
+                <th scope="col"
+                  class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider min-w-[200px]">
                   Tên Màn hình</th>
-                <th scope="col" class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider min-w-[100px]">
+                <th scope="col"
+                  class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider min-w-[100px]">
                   Mã MH</th>
-                <th scope="col" class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider min-w-[100px]">
+                <th scope="col"
+                  class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider min-w-[100px]">
                   Camera ID</th>
-                 <th scope="col" class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider min-w-[100px]">
+                <th scope="col"
+                  class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider min-w-[100px]">
                   Template ID</th>
-                <th scope="col" class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider min-w-[120px]">
+                <th scope="col"
+                  class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider min-w-[120px]">
                   Trạng thái</th>
-                <th scope="col" class="px-4 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider min-w-[100px]">
+                <th scope="col"
+                  class="px-4 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider min-w-[100px]">
                   Hành động</th>
               </tr>
             </thead>
             <tbody id="screensTableBody" class="bg-white divide-y divide-gray-200">
-               <!-- Placeholder row for no data -->
-               <tr id="no-data-placeholder" class="hidden">
-                 <td colspan="7" class="text-center py-10 text-gray-500">
-                   <i class="ri-inbox-2-line text-4xl mb-2"></i>
-                   <p>Không tìm thấy dữ liệu màn hình.</p>
-                 </td>
-               </tr>
+              <!-- Placeholder row for no data -->
+              <tr id="no-data-placeholder" class="hidden">
+                <td colspan="7" class="text-center py-10 text-gray-500">
+                  <i class="ri-inbox-2-line text-4xl mb-2"></i>
+                  <p>Không tìm thấy dữ liệu màn hình.</p>
+                </td>
+              </tr>
               <!-- Table rows will be dynamically inserted here by JavaScript -->
             </tbody>
           </table>
@@ -351,7 +364,8 @@
                 <option value="50">50</option>
                 <option value="100">100</option>
               </select>
-              <span>mục. Tổng số: <span id="total-items-count" class="font-medium text-gray-700">0</span> màn hình.</span>
+              <span>mục. Tổng số: <span id="total-items-count" class="font-medium text-gray-700">0</span> màn
+                hình.</span>
             </div>
             <div class="flex items-center space-x-1" id="pagination-controls">
               <button
@@ -391,4 +405,4 @@
   <script src="../../public/js/admin/screens.js"></script>
 </body>
 
-</html> 
+</html>

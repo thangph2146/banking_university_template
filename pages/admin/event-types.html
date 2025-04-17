@@ -28,12 +28,14 @@
   </div>
 
   <!-- Delete Confirmation Modal -->
-  <div id="confirm-delete-modal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
+  <div id="confirm-delete-modal"
+    class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
     <div class="bg-white p-6 rounded-lg shadow-xl max-w-md">
       <div class="text-center">
         <i class="ri-error-warning-line text-red-500 text-5xl mb-4"></i>
         <h3 class="text-xl font-semibold mb-2">Xác nhận xóa</h3>
-        <p class="text-gray-600 mb-6" id="delete-confirmation-text">Bạn có chắc chắn muốn xóa loại sự kiện này không? Hành động này không thể hoàn tác.</p>
+        <p class="text-gray-600 mb-6" id="delete-confirmation-text">Bạn có chắc chắn muốn xóa loại sự kiện này không?
+          Hành động này không thể hoàn tác.</p>
         <div class="flex justify-center space-x-4">
           <button id="cancel-delete-btn" class="px-4 py-2 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300">
             <i class="ri-close-line mr-2"></i>Hủy bỏ
@@ -64,6 +66,11 @@
           <i class="ri-close-line text-2xl"></i>
         </button>
       </div>
+      <!-- Desktop logo -->
+      <div class="p-4 border-b border-gray-200 hidden md:block">
+        <h1 class="text-xl font-semibold text-primary">HUB Admin</h1>
+      </div>
+
 
       <nav class="p-4">
         <div class="space-y-4">
@@ -106,7 +113,7 @@
                 <i class="sidebar-icon ri-price-tag-3-line mr-2"></i>
                 <span class="sidebar-link-text">Loại sự kiện</span>
               </a>
-               
+
               <a href="registrations.html"
                 class="sidebar-link flex items-center text-gray-600 hover:text-primary p-2 rounded-md hover:bg-gray-100">
                 <i class="sidebar-icon ri-file-list-line mr-2"></i>
@@ -123,10 +130,10 @@
                 <span class="sidebar-link-text">Check-out</span>
               </a>
               <a href="screens.html"
-                 class="sidebar-link flex items-center text-gray-600 hover:text-primary p-2 rounded-md hover:bg-gray-100">
-                 <i class="sidebar-icon ri-tv-2-line mr-2"></i>
-                 <span class="sidebar-link-text">Màn hình</span>
-               </a>
+                class="sidebar-link flex items-center text-gray-600 hover:text-primary p-2 rounded-md hover:bg-gray-100">
+                <i class="sidebar-icon ri-tv-2-line mr-2"></i>
+                <span class="sidebar-link-text">Màn hình</span>
+              </a>
               <a href="reports.html"
                 class="sidebar-link flex items-center text-gray-600 hover:text-primary p-2 rounded-md hover:bg-gray-100">
                 <i class="sidebar-icon ri-bar-chart-line mr-2"></i>
@@ -183,7 +190,7 @@
                 <i class="sidebar-icon ri-camera-line mr-2"></i>
                 <span class="sidebar-link-text">Camera</span>
               </a>
-               
+
             </div>
           </div>
         </div>
@@ -196,7 +203,8 @@
       <header class="bg-primary shadow-md sticky top-0 z-30 animate-fade-in mb-6">
         <div class="container mx-auto px-4 py-2 flex items-center justify-between">
           <!-- Mobile Menu Toggle Button -->
-          <button id="sidebar-open" class="text-white p-2 rounded-md md:hidden focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white">
+          <button id="sidebar-open"
+            class="text-white p-2 rounded-md md:hidden focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white">
             <i class="ri-menu-line text-2xl"></i>
           </button>
 
@@ -255,7 +263,7 @@
             <a href="event-type-create.html" id="add-event-type-btn"
               class="flex items-center justify-center px-4 py-2 bg-primary text-white rounded-md hover:bg-primary-dark transition-colors duration-200">
               <i class="ri-add-line mr-1"></i> Thêm loại mới
-          </a>
+            </a>
           </div>
         </div>
       </div>
@@ -269,9 +277,9 @@
             </a>
             <i class="ri-arrow-right-s-line text-gray-400 mx-2"></i>
           </li>
-           <li class="flex items-center">
+          <li class="flex items-center">
             <a href="events.html" class="text-gray-500 hover:text-primary">
-                Sự kiện
+              Sự kiện
             </a>
             <i class="ri-arrow-right-s-line text-gray-400 mx-2"></i>
           </li>
@@ -298,7 +306,8 @@
             <!-- Filter by Status -->
             <div>
               <label for="status-filter" class="block text-sm font-medium text-gray-700 mb-1">Trạng thái</label>
-              <select id="status-filter" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-primary focus:border-primary text-sm">
+              <select id="status-filter"
+                class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-primary focus:border-primary text-sm">
                 <option value="all">Tất cả</option>
                 <option value="1">Đang hoạt động</option>
                 <option value="0">Không hoạt động</option>
@@ -335,12 +344,23 @@
           <table id="event-types-table" class="min-w-full divide-y divide-gray-200">
             <thead class="bg-gray-50">
               <tr>
-                <th scope="col" class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-1/12">ID</th>
-                <th scope="col" class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-3/12">Tên loại sự kiện</th>
-                <th scope="col" class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-2/12">Mã loại</th>
-                <th scope="col" class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-2/12">Trạng thái</th>
-                <th scope="col" class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-2/12">Ngày tạo</th>
-                <th scope="col" class="px-4 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider w-2/12">Hành động</th>
+                <th scope="col"
+                  class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-1/12">ID</th>
+                <th scope="col"
+                  class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-3/12">Tên loại
+                  sự kiện</th>
+                <th scope="col"
+                  class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-2/12">Mã loại
+                </th>
+                <th scope="col"
+                  class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-2/12">Trạng
+                  thái</th>
+                <th scope="col"
+                  class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-2/12">Ngày tạo
+                </th>
+                <th scope="col"
+                  class="px-4 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider w-2/12">Hành
+                  động</th>
               </tr>
             </thead>
             <tbody id="eventTypesTableBody" class="bg-white divide-y divide-gray-200">
@@ -369,7 +389,8 @@
                 <option value="50">50</option>
                 <option value="100">100</option>
               </select>
-              <span>mục. Tổng số: <span id="total-items-count" class="font-medium text-gray-700">0</span> loại sự kiện.</span>
+              <span>mục. Tổng số: <span id="total-items-count" class="font-medium text-gray-700">0</span> loại sự
+                kiện.</span>
             </div>
             <div class="flex items-center space-x-1" id="pagination-controls">
               <button
@@ -408,4 +429,4 @@
   <script src="../../public/js/admin/event-types.js"></script>
 </body>
 
-</html> 
+</html>

@@ -1,411 +1,685 @@
-// Initialize AOS
-AOS.init({
-  duration: 800, // Animation duration
-  once: true, // Whether animation should happen only once
+/**
+ * Quản lý loại người dùng - Banking University
+ * File: user-types.js
+ * 
+ * Chức năng:
+ * - Hiển thị danh sách loại người dùng
+ * - Tìm kiếm, lọc theo trạng thái
+ * - Phân trang
+ * - Xử lý xóa loại người dùng
+ */
+
+// Khởi tạo các biến global
+let currentPage = 1; // Trang hiện tại
+const itemsPerPage = 10; // Số lượng phần tử trên mỗi trang
+let totalItems = 0; // Tổng số loại người dùng
+let totalPages = 0; // Tổng số trang
+
+// Dữ liệu mẫu loại người dùng
+const userTypesMockData = [
+  {
+    id: 1,
+    name: "Quản trị viên",
+    description: "Người dùng có toàn quyền quản trị hệ thống",
+    status: "active",
+    userCount: 5,
+    createdAt: "2023-01-15T08:30:00Z",
+    updatedAt: "2023-05-20T14:45:00Z"
+  },
+  {
+    id: 2,
+    name: "Giảng viên",
+    description: "Giảng viên của trường đại học",
+    status: "active",
+    userCount: 120,
+    createdAt: "2023-01-20T09:15:00Z",
+    updatedAt: "2023-06-12T11:30:00Z"
+  },
+  {
+    id: 3,
+    name: "Sinh viên",
+    description: "Sinh viên đang theo học tại trường",
+    status: "active",
+    userCount: 3500,
+    createdAt: "2023-01-25T10:00:00Z",
+    updatedAt: "2023-06-15T13:20:00Z"
+  },
+  {
+    id: 4,
+    name: "Cựu sinh viên",
+    description: "Sinh viên đã tốt nghiệp",
+    status: "active",
+    userCount: 870,
+    createdAt: "2023-02-01T08:45:00Z",
+    updatedAt: "2023-06-20T15:10:00Z"
+  },
+  {
+    id: 5,
+    name: "Nhân viên",
+    description: "Nhân viên hành chính của trường",
+    status: "active",
+    userCount: 85,
+    createdAt: "2023-02-10T09:30:00Z",
+    updatedAt: "2023-07-05T10:45:00Z"
+  },
+  {
+    id: 6,
+    name: "Khách",
+    description: "Tài khoản khách tham quan",
+    status: "inactive",
+    userCount: 250,
+    createdAt: "2023-02-15T14:20:00Z",
+    updatedAt: "2023-07-10T16:30:00Z"
+  },
+  {
+    id: 7,
+    name: "Đối tác",
+    description: "Đối tác của trường đại học",
+    status: "active",
+    userCount: 45,
+    createdAt: "2023-03-01T11:15:00Z",
+    updatedAt: "2023-07-15T13:40:00Z"
+  },
+  {
+    id: 8,
+    name: "Thư viện",
+    description: "Nhân viên thư viện",
+    status: "active",
+    userCount: 12,
+    createdAt: "2023-03-10T13:30:00Z",
+    updatedAt: "2023-08-01T09:25:00Z"
+  },
+  {
+    id: 9,
+    name: "Phòng đào tạo",
+    description: "Nhân viên phòng đào tạo",
+    status: "active",
+    userCount: 25,
+    createdAt: "2023-03-20T10:45:00Z",
+    updatedAt: "2023-08-10T14:50:00Z"
+  },
+  {
+    id: 10,
+    name: "Ban giám hiệu",
+    description: "Thành viên ban giám hiệu",
+    status: "active",
+    userCount: 8,
+    createdAt: "2023-04-01T09:00:00Z",
+    updatedAt: "2023-08-15T11:20:00Z"
+  },
+  {
+    id: 11,
+    name: "Phụ huynh",
+    description: "Phụ huynh học sinh sinh viên",
+    status: "inactive",
+    userCount: 320,
+    createdAt: "2023-04-15T15:30:00Z",
+    updatedAt: "2023-09-01T10:15:00Z"
+  },
+  {
+    id: 12,
+    name: "Khảo thí",
+    description: "Nhân viên phòng khảo thí",
+    status: "active",
+    userCount: 15,
+    createdAt: "2023-05-01T11:45:00Z",
+    updatedAt: "2023-09-10T13:35:00Z"
+  }
+];
+
+// Chờ DOM tải xong
+document.addEventListener('DOMContentLoaded', function() {
+  // Khởi tạo hiệu ứng AOS
+  AOS.init({
+    duration: 800,
+    once: true
+  });
+  
+  // Khởi tạo xử lý sidebar cho mobile
+  initSidebar();
+  
+  // Tải dữ liệu và render danh sách
+  loadUserTypes();
+  
+  // Xử lý các sự kiện
+  setupEventListeners();
 });
 
-document.addEventListener('DOMContentLoaded', function () {
-  // State variables
-  let allRoles = []; // Stores all roles fetched or defined
-  let currentRoles = []; // Stores roles currently displayed (after filtering/pagination)
-  let currentPage = 1;
-  let itemsPerPage = 10;
-  let totalPages = 1;
-
-  // --- Sample Data (Based on loai_nguoi_dung table) ---
-  allRoles = [
-    { MaLoai: 1, TenLoai: 'Quản trị viên', MoTa: 'Quản lý toàn bộ hệ thống' },
-    { MaLoai: 2, TenLoai: 'Biên tập viên', MoTa: 'Quản lý nội dung sự kiện' },
-    { MaLoai: 3, TenLoai: 'Người dùng thường', MoTa: 'Tham gia sự kiện' },
-    { MaLoai: 4, TenLoai: 'Diễn giả', MoTa: 'Trình bày tại sự kiện' },
-    { MaLoai: 5, TenLoai: 'Đối tác', MoTa: 'Hợp tác tổ chức sự kiện' },
-    { MaLoai: 6, TenLoai: 'Khách mời VIP', MoTa: 'Khách mời đặc biệt' },
-    { MaLoai: 7, TenLoai: 'Tình nguyện viên', MoTa: 'Hỗ trợ tổ chức sự kiện' },
-    { MaLoai: 8, TenLoai: 'Nhân viên kỹ thuật', MoTa: 'Hỗ trợ kỹ thuật cho sự kiện' },
-    { MaLoai: 9, TenLoai: 'Ban tổ chức', MoTa: 'Thành viên trong ban tổ chức' },
-    { MaLoai: 10, TenLoai: 'Nhà tài trợ', MoTa: 'Đơn vị tài trợ cho sự kiện' },
-    // Add more sample roles if needed
-  ];
-
-  // DOM Elements
+/**
+ * Khởi tạo xử lý sidebar cho mobile
+ */
+function initSidebar() {
   const sidebar = document.getElementById('sidebar');
   const sidebarBackdrop = document.getElementById('sidebar-backdrop');
-  const sidebarOpenBtn = document.getElementById('sidebar-open');
-  const sidebarCloseBtn = document.getElementById('sidebar-close');
-  const userMenuButton = document.getElementById('user-menu-button');
-  const userMenu = document.getElementById('user-menu');
-  const rolesTableBody = document.getElementById('rolesTableBody');
-  const paginationControls = document.getElementById('pagination-controls');
-  const itemsPerPageSelect = document.getElementById('items-per-page');
-  const totalItemsCountSpan = document.getElementById('total-items-count');
-  const totalPagesCountSpan = document.getElementById('total-pages-count');
-  const currentPageInput = document.getElementById('current-page-input');
-  const filterForm = document.getElementById('filter-form');
-  const filterNameInput = document.getElementById('filter-name');
-  const filterDescriptionInput = document.getElementById('filter-description');
-  const noDataPlaceholder = document.getElementById('no-data-placeholder');
+  const sidebarOpen = document.getElementById('sidebar-open');
+  const sidebarClose = document.getElementById('sidebar-close');
+  
+  sidebarOpen.addEventListener('click', () => {
+    sidebar.classList.remove('-translate-x-full');
+    sidebarBackdrop.classList.remove('hidden');
+  });
+  
+  sidebarClose.addEventListener('click', () => {
+    sidebar.classList.add('-translate-x-full');
+    sidebarBackdrop.classList.add('hidden');
+  });
+  
+  sidebarBackdrop.addEventListener('click', () => {
+    sidebar.classList.add('-translate-x-full');
+    sidebarBackdrop.classList.add('hidden');
+  });
+}
 
-  // Modal elements
-  const roleModal = document.getElementById('role-modal');
-  const addRoleBtn = document.getElementById('add-role-btn');
-  const closeRoleModalBtn = document.getElementById('close-role-modal');
-  const cancelRoleBtn = document.getElementById('cancel-role');
-  const roleForm = document.getElementById('role-form');
-  const modalTitle = document.getElementById('modal-title');
-  const roleIdInput = document.getElementById('role-id');
-  const modalRoleNameInput = document.getElementById('modal-role-name');
-  const modalRoleDescriptionInput = document.getElementById('modal-role-description');
+/**
+ * Khởi tạo các sự kiện
+ */
+function setupEventListeners() {
+  // Lắng nghe sự kiện tìm kiếm
+  document.getElementById('search-input').addEventListener('input', debounce(handleFilter, 300));
+  
+  // Lắng nghe sự kiện lọc trạng thái
+  document.getElementById('status-filter').addEventListener('change', handleFilter);
+  
+  // Lắng nghe sự kiện áp dụng bộ lọc
+  document.getElementById('apply-filters').addEventListener('click', handleFilter);
+  
+  // Lắng nghe sự kiện xóa bộ lọc
+  document.getElementById('clear-filters').addEventListener('click', clearFilters);
+  
+  // Lắng nghe sự kiện xóa bộ lọc từ trạng thái trống
+  document.getElementById('clear-filters-empty').addEventListener('click', clearFilters);
+  
+  // Lắng nghe sự kiện thử lại khi có lỗi
+  document.getElementById('retry-button').addEventListener('click', loadUserTypes);
+  
+  // Lắng nghe sự kiện phân trang
+  document.getElementById('prev-page').addEventListener('click', () => navigatePage(currentPage - 1));
+  document.getElementById('next-page').addEventListener('click', () => navigatePage(currentPage + 1));
+  document.getElementById('prev-page-mobile').addEventListener('click', () => navigatePage(currentPage - 1));
+  document.getElementById('next-page-mobile').addEventListener('click', () => navigatePage(currentPage + 1));
+}
 
-  // --- UI Interactions ---
+/**
+ * Hàm debounce để giảm số lần gọi hàm
+ */
+function debounce(func, wait) {
+  let timeout;
+  return function(...args) {
+    clearTimeout(timeout);
+    timeout = setTimeout(() => func.apply(this, args), wait);
+  };
+}
 
-  // Sidebar toggle
-  if (sidebarOpenBtn && sidebar && sidebarBackdrop && sidebarCloseBtn) {
-    sidebarOpenBtn.addEventListener('click', () => {
-      sidebar.classList.remove('-translate-x-full');
-      sidebarBackdrop.classList.remove('hidden');
-    });
-
-    sidebarCloseBtn.addEventListener('click', () => {
-      sidebar.classList.add('-translate-x-full');
-      sidebarBackdrop.classList.add('hidden');
-    });
-
-    sidebarBackdrop.addEventListener('click', () => {
-      sidebar.classList.add('-translate-x-full');
-      sidebarBackdrop.classList.add('hidden');
-    });
-  }
-
-  // User menu toggle (assuming similar structure)
-  if (userMenuButton && userMenu) {
-     // Function to check if click is outside the menu
-     function handleClickOutside(event) {
-        if (userMenu && !userMenu.contains(event.target) && !userMenuButton.contains(event.target)) {
-            userMenu.classList.add('opacity-0', 'invisible', 'scale-95');
-            userMenu.classList.remove('opacity-100', 'visible', 'scale-100');
-            document.removeEventListener('click', handleClickOutside);
-        }
-      }
-
-      userMenuButton.addEventListener('click', (event) => {
-          event.stopPropagation(); // Prevent the click from immediately closing the menu
-          const isVisible = userMenu.classList.contains('opacity-100');
-          if (isVisible) {
-              userMenu.classList.add('opacity-0', 'invisible', 'scale-95');
-              userMenu.classList.remove('opacity-100', 'visible', 'scale-100');
-              document.removeEventListener('click', handleClickOutside);
-          } else {
-              userMenu.classList.remove('opacity-0', 'invisible', 'scale-95');
-              userMenu.classList.add('opacity-100', 'visible', 'scale-100');
-              // Add event listener to close when clicking outside
-              setTimeout(() => document.addEventListener('click', handleClickOutside), 0);
-          }
-      });
-  }
-
-  // --- Modal Handling ---
-  function openModal(role = null) {
-    roleForm.reset(); // Clear form fields
-    if (role) {
-      // Edit mode
-      modalTitle.textContent = 'Chỉnh sửa Loại người dùng';
-      roleIdInput.value = role.MaLoai;
-      modalRoleNameInput.value = role.TenLoai;
-      modalRoleDescriptionInput.value = role.MoTa || '';
-    } else {
-      // Add mode
-      modalTitle.textContent = 'Thêm Loại người dùng';
-      roleIdInput.value = ''; // Ensure ID is empty for adding
+/**
+ * Tải danh sách loại người dùng
+ */
+function loadUserTypes() {
+  showLoading(true);
+  hideError();
+  hideEmptyState();
+  
+  // Giả lập gọi API
+  setTimeout(() => {
+    try {
+      // Trong thực tế, đây sẽ là một cuộc gọi API để lấy dữ liệu
+      const filteredData = filterUserTypes();
+      renderUserTypesTable(filteredData);
+      
+      showLoading(false);
+    } catch (error) {
+      showError("Không thể tải dữ liệu loại người dùng: " + error.message);
     }
-    roleModal.classList.remove('hidden');
+  }, 500); // Giả lập độ trễ mạng
+}
+
+/**
+ * Lọc dữ liệu loại người dùng theo các tiêu chí tìm kiếm
+ */
+function filterUserTypes() {
+  const searchValue = document.getElementById('search-input').value.toLowerCase();
+  const statusFilter = document.getElementById('status-filter').value;
+  
+  let filteredData = [...userTypesMockData];
+  
+  // Lọc theo tên
+  if (searchValue) {
+    filteredData = filteredData.filter(userType => 
+      userType.name.toLowerCase().includes(searchValue) || 
+      userType.description.toLowerCase().includes(searchValue)
+    );
   }
-
-  function closeModal() {
-    roleModal.classList.add('hidden');
-    roleForm.reset();
+  
+  // Lọc theo trạng thái
+  if (statusFilter) {
+    filteredData = filteredData.filter(userType => userType.status === statusFilter);
   }
-
-  if (addRoleBtn) {
-    addRoleBtn.addEventListener('click', () => openModal());
+  
+  // Cập nhật tổng số phần tử và số trang
+  totalItems = filteredData.length;
+  totalPages = Math.ceil(totalItems / itemsPerPage);
+  
+  // Kiểm tra và điều chỉnh trang hiện tại nếu cần
+  if (currentPage > totalPages && totalPages > 0) {
+    currentPage = totalPages;
+  } else if (currentPage < 1 || totalPages === 0) {
+    currentPage = 1;
   }
-  if (closeRoleModalBtn) {
-    closeRoleModalBtn.addEventListener('click', closeModal);
+  
+  return filteredData;
+}
+
+/**
+ * Hiện/ẩn trạng thái đang tải
+ */
+function showLoading(show) {
+  const loadingIndicator = document.getElementById('loading-indicator');
+  const userTypesList = document.getElementById('user-types-list');
+  
+  if (show) {
+    loadingIndicator.classList.remove('hidden');
+    userTypesList.classList.add('hidden');
+  } else {
+    loadingIndicator.classList.add('hidden');
+    userTypesList.classList.remove('hidden');
   }
-  if (cancelRoleBtn) {
-    cancelRoleBtn.addEventListener('click', closeModal);
+}
+
+/**
+ * Hiển thị thông báo lỗi
+ */
+function showError(message) {
+  const errorContainer = document.getElementById('error-container');
+  const errorMessage = document.getElementById('error-message');
+  const loadingIndicator = document.getElementById('loading-indicator');
+  const userTypesList = document.getElementById('user-types-list');
+  
+  errorMessage.textContent = message;
+  errorContainer.classList.remove('hidden');
+  loadingIndicator.classList.add('hidden');
+  userTypesList.classList.add('hidden');
+}
+
+/**
+ * Ẩn thông báo lỗi
+ */
+function hideError() {
+  const errorContainer = document.getElementById('error-container');
+  errorContainer.classList.add('hidden');
+}
+
+/**
+ * Hiển thị trạng thái không có dữ liệu
+ */
+function showEmptyState() {
+  const emptyState = document.getElementById('empty-state');
+  const userTypesList = document.getElementById('user-types-list');
+  
+  emptyState.classList.remove('hidden');
+  userTypesList.classList.add('hidden');
+}
+
+/**
+ * Ẩn trạng thái không có dữ liệu
+ */
+function hideEmptyState() {
+  const emptyState = document.getElementById('empty-state');
+  emptyState.classList.add('hidden');
+}
+
+/**
+ * Xử lý khi lọc dữ liệu
+ */
+function handleFilter() {
+  currentPage = 1; // Reset về trang đầu tiên khi lọc
+  loadUserTypes();
+}
+
+/**
+ * Xóa các bộ lọc và tải lại dữ liệu
+ */
+function clearFilters() {
+  document.getElementById('search-input').value = '';
+  document.getElementById('status-filter').value = '';
+  
+  handleFilter();
+}
+
+/**
+ * Định dạng ngày tháng
+ */
+function formatDate(dateString) {
+  if (!dateString) return '-';
+  
+  const date = new Date(dateString);
+  const day = String(date.getDate()).padStart(2, '0');
+  const month = String(date.getMonth() + 1).padStart(2, '0');
+  const year = date.getFullYear();
+  
+  return `${day}/${month}/${year}`;
+}
+
+/**
+ * Render bảng danh sách loại người dùng
+ */
+function renderUserTypesTable(data) {
+  const tableBody = document.getElementById('user-types-table-body');
+  tableBody.innerHTML = '';
+  
+  // Nếu không có dữ liệu
+  if (data.length === 0) {
+    showEmptyState();
+    updatePaginationInfo(0, 0, 0);
+    return;
   }
-  // Close modal on outside click
-  if (roleModal) {
-    roleModal.addEventListener('click', (event) => {
-      if (event.target === roleModal) {
-        closeModal();
-      }
-    });
-  }
-
-  // --- Data Handling & Rendering ---
-
-  // Function to render the table
-  function renderTable() {
-    rolesTableBody.innerHTML = ''; // Clear existing rows
-    noDataPlaceholder.classList.add('hidden'); // Hide no data message initially
-
-    if (currentRoles.length === 0) {
-      noDataPlaceholder.classList.remove('hidden'); // Show if no data
-      // Optionally clear pagination info or disable controls
-      totalItemsCountSpan.textContent = 0;
-      totalPagesCountSpan.textContent = 1;
-      currentPageInput.value = 1;
-      updatePaginationButtons();
-      return;
-    }
-
-    const startIndex = (currentPage - 1) * itemsPerPage;
-    const endIndex = startIndex + itemsPerPage;
-    const rolesToRender = currentRoles.slice(startIndex, endIndex);
-
-    rolesToRender.forEach(role => {
-      const row = document.createElement('tr');
-      row.className = 'hover:bg-gray-50 transition-colors duration-150';
-
-      row.innerHTML = `
-        <td class="px-4 py-3 text-sm text-gray-700">${role.MaLoai}</td>
-        <td class="px-4 py-3 text-sm font-medium text-gray-900">${role.TenLoai}</td>
-        <td class="px-4 py-3 text-sm text-gray-600">${role.MoTa || 'N/A'}</td>
-        <td class="px-4 py-3 text-right text-sm font-medium space-x-2">
-          <button class="text-blue-600 hover:text-blue-800 edit-role-btn" data-id="${role.MaLoai}" title="Sửa">
-            <i class="ri-pencil-line"></i>
-          </button>
-          <button class="text-red-600 hover:text-red-800 delete-role-btn" data-id="${role.MaLoai}" title="Xóa">
+  
+  // Tính toán phân trang
+  const startIndex = (currentPage - 1) * itemsPerPage;
+  const endIndex = Math.min(startIndex + itemsPerPage, data.length);
+  const paginatedData = data.slice(startIndex, endIndex);
+  
+  // Render dữ liệu
+  paginatedData.forEach(userType => {
+    const row = document.createElement('tr');
+    row.className = 'hover:bg-gray-50 transition-colors duration-200';
+    
+    row.innerHTML = `
+      <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">${userType.id}</td>
+      <td class="px-6 py-4 whitespace-nowrap">
+        <div class="text-sm font-medium text-gray-900">${userType.name}</div>
+      </td>
+      <td class="px-6 py-4">
+        <div class="text-sm text-gray-500 line-clamp-2">${userType.description || '-'}</div>
+      </td>
+      <td class="px-6 py-4 whitespace-nowrap">
+        <div class="text-sm text-gray-900 font-medium">${userType.userCount.toLocaleString('vi-VN')}</div>
+      </td>
+      <td class="px-6 py-4 whitespace-nowrap">
+        ${getStatusBadge(userType.status)}
+      </td>
+      <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+        ${formatDate(userType.createdAt)}
+      </td>
+      <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+        <div class="flex justify-end space-x-2">
+          <a href="user-type-detail.html?id=${userType.id}" 
+            class="text-primary hover:text-primary-dark px-2 py-1 rounded-md hover:bg-primary/10" 
+            title="Xem chi tiết">
+            <i class="ri-eye-line"></i>
+          </a>
+          <a href="user-type-edit.html?id=${userType.id}" 
+            class="text-blue-600 hover:text-blue-800 px-2 py-1 rounded-md hover:bg-blue-50" 
+            title="Chỉnh sửa">
+            <i class="ri-edit-line"></i>
+          </a>
+          <button onclick="confirmDeleteUserType(${userType.id})" 
+            class="text-red-600 hover:text-red-800 px-2 py-1 rounded-md hover:bg-red-50" 
+            title="Xóa">
             <i class="ri-delete-bin-line"></i>
           </button>
-        </td>
-      `;
-      rolesTableBody.appendChild(row);
-    });
+        </div>
+      </td>
+    `;
+    
+    tableBody.appendChild(row);
+  });
+  
+  // Cập nhật thông tin phân trang
+  updatePaginationInfo(startIndex + 1, endIndex, data.length);
+  updatePaginationControls();
+}
 
-    // Add event listeners for edit/delete buttons
-    rolesTableBody.querySelectorAll('.edit-role-btn').forEach(button => {
-      button.addEventListener('click', handleEditRole);
-    });
-    rolesTableBody.querySelectorAll('.delete-role-btn').forEach(button => {
-      button.addEventListener('click', handleDeleteRole);
-    });
-
-    updatePaginationInfo();
+/**
+ * Tạo badge cho trạng thái
+ */
+function getStatusBadge(status) {
+  if (status === 'active') {
+    return `<span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
+      Hoạt động
+    </span>`;
+  } else {
+    return `<span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-gray-100 text-gray-800">
+      Không hoạt động
+    </span>`;
   }
+}
 
-  // Function to update pagination info (total items, total pages)
-  function updatePaginationInfo() {
-    totalPages = Math.ceil(currentRoles.length / itemsPerPage);
-    if (totalPages < 1) totalPages = 1; // Ensure at least one page
+/**
+ * Cập nhật thông tin phân trang
+ */
+function updatePaginationInfo(startIndex, endIndex, totalItems) {
+  // Cập nhật phạm vi hiển thị
+  const currentRangeStart = document.getElementById('current-range-start');
+  const currentRangeEnd = document.getElementById('current-range-end');
+  const totalItemsCount = document.getElementById('total-items-count');
+  
+  currentRangeStart.textContent = startIndex;
+  currentRangeEnd.textContent = endIndex;
+  totalItemsCount.textContent = totalItems;
+}
 
-    totalItemsCountSpan.textContent = currentRoles.length;
-    totalPagesCountSpan.textContent = totalPages;
-    currentPageInput.max = totalPages;
-    currentPageInput.value = currentPage;
-
-    updatePaginationButtons();
+/**
+ * Cập nhật điều khiển phân trang
+ */
+function updatePaginationControls() {
+  // Cập nhật số trang hiện tại và tổng số trang
+  const currentPageEl = document.getElementById('current-page');
+  const currentPageMobileEl = document.getElementById('current-page-mobile');
+  const totalPagesEl = document.getElementById('total-pages');
+  const totalPagesMobileEl = document.getElementById('total-pages-mobile');
+  
+  currentPageEl.textContent = currentPage;
+  currentPageMobileEl.textContent = currentPage;
+  totalPagesEl.textContent = totalPages;
+  totalPagesMobileEl.textContent = totalPages;
+  
+  // Cập nhật trạng thái nút điều hướng
+  const prevButton = document.getElementById('prev-page');
+  const nextButton = document.getElementById('next-page');
+  const prevButtonMobile = document.getElementById('prev-page-mobile');
+  const nextButtonMobile = document.getElementById('next-page-mobile');
+  
+  // Vô hiệu hóa nút previous nếu đang ở trang đầu tiên
+  if (currentPage <= 1) {
+    prevButton.disabled = true;
+    prevButtonMobile.disabled = true;
+    prevButton.classList.add('opacity-50', 'cursor-not-allowed');
+    prevButtonMobile.classList.add('opacity-50', 'cursor-not-allowed');
+  } else {
+    prevButton.disabled = false;
+    prevButtonMobile.disabled = false;
+    prevButton.classList.remove('opacity-50', 'cursor-not-allowed');
+    prevButtonMobile.classList.remove('opacity-50', 'cursor-not-allowed');
   }
-
-  // Function to update pagination button states (disabled/enabled)
-  function updatePaginationButtons() {
-    const isFirstPage = currentPage === 1;
-    const isLastPage = currentPage === totalPages;
-
-    paginationControls.querySelector('.btn-first').disabled = isFirstPage;
-    paginationControls.querySelector('.btn-prev').disabled = isFirstPage;
-    paginationControls.querySelector('.btn-next').disabled = isLastPage;
-    paginationControls.querySelector('.btn-last').disabled = isLastPage;
+  
+  // Vô hiệu hóa nút next nếu đang ở trang cuối cùng
+  if (currentPage >= totalPages) {
+    nextButton.disabled = true;
+    nextButtonMobile.disabled = true;
+    nextButton.classList.add('opacity-50', 'cursor-not-allowed');
+    nextButtonMobile.classList.add('opacity-50', 'cursor-not-allowed');
+  } else {
+    nextButton.disabled = false;
+    nextButtonMobile.disabled = false;
+    nextButton.classList.remove('opacity-50', 'cursor-not-allowed');
+    nextButtonMobile.classList.remove('opacity-50', 'cursor-not-allowed');
   }
+}
 
-  // Function to apply filters
-  function applyFilters() {
-    const nameFilter = filterNameInput.value.toLowerCase().trim();
-    const descriptionFilter = filterDescriptionInput.value.toLowerCase().trim();
+/**
+ * Điều hướng đến trang khác
+ */
+function navigatePage(page) {
+  if (page < 1 || page > totalPages) return;
+  
+  currentPage = page;
+  loadUserTypes();
+}
 
-    currentRoles = allRoles.filter(role => {
-      const nameMatch = !nameFilter || role.TenLoai.toLowerCase().includes(nameFilter);
-      const descriptionMatch = !descriptionFilter || (role.MoTa && role.MoTa.toLowerCase().includes(descriptionFilter));
-      return nameMatch && descriptionMatch;
-    });
-
-    currentPage = 1; // Reset to first page after filtering
-    renderTable();
+/**
+ * Xác nhận xóa loại người dùng
+ */
+function confirmDeleteUserType(id) {
+  if (confirm(`Bạn có chắc chắn muốn xóa loại người dùng này không? Hành động này không thể hoàn tác.`)) {
+    deleteUserType(id);
   }
+}
 
-  // --- Event Listeners ---
-
-  // Filter form submission
-  if (filterForm) {
-    filterForm.addEventListener('submit', (e) => {
-      e.preventDefault();
-      applyFilters();
-    });
-
-    // Reset button
-    const resetFilterBtn = document.getElementById('reset-filter-btn');
-    if (resetFilterBtn) {
-      resetFilterBtn.addEventListener('click', () => {
-        filterForm.reset();
-        applyFilters(); // Re-apply filters (which will show all roles)
-      });
-    }
-  }
-
-  // Items per page change
-  if (itemsPerPageSelect) {
-    itemsPerPageSelect.addEventListener('change', (e) => {
-      itemsPerPage = parseInt(e.target.value, 10);
-      currentPage = 1; // Reset to first page
-      renderTable();
-    });
-  }
-
-  // Pagination controls
-  if (paginationControls) {
-    paginationControls.addEventListener('click', (e) => {
-      const button = e.target.closest('button');
-      if (!button) return;
-
-      if (button.classList.contains('btn-first')) {
-        currentPage = 1;
-      } else if (button.classList.contains('btn-prev')) {
-        if (currentPage > 1) currentPage--;
-      } else if (button.classList.contains('btn-next')) {
-        if (currentPage < totalPages) currentPage++;
-      } else if (button.classList.contains('btn-last')) {
-        currentPage = totalPages;
-      }
-      renderTable();
-    });
-
-    // Current page input change
-    currentPageInput.addEventListener('change', (e) => {
-      let newPage = parseInt(e.target.value, 10);
-      if (isNaN(newPage) || newPage < 1) {
-        newPage = 1;
-      } else if (newPage > totalPages) {
-        newPage = totalPages;
-      }
-      currentPage = newPage;
-      renderTable();
-    });
-    currentPageInput.addEventListener('keypress', (e) => {
-        if (e.key === 'Enter') {
-            let newPage = parseInt(e.target.value, 10);
-            if (isNaN(newPage) || newPage < 1) {
-                newPage = 1;
-            } else if (newPage > totalPages) {
-                newPage = totalPages;
-            }
-            currentPage = newPage;
-            renderTable();
-        }
-    });
-  }
-
-  // Role form submission (Add/Edit)
-  if (roleForm) {
-    roleForm.addEventListener('submit', (e) => {
-      e.preventDefault();
-      const id = roleIdInput.value;
-      const name = modalRoleNameInput.value.trim();
-      const description = modalRoleDescriptionInput.value.trim();
-
-      if (!name) {
-        // Basic validation
-        alert('Vui lòng nhập Tên loại.');
-        return;
-      }
-
-      const roleData = {
-        TenLoai: name,
-        MoTa: description || null, // Store null if empty
-      };
-
-      if (id) {
-        // Edit existing role
-        roleData.MaLoai = parseInt(id, 10);
-        // Find index and update (in real app, send to server)
-        const index = allRoles.findIndex(r => r.MaLoai === roleData.MaLoai);
-        if (index !== -1) {
-          allRoles[index] = { ...allRoles[index], ...roleData };
-          console.log('Updated role:', allRoles[index]);
-          alert('Cập nhật loại người dùng thành công!');
-        } else {
-            console.error('Role not found for editing');
-            alert('Lỗi: Không tìm thấy loại người dùng để cập nhật.');
-            return; // Stop if role not found
-        }
-      } else {
-        // Add new role
-        // Generate a temporary ID (in real app, server provides ID)
-        roleData.MaLoai = allRoles.length > 0 ? Math.max(...allRoles.map(r => r.MaLoai)) + 1 : 1;
-        allRoles.push(roleData);
-        console.log('Added role:', roleData);
-        alert('Thêm loại người dùng thành công!');
-      }
-
-      closeModal();
-      applyFilters(); // Refresh the table to show changes
-    });
-  }
-
-  // Handler for Edit Role button click
-  function handleEditRole(event) {
-    const button = event.target.closest('.edit-role-btn');
-    const roleId = parseInt(button.dataset.id, 10);
-    const roleToEdit = allRoles.find(role => role.MaLoai === roleId);
-    if (roleToEdit) {
-      openModal(roleToEdit);
-    } else {
-      console.error('Role not found for editing:', roleId);
-      alert('Lỗi: Không tìm thấy loại người dùng để chỉnh sửa.');
-    }
-  }
-
-  // Handler for Delete Role button click
-  function handleDeleteRole(event) {
-    const button = event.target.closest('.delete-role-btn');
-    const roleId = parseInt(button.dataset.id, 10);
-    const roleToDelete = allRoles.find(role => role.MaLoai === roleId);
-
-    if (!roleToDelete) {
-        console.error('Role not found for deletion:', roleId);
-        alert('Lỗi: Không tìm thấy loại người dùng để xóa.');
-        return;
-    }
-
-    // Confirmation dialog
-    if (confirm(`Bạn có chắc chắn muốn xóa loại người dùng "${roleToDelete.TenLoai}" (ID: ${roleId}) không?`)) {
-      // Find index and remove (in real app, send delete request to server)
-      const index = allRoles.findIndex(r => r.MaLoai === roleId);
+/**
+ * Thực hiện xóa loại người dùng
+ */
+function deleteUserType(id) {
+  // Hiển thị trạng thái đang tải
+  showLoading(true);
+  
+  // Giả lập gọi API để xóa
+  setTimeout(() => {
+    try {
+      // Tìm loại người dùng trong danh sách
+      const index = userTypesMockData.findIndex(item => item.id === id);
+      
       if (index !== -1) {
-        allRoles.splice(index, 1);
-        console.log('Deleted role ID:', roleId);
-        alert('Xóa loại người dùng thành công!');
-        applyFilters(); // Refresh the table
+        // Xóa loại người dùng (trong thực tế, đây sẽ là một cuộc gọi API DELETE)
+        userTypesMockData.splice(index, 1);
+        
+        // Tải lại danh sách
+        loadUserTypes();
+        
+        // Hiển thị thông báo thành công
+        showToast("Xóa loại người dùng thành công!", "success");
       } else {
-        console.error('Role index not found for deletion after confirmation:', roleId);
-        alert('Lỗi: Không thể xóa loại người dùng.');
+        // Hiển thị thông báo lỗi
+        showToast("Không tìm thấy loại người dùng!", "error");
       }
+    } catch (error) {
+      // Hiển thị thông báo lỗi
+      showToast("Lỗi khi xóa loại người dùng: " + error.message, "error");
+    } finally {
+      // Ẩn trạng thái đang tải
+      showLoading(false);
     }
-  }
+  }, 500); // Giả lập độ trễ mạng
+}
 
-  // Refresh Button
-  const refreshBtn = document.getElementById('refresh-btn');
-  if (refreshBtn) {
-    refreshBtn.addEventListener('click', () => {
-      // In a real app, you might re-fetch data here
-      // For now, just reset filters and render
-      filterForm.reset();
-      applyFilters();
-      alert('Đã tải lại danh sách loại người dùng.');
-    });
-  }
+/**
+ * Hiển thị thông báo toast
+ */
+function showToast(message, type = "info") {
+  // Tạo phần tử toast
+  const toast = document.createElement('div');
+  toast.className = `flex items-center p-4 mb-3 text-sm rounded-lg shadow-md transform transition-transform duration-300 ease-in-out ${getToastBgColor(type)}`;
+  
+  // Đặt nội dung cho toast
+  toast.innerHTML = `
+    <div class="inline-flex items-center justify-center flex-shrink-0 w-8 h-8 ${getToastIconBgColor(type)} rounded-lg">
+      ${getToastIcon(type)}
+    </div>
+    <div class="ml-3 font-normal">${message}</div>
+    <button type="button" class="ml-auto -mx-1.5 -my-1.5 ${getToastCloseButtonColor(type)} rounded-lg focus:ring-2 focus:ring-gray-300 p-1.5 inline-flex h-8 w-8" aria-label="Close">
+      <span class="sr-only">Đóng</span>
+      <i class="ri-close-line"></i>
+    </button>
+  `;
+  
+  // Thêm toast vào container
+  const toastContainer = document.getElementById('toast-container');
+  toastContainer.appendChild(toast);
+  
+  // Animation hiển thị
+  setTimeout(() => {
+    toast.classList.add('translate-y-0');
+    toast.classList.remove('translate-y-full');
+  }, 10);
+  
+  // Xử lý nút đóng
+  const closeButton = toast.querySelector('button');
+  closeButton.addEventListener('click', () => {
+    closeToast(toast);
+  });
+  
+  // Tự động đóng sau 5 giây
+  setTimeout(() => {
+    closeToast(toast);
+  }, 5000);
+}
 
-  // --- Initial Load ---
-  itemsPerPage = parseInt(itemsPerPageSelect.value, 10);
-  applyFilters(); // Apply default filters (none) and render initial data
-}); 
+/**
+ * Đóng toast
+ */
+function closeToast(toast) {
+  // Animation ẩn
+  toast.classList.add('translate-y-full');
+  toast.classList.remove('translate-y-0');
+  
+  // Xóa phần tử sau khi animation kết thúc
+  setTimeout(() => {
+    toast.remove();
+  }, 300);
+}
+
+/**
+ * Lấy màu nền cho toast theo loại
+ */
+function getToastBgColor(type) {
+  switch (type) {
+    case 'success':
+      return 'text-green-800 bg-green-50';
+    case 'error':
+      return 'text-red-800 bg-red-50';
+    case 'warning':
+      return 'text-yellow-800 bg-yellow-50';
+    case 'info':
+    default:
+      return 'text-blue-800 bg-blue-50';
+  }
+}
+
+/**
+ * Lấy màu nền cho icon toast theo loại
+ */
+function getToastIconBgColor(type) {
+  switch (type) {
+    case 'success':
+      return 'text-green-500 bg-green-100';
+    case 'error':
+      return 'text-red-500 bg-red-100';
+    case 'warning':
+      return 'text-yellow-500 bg-yellow-100';
+    case 'info':
+    default:
+      return 'text-blue-500 bg-blue-100';
+  }
+}
+
+/**
+ * Lấy màu cho nút đóng toast theo loại
+ */
+function getToastCloseButtonColor(type) {
+  switch (type) {
+    case 'success':
+      return 'bg-green-50 text-green-500 hover:text-green-800 hover:bg-green-100';
+    case 'error':
+      return 'bg-red-50 text-red-500 hover:text-red-800 hover:bg-red-100';
+    case 'warning':
+      return 'bg-yellow-50 text-yellow-500 hover:text-yellow-800 hover:bg-yellow-100';
+    case 'info':
+    default:
+      return 'bg-blue-50 text-blue-500 hover:text-blue-800 hover:bg-blue-100';
+  }
+}
+
+/**
+ * Lấy icon cho toast theo loại
+ */
+function getToastIcon(type) {
+  switch (type) {
+    case 'success':
+      return '<i class="ri-check-line text-xl"></i>';
+    case 'error':
+      return '<i class="ri-error-warning-line text-xl"></i>';
+    case 'warning':
+      return '<i class="ri-alert-line text-xl"></i>';
+    case 'info':
+    default:
+      return '<i class="ri-information-line text-xl"></i>';
+  }
+} 
