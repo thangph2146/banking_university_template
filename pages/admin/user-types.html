@@ -360,50 +360,47 @@
           </table>
         </div>
 
-        <!-- Pagination Controls -->
-        <div class="px-6 py-4 bg-gray-50 border-t border-gray-200">
-          <div class="flex flex-col sm:flex-row justify-between items-center">
-            <div class="mb-4 sm:mb-0 text-sm text-gray-700">
-              Hiển thị <span id="current-range-start">0</span> - <span id="current-range-end">0</span> trên tổng số
-              <span id="total-items-count">0</span> loại người dùng
+        <!-- Pagination -->
+        <div class="px-4 py-3 bg-gray-50 border-t border-gray-200">
+          <div class="flex flex-col sm:flex-row items-center justify-between space-y-2 sm:space-y-0">
+            <div class="flex items-center space-x-2 text-sm text-gray-500">
+              <span>Hiển thị</span>
+              <select id="items-per-page" name="items-per-page"
+                class="border border-gray-300 rounded-md px-2 py-1 focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary">
+                <option value="10" selected>10</option>
+                <option value="20">20</option>
+                <option value="50">50</option>
+                <option value="100">100</option>
+              </select>
+              <span>mục. Tổng số: <span id="total-items-count" class="font-medium text-gray-700">0</span> loại.</span>
             </div>
-
-            <div class="flex space-x-1">
-              <!-- Desktop pagination -->
-              <nav class="hidden sm:flex">
-                <ul class="flex items-center space-x-1">
-                  <li>
-                    <button id="prev-page"
-                      class="px-3 py-1 rounded border border-gray-300 text-gray-700 disabled:opacity-50 disabled:cursor-not-allowed">
-                      <i class="ri-arrow-left-s-line"></i>
-                    </button>
-                  </li>
-                  <li class="px-3 py-1 text-sm">
-                    Trang <span id="current-page">1</span> / <span id="total-pages">1</span>
-                  </li>
-                  <li>
-                    <button id="next-page"
-                      class="px-3 py-1 rounded border border-gray-300 text-gray-700 disabled:opacity-50 disabled:cursor-not-allowed">
-                      <i class="ri-arrow-right-s-line"></i>
-                    </button>
-                  </li>
-                </ul>
-              </nav>
-
-              <!-- Mobile pagination -->
-              <div class="flex sm:hidden items-center space-x-2">
-                <button id="prev-page-mobile"
-                  class="p-1 rounded border border-gray-300 text-gray-700 disabled:opacity-50">
-                  <i class="ri-arrow-left-s-line"></i>
-                </button>
-                <span class="text-sm">
-                  <span id="current-page-mobile">1</span> / <span id="total-pages-mobile">1</span>
-                </span>
-                <button id="next-page-mobile"
-                  class="p-1 rounded border border-gray-300 text-gray-700 disabled:opacity-50">
-                  <i class="ri-arrow-right-s-line"></i>
-                </button>
+            <div class="flex items-center space-x-1" id="pagination-controls">
+              <button
+                class="btn-first p-2 rounded text-gray-500 hover:text-gray-700 hover:bg-gray-100 disabled:opacity-50 disabled:cursor-not-allowed"
+                title="Trang đầu">
+                <i class="ri-skip-left-line"></i>
+              </button>
+              <button
+                class="btn-prev p-2 rounded text-gray-500 hover:text-gray-700 hover:bg-gray-100 disabled:opacity-50 disabled:cursor-not-allowed"
+                title="Trang trước">
+                <i class="ri-arrow-left-s-line"></i>
+              </button>
+              <div class="flex items-center space-x-1 px-2">
+                <span class="text-sm text-gray-700">Trang</span>
+                <input type="number" id="current-page-input" value="1" min="1"
+                  class="w-12 border border-gray-300 rounded-md px-2 py-1 text-center text-sm focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary">
+                <span class="text-sm text-gray-500">/ <span id="total-pages-count">1</span></span>
               </div>
+              <button
+                class="btn-next p-2 rounded text-gray-500 hover:text-gray-700 hover:bg-gray-100 disabled:opacity-50 disabled:cursor-not-allowed"
+                title="Trang sau">
+                <i class="ri-arrow-right-s-line"></i>
+              </button>
+              <button
+                class="btn-last p-2 rounded text-gray-500 hover:text-gray-700 hover:bg-gray-100 disabled:opacity-50 disabled:cursor-not-allowed"
+                title="Trang cuối">
+                <i class="ri-skip-right-line"></i>
+              </button>
             </div>
           </div>
         </div>

@@ -22,24 +22,24 @@
     <div id="sidebar-backdrop" class="fixed inset-0 bg-black/50 z-20 hidden md:hidden transition-opacity duration-300">
     </div>
 
-     <!-- Sidebar -->
-     <aside id="sidebar"
-     class="fixed md:relative z-50 bg-white w-72 max-w-[80vw] min-h-screen shadow-lg transform -translate-x-full md:translate-x-0 transition-transform duration-300 overflow-y-auto">
-     <!-- Logo/Brand for mobile -->
-     <div class="flex items-center justify-between p-4 border-b md:hidden">
-       <a href="index.html" class="text-2xl font-['Pacifico'] text-primary flex items-center">
-         <img src="../../images/logo/logo-white.png" alt="logo" class="w-8 h-8 mr-2">
-         <span>HUB Admin</span>
-       </a>
-       <button id="sidebar-close" class="text-gray-500 hover:text-gray-700 focus:outline-none">
-         <i class="ri-close-line text-2xl"></i>
-       </button>
-     </div>
-     <!-- Desktop logo -->
-     <div class="p-4 border-b border-gray-200 hidden md:block">
-       <h1 class="text-xl font-semibold text-primary">HUB Admin</h1>
-     </div>
-     
+    <!-- Sidebar -->
+    <aside id="sidebar"
+      class="fixed md:relative z-50 bg-white w-72 max-w-[80vw] min-h-screen shadow-lg transform -translate-x-full md:translate-x-0 transition-transform duration-300 overflow-y-auto">
+      <!-- Logo/Brand for mobile -->
+      <div class="flex items-center justify-between p-4 border-b md:hidden">
+        <a href="index.html" class="text-2xl font-['Pacifico'] text-primary flex items-center">
+          <img src="../../images/logo/logo-white.png" alt="logo" class="w-8 h-8 mr-2">
+          <span>HUB Admin</span>
+        </a>
+        <button id="sidebar-close" class="text-gray-500 hover:text-gray-700 focus:outline-none">
+          <i class="ri-close-line text-2xl"></i>
+        </button>
+      </div>
+      <!-- Desktop logo -->
+      <div class="p-4 border-b border-gray-200 hidden md:block">
+        <h1 class="text-xl font-semibold text-primary">HUB Admin</h1>
+      </div>
+
       <nav class="p-4">
         <div class="space-y-4">
           <div class="border-b pb-4">
@@ -70,7 +70,7 @@
                 <i class="sidebar-icon ri-mic-line mr-2"></i>
                 <span class="sidebar-link-text">Diễn giả</span>
               </a>
-               
+
             </div>
           </div>
 
@@ -79,10 +79,10 @@
             <div class="mt-3 space-y-3">
               <a href="event-types.html"
                 class="sidebar-link flex items-center text-gray-600 hover:text-primary p-2 rounded-md hover:bg-gray-100">
-                 <i class="sidebar-icon ri-price-tag-3-line mr-2"></i>
-                 <span class="sidebar-link-text">Loại sự kiện</span>
+                <i class="sidebar-icon ri-price-tag-3-line mr-2"></i>
+                <span class="sidebar-link-text">Loại sự kiện</span>
               </a>
-               
+
               <a href="registrations.html"
                 class="sidebar-link flex items-center text-gray-600 hover:text-primary p-2 rounded-md hover:bg-gray-100">
                 <i class="sidebar-icon ri-file-list-line mr-2"></i>
@@ -99,10 +99,10 @@
                 <span class="sidebar-link-text">Check-out</span>
               </a>
               <a href="screens.html"
-                 class="sidebar-link flex items-center text-gray-600 hover:text-primary p-2 rounded-md hover:bg-gray-100">
-                 <i class="sidebar-icon ri-tv-2-line mr-2"></i>
-                 <span class="sidebar-link-text">Màn hình</span>
-               </a>
+                class="sidebar-link flex items-center text-gray-600 hover:text-primary p-2 rounded-md hover:bg-gray-100">
+                <i class="sidebar-icon ri-tv-2-line mr-2"></i>
+                <span class="sidebar-link-text">Màn hình</span>
+              </a>
               <a href="reports.html"
                 class="sidebar-link flex items-center text-gray-600 hover:text-primary p-2 rounded-md hover:bg-gray-100">
                 <i class="sidebar-icon ri-bar-chart-line mr-2"></i>
@@ -140,7 +140,7 @@
                 <i class="sidebar-icon ri-book-open-line mr-2"></i>
                 <span class="sidebar-link-text">Khoá học</span>
               </a>
-              <a href="courses.html"
+              <a href="majors.html"
                 class="sidebar-link flex items-center text-gray-600 hover:text-primary p-2 rounded-md hover:bg-gray-100">
                 <i class="sidebar-icon ri-book-open-line mr-2"></i>
                 <span class="sidebar-link-text">Ngành đào tạo</span>
@@ -160,8 +160,6 @@
                 <i class="sidebar-icon ri-camera-line mr-2"></i>
                 <span class="sidebar-link-text">Camera</span>
               </a>
-               
-               
             </div>
           </div>
         </div>
@@ -174,22 +172,23 @@
       <header class="bg-primary shadow-md sticky top-0 z-30 animate-fade-in mb-6">
         <div class="container mx-auto px-4 py-2 flex items-center justify-between">
           <!-- Mobile Menu Toggle Button -->
-          <button id="sidebar-open" class="text-white p-2 rounded-md md:hidden focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white">
+          <button id="sidebar-open"
+            class="text-white p-2 rounded-md md:hidden focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white">
             <i class="ri-menu-line text-2xl"></i>
           </button>
 
           <a href="index.html"
-            class="text-2xl font-['Pacifico'] text-white transition-all duration-300 hover:scale-105">
+            class="text-2xl font-['Pacifico'] text-white transition-all duration-300 hover:scale-105 hidden md:block">
             <img src="../../images/logo/logo-white.png" alt="logo" class="w-12 h-12 md:w-16 md:h-16">
           </a>
           <div class="flex items-center space-x-4">
             <!-- User profile dropdown menu -->
-            <div class="relative group" id="user-menu-button">
-              <button class="flex items-center space-x-2 text-white">
-                <img
-                  src="https://readdy.ai/api/search-image?query=professional%20headshot%20young%20vietnamese%20student%20minimal%20background&width=100&height=100&seq=avatar"
-                  alt="Ảnh đại diện" class="w-8 h-8 rounded-full border-2 border-white">
-                <span class="hidden sm:block">Nguyễn Văn A</span>
+            <div class="relative group" id="user-menu-container">
+              <button id="user-menu-button" class="flex items-center space-x-2 text-white">
+                <img id="header-avatar"
+                  src="https://ui-avatars.com/api/?name=N+V+A&background=0D8ABC&color=fff" alt="Ảnh đại diện"
+                  class="w-8 h-8 rounded-full border-2 border-white">
+                <span id="header-fullname" class="hidden sm:block">Nguyễn Văn A</span>
                 <i class="ri-arrow-down-s-line group-hover:rotate-180 transition-transform duration-300"></i>
               </button>
               <div id="user-menu"
@@ -205,7 +204,7 @@
                     <i class="ri-calendar-event-line mr-2"></i>
                     Sự kiện của tôi
                   </a>
-                  <a href="#"
+                  <a href="settings.html"
                     class="flex items-center px-4 py-2 text-sm text-gray-800 hover:bg-primary/10 hover:text-primary border-l-4 border-transparent">
                     <i class="ri-settings-4-line mr-2"></i>
                     Cài đặt
@@ -231,10 +230,10 @@
             <p class="mt-1 text-sm text-gray-600">Quản lý các bậc học trong hệ thống</p>
           </div>
           <div class="mt-4 sm:mt-0 flex gap-2">
-            <button id="add-level-btn"
+            <a href="academic-level-create.html" id="create-level-btn"
               class="flex items-center justify-center px-4 py-2 bg-primary text-white rounded-md hover:bg-primary-dark transition-colors duration-200">
-              <i class="ri-add-line mr-1"></i> Tạo Bậc học mới
-            </button>
+              <i class="ri-add-line mr-1"></i> Thêm Bậc học mới
+            </a>
           </div>
         </div>
       </div>
@@ -248,6 +247,10 @@
             </a>
             <i class="ri-arrow-right-s-line text-gray-400 mx-2"></i>
           </li>
+          <li class="flex items-center">
+            <span class="text-gray-500">Cài đặt hệ thống</span>
+            <i class="ri-arrow-right-s-line text-gray-400 mx-2"></i>
+          </li>
           <li class="text-primary" aria-current="page">Bậc học</li>
         </ol>
       </nav>
@@ -255,17 +258,11 @@
       <!-- Filters Section -->
       <div class="bg-white p-4 rounded-lg shadow mb-4">
         <form id="filter-form">
-          <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
-            <!-- Filter by Name -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+            <!-- Filter by Name or Code -->
             <div>
-              <label for="filter-name" class="block text-sm font-medium text-gray-700 mb-1">Tìm kiếm tên</label>
-              <input type="text" id="filter-name" name="filter-name" placeholder="Nhập tên bậc học..."
-                class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-primary focus:border-primary text-sm">
-            </div>
-            <!-- Filter by Code -->
-            <div>
-              <label for="filter-code" class="block text-sm font-medium text-gray-700 mb-1">Mã</label>
-              <input type="text" id="filter-code" name="filter-code" placeholder="Nhập mã bậc học..."
+              <label for="filter-search" class="block text-sm font-medium text-gray-700 mb-1">Tìm kiếm</label>
+              <input type="text" id="filter-search" name="filter-search" placeholder="Tên hoặc Mã bậc học..."
                 class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-primary focus:border-primary text-sm">
             </div>
             <!-- Filter by Status -->
@@ -280,11 +277,11 @@
             </div>
           </div>
           <div class="mt-4 flex justify-end space-x-2">
-            <button type="reset" id="reset-filter-btn"
+            <button type="button" id="reset-filter-btn"
               class="px-4 py-2 border border-gray-300 text-gray-700 rounded-md hover:bg-gray-50 text-sm transition-colors duration-200">
               Đặt lại
             </button>
-            <button type="submit" id="apply-filter-btn"
+            <button type="button" id="apply-filter-btn"
               class="px-4 py-2 bg-primary text-white rounded-md hover:bg-primary-dark text-sm transition-colors duration-200">
               <i class="ri-filter-line mr-1"></i> Lọc
             </button>
@@ -292,37 +289,67 @@
         </form>
       </div>
 
-      <!-- Academic Levels List -->
-      <div class="bg-white rounded-lg shadow overflow-hidden">
-        <div class="p-4 border-b border-gray-200 flex justify-between items-center">
-          <h2 class="text-lg font-medium text-gray-900">Danh sách Bậc học</h2>
-          <!-- Total count will be updated by JS -->
-        </div>
+       <!-- Loading Indicator -->
+       <div id="loading-indicator" class="text-center py-8 hidden">
+         <div class="inline-block animate-spin rounded-full h-12 w-12 border-t-4 border-b-4 border-primary mb-2"></div>
+         <p class="text-gray-500">Đang tải dữ liệu...</p>
+       </div>
 
+       <!-- Error Message -->
+       <div id="error-container" class="bg-red-50 border-l-4 border-red-500 p-4 mb-4 hidden">
+         <div class="flex">
+           <div class="flex-shrink-0">
+             <i class="ri-error-warning-line text-red-500"></i>
+           </div>
+           <div class="ml-3">
+             <p class="text-sm text-red-700" id="error-message">Có lỗi xảy ra khi tải dữ liệu</p>
+           </div>
+           <div class="ml-auto pl-3">
+             <div class="-mx-1.5 -my-1.5">
+               <button id="retry-button"
+                 class="inline-flex bg-red-50 rounded-md p-1.5 text-red-500 hover:bg-red-100 focus:outline-none">
+                 <i class="ri-refresh-line"></i>
+               </button>
+             </div>
+           </div>
+         </div>
+       </div>
+
+       <!-- Empty State -->
+       <div id="empty-state" class="bg-white rounded-lg p-8 text-center hidden">
+         <div class="inline-block mb-4">
+           <i class="ri-graduation-cap-line text-gray-300 text-6xl"></i>
+         </div>
+         <h3 class="text-lg font-medium text-gray-900">Không tìm thấy bậc học</h3>
+         <p class="mt-1 text-sm text-gray-500">Không có bậc học nào phù hợp với điều kiện tìm kiếm</p>
+         <div class="mt-6">
+           <button id="clear-filters-empty"
+             class="inline-flex items-center px-4 py-2 text-sm text-primary bg-primary/10 rounded-md hover:bg-primary/20">
+             <i class="ri-filter-off-line mr-2"></i> Xóa bộ lọc
+           </button>
+         </div>
+       </div>
+
+      <!-- Academic Levels List Table -->
+      <div id="levels-list-container" class="bg-white rounded-lg shadow overflow-hidden">
         <!-- Table container -->
         <div class="overflow-x-auto">
           <table id="levels-table" class="min-w-full divide-y divide-gray-200">
             <thead class="bg-gray-50">
               <tr>
                 <th scope="col"
-                  class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-16">Mã
-                </th>
-                <th scope="col" class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider min-w-[200px]">
+                  class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-24">ID</th>
+                <th scope="col"
+                  class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-32">Mã</th>
+                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider min-w-[200px]">
                   Tên Bậc học</th>
-                <th scope="col" class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider min-w-[100px]">
+                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider min-w-[120px]">
                   Trạng thái</th>
-                <th scope="col" class="px-4 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider min-w-[100px]">
+                <th scope="col" class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider min-w-[120px]">
                   Hành động</th>
               </tr>
             </thead>
             <tbody id="levelsTableBody" class="bg-white divide-y divide-gray-200">
-               <!-- Placeholder row for no data -->
-               <tr id="no-data-placeholder" class="hidden">
-                 <td colspan="4" class="text-center py-10 text-gray-500">
-                   <i class="ri-inbox-2-line text-4xl mb-2"></i>
-                   <p>Không tìm thấy dữ liệu bậc học.</p>
-                 </td>
-               </tr>
               <!-- Table rows will be dynamically inserted here by JavaScript -->
             </tbody>
           </table>
@@ -340,17 +367,19 @@
                 <option value="50">50</option>
                 <option value="100">100</option>
               </select>
-              <span>mục. Tổng số: <span id="total-items-count" class="font-medium text-gray-700">0</span> bậc học.</span>
+              <span>mục. Tổng số: <span id="total-items-count" class="font-medium text-gray-700">0</span> loại.</span>
             </div>
-            <div class="flex items-center space-x-1" id="pagination-controls">
-              <button
-                class="btn-first p-2 rounded text-gray-500 hover:text-gray-700 hover:bg-gray-100 disabled:opacity-50 disabled:cursor-not-allowed"
-                title="Trang đầu">
+            
+            <!-- Desktop Pagination Controls -->
+            <div class="hidden md:flex items-center space-x-1" id="pagination-controls">
+              <button id="first-page"
+                class="btn-first p-2 rounded text-gray-500 hover:text-gray-700 hover:bg-gray-100 disabled:opacity-50 disabled:cursor-not-allowed transition-colors duration-200"
+                title="Trang đầu" disabled>
                 <i class="ri-skip-left-line"></i>
               </button>
-              <button
-                class="btn-prev p-2 rounded text-gray-500 hover:text-gray-700 hover:bg-gray-100 disabled:opacity-50 disabled:cursor-not-allowed"
-                title="Trang trước">
+              <button id="prev-page"
+                class="btn-prev p-2 rounded text-gray-500 hover:text-gray-700 hover:bg-gray-100 disabled:opacity-50 disabled:cursor-not-allowed transition-colors duration-200"
+                title="Trang trước" disabled>
                 <i class="ri-arrow-left-s-line"></i>
               </button>
               <div class="flex items-center space-x-1 px-2">
@@ -359,69 +388,52 @@
                   class="w-12 border border-gray-300 rounded-md px-2 py-1 text-center text-sm focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary">
                 <span class="text-sm text-gray-500">/ <span id="total-pages-count">1</span></span>
               </div>
-              <button
-                class="btn-next p-2 rounded text-gray-500 hover:text-gray-700 hover:bg-gray-100 disabled:opacity-50 disabled:cursor-not-allowed"
-                title="Trang sau">
+              <button id="next-page"
+                class="btn-next p-2 rounded text-gray-500 hover:text-gray-700 hover:bg-gray-100 disabled:opacity-50 disabled:cursor-not-allowed transition-colors duration-200"
+                title="Trang sau" disabled>
                 <i class="ri-arrow-right-s-line"></i>
               </button>
-              <button
-                class="btn-last p-2 rounded text-gray-500 hover:text-gray-700 hover:bg-gray-100 disabled:opacity-50 disabled:cursor-not-allowed"
-                title="Trang cuối">
+              <button id="last-page"
+                class="btn-last p-2 rounded text-gray-500 hover:text-gray-700 hover:bg-gray-100 disabled:opacity-50 disabled:cursor-not-allowed transition-colors duration-200"
+                title="Trang cuối" disabled>
                 <i class="ri-skip-right-line"></i>
               </button>
             </div>
-          </div>
+            
+            <!-- Mobile Pagination -->
+            <div class="md:hidden flex items-center justify-center w-full">
+              <div class="flex items-center space-x-2">
+                <button id="prev-page-mobile"
+                  class="p-2 rounded-full bg-gray-100 text-gray-700 hover:bg-gray-200 disabled:opacity-50 disabled:cursor-not-allowed transition-colors duration-200"
+                  title="Trang trước" disabled>
+                  <i class="ri-arrow-left-s-line"></i>
+                </button>
+                <div class="text-sm text-gray-600">
+                  <span id="current-page-mobile">1</span>
+                  <span>/</span>
+                  <span id="total-pages-mobile">1</span>
+                </div>
+                <button id="next-page-mobile"
+                  class="p-2 rounded-full bg-gray-100 text-gray-700 hover:bg-gray-200 disabled:opacity-50 disabled:cursor-not-allowed transition-colors duration-200"
+                  title="Trang sau" disabled>
+                  <i class="ri-arrow-right-s-line"></i>
+                </button>
+              </div>
+            </div>
         </div>
       </div>
+
+      <!-- Confirm Delete Toast -->
+      <div id="toast-container" class="fixed bottom-4 right-4 z-50 max-w-xs"></div>
+
     </main>
   </div>
 
-  <!-- Add/Edit Academic Level Modal -->
-  <div id="level-modal" class="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full z-50 hidden" aria-labelledby="modal-title" role="dialog" aria-modal="true">
-    <div class="relative top-20 mx-auto p-5 border w-full max-w-md shadow-lg rounded-md bg-white">
-      <div class="flex justify-between items-center border-b pb-3">
-        <h3 class="text-lg font-medium text-gray-900" id="modal-title">Thêm Bậc học mới</h3>
-        <button id="close-level-modal" class="text-gray-400 hover:text-gray-600">
-          <i class="ri-close-line text-xl"></i>
-        </button>
-      </div>
-      <form id="level-form" class="mt-4 space-y-4">
-        <input type="hidden" id="level-id">
-        <div>
-          <label for="modal-level-name" class="block text-sm font-medium text-gray-700">Tên Bậc học <span class="text-red-500">*</span></label>
-          <input type="text" name="modal-level-name" id="modal-level-name" required
-            class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary focus:border-primary sm:text-sm">
-        </div>
-        <div>
-          <label for="modal-level-description" class="block text-sm font-medium text-gray-700">Mã bậc học</label>
-          <input type="text" name="modal-level-description" id="modal-level-description" 
-            class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary focus:border-primary sm:text-sm">
-        </div>
-        <div>
-          <label for="modal-level-status" class="block text-sm font-medium text-gray-700">Trạng thái</label>
-          <select id="modal-level-status" name="modal-level-status"
-            class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary focus:border-primary sm:text-sm">
-            <option value="1">Hoạt động</option>
-            <option value="0">Không hoạt động</option>
-          </select>
-        </div>
-        <div class="pt-3 border-t flex justify-end space-x-2">
-          <button type="button" id="cancel-level"
-            class="px-4 py-2 bg-gray-200 text-gray-800 rounded-md hover:bg-gray-300 transition-colors duration-200">
-            Hủy
-          </button>
-          <button type="submit" id="save-level-btn"
-            class="px-4 py-2 bg-primary text-white rounded-md hover:bg-primary-dark transition-colors duration-200">
-            Lưu
-          </button>
-        </div>
-      </form>
-    </div>
-  </div>
-
-
   <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+   <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
   <script src="../../public/js/admin/academic-levels.js"></script>
+
 </body>
 
 </html> 

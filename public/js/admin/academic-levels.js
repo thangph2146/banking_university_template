@@ -69,6 +69,9 @@ document.addEventListener('DOMContentLoaded', function () {
   const levelIdInput = document.getElementById('level-id');
   const modalLevelNameInput = document.getElementById('modal-level-name');
   const modalLevelDescriptionInput = document.getElementById('modal-level-description');
+  const filterSearchInput = document.getElementById('filter-search');
+  const applyFilterBtn = document.getElementById('apply-filter-btn');
+  const resetFilterBtn = document.getElementById('reset-filter-btn');
 
   // --- UI Interactions ---
 
@@ -163,15 +166,15 @@ document.addEventListener('DOMContentLoaded', function () {
 
   // Function to apply filters
   function applyFilters() {
-    const nameFilter = filterNameInput.value.toLowerCase().trim();
-    const codeFilter = filterCodeInput.value.toLowerCase().trim();
+    const searchTerm = filterSearchInput.value.toLowerCase().trim();
     const statusFilter = filterStatusInput.value;
 
     filteredLevels = allLevels.filter(level => {
-      const nameMatch = !nameFilter || level.ten_bac_hoc.toLowerCase().includes(nameFilter);
-      const codeMatch = !codeFilter || (level.ma_bac_hoc && level.ma_bac_hoc.toLowerCase().includes(codeFilter));
+      const searchMatch = !searchTerm || 
+                          level.ten_bac_hoc.toLowerCase().includes(searchTerm) ||
+                          (level.ma_bac_hoc && level.ma_bac_hoc.toLowerCase().includes(searchTerm));
       const statusMatch = !statusFilter || level.status.toString() === statusFilter;
-      return nameMatch && codeMatch && statusMatch;
+      return searchMatch && statusMatch;
     });
     
     // Update pagination
@@ -192,24 +195,49 @@ document.addEventListener('DOMContentLoaded', function () {
       paginationState.currentPage = paginationState.totalPages;
     }
     
-    // Update UI pagination
+    // Update UI pagination elements
     const currentPageInput = document.getElementById('current-page-input');
     const totalPagesCount = document.getElementById('total-pages-count');
     const totalItemsCount = document.getElementById('total-items-count');
-    const btnFirst = document.querySelector('.btn-first');
-    const btnPrev = document.querySelector('.btn-prev');
-    const btnNext = document.querySelector('.btn-next');
-    const btnLast = document.querySelector('.btn-last');
+    const totalItemsDisplay = document.getElementById('total-items-display'); 
+    const currentPageMobile = document.getElementById('current-page-mobile');
+    const totalPagesMobile = document.getElementById('total-pages-mobile');
+    const currentRangeStart = document.getElementById('current-range-start');
+    const currentRangeEnd = document.getElementById('current-range-end');
     
+    // Các nút điều hướng
+    const btnFirst = document.getElementById('first-page');
+    const btnLast = document.getElementById('last-page');
+    const btnPrev = document.getElementById('prev-page');
+    const btnNext = document.getElementById('next-page');
+    const btnPrevMobile = document.getElementById('prev-page-mobile');
+    const btnNextMobile = document.getElementById('next-page-mobile');
+
+    // Calculate display range
+    const startIndex = (paginationState.currentPage - 1) * paginationState.itemsPerPage;
+    const endIndex = Math.min(startIndex + paginationState.itemsPerPage, totalItems);
+
+    // Update text displays
     if (currentPageInput) currentPageInput.value = paginationState.currentPage;
     if (totalPagesCount) totalPagesCount.textContent = paginationState.totalPages;
     if (totalItemsCount) totalItemsCount.textContent = totalItems;
-    
+    if (totalItemsDisplay) totalItemsDisplay.textContent = totalItems;
+    if (currentPageMobile) currentPageMobile.textContent = paginationState.currentPage;
+    if (totalPagesMobile) totalPagesMobile.textContent = paginationState.totalPages;
+    if (currentRangeStart) currentRangeStart.textContent = totalItems > 0 ? startIndex + 1 : 0;
+    if (currentRangeEnd) currentRangeEnd.textContent = endIndex;
+
     // Update pagination button states (disabled/enabled)
-    if (btnFirst) btnFirst.disabled = paginationState.currentPage === 1;
-    if (btnPrev) btnPrev.disabled = paginationState.currentPage === 1;
-    if (btnNext) btnNext.disabled = paginationState.currentPage === paginationState.totalPages;
-    if (btnLast) btnLast.disabled = paginationState.currentPage === paginationState.totalPages;
+    const isFirstPage = paginationState.currentPage === 1;
+    const isLastPage = paginationState.currentPage === paginationState.totalPages;
+
+    // Cập nhật trạng thái các nút điều hướng
+    if (btnFirst) btnFirst.disabled = isFirstPage;
+    if (btnLast) btnLast.disabled = isLastPage;
+    if (btnPrev) btnPrev.disabled = isFirstPage;
+    if (btnNext) btnNext.disabled = isLastPage;
+    if (btnPrevMobile) btnPrevMobile.disabled = isFirstPage;
+    if (btnNextMobile) btnNextMobile.disabled = isLastPage;
   }
 
   // Function to render the table
@@ -235,6 +263,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     levelsTableBody.innerHTML = levelsToRender.map(level => `
       <tr class="hover:bg-gray-50 transition-colors duration-150">
+        <td class="px-4 py-3 text-sm text-gray-700">${level.bac_hoc_id}</td>
         <td class="px-4 py-3 text-sm text-gray-700">${level.ma_bac_hoc || 'N/A'}</td>
         <td class="px-4 py-3 text-sm font-medium text-gray-900">${level.ten_bac_hoc}</td>
         <td class="px-4 py-3 text-sm text-gray-600">
@@ -247,13 +276,17 @@ document.addEventListener('DOMContentLoaded', function () {
           </span>
         </td>
         <td class="px-4 py-3 text-right text-sm font-medium space-x-2">
-          <button class="text-blue-600 hover:text-blue-800 edit-level-btn" 
-                  onclick="editLevel(${level.bac_hoc_id})" title="Sửa">
-            <i class="ri-pencil-line"></i>
-          </button>
+          <a href="academic-level-detail.html?id=${level.bac_hoc_id}" 
+             class="text-gray-600 hover:text-gray-900" title="Xem chi tiết">
+             <i class="ri-eye-line"></i>
+          </a>
+          <a href="academic-level-edit.html?id=${level.bac_hoc_id}" 
+             class="text-blue-600 hover:text-blue-800" title="Sửa">
+             <i class="ri-pencil-line"></i>
+          </a>
           <button class="text-red-600 hover:text-red-800 delete-level-btn" 
                   onclick="deleteLevel(${level.bac_hoc_id})" title="Xóa">
-            <i class="ri-delete-bin-line"></i>
+             <i class="ri-delete-bin-line"></i>
           </button>
         </td>
       </tr>
@@ -295,22 +328,56 @@ document.addEventListener('DOMContentLoaded', function () {
   // Pagination controls
   const paginationControls = document.getElementById('pagination-controls');
   if (paginationControls) {
-    paginationControls.addEventListener('click', (e) => {
-      const button = e.target.closest('button');
-      if (!button) return;
-
-      if (button.classList.contains('btn-first')) {
+    // Nút first và last
+    const btnFirst = document.getElementById('first-page');
+    const btnLast = document.getElementById('last-page');
+    const btnPrev = document.getElementById('prev-page');
+    const btnNext = document.getElementById('next-page');
+    const btnPrevMobile = document.getElementById('prev-page-mobile');
+    const btnNextMobile = document.getElementById('next-page-mobile');
+    
+    // Chức năng chung cho các nút điều hướng
+    function goToFirstPage() {
+      if (paginationState.currentPage !== 1) {
         paginationState.currentPage = 1;
-      } else if (button.classList.contains('btn-prev')) {
-        if (paginationState.currentPage > 1) paginationState.currentPage--;
-      } else if (button.classList.contains('btn-next')) {
-        if (paginationState.currentPage < paginationState.totalPages) paginationState.currentPage++;
-      } else if (button.classList.contains('btn-last')) {
-        paginationState.currentPage = paginationState.totalPages;
+        updatePagination();
+        renderTable();
       }
-      updatePagination();
-      renderTable();
-    });
+    }
+    
+    function goToLastPage() {
+      if (paginationState.currentPage !== paginationState.totalPages) {
+        paginationState.currentPage = paginationState.totalPages;
+        updatePagination();
+        renderTable();
+      }
+    }
+    
+    function goToPrevPage() {
+      if (paginationState.currentPage > 1) {
+        paginationState.currentPage--;
+        updatePagination();
+        renderTable();
+      }
+    }
+    
+    function goToNextPage() {
+      if (paginationState.currentPage < paginationState.totalPages) {
+        paginationState.currentPage++;
+        updatePagination();
+        renderTable();
+      }
+    }
+    
+    // Đăng ký sự kiện cho các nút phân trang
+    if (btnFirst) btnFirst.addEventListener('click', goToFirstPage);
+    if (btnLast) btnLast.addEventListener('click', goToLastPage);
+    if (btnPrev) btnPrev.addEventListener('click', goToPrevPage);
+    if (btnNext) btnNext.addEventListener('click', goToNextPage);
+    
+    // Xử lý điều hướng trên điện thoại
+    if (btnPrevMobile) btnPrevMobile.addEventListener('click', goToPrevPage);
+    if (btnNextMobile) btnNextMobile.addEventListener('click', goToNextPage);
 
     // Current page input change
     const currentPageInput = document.getElementById('current-page-input');
@@ -322,6 +389,7 @@ document.addEventListener('DOMContentLoaded', function () {
         } else if (newPage > paginationState.totalPages) {
           newPage = paginationState.totalPages;
         }
+        currentPageInput.value = newPage; // Cập nhật giá trị trong input
         paginationState.currentPage = newPage;
         updatePagination();
         renderTable();
@@ -335,6 +403,7 @@ document.addEventListener('DOMContentLoaded', function () {
           } else if (newPage > paginationState.totalPages) {
             newPage = paginationState.totalPages;
           }
+          currentPageInput.value = newPage; // Cập nhật giá trị trong input
           paginationState.currentPage = newPage;
           updatePagination();
           renderTable();
@@ -394,16 +463,6 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   // Các hàm xử lý bậc học
-  window.editLevel = function(levelId) {
-    const level = allLevels.find(l => l.bac_hoc_id === levelId);
-    if (level) {
-      openModal(level);
-    } else {
-      console.error('Không tìm thấy bậc học để chỉnh sửa:', levelId);
-      alert('Lỗi: Không tìm thấy bậc học để chỉnh sửa.');
-    }
-  };
-  
   window.deleteLevel = function(levelId) {
     const level = allLevels.find(l => l.bac_hoc_id === levelId);
     if (!level) {

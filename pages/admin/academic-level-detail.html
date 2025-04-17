@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Chi tiết Bậc học - HUB Admin</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet" />
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+  <link href="../../public/css/custom.css" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com/3.4.16"></script>
+  <script src="../../public/js/tailwind.config.js"></script>
+</head>
+
+<body class="bg-gray-50 min-h-screen">
+  <div class="flex min-h-screen bg-gray-50">
+    <!-- Sidebar Backdrop (mobile only) -->
+    <div id="sidebar-backdrop"
+      class="fixed inset-0 bg-black/50 z-20 hidden md:hidden transition-opacity duration-300">
+    </div>
+
+    <!-- Sidebar -->
+    <aside id="sidebar"
+      class="fixed md:relative z-50 bg-white w-72 max-w-[80vw] min-h-screen shadow-lg transform -translate-x-full md:translate-x-0 transition-transform duration-300 overflow-y-auto">
+      <!-- Logo/Brand for mobile -->
+      <div class="flex items-center justify-between p-4 border-b md:hidden">
+        <a href="index.html" class="text-2xl font-['Pacifico'] text-primary flex items-center">
+          <img src="../../images/logo/logo-white.png" alt="logo" class="w-8 h-8 mr-2">
+          <span>HUB Admin</span>
+        </a>
+        <button id="sidebar-close" class="text-gray-500 hover:text-gray-700 focus:outline-none">
+          <i class="ri-close-line text-2xl"></i>
+        </button>
+      </div>
+      <!-- Desktop logo -->
+      <div class="p-4 border-b border-gray-200 hidden md:block">
+        <h1 class="text-xl font-semibold text-primary">HUB Admin</h1>
+      </div>
+
+      <nav class="p-4">
+        <div class="space-y-4">
+          <div class="border-b pb-4">
+            <h2 class="text-xs uppercase text-gray-400 font-semibold">Quản lý chung</h2>
+            <div class="mt-3 space-y-3">
+              <a href="dashboard.html"
+                class="sidebar-link flex items-center text-gray-600 hover:text-primary p-2 rounded-md hover:bg-gray-100">
+                <i class="sidebar-icon ri-dashboard-line mr-2"></i>
+                <span class="sidebar-link-text">Tổng quan</span>
+              </a>
+              <!-- Add other common links here -->
+              <a href="users.html"
+                class="sidebar-link flex items-center text-gray-600 hover:text-primary p-2 rounded-md hover:bg-gray-100">
+                <i class="sidebar-icon ri-user-line mr-2"></i>
+                <span class="sidebar-link-text">Người dùng</span>
+              </a>
+            </div>
+          </div>
+
+          <div class="border-b pb-4">
+            <h2 class="sidebar-section-title text-xs uppercase text-gray-400 font-semibold">Quản lý sự kiện</h2>
+            <div class="mt-3 space-y-3">
+              <a href="events.html"
+                class="sidebar-link flex items-center text-gray-600 hover:text-primary p-2 rounded-md hover:bg-gray-100">
+                <i class="sidebar-icon ri-calendar-event-line mr-2"></i>
+                <span class="sidebar-link-text">Sự kiện</span>
+              </a>
+               <!-- Add other event management links here -->
+              <a href="checkins.html"
+                class="sidebar-link flex items-center text-gray-600 hover:text-primary p-2 rounded-md hover:bg-gray-100">
+                <i class="sidebar-icon ri-login-box-line mr-2"></i>
+                <span class="sidebar-link-text">Check-in</span>
+              </a>
+            </div>
+          </div>
+
+          <div>
+            <h2 class="sidebar-section-title text-xs uppercase text-gray-400 font-semibold">Cài đặt hệ thống</h2>
+            <div class="mt-3 space-y-3">
+              <a href="settings.html"
+                class="sidebar-link flex items-center text-gray-600 hover:text-primary p-2 rounded-md hover:bg-gray-100">
+                <i class="sidebar-icon ri-settings-3-line mr-2"></i>
+                <span class="sidebar-link-text">Thiết lập</span>
+              </a>
+              <a href="user-types.html"
+                 class="sidebar-link flex items-center text-gray-600 hover:text-primary p-2 rounded-md hover:bg-gray-100">
+                <i class="sidebar-icon ri-group-line mr-2"></i>
+                <span class="sidebar-link-text">Loại người dùng</span>
+              </a>
+              <a href="academic-levels.html"
+                 class="sidebar-link active flex items-center text-primary p-2 rounded-md bg-primary/10 font-medium">
+                <!-- Active link -->
+                <i class="sidebar-icon ri-graduation-cap-line mr-2"></i>
+                <span class="sidebar-link-text">Bậc học</span>
+              </a>
+               <!-- Add other system settings links here -->
+              <a href="departments.html"
+                class="sidebar-link flex items-center text-gray-600 hover:text-primary p-2 rounded-md hover:bg-gray-100">
+                <i class="sidebar-icon ri-building-line mr-2"></i>
+                <span class="sidebar-link-text">Phòng khoa</span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </aside>
+
+    <!-- Main Content -->
+    <div class="flex-1 flex flex-col">
+      <!-- Header -->
+      <header class="bg-primary text-white py-3 px-4 shadow-md">
+        <div class="flex justify-between items-center">
+          <!-- Mobile Menu Toggle Button -->
+          <button id="sidebar-open" class="md:hidden text-white p-1">
+            <i class="ri-menu-line text-xl"></i>
+          </button>
+
+          <div class="md:hidden flex justify-center flex-1">
+            <!-- Mobile logo - Optional -->
+          </div>
+
+          <div class="flex items-center ml-auto">
+            <span id="header-fullname" class="mr-2 hidden md:inline-block">Nguyễn Văn A</span>
+            <!-- User profile dropdown menu -->
+            <div class="relative group">
+              <button id="user-menu-button" class="flex items-center">
+                <img id="header-avatar"
+                  src="https://ui-avatars.com/api/?name=N+V+A&background=0D8ABC&color=fff" alt="User"
+                  class="w-8 h-8 rounded-full border-2 border-white">
+                <i class="ri-arrow-down-s-line ml-1"></i>
+              </button>
+              <div id="user-menu"
+                class="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg overflow-hidden z-20 hidden group-hover:block">
+                <div class="py-1">
+                  <a href="profile.html" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                    Trang cá nhân
+                  </a>
+                  <a href="settings.html" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                    Cài đặt
+                  </a>
+                  <hr class="border-gray-200">
+                  <a href="login.html" class="block px-4 py-2 text-sm text-red-600 hover:bg-gray-100">
+                    Đăng xuất
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <!-- Content -->
+      <main class="flex-1 p-4 md:p-6 overflow-y-auto">
+        <div class="flex items-center justify-between mb-4">
+          <div class="flex items-center">
+            <i class="ri-file-list-2-line text-primary text-xl mr-2"></i>
+            <h1 class="text-xl font-semibold text-gray-800">Chi tiết Bậc học</h1>
+          </div>
+          <div class="flex gap-2">
+            <a href="academic-levels.html" id="back-to-list-btn"
+              class="flex items-center text-sm text-gray-600 hover:text-primary border border-gray-300 px-3 py-1.5 rounded-md hover:border-primary">
+              <i class="ri-arrow-left-line mr-1"></i> Quay lại danh sách
+            </a>
+            <a href="#" id="edit-level-btn"
+              class="flex items-center text-sm text-white bg-indigo-600 hover:bg-indigo-700 border border-indigo-600 px-3 py-1.5 rounded-md">
+              <i class="ri-pencil-line mr-1"></i> Chỉnh sửa
+            </a>
+             <button id="delete-level-btn"
+              class="flex items-center text-sm text-white bg-red-600 hover:bg-red-700 border border-red-600 px-3 py-1.5 rounded-md">
+              <i class="ri-delete-bin-line mr-1"></i> Xóa
+            </button>
+          </div>
+        </div>
+
+        <div class="text-sm text-gray-500 mb-4">
+          <p>Xem thông tin chi tiết của bậc học.</p>
+        </div>
+
+        <!-- Breadcrumb -->
+        <nav class="text-sm mb-6 bg-white px-3 py-2 rounded-md shadow-sm border border-gray-200">
+          <ol class="flex items-center text-gray-500">
+            <li>
+              <a href="dashboard.html" class="hover:text-primary flex items-center">
+                <i class="ri-home-4-line mr-1"></i> Dashboard
+              </a>
+            </li>
+            <li class="mx-2"><i class="ri-arrow-right-s-line"></i></li>
+             <li>
+               <span class="text-gray-500">Cài đặt hệ thống</span>
+             </li>
+             <li class="mx-2"><i class="ri-arrow-right-s-line"></i></li>
+            <li>
+              <a href="academic-levels.html" class="hover:text-primary">Bậc học</a>
+            </li>
+            <li class="mx-2"><i class="ri-arrow-right-s-line"></i></li>
+            <li class="text-primary font-medium">Chi tiết</li>
+          </ol>
+        </nav>
+
+        <!-- Loading Indicator -->
+        <div id="loading-indicator" class="text-center py-10 hidden">
+          <div class="inline-block animate-spin rounded-full h-12 w-12 border-t-4 border-b-4 border-primary mb-4"></div>
+          <p class="text-gray-600 text-lg">Đang tải thông tin...</p>
+        </div>
+
+        <!-- Error Alert -->
+        <div id="error-alert" class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-6 hidden"
+          role="alert">
+          <strong class="font-bold" id="error-title">Lỗi!</strong>
+          <span class="block sm:inline" id="error-message">Đã có lỗi xảy ra.</span>
+          <span class="absolute top-0 bottom-0 right-0 px-4 py-3 cursor-pointer" onclick="this.parentElement.classList.add('hidden')">
+            <i class="ri-close-line"></i>
+          </span>
+        </div>
+
+        <!-- Detail Container -->
+        <div id="level-details-container" class="bg-white rounded-md shadow-sm border border-gray-200 hidden">
+          <!-- Detail Header -->
+          <div class="p-4 border-b border-gray-200 bg-gradient-to-r from-primary/5 to-transparent">
+            <h2 class="font-medium text-gray-800 flex items-center">
+              <i class="ri-information-line text-primary mr-2"></i>
+              Thông tin Bậc học
+            </h2>
+          </div>
+
+          <!-- Details -->
+          <div class="p-4 md:p-6">
+            <dl class="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-4">
+              <div class="border-b pb-2 md:col-span-1">
+                <dt class="text-xs font-medium text-gray-500 uppercase">ID</dt>
+                <dd id="level-id" class="mt-1 text-sm text-gray-900 font-mono">-</dd>
+              </div>
+              <div class="border-b pb-2 md:col-span-1">
+                <dt class="text-xs font-medium text-gray-500 uppercase">Mã Bậc học</dt>
+                <dd id="level-code" class="mt-1 text-sm text-gray-900 font-semibold">-</dd>
+              </div>
+              <div class="border-b pb-2 md:col-span-1">
+                <dt class="text-xs font-medium text-gray-500 uppercase">Tên Bậc học</dt>
+                <dd id="level-name" class="mt-1 text-sm text-gray-900">-</dd>
+              </div>
+              <div class="border-b pb-2 md:col-span-1">
+                <dt class="text-xs font-medium text-gray-500 uppercase">Trạng thái</dt>
+                <dd id="level-status" class="mt-1 text-sm text-gray-900">-</dd>
+              </div>
+            </dl>
+          </div>
+        </div>
+      </main>
+    </div>
+  </div>
+
+   <!-- Confirm Delete Toast Container -->
+   <div id="toast-container" class="fixed bottom-4 right-4 z-50 max-w-xs"></div>
+
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+  <!-- Link to the new JS file -->
+  <script src="../../public/js/admin/academic-level-detail.js"></script>
+</body>
+
+</html> 

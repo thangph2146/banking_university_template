@@ -11,7 +11,7 @@
 
 // Khởi tạo các biến global
 let currentPage = 1; // Trang hiện tại
-const itemsPerPage = 10; // Số lượng phần tử trên mỗi trang
+let itemsPerPage = 10; // Số lượng phần tử trên mỗi trang
 let totalItems = 0; // Tổng số loại người dùng
 let totalPages = 0; // Tổng số trang
 
@@ -192,11 +192,39 @@ function setupEventListeners() {
   // Lắng nghe sự kiện thử lại khi có lỗi
   document.getElementById('retry-button').addEventListener('click', loadUserTypes);
   
-  // Lắng nghe sự kiện phân trang
-  document.getElementById('prev-page').addEventListener('click', () => navigatePage(currentPage - 1));
-  document.getElementById('next-page').addEventListener('click', () => navigatePage(currentPage + 1));
-  document.getElementById('prev-page-mobile').addEventListener('click', () => navigatePage(currentPage - 1));
-  document.getElementById('next-page-mobile').addEventListener('click', () => navigatePage(currentPage + 1));
+  // Lắng nghe sự kiện phân trang sử dụng querySelector với class
+  const btnFirst = document.querySelector('.btn-first');
+  const btnPrev = document.querySelector('.btn-prev');
+  const btnNext = document.querySelector('.btn-next');
+  const btnLast = document.querySelector('.btn-last');
+  
+  if (btnFirst) btnFirst.addEventListener('click', () => navigatePage(1));
+  if (btnPrev) btnPrev.addEventListener('click', () => navigatePage(currentPage - 1));
+  if (btnNext) btnNext.addEventListener('click', () => navigatePage(currentPage + 1));
+  if (btnLast) btnLast.addEventListener('click', () => navigatePage(totalPages));
+  
+  // Lắng nghe sự kiện nhập trực tiếp số trang
+  const currentPageInput = document.getElementById('current-page-input');
+  if (currentPageInput) {
+    currentPageInput.addEventListener('change', function() {
+      const page = parseInt(this.value);
+      if (!isNaN(page) && page > 0) {
+        navigatePage(page);
+      } else {
+        this.value = currentPage;
+      }
+    });
+  }
+  
+  // Lắng nghe sự kiện số mục trên mỗi trang
+  const itemsPerPageSelect = document.getElementById('items-per-page');
+  if (itemsPerPageSelect) {
+    itemsPerPageSelect.addEventListener('change', function() {
+      itemsPerPage = parseInt(this.value);
+      currentPage = 1;
+      loadUserTypes();
+    });
+  }
 }
 
 /**
@@ -447,14 +475,12 @@ function getStatusBadge(status) {
  * Cập nhật thông tin phân trang
  */
 function updatePaginationInfo(startIndex, endIndex, totalItems) {
-  // Cập nhật phạm vi hiển thị
-  const currentRangeStart = document.getElementById('current-range-start');
-  const currentRangeEnd = document.getElementById('current-range-end');
+  // Cập nhật tổng số loại người dùng
   const totalItemsCount = document.getElementById('total-items-count');
   
-  currentRangeStart.textContent = startIndex;
-  currentRangeEnd.textContent = endIndex;
-  totalItemsCount.textContent = totalItems;
+  if (totalItemsCount) {
+    totalItemsCount.textContent = totalItems;
+  }
 }
 
 /**
@@ -462,46 +488,63 @@ function updatePaginationInfo(startIndex, endIndex, totalItems) {
  */
 function updatePaginationControls() {
   // Cập nhật số trang hiện tại và tổng số trang
-  const currentPageEl = document.getElementById('current-page');
-  const currentPageMobileEl = document.getElementById('current-page-mobile');
-  const totalPagesEl = document.getElementById('total-pages');
-  const totalPagesMobileEl = document.getElementById('total-pages-mobile');
+  const currentPageInput = document.getElementById('current-page-input');
+  const totalPagesEl = document.getElementById('total-pages-count');
   
-  currentPageEl.textContent = currentPage;
-  currentPageMobileEl.textContent = currentPage;
-  totalPagesEl.textContent = totalPages;
-  totalPagesMobileEl.textContent = totalPages;
-  
-  // Cập nhật trạng thái nút điều hướng
-  const prevButton = document.getElementById('prev-page');
-  const nextButton = document.getElementById('next-page');
-  const prevButtonMobile = document.getElementById('prev-page-mobile');
-  const nextButtonMobile = document.getElementById('next-page-mobile');
-  
-  // Vô hiệu hóa nút previous nếu đang ở trang đầu tiên
-  if (currentPage <= 1) {
-    prevButton.disabled = true;
-    prevButtonMobile.disabled = true;
-    prevButton.classList.add('opacity-50', 'cursor-not-allowed');
-    prevButtonMobile.classList.add('opacity-50', 'cursor-not-allowed');
-  } else {
-    prevButton.disabled = false;
-    prevButtonMobile.disabled = false;
-    prevButton.classList.remove('opacity-50', 'cursor-not-allowed');
-    prevButtonMobile.classList.remove('opacity-50', 'cursor-not-allowed');
+  if (currentPageInput) {
+    currentPageInput.value = currentPage;
   }
   
-  // Vô hiệu hóa nút next nếu đang ở trang cuối cùng
-  if (currentPage >= totalPages) {
-    nextButton.disabled = true;
-    nextButtonMobile.disabled = true;
-    nextButton.classList.add('opacity-50', 'cursor-not-allowed');
-    nextButtonMobile.classList.add('opacity-50', 'cursor-not-allowed');
+  if (totalPagesEl) {
+    totalPagesEl.textContent = totalPages;
+  }
+  
+  // Cập nhật trạng thái nút điều hướng
+  const btnFirst = document.querySelector('.btn-first');
+  const btnPrev = document.querySelector('.btn-prev');
+  const btnNext = document.querySelector('.btn-next');
+  const btnLast = document.querySelector('.btn-last');
+  
+  // Vô hiệu hóa nút previous và first nếu đang ở trang đầu tiên
+  if (currentPage <= 1) {
+    if (btnPrev) {
+      btnPrev.disabled = true;
+      btnPrev.classList.add('opacity-50', 'cursor-not-allowed');
+    }
+    if (btnFirst) {
+      btnFirst.disabled = true;
+      btnFirst.classList.add('opacity-50', 'cursor-not-allowed');
+    }
   } else {
-    nextButton.disabled = false;
-    nextButtonMobile.disabled = false;
-    nextButton.classList.remove('opacity-50', 'cursor-not-allowed');
-    nextButtonMobile.classList.remove('opacity-50', 'cursor-not-allowed');
+    if (btnPrev) {
+      btnPrev.disabled = false;
+      btnPrev.classList.remove('opacity-50', 'cursor-not-allowed');
+    }
+    if (btnFirst) {
+      btnFirst.disabled = false;
+      btnFirst.classList.remove('opacity-50', 'cursor-not-allowed');
+    }
+  }
+  
+  // Vô hiệu hóa nút next và last nếu đang ở trang cuối cùng
+  if (currentPage >= totalPages) {
+    if (btnNext) {
+      btnNext.disabled = true;
+      btnNext.classList.add('opacity-50', 'cursor-not-allowed');
+    }
+    if (btnLast) {
+      btnLast.disabled = true;
+      btnLast.classList.add('opacity-50', 'cursor-not-allowed');
+    }
+  } else {
+    if (btnNext) {
+      btnNext.disabled = false;
+      btnNext.classList.remove('opacity-50', 'cursor-not-allowed');
+    }
+    if (btnLast) {
+      btnLast.disabled = false;
+      btnLast.classList.remove('opacity-50', 'cursor-not-allowed');
+    }
   }
 }
 
