@@ -22,8 +22,8 @@
     <div id="sidebar-backdrop" class="fixed inset-0 bg-black/50 z-20 hidden md:hidden transition-opacity duration-300">
     </div>
 
-     <!-- Sidebar -->
-     <aside id="sidebar"
+    <!-- Sidebar -->
+    <aside id="sidebar"
      class="fixed md:relative z-50 bg-white w-72 max-w-[80vw] min-h-screen shadow-lg transform -translate-x-full md:translate-x-0 transition-transform duration-300 overflow-y-auto">
      <!-- Logo/Brand for mobile -->
      <div class="flex items-center justify-between p-4 border-b md:hidden">
@@ -40,7 +40,6 @@
        <h1 class="text-xl font-semibold text-primary">HUB Admin</h1>
      </div>
      
-
       <nav class="p-4">
         <div class="space-y-4">
           <div class="border-b pb-4">
@@ -139,7 +138,7 @@
                 <i class="sidebar-icon ri-book-open-line mr-2"></i>
                 <span class="sidebar-link-text">Khoá học</span>
               </a>
-              <a href="courses.html"
+              <a href="majors.html"
                 class="sidebar-link flex items-center text-gray-600 hover:text-primary p-2 rounded-md hover:bg-gray-100">
                 <i class="sidebar-icon ri-book-open-line mr-2"></i>
                 <span class="sidebar-link-text">Ngành đào tạo</span>
@@ -159,7 +158,6 @@
                 <i class="sidebar-icon ri-camera-line mr-2"></i>
                 <span class="sidebar-link-text">Camera</span>
               </a>
-               
             </div>
           </div>
         </div>
@@ -229,10 +227,10 @@
             <p class="mt-1 text-sm text-gray-600">Quản lý các khoá học trong hệ thống</p>
           </div>
           <div class="mt-4 sm:mt-0 flex gap-2">
-            <button id="add-course-btn"
+            <a href="course-create.html"
               class="flex items-center justify-center px-4 py-2 bg-primary text-white rounded-md hover:bg-primary-dark transition-colors duration-200">
               <i class="ri-add-line mr-1"></i> Tạo Khoá học mới
-            </button>
+            </a>
           </div>
         </div>
       </div>
@@ -260,19 +258,11 @@
               <input type="text" id="filter-name" name="filter-name" placeholder="Nhập tên khoá học..."
                 class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-primary focus:border-primary text-sm">
             </div>
-            <!-- Filter by Year -->
+            <!-- Filter by Code -->
             <div>
-              <label for="filter-year" class="block text-sm font-medium text-gray-700 mb-1">Năm học</label>
-              <select id="filter-year" name="filter-year"
+              <label for="filter-code" class="block text-sm font-medium text-gray-700 mb-1">Mã khóa học</label>
+              <input type="text" id="filter-code" name="filter-code" placeholder="Nhập mã khóa học..."
                 class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-primary focus:border-primary text-sm">
-                <option value="">Tất cả</option>
-                <option value="2024-2028">2024-2028</option>
-                <option value="2023-2027">2023-2027</option>
-                <option value="2022-2026">2022-2026</option>
-                <option value="2021-2025">2021-2025</option>
-                <option value="2020-2024">2020-2024</option>
-                <option value="2019-2023">2019-2023</option>
-              </select>
             </div>
             <!-- Filter by Status -->
             <div>
@@ -282,6 +272,16 @@
                 <option value="">Tất cả</option>
                 <option value="1">Hoạt động</option>
                 <option value="0">Không hoạt động</option>
+              </select>
+            </div>
+            <!-- Filter by Academic Level -->
+            <div>
+              <label for="filter-level" class="block text-sm font-medium text-gray-700 mb-1">Bậc học</label>
+              <select id="filter-level" name="filter-level"
+                class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-primary focus:border-primary text-sm">
+                <option value="">Tất cả</option>
+                <option value="1">Đại học</option>
+                <option value="2">Cao học</option>
               </select>
             </div>
           </div>
@@ -298,11 +298,52 @@
         </form>
       </div>
 
+      <!-- Loading Indicator -->
+      <div id="loading-indicator" class="text-center py-8 hidden">
+        <div class="inline-block animate-spin rounded-full h-12 w-12 border-t-4 border-b-4 border-primary mb-2"></div>
+        <p class="text-gray-500">Đang tải dữ liệu...</p>
+      </div>
+
+      <!-- Error Message -->
+      <div id="error-container" class="bg-red-50 border-l-4 border-red-500 p-4 mb-4 hidden">
+        <div class="flex">
+          <div class="flex-shrink-0">
+            <i class="ri-error-warning-line text-red-500"></i>
+          </div>
+          <div class="ml-3">
+            <p class="text-sm text-red-700" id="error-message">Có lỗi xảy ra khi tải dữ liệu</p>
+          </div>
+          <div class="ml-auto pl-3">
+            <div class="-mx-1.5 -my-1.5">
+              <button id="retry-button"
+                class="inline-flex bg-red-50 rounded-md p-1.5 text-red-500 hover:bg-red-100 focus:outline-none">
+                <i class="ri-refresh-line"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Empty State -->
+      <div id="empty-state" class="bg-white rounded-lg p-8 text-center hidden">
+        <div class="inline-block mb-4">
+          <i class="ri-book-open-line text-gray-300 text-6xl"></i>
+        </div>
+        <h3 class="text-lg font-medium text-gray-900">Không tìm thấy khóa học</h3>
+        <p class="mt-1 text-sm text-gray-500">Không có khóa học nào phù hợp với điều kiện tìm kiếm</p>
+        <div class="mt-6">
+          <button id="clear-filters-empty"
+            class="inline-flex items-center px-4 py-2 text-sm text-primary bg-primary/10 rounded-md hover:bg-primary/20">
+            <i class="ri-filter-off-line mr-2"></i> Xóa bộ lọc
+          </button>
+        </div>
+      </div>
+
       <!-- Courses List -->
-      <div class="bg-white rounded-lg shadow overflow-hidden">
+      <div id="courses-list-container" class="bg-white rounded-lg shadow overflow-hidden">
         <div class="p-4 border-b border-gray-200 flex justify-between items-center">
           <h2 class="text-lg font-medium text-gray-900">Danh sách Khoá học</h2>
-          <!-- Total count will be updated by JS -->
+          <div id="courses-count" class="text-sm text-gray-600">Tổng số: <span id="total-courses-badge" class="font-medium">0</span> khóa học</div>
         </div>
 
         <!-- Table container -->
@@ -313,25 +354,22 @@
                 <th scope="col"
                   class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-16">ID
                 </th>
+                <th scope="col" class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-32">
+                  Mã khóa học</th>
                 <th scope="col" class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider min-w-[200px]">
                   Tên Khoá học</th>
-                <th scope="col" class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider min-w-[150px]">
-                  Khoa/Phòng</th>
+                <th scope="col" class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-24">
+                  Tín chỉ</th>
+                <th scope="col" class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider min-w-[120px]">
+                  Bậc học</th>
                 <th scope="col" class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider min-w-[100px]">
                   Trạng thái</th>
-                <th scope="col" class="px-4 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider min-w-[100px]">
+                <th scope="col" class="px-4 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider min-w-[120px]">
                   Hành động</th>
               </tr>
             </thead>
             <tbody id="coursesTableBody" class="bg-white divide-y divide-gray-200">
-               <!-- Placeholder row for no data -->
-               <tr id="no-data-placeholder" class="hidden">
-                 <td colspan="5" class="text-center py-10 text-gray-500">
-                   <i class="ri-inbox-2-line text-4xl mb-2"></i>
-                   <p>Không tìm thấy dữ liệu khoá học.</p>
-                 </td>
-               </tr>
-              <!-- Table rows will be dynamically inserted here by JavaScript -->
+               <!-- Table rows will be dynamically inserted here by JavaScript -->
             </tbody>
           </table>
         </div>
@@ -348,17 +386,19 @@
                 <option value="50">50</option>
                 <option value="100">100</option>
               </select>
-              <span>mục. Tổng số: <span id="total-items-count" class="font-medium text-gray-700">0</span> khoá học.</span>
+              <span>mục. Tổng số: <span id="total-items-count" class="font-medium text-gray-700">0</span> khóa học.</span>
             </div>
-            <div class="flex items-center space-x-1" id="pagination-controls">
-              <button
-                class="btn-first p-2 rounded text-gray-500 hover:text-gray-700 hover:bg-gray-100 disabled:opacity-50 disabled:cursor-not-allowed"
-                title="Trang đầu">
+            
+            <!-- Desktop Pagination Controls -->
+            <div class="hidden md:flex items-center space-x-1" id="pagination-controls">
+              <button id="first-page"
+                class="btn-first p-2 rounded text-gray-500 hover:text-gray-700 hover:bg-gray-100 disabled:opacity-50 disabled:cursor-not-allowed transition-colors duration-200"
+                title="Trang đầu" disabled>
                 <i class="ri-skip-left-line"></i>
               </button>
-              <button
-                class="btn-prev p-2 rounded text-gray-500 hover:text-gray-700 hover:bg-gray-100 disabled:opacity-50 disabled:cursor-not-allowed"
-                title="Trang trước">
+              <button id="prev-page"
+                class="btn-prev p-2 rounded text-gray-500 hover:text-gray-700 hover:bg-gray-100 disabled:opacity-50 disabled:cursor-not-allowed transition-colors duration-200"
+                title="Trang trước" disabled>
                 <i class="ri-arrow-left-s-line"></i>
               </button>
               <div class="flex items-center space-x-1 px-2">
@@ -367,86 +407,50 @@
                   class="w-12 border border-gray-300 rounded-md px-2 py-1 text-center text-sm focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary">
                 <span class="text-sm text-gray-500">/ <span id="total-pages-count">1</span></span>
               </div>
-              <button
-                class="btn-next p-2 rounded text-gray-500 hover:text-gray-700 hover:bg-gray-100 disabled:opacity-50 disabled:cursor-not-allowed"
-                title="Trang sau">
+              <button id="next-page"
+                class="btn-next p-2 rounded text-gray-500 hover:text-gray-700 hover:bg-gray-100 disabled:opacity-50 disabled:cursor-not-allowed transition-colors duration-200"
+                title="Trang sau" disabled>
                 <i class="ri-arrow-right-s-line"></i>
               </button>
-              <button
-                class="btn-last p-2 rounded text-gray-500 hover:text-gray-700 hover:bg-gray-100 disabled:opacity-50 disabled:cursor-not-allowed"
-                title="Trang cuối">
+              <button id="last-page"
+                class="btn-last p-2 rounded text-gray-500 hover:text-gray-700 hover:bg-gray-100 disabled:opacity-50 disabled:cursor-not-allowed transition-colors duration-200"
+                title="Trang cuối" disabled>
                 <i class="ri-skip-right-line"></i>
               </button>
+            </div>
+            
+            <!-- Mobile Pagination -->
+            <div class="md:hidden flex items-center justify-center w-full">
+              <div class="flex items-center space-x-2">
+                <button id="prev-page-mobile"
+                  class="p-2 rounded-full bg-gray-100 text-gray-700 hover:bg-gray-200 disabled:opacity-50 disabled:cursor-not-allowed transition-colors duration-200"
+                  title="Trang trước" disabled>
+                  <i class="ri-arrow-left-s-line"></i>
+                </button>
+                <div class="text-sm text-gray-600">
+                  <span id="current-page-mobile">1</span>
+                  <span>/</span>
+                  <span id="total-pages-mobile">1</span>
+                </div>
+                <button id="next-page-mobile"
+                  class="p-2 rounded-full bg-gray-100 text-gray-700 hover:bg-gray-200 disabled:opacity-50 disabled:cursor-not-allowed transition-colors duration-200"
+                  title="Trang sau" disabled>
+                  <i class="ri-arrow-right-s-line"></i>
+                </button>
+              </div>
             </div>
           </div>
         </div>
       </div>
+
+      <!-- Toast Container -->
+      <div id="toast-container" class="fixed bottom-4 right-4 z-50 max-w-xs"></div>
     </main>
   </div>
 
-  <!-- Add/Edit Course Modal -->
-  <div id="course-modal" class="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full z-50 hidden" aria-labelledby="modal-title" role="dialog" aria-modal="true">
-    <div class="relative top-20 mx-auto p-5 border w-full max-w-md shadow-lg rounded-md bg-white">
-      <div class="flex justify-between items-center border-b pb-3">
-        <h3 class="text-lg font-medium text-gray-900" id="modal-title">Thêm Khoá học mới</h3>
-        <button id="close-course-modal" class="text-gray-400 hover:text-gray-600" onclick="closeCourseModal()">
-          <i class="ri-close-line text-xl"></i>
-        </button>
-      </div>
-      <form id="course-form" class="mt-4 space-y-4">
-        <input type="hidden" id="course-id">
-        <div>
-          <label for="modal-course-name" class="block text-sm font-medium text-gray-700">Tên Khoá học <span class="text-red-500">*</span></label>
-          <input type="text" name="modal-course-name" id="modal-course-name" required
-            class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary focus:border-primary sm:text-sm">
-        </div>
-        <div class="grid grid-cols-2 gap-4">
-          <div>
-            <label for="modal-course-year-start" class="block text-sm font-medium text-gray-700">Năm bắt đầu</label>
-            <input type="number" name="modal-course-year-start" id="modal-course-year-start" min="1990" max="2100"
-              class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary focus:border-primary sm:text-sm">
-          </div>
-          <div>
-            <label for="modal-course-year-end" class="block text-sm font-medium text-gray-700">Năm kết thúc</label>
-            <input type="number" name="modal-course-year-end" id="modal-course-year-end" min="1990" max="2100"
-              class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary focus:border-primary sm:text-sm">
-          </div>
-        </div>
-        <div>
-          <label for="modal-course-department" class="block text-sm font-medium text-gray-700">Khoa/Phòng</label>
-          <select name="modal-course-department" id="modal-course-department"
-            class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary focus:border-primary sm:text-sm">
-            <option value="">-- Chọn Khoa/Phòng --</option>
-            <option value="1">Khoa CNTT</option>
-            <option value="2">Khoa Kinh tế</option>
-            <option value="3">Khoa Ngân hàng</option>
-            <option value="4">Khoa Kế toán</option>
-          </select>
-        </div>
-        <div>
-          <label for="modal-course-status" class="block text-sm font-medium text-gray-700">Trạng thái</label>
-          <select name="modal-course-status" id="modal-course-status"
-            class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary focus:border-primary sm:text-sm">
-            <option value="1">Hoạt động</option>
-            <option value="0">Không hoạt động</option>
-          </select>
-        </div>
-        <div class="pt-3 border-t flex justify-end space-x-2">
-          <button type="button" id="cancel-course" onclick="closeCourseModal()"
-            class="px-4 py-2 bg-gray-200 text-gray-800 rounded-md hover:bg-gray-300 transition-colors duration-200">
-            Hủy
-          </button>
-          <button type="submit" id="save-course-btn"
-            class="px-4 py-2 bg-primary text-white rounded-md hover:bg-primary-dark transition-colors duration-200">
-            Lưu
-          </button>
-        </div>
-      </form>
-    </div>
-  </div>
-
-
   <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
   <script src="../../public/js/admin/courses.js"></script>
 </body>
 
