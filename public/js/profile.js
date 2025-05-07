@@ -182,12 +182,14 @@ const initProfileEdit = () => {
     
     // Open modal
     editProfileBtn.addEventListener('click', () => {
+      editProfileModal.classList.remove('hidden');
       editProfileModal.classList.add('show');
       document.body.style.overflow = 'hidden';
     });
     
     // Close modal
     const closeModal = () => {
+      editProfileModal.classList.add('hidden');
       editProfileModal.classList.remove('show');
       document.body.style.overflow = '';
     };
